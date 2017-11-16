@@ -1,0 +1,3 @@
+[submodule "lib/cascara"]
+	path = lib/cascara
+	url = https://github.com/whampson/cascara.git
