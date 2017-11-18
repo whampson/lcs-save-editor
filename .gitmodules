@@ -1,0 +1,3 @@
+[submodule "SaveEditor/Lib/Cascara"]
+	path = SaveEditor/Lib/Cascara
+	url = git@github.com:whampson/cascara.git
