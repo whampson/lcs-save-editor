@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WHampson.LcsSaveEditor", "src\WHampson.LcsSaveEditor.csproj", "{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditor", "SaveEditor\SaveEditor.csproj", "{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

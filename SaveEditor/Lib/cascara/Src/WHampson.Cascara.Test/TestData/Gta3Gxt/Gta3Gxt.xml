@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<cascaraBinaryTemplate>
+    <include path="Types.xml"/>
+
+    <struct name="KeyBlock">
+        <BlockHeader name="Header" comment="TKEY"/>
+        <GxtKey name="KeyArray" count="${Header.Size} / $(type GxtKey)"/>
+    </struct>
+    <struct name="ValueBlock">
+        <BlockHeader name="Header" comment="TDAT"/>
+        <byte name="BasePointer"/>
+        <align count="${Header.Size} - 1"/>
+    </struct>
+</cascaraBinaryTemplate>

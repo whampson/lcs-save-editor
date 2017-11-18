@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<cascaraBinaryTemplate description="Data type definitions">
+    <typedef name="Point2D" kind="struct">
+        <float name="X"/>
+        <float name="Y"/>
+    </typedef>
+    <typedef name="Circle" kind="struct">
+        <Point2D name="Center"/>
+        <float name="Radius"/>
+    </typedef>
+</cascaraBinaryTemplate>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<cascaraBinaryTemplate description="Used for testing the 'include' directive">
+    <include path="Types.xml"/>
+    <Circle name="CircleData" count="1"/>
+</cascaraBinaryTemplate>

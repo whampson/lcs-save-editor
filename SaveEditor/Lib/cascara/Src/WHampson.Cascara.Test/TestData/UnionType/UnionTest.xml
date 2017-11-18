@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<cascaraBinaryTemplate>
+    <union name="TestUnion"             comment="0">
+        <float name="Float1"            comment="0"/>
+        <struct name="InnerStruct"      comment="0">
+            <float name="Float1"        comment="0"/>
+            <int name="Int1"            comment="4"/>
+            <union name="InnerUnion"    comment="8">
+                <int name="Int1"        comment="8"/>
+                <float name="Float1"    comment="8"/>
+            </union>
+            <bool32 name="Bool1"        comment="12"/>
+        </struct>
+        <int name="Int1"                comment="0"/>
+    </union>
+    <echo message="${__OFFSET__}"       comment="16"/>
+    
+    <echo message="${TestUnion.Float1}"                             comment="1.0"/>
+    <echo message="${TestUnion.InnerStruct.Float1}"                 comment="1.0"/>
+    <echo message="${TestUnion.InnerStruct.Int1}"                   comment="1"/>
+    <echo message="${TestUnion.InnerStruct.InnerUnion.Int1}"        comment="2"/>
+    <echo message="${TestUnion.InnerStruct.InnerUnion.Float1}"      comment="2.802597e-45"/>
+    <echo message="${TestUnion.InnerStruct.Bool1}"                  comment="True"/>
+    <echo message="${TestUnion.Int1}"                               comment="1065353216"/>
+</cascaraBinaryTemplate>

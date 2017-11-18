@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cascaraBinaryTemplate>
+    <!-- Custom types -->
+    <typedef name="BlockHeader" kind="struct">
+        <uint32 name="Size"/>
+    </typedef>
+    <typedef name="TaggedBlockHeader" kind="struct">
+        <char8 name="Tag" count="4"/>
+        <uint32 name="Size"/>
+    </typedef>
+    <typedef name="RwV3d" kind="struct">
+        <float name="X"/>
+        <float name="Y"/>
+        <float name="Z"/>
+    </typedef>
+    <typedef name="SYSTEMTIME" kind="struct">
+        <uint16 name="Year"/>
+        <uint16 name="Month"/>
+        <uint16 name="DayOfWeek"/>
+        <uint16 name="Day"/>
+        <uint16 name="Hour"/>
+        <uint16 name="Minute"/>
+        <uint16 name="Second"/>
+        <uint16 name="Millisecond"/>
+    </typedef>
+    <typedef name="WeatherType" kind="int16"/>
+    <!--<union name="ScriptVariable">
+        <bool32 name="BoolValue"/>
+        <int32 name="IntValue"/>
+        <float name="FloatValue"/>
+    </union>-->
+    <typedef name="ScriptVariable" kind="uint32"/>
+    
+    <!-- Block 0: Simple Vars -->
+    <struct name="SimpleVars">
+        <BlockHeader name="Header"/>
+        <char16 name="SaveTitle" count="24"/>
+        <SYSTEMTIME name="Timestamp"/>
+        <uint32/>
+        <uint32 name="Level"/>
+        <RwV3d name="CameraCoords"/>
+        <uint32 name="GameMinuteLengthMillis"/>
+        <uint32 name="LastClockTick"/>
+        <uint8 name="GameHours"/>
+        <align count="3"/>
+        <uint8 name="GameMinutes"/>
+        <align count="3"/>
+        <uint16 name="CurrentPadMode"/>
+        <align count="2"/>
+        <uint32 name="TimeInMilliSeconds"/>
+        <float name="_TimeScale"/>
+        <float name="_TimerTimeStep"/>
+        <float name="_TimerTimeStepNonClipped"/>
+        <uint32 name="FrameCounter"/>
+        <float name="_TimeStep"/>
+        <float name="_FramesPerUpdate"/>
+        <float name="_TimeScale2"/>
+        <WeatherType name="PreviousWeatherType"/>
+        <align kind="int16"/>
+        <WeatherType name="CurrentWeatherType"/>
+        <align kind="int16"/>
+        <WeatherType name="ForcedWeatherType"/>
+        <align kind="int16"/>
+        <float name="WeatherInterpolationValue"/>
+        <char8 name="_CompileTime" count="24" />
+        <uint32 name="WeatherTypeInList"/>
+        <float/>
+        <float/>
+
+        <struct name="Scripts">
+            <BlockHeader name="Header"/>
+            <struct name="Data">
+                <TaggedBlockHeader name="Header"/>
+                <uint32 name="GlobalVariableSpaceSize"/>
+                <ScriptVariable name="GlobalVariables" count="${GlobalVariableSpaceSize} / 4"/>
+                <!--<ScriptVariable count="${GlobalVariableSpaceSize} / 4"/>-->
+                <uint32 name="Size" comment="Presumably"/>
+                <struct name="ScmState">
+                    <uint32 name="OnAMissionVar"/>
+                    <struct name="ContactInfo" count="16">
+                        <uint32 name="MissionVar"/>
+                        <uint32 name="BaseBrief"/>
+                    </struct>
+                    <align count="16 * 4" kind="uint32"/>
+                    <uint32 name="LastMissionPassedTime"/>
+                    <struct name="BuildingSwap" count="25">
+                        <int32 name="Type"/>
+                        <uint32 name="Handle"/>
+                        <int32 name="NewModelId"/>
+                        <int32 name="OldModelId"/>
+                    </struct>
+                    <struct name="InvisibilitySetting" count="20">
+                        <int32 name="Type"/>
+                        <uint32 name="Handle"/>
+                    </struct>
+                    <bool8 name="IsAlreadyRunningAMissionScript"/>
+                    <align count="3"/>
+                    <uint32 name="MainScriptSize"/>
+                    <uint32 name="LargestMissionScriptSize"/>
+                    <uint16 name="NumberOfExclusiveMissionScripts"/>
+                    <align count="2"/>
+                </struct>
+                <uint32 name="NumberOfRunningScripts"/>
+                <struct name="RunningScripts" count="${NumberOfRunningScripts}">
+                    <uint32 name="NextScript"/>
+                    <uint32 name="PreviousScript"/>
+                    <char8 name="Name" count="8"/>
+                    <uint32 name="InstructionPointer"/>
+                    <uint32 name="ReturnStack" count="6"/>
+                    <uint16 name="ReturnStackCount"/>
+                    <align kind="uint16"/>
+                    <ScriptVariable name="LocalVariables" count="16"/>
+                    <uint32 name="TimerA"/>
+                    <uint32 name="TimerB"/>
+                    <bool8 name="IfResult"/>
+                    <bool8 name="IsMissionScript"/>
+                    <bool8 name="IsActive"/>
+                    <align/>
+                    <uint32 name="WakeTime"/>
+                    <uint16 name="IfNumber"/>
+                    <bool8 name="NotFlag"/>
+                    <bool8 name="IsWastedBustedCheckEnabled"/>
+                    <bool8 name="IsWastedBustedCheckResult"/>
+                    <bool8 name="IsMissionFlag"/>
+                    <align count="2"/>
+                </struct>
+            </struct>
+        </struct>
+    </struct>
+    
+    <!-- Block 1: Player Peds -->
+    <struct name="PlayerPeds">
+        <BlockHeader name="Header"/>
+        <!-- Skip this block for now... -->
+        <align count="${Header.Size}"/>
+    </struct>
+    
+    <!-- Block 2: Garages -->
+    <struct name="Garages">
+        <BlockHeader name="Header"/>
+        <struct name="GarageData">
+            <BlockHeader name="Header"/>
+            <uint32 name="NumberOfDefinedGarages"/>
+            <bool32 name="BombsAreFree"/>
+        </struct>
+    </struct>
+
+    <!-- "Fast forward" to the end of the file -->
+    <local name="skipAmt" value="${__FILESIZE__} - ${__OFFSET__} - 4"/>
+    <align count="${skipAmt}"/>
+    
+    <uint32 name="Checksum"/>
+</cascaraBinaryTemplate>

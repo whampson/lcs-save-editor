@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<cascaraBinaryTemplate>
+    <typedef name="BlockHeader" kind="struct">
+        <char name="Tag" count="4"/>
+        <uint32 name="Size"/>
+    </typedef>
+    <typedef name="GxtKey" kind="struct">
+        <uint32 name="ValueOffset"/>
+        <char name="KeyName" count="8"/>
+    </typedef>
+</cascaraBinaryTemplate>

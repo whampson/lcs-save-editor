@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<cascaraBinaryTemplate>
+    <typedef name="my_int" kind="int32" />
+    <typedef name="my_int2" kind="my_int" />
+    <typedef name="vect3d" kind="struct">
+        <float name="X" />
+        <float name="Y" />
+        <float name="Z" />
+    </typedef>
+
+    <!-- <struct name="PLYR"> -->
+        <vect3d name="Location" />
+        <my_int name="Money" />
+        <my_int2 name="NumKills" />
+        <uint8 name="Health" />
+        <uint8 name="Armor" />
+        <align count="2" kind="int8" />
+        <float name="Misc" count="3" />
+    <!-- </struct> -->
+
+    <!-- <echo message="value(PLYR.money)  = ${PLYR.money}"/> -->
+    <!-- <echo message="offset(PLYR.money) = $[PLYR.money]"/> -->
+    <!-- <echo message="size(PLYR.money)   = $(PLYR.money)\n"/> -->
+
+</cascaraBinaryTemplate>
