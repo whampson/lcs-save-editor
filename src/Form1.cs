@@ -15,6 +15,15 @@ namespace WHampson.LcsSaveEditor
         public Form1()
         {
             InitializeComponent();
+            tableLayoutPanel1.RowCount = 0;
+            tableLayoutPanel1.RowStyles.Clear();
+            tableLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.AutoScrollMinSize = tableLayoutPanel1.Size;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
