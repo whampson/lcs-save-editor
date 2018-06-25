@@ -2,11 +2,10 @@
 
 <!--
     This is a Cascara layout script.
-    Vsit https://github.com/whamoson/cascara for more info.
+    Vsit https://github.com/whampson/cascara for more info.
 -->
 
 <layoutScript desc="Type definitions.">
-
     <typedef name="Vector2d" kind="struct">
         <float name="x"/>
         <float name="y"/>
