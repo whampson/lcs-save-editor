@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditor", "src\SaveEditor.csproj", "{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{BA7EE64B-D06B-4907-9DC9-09C4DC0ECE77} = {BA7EE64B-D06B-4907-9DC9-09C4DC0ECE77}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,10 +15,6 @@ Global
 		{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA7EE64B-D06B-4907-9DC9-09C4DC0ECE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA7EE64B-D06B-4907-9DC9-09C4DC0ECE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA7EE64B-D06B-4907-9DC9-09C4DC0ECE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA7EE64B-D06B-4907-9DC9-09C4DC0ECE77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
