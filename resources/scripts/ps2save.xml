@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This is a Cascara layout script.
+    Vsit https://github.com/whamoson/cascara for more info.
+-->
+
+<layoutScript game="LCS" platform="PS2">
+    <include path="types.xml"/>
+
+    <struct name="simpleVars">
+        <BlockHeader    name="header"/>
+        <align kind="uint16" count="4"/>
+        <uint32         name="currentLevel"/>
+        <uint32         name="currentArea"/>
+        <uint32         name="prefsLanguage"/>
+        <uint32         name="millisecondsPerGaneMinute"/>
+        <uint32         name="lastClockTick"/>
+        <uint8          name="gameClockHours"/>
+        <uint8          name="gameClockMinutes"/>
+        <uint16         name="_gameClockSeconds"/>
+        <uint32         name="totalTimePlayedInMilliseconds"/>
+        <float          name="_timeScale"/>
+        <float          name="_timeStep"/>
+        <float          name="_timeScaleNonClipped"/>
+        <float          name="_framesPerUpdate"/>
+        <uint32         name="frameCounter"/>
+        <uint16         name="prevWeather"/>
+        <uint16         name="currWeather"/>
+        <uint16         name="forcedWeather"/>
+        <align count="2"/>
+        <uint32         name="weatherIndex"/>
+        <float          name="weatherInterpolation"/>
+        <Vector3d       name="cameraPosition"/>
+        <float          name="prefsVehicleCameraMode"/>
+        <align kind="float"/>
+        <align kind="uint32" count="2"/>
+        <align kind="float"/>
+        <uint32         name="prefsBrightness"/>
+        <bool8          name="prefsShowHud"/>
+        <bool8          name="prefsShowSubtitles"/>
+        <align count="2"/>
+        <uint32         name="radarMode"/>
+        <bool32         name="blurOn"/>
+        <align kind="uint32" count="2"/>
+        <bool8          name="prefsUseWideScreen"/>
+        <align count="3"/>
+        <uint32         name="prefsRadioVolume"/>
+        <uint32         name="prefsSfxVolume"/>
+        <uint8          name="_prefsRadioStation"/>
+        <uint8          name="_prefsOutput"/>
+        <align count="2"/>
+        <align kind="uint32" count="10"/>
+        <align kind="float"/>
+        <uint16         name="controllerConfiguration"/>
+        <align kind="uint16"/>
+        <bool32         name="prefsDisableInvertLook"/>
+        <bool8          name="prefsUseVibration"/>
+        <align count="3"/>
+        <bool32         name="hasPlayerCheated"/>
+        <bool32         name="_allTaxisHaveNitro"/>
+        <bool32         name="targetIsOn"/>
+        <Vector2d       name="targetPos"/>
+        <align kind="uint32"/>
+        <struct         name="timestamp">
+            <uint32         name="second"/>
+            <uint32         name="minute"/>
+            <uint32         name="hour"/>
+            <uint32         name="day"/>
+            <uint32         name="month"/>
+            <uint32         name="year"/>
+        </struct>
+    </struct>
+
+    <echo message="Size: $SizeOf(simpleVars)"/>
+    <echo message="currWeather: ${simpleVars.currWeather}"/>
+    <echo message="year: ${simpleVars.timestamp.year}"/>
+</layoutScript>
