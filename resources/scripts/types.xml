@@ -2,7 +2,7 @@
 
 <!--
     This is a Cascara layout script.
-    Vsit https://github.com/whampson/cascara for more info.
+    Visit https://github.com/whampson/cascara for more info.
 -->
 
 <layoutScript desc="Type definitions.">
@@ -11,7 +11,7 @@
         <float name="y"/>
     </typedef>
 
-    <typedef name="Vector3" kind="struct">
+    <typedef name="Vector3d" kind="struct">
         <float name="x"/>
         <float name="y"/>
         <float name="z"/>
@@ -19,6 +19,6 @@
 
     <typedef name="BlockHeader" kind="struct">
         <char name="tag" count="4"/>
-        <uint32     name="size"/>
+        <uint32 name="size"/>
     </typedef>
 </layoutScript>
