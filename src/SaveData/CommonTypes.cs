@@ -27,8 +27,8 @@ namespace WHampson.LcsSaveEditor.SaveData
 {
     internal class BlockHeader
     {
-        private Primitive<Char8> tag;
-        private Primitive<uint> size;
+        private readonly Primitive<Char8> tag;
+        private readonly Primitive<uint> size;
 
         private StringWrapper tagWrapper;
 
@@ -63,8 +63,8 @@ namespace WHampson.LcsSaveEditor.SaveData
 
     internal class Vector2d
     {
-        private Primitive<float> x;
-        private Primitive<float> y;
+        private readonly Primitive<float> x;
+        private readonly Primitive<float> y;
 
         public Vector2d()
         {
@@ -87,9 +87,9 @@ namespace WHampson.LcsSaveEditor.SaveData
 
     internal class Vector3d
     {
-        private Primitive<float> x;
-        private Primitive<float> y;
-        private Primitive<float> z;
+        private readonly Primitive<float> x;
+        private readonly Primitive<float> y;
+        private readonly Primitive<float> z;
 
         public Vector3d()
         {
@@ -119,12 +119,12 @@ namespace WHampson.LcsSaveEditor.SaveData
 
     internal class Timestamp
     {
-        private Primitive<uint> second;
-        private Primitive<uint> minute;
-        private Primitive<uint> hour;
-        private Primitive<uint> day;
-        private Primitive<uint> month;
-        private Primitive<uint> year;
+        private readonly Primitive<uint> second;
+        private readonly Primitive<uint> minute;
+        private readonly Primitive<uint> hour;
+        private readonly Primitive<uint> day;
+        private readonly Primitive<uint> month;
+        private readonly Primitive<uint> year;
 
         public Timestamp()
         {
