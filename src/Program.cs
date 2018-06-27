@@ -21,10 +21,12 @@
  */
 #endregion
 
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Windows.Forms;
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.SaveData;
 
 namespace WHampson.LcsSaveEditor
 {
@@ -53,9 +55,12 @@ namespace WHampson.LcsSaveEditor
             TextWriter writer = new StringWriter();
             data.RunLayoutScript(script, writer);
 
-            Primitive<Char8> tag = data.GetPrimitive<Char8>("simpleVars.header.tag");
+            DeserializationFlags flags = 0;
+            flags |= DeserializationFlags.Fields;
+            flags |= DeserializationFlags.NonPublic;
+            SimpleVars sv = data.GetStructure("simpleVars").Deserialize<SimpleVars>(flags);
 
-            MessageBox.Show(writer.ToString());
+            MessageBox.Show(sv.ToString());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
