@@ -58,12 +58,35 @@ namespace WHampson.LcsSaveEditor
             DeserializationFlags flags = 0;
             flags |= DeserializationFlags.Fields;
             flags |= DeserializationFlags.NonPublic;
-            SimpleVars sv = data.GetStructure("simpleVars").Deserialize<SimpleVars>(flags);
+            SaveGame sg = data.Deserialize<SaveGame>(flags);
+            MessageBox.Show(writer.ToString().Replace('\0', ' '));
+            File.WriteAllText("out.txt", sg.ToString());
 
-            MessageBox.Show(sv.ToString());
+
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
+    }
+
+    class SaveGame
+    {
+        private SimpleVarsBlock simpleVars;
+        private ScriptBlock scripts;
+
+        public SimpleVarsBlock SimpleVars
+        {
+            get { return simpleVars; }
+        }
+
+        public ScriptBlock Scripts
+        {
+            get { return scripts; }
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
     }
 }
