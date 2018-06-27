@@ -62,7 +62,8 @@
     <Compile Include="SaveData\CommonTypes.cs" />
     <Compile Include="SaveData\DataBlock.cs" />
     <Compile Include="SaveData\GameConstants.cs" />
-    <Compile Include="SaveData\SimpleVars.cs" />
+    <Compile Include="SaveData\ScriptBlock.cs" />
+    <Compile Include="SaveData\SimpleVarsBlock.cs" />
     <Compile Include="StringWrapper.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

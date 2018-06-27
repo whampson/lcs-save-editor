@@ -71,4 +71,74 @@
             <uint32 name="year"/>
         </struct>
     </struct>
+
+    <typedef name="ScriptVariable" kind="union">
+        <int32 name="valueAsInt"/>
+        <float name="valueAsFloat"/>
+        <bool32 name="valueAsBoolean"/>
+    </typedef>
+    
+    
+    
+    <struct name="scripts">
+        <BlockHeader name="header"/>
+        <BlockHeader name="nestedHeader"/>
+        <uint32 name="globalVariablesSize"/>
+        
+        <!-- TODO:
+                remove 'align' - it is pointless
+                (just use <byte count="16"/> or <uint count="32"/>)
+                implement '$SizeOf(<type>)'
+        -->
+        <ScriptVariable name="globalVariables" count="${globalVariablesSize} / 4"/>
+        <uint32/>
+        <uint32 name="onAMissionFlag"/>
+        <uint32 name="timeLastMissionPassed"/>
+        <struct count="32">
+            <uint32/>
+            <uint32/>
+        </struct>
+        <uint32/>
+        <struct name="buildingSwapArray" count="80">
+            <uint32 name="objectType"/>
+            <uint32 name="objectIndex"/>
+            <int32 name="newModel"/>
+            <int32 name="oldModel"/>
+        </struct>
+        <struct name="invisibilitySettingArray" count="52">
+            <uint32 name="objectType"/>
+            <uint32 name="objectIndex"/>
+        </struct>
+        <bool name="usingAMultiScriptFile"/>
+        <bool/>
+        <byte count="2"/>
+        <uint32 name="mainScriptSize"/>
+        <uint32 name="largestMissionScriptSize"/>
+        <uint16 name="numberOfMissionScripts"/>
+        <byte count="2"/>
+        <uint16 name="numberOfExclusiveMissionScripts"/>
+        <byte count="2"/>
+        <struct name="runningScripts" count="${numberOfExclusiveMissionScripts}">
+            <uint32 name="nextScriptPointer"/>
+            <uint32 name="previousScriptPointer"/>
+            <uint32 name="threadId"/>
+            <uint32/>
+            <char name="name" count="8"/>
+            <uint32 name="instructionPointer"/>
+            <uint32 name="returnStack" count="16"/>
+            <uint16 name="returnStackTop"/>
+            <uint16/>
+            <ScriptVariable name="variables" count="104"/>
+            <uint32 name="timerA"/>
+            <uint32 name="timerB"/>
+            <uint32/>
+            <bool count="4"/>
+            <uint32 name="wakeupTime"/>
+            <bool count="4"/>
+            <uint32/>
+        </struct>
+    </struct>
+
+    <echo message="sizeof(scripts) = $SizeOf(scripts)"/> 
+    <echo message="scripts.header.size = ${scripts.header.size}"/> <!-- 'blockSize' not 'size' -->
 </layoutScript>
