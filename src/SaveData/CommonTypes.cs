@@ -32,6 +32,12 @@ namespace WHampson.LcsSaveEditor.SaveData
 
         private StringWrapper tagWrapper;
 
+        public BlockHeader()
+        {
+            tag = new Primitive<Char8>(null, 0);
+            size = new Primitive<uint>(null, 0);
+        }
+
         public string Tag
         {
             get {
@@ -60,6 +66,12 @@ namespace WHampson.LcsSaveEditor.SaveData
         private Primitive<float> x;
         private Primitive<float> y;
 
+        public Vector2d()
+        {
+            x = new Primitive<float>(null, 0);
+            y = new Primitive<float>(null, 0);
+        }
+
         public float X
         {
             get { return x.Value; }
@@ -78,6 +90,13 @@ namespace WHampson.LcsSaveEditor.SaveData
         private Primitive<float> x;
         private Primitive<float> y;
         private Primitive<float> z;
+
+        public Vector3d()
+        {
+            x = new Primitive<float>(null, 0);
+            y = new Primitive<float>(null, 0);
+            z = new Primitive<float>(null, 0);
+        }
 
         public float X
         {
@@ -106,6 +125,16 @@ namespace WHampson.LcsSaveEditor.SaveData
         private Primitive<uint> day;
         private Primitive<uint> month;
         private Primitive<uint> year;
+
+        public Timestamp()
+        {
+            second = new Primitive<uint>(null, 0);
+            minute = new Primitive<uint>(null, 0);
+            hour = new Primitive<uint>(null, 0);
+            day = new Primitive<uint>(null, 0);
+            month = new Primitive<uint>(null, 0);
+            year = new Primitive<uint>(null, 0);
+        }
 
         public uint Second
         {
