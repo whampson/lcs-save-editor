@@ -27,7 +27,7 @@ using WHampson.Cascara;
 
 namespace WHampson.LcsSaveEditor.SaveData
 {
-    internal class SimpleVars : DataBlock
+    internal class SimpleVarsBlock : DataBlock
     {
         private readonly Primitive<uint> currentLevel;
         private readonly Primitive<uint> currentArea;
@@ -61,7 +61,7 @@ namespace WHampson.LcsSaveEditor.SaveData
         private readonly Vector2d targetPosition;
         private readonly Timestamp timestamp;
 
-        public SimpleVars()
+        public SimpleVarsBlock()
         {
             currentLevel = new Primitive<uint>(null, 0);
             currentArea = new Primitive<uint>(null, 0);
