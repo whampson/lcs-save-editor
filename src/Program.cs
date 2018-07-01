@@ -59,11 +59,10 @@ namespace WHampson.LcsSaveEditor
             flags |= DeserializationFlags.Fields;
             flags |= DeserializationFlags.NonPublic;
             SaveGame sg = data.Deserialize<SaveGame>(flags);
+
             MessageBox.Show(writer.ToString().Replace('\0', ' '));
-            File.WriteAllText("out.json", sg.ToString());
-
-            // sg.Scripts.RunningScripts[43].ReturnStack[5] = 4;
-
+            object outObj = sg.Player;
+            File.WriteAllText("out.json", outObj.ToString());
 
         }
 
@@ -75,11 +74,15 @@ namespace WHampson.LcsSaveEditor
     {
         private SimpleVarsBlock simpleVars;
         private ScriptsBlock scripts;
+        private GaragesBlock garages;
+        private PlayerBlock player;
 
         public SaveGame()
         {
             simpleVars = new SimpleVarsBlock();
             scripts = new ScriptsBlock();
+            garages = new GaragesBlock();
+            player = new PlayerBlock();
         }
 
         public SimpleVarsBlock SimpleVars
@@ -90,6 +93,16 @@ namespace WHampson.LcsSaveEditor
         public ScriptsBlock Scripts
         {
             get { return scripts; }
+        }
+
+        public GaragesBlock Garages
+        {
+            get { return garages; }
+        }
+
+        public PlayerBlock Player
+        {
+            get { return player; }
         }
 
         public override string ToString()
