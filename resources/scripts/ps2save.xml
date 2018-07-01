@@ -180,5 +180,144 @@
         <uint32 count="59"/>
     </struct>
 
+    <struct name="stats">
+        <BlockHeader name="header"/>
+        <uint32 name="peopleKilledByPlayer"/>
+        <uint32 name="peopleKilledByOthers"/>
+        <uint32 name="carsExploded"/>
+        <uint32 name="boatsExploded"/>
+        <uint32 name="tiresPopped"/>
+        <uint32 name="roundsFiredByPlayer"/>
+        <uint32 name="pedTypeWasted" count="23"/>
+        <uint32 name="helisDestroyed"/>
+        <float name="progressMade"/>
+        <float name="totalProgressInGame"/>
+        <uint32 name="kgsOfExplosivesUsed"/>
+        <uint32 name="bulletsThatHit"/>
+        <uint32 name="carsCrushed"/>
+        <uint32 name="headsPopped"/>
+        <uint32 name="wantedStarsAttained"/>
+        <uint32 name="wantedStarsEvaded"/>
+        <uint32 name="timesArrested"/>
+        <uint32 name="timesDied"/>
+        <uint32 name="daysPassed"/>
+        <uint32 name="safeHouseVisits"/>
+        <uint32 name="sprayings"/>
+        <float name="maximumJumpDistance"/>
+        <float name="maximumJumpHeight"/>
+        <uint32 name="maximumJumpFlips"/>
+        <uint32 name="maximumJumpSpins"/>
+        <uint32 name="bestInsaneStuntJump"/>
+        <uint32 name="numberOfUniqueStuntJumpsFound"/>
+        <uint32 name="totalNumberOfUniqueStuntJumps"/>
+        <uint32 name="missionsGiven"/>
+        <uint32 name="passengersDroppedOffWithTaxi"/>
+        <uint32 name="moneyMadeWithTaxi"/>
+        <bool32 name="industrialPassed"/>
+        <bool32 name="commercialPassed"/>
+        <bool32 name="suburbanPassed"/>
+        <bool32 name="pamphletMissionPassed"/>
+        <bool32 name="noMoreHurricanes"/>
+        <float name="distanceTravelledOnFoot"/>
+        <float name="distanceTravelledByCar"/>
+        <float name="distanceTravelledByBike"/>
+        <float name="distanceTravelledByBoat"/>
+        <float name="distanceTravelledByPlane"/>
+        <uint32 name="livesSavedWithAmbulance"/>
+        <uint32 name="criminalsCaught"/>
+        <uint32 name="firesExtinguished"/>
+        <uint32 name="highestLevelVigilanteMission"/>
+        <uint32 name="highestLevelAmbulanceMission"/>
+        <uint32 name="highestLevelFireMission"/>
+        <uint32 name="photosTaken"/>
+        <uint32 name="numberKillFrenziesPassed"/>
+        <uint32 name="maxSecondsOnCarnageLeft"/>
+        <uint32 name="maxKillsOnRcTriad"/>
+        <uint32 name="totalNumbeKillFrenzies"/>
+        <uint32 name="totalNumberMissions"/>
+        <uint32 name="timesDrowned"/>
+        <uint32 name="seagullsKilled"/>
+        <float name="weaponBudget"/>
+        <uint32 name="_loanSharks"/>
+        <uint32 name="_movieStunts"/>
+        <uint32 name="pizzasDelivered"/>
+        <uint32 name="noodlesDelivered"/>
+        <uint32 name="moneyMadeFromTourist"/>
+        <uint32 name="touristsTakenToSpots"/>
+        <uint32 name="_garbagePickups"/>
+        <uint32 name="_iceCreamSold"/>
+        <uint32 name="_topShootingRangeScore"/>
+        <uint32 name="_shootingRank"/>
+        <float name="topScrapyardChallengeScore"/>
+        <float name="top9mmMayhemScore"/>
+        <float name="topScooterShooterScore"/>
+        <float name="topWichitaWipeoutScore"/>
+        <uint32 name="longestWheelieTime"/>
+        <uint32 name="longestStoppieTime"/>
+        <uint32 name="longest2WheelTime"/>
+        <float name="longestWheelieDist"/>
+        <float name="longestStoppieDist"/>
+        <float name="longest2WheelDist"/>
+        <float name="longestFacePlantDist"/>
+        <float name="autoPaitingBudget"/>
+        <uint32 name="propertyDestroyed"/>
+        <uint32 name="_numPropertyOwned"/>
+        <uint16 name="unlockedCostumes"/> <!-- TODO: enum -->
+        <uint32 name="_bloodringKills"/>
+        <uint32 name="_bloodringTime"/>
+        <byte name="_propertyOwned" count="15"/>
+        <uint32 name="highestChaseValue"/>
+        <uint32 name="_fastestTimes" count="23"/>
+        <uint32 name="_highestScores" count="5"/>
+        <uint32 name="_bestPositions" count="1"/>
+        <uint32 name="killsSinceLastCheckpoint"/>
+        <uint32 name="totalLegitimateKills"/>
+        <char name="lastMissionPassedName" count="8"/>
+        <uint32 name="cheatedCount"/>
+        <uint32 name="carsSold"/>
+        <uint32 name="moneyMadeWithCarSales"/>
+        <uint32 name="bikesSold"/>
+        <uint32 name="moneyMadeWithBikeSales"/>
+        <uint32 name="numberOfExportedCars"/>
+        <uint32 name="totalNumberOfCarExport"/>
+        <uint32 name="highestLevelSlashTv"/>
+        <uint32 name="moneyMadeWithSlashTv"/>
+        <uint32 name="totalKillsOnSlashTv"/>
+        <uint32 name="_packagesSmuggled"/>
+        <uint32 name="_smugglersWasted"/>
+        <uint32 name="_fastestSmugglingTime"/>
+        <uint32 name="_moneyMadeInCoach"/>
+        <uint32 name="cashMadeCollectingTrash"/>
+        <uint32 name="hitmenKilled"/>
+        <uint32 name="highestGuardianAngelJusticeDished"/>
+        <uint32 name="guardianAngelMissionsPassed"/>
+        <uint32 name="guardianAngelHighestLevelIndustrial"/>
+        <uint32 name="guardianAngelHighestLevelCommercial"/>
+        <uint32 name="guardianAngelHighestLevelSuburban"/>
+        <uint32 name="mostTimeLeftTrainRace"/>
+        <uint32 name="bestTimeGoGoFaggio"/>
+        <uint32 name="highestTrainCashEarned"/>
+        <uint32 name="dirtBikeMostAir"/>
+        <uint32 name="_fastedHeliRaceTime"/>
+        <uint32 name="_bestHeliRacePosition"/>
+        <uint32 name="numberOutfitChanges"/>
+        <BanditRaceStat name="bestBanditLapTimes"/>
+        <BanditRaceStat name="bestBanditPositions"/>
+        <StreetRaceStat name="bestStreetRacePositions"/>
+        <StreetRaceStat name="bestStreetRaceLapTimes"/>
+        <StreetRaceStat name="bestStreetRaceTimes"/>
+        <DirtBikeStat name="bestDirtBikeLapTimes"/>
+        <DirtBikeStat name="bestDirtBikeTimes"/>
+        <float name="favoriteRadioStationList" count="10"/>
+    </struct>
+
+    <byte count="${__FILESIZE__} - ${__OFFSET__} - $SizeOf(uint32)"/>
+    <uint32 name="checksum"/>
+
+    <echo message="sizeof(simpleVars) = $SizeOf(simpleVars)"/>
+    <echo message="sizeof(scripts) = $SizeOf(scripts)"/>
+    <echo message="sizeof(garages) = $SizeOf(garages)"/>
     <echo message="sizeof(player) = $SizeOf(player)"/>
+    <echo message="sizeof(stats) = $SizeOf(stats)"/>
+    <echo message="checksum = ${checksum}"/>
 </layoutScript>
