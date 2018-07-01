@@ -61,7 +61,7 @@ namespace WHampson.LcsSaveEditor
             SaveGame sg = data.Deserialize<SaveGame>(flags);
 
             MessageBox.Show(writer.ToString().Replace('\0', ' '));
-            object outObj = sg.Player;
+            object outObj = sg.Garages;
             File.WriteAllText("out.json", outObj.ToString());
 
         }

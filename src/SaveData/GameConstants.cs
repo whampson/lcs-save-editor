@@ -29,6 +29,7 @@ namespace WHampson.LcsSaveEditor.SaveData
         Msx98,
         FlashbackFm,
         TheLibertyJam,
+        Lcfr,
         //MyMix,
         RadioOff
     }
@@ -44,5 +45,54 @@ namespace WHampson.LcsSaveEditor.SaveData
     {
         Setup1,
         Setup2
+    }
+
+    internal enum Language : uint
+    {
+        English,
+        French,
+        German,
+        Italian,
+        Spanish,
+        Russian,
+        Japanese
+    }
+
+    [Flags]
+    internal enum LoveMediaCars : uint
+    {
+        Hearse = 1 << 0,
+        Faggio = 1 << 1,
+        Freeway = 1 << 2,
+        DeimosSP = 1 << 3,
+        Manana = 1 << 4,
+        HellenbachGT = 1 << 5,
+        PhobosVT = 1 << 6,
+        V8Ghost = 1 << 7,
+        ThunderRodd = 1 << 8,
+        PCJ600 = 1 << 9,
+        Sentinel = 1 << 10,
+        Infernus = 1 << 11,
+        Banshee = 1 << 12,
+        Patriot = 1 << 13,
+        BFInjection = 1 << 14,
+        Landstalker = 1 << 15,
+    }
+
+    [Flags]
+    internal enum VehicleFlags : uint
+    {
+        BulletProof = 1 << 0,
+        FireProof = 1 << 1,
+        ExplosionProof = 1 << 2,
+        CollisionProof = 1 << 3,
+        MeleeProof = 1 << 4,
+        PopProof = 1 << 5,
+        QuadDamage = 1 << 6,
+        Heavy = 1 << 7,
+        PermanentColor = 1 << 8,
+        TimebombFitted = 1 << 9,
+        TipProof = 1 << 10,
+        _Unknown = 1 << 15
     }
 }

@@ -108,10 +108,11 @@ namespace WHampson.LcsSaveEditor.SaveData
             set { currentArea.Value = value; }
         }
 
-        public uint PrefsLanguage
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Language PrefsLanguage
         {
-            get { return prefsLanguage.Value; }
-            set { prefsLanguage.Value = value; }
+            get { return (Language) prefsLanguage.Value; }
+            set { prefsLanguage.Value = (uint) value; }
         }
 
         public uint MillisecondsPerGameMinute

@@ -89,10 +89,11 @@ namespace WHampson.LcsSaveEditor.SaveData
             set { handlingMultiplier.Value = value; }
         }
 
-        public uint Attributes  // TODO: enum
+        [JsonConverter(typeof(StringEnumConverter))]
+        public VehicleFlags Attributes
         {
-            get { return attributes.Value; }
-            set { attributes.Value = value; }
+            get { return (VehicleFlags) attributes.Value; }
+            set { attributes.Value = (uint) value; }
         }
 
         public byte Color1

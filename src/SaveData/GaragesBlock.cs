@@ -21,6 +21,8 @@
  */
 #endregion
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 
 namespace WHampson.LcsSaveEditor.SaveData
@@ -62,10 +64,11 @@ namespace WHampson.LcsSaveEditor.SaveData
             set { respraysAreFree.Value = value; }
         }
 
-        public uint CarTypesCollected   // TODO: enum
+        [JsonConverter(typeof(StringEnumConverter))]
+        public LoveMediaCars CarTypesCollected
         {
-            get { return carTypesCollected.Value; }
-            set { carTypesCollected.Value = value; }
+            get { return (LoveMediaCars) carTypesCollected.Value; }
+            set { carTypesCollected.Value = (uint) value; }
         }
 
         public uint TimeLastHelpMessage
