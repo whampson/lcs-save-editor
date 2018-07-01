@@ -1,16 +1,16 @@
 ﻿#region License
 /* Copyright(c) 2016-2018 Wes Hampson
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -22,11 +22,14 @@
 #endregion
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using WHampson.Cascara;
 
 namespace WHampson.LcsSaveEditor
 {
-    internal class ArrayWrapper<T> where T : struct
+    internal class ArrayWrapper<T> : IEnumerable<T>
+        where T : struct
     {
         private readonly Primitive<T> array;
 
@@ -43,6 +46,24 @@ namespace WHampson.LcsSaveEditor
         {
             get { return array[i].Value; }
             set { array[i].Value = value; }
+        }
+
+        public int Length
+        {
+            get { return array.ElementCount; }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                yield return this[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
