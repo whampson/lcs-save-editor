@@ -19,6 +19,6 @@
 
     <typedef name="BlockHeader" kind="struct">
         <char name="tag" count="4"/>
-        <uint32 name="size"/>
+        <uint32 name="blockSize"/>
     </typedef>
 </layoutScript>
