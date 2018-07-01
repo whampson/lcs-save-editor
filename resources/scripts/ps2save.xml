@@ -72,12 +72,6 @@
         </struct>
     </struct>
 
-    <typedef name="ScriptVariable" kind="union">
-        <int32 name="valueAsInt"/>
-        <float name="valueAsFloat"/>
-        <bool32 name="valueAsBoolean"/>
-    </typedef>
-
     <struct name="scripts">
         <BlockHeader name="header"/>
         <BlockHeader name="nestedHeader"/>
@@ -132,5 +126,59 @@
         </struct>
     </struct>
 
-    <echo message="sizeof(scripts) = $SizeOf(scripts)"/>
+    <struct name="garages">
+        <BlockHeader name="header"/>
+        <uint32 name="numGarages"/>
+        <bool32 name="bombsAreFree"/>
+        <bool32 name="respraysAreFree"/>
+        <uint32 name="_carsCollected"/>
+        <uint32 name="_bankVansCollected"/>
+        <uint32 name="_policeCarsCollected"/>
+        <uint32 name="carTypesCollected"/>
+        <uint32 name="_carTypesCollected2"/>
+        <uint32 name="_carTypesCollected3"/>
+        <uint32 name="_carTypesCollected4"/>
+        <uint32 name="timeLastHelpMessage"/>
+        <struct name="carsInSafeHouse" count="48">
+            <uint32 name="modelId"/>
+            <Vector3d name="location"/>
+            <Vector2d name="rotation"/>
+            <float name="pitch"/>
+            <float name="handlingMultiplier"/>
+            <uint32 name="attributes"/>
+            <uint8 name="color1"/>
+            <uint8 name="color2"/>
+            <uint8 name="radioStation"/>
+            <int8 name="extra1"/>
+            <int8 name="extra2"/>
+            <byte count="3"/>
+        </struct>
+        <!-- the rest is garage object data (presumably) -->
+        <byte count="${header.blockSize} - ${__OFFSET__} + $SizeOf(BlockHeader)"/>
+    </struct>
+
+    <struct name="player">
+        <BlockHeader name="header"/>
+        <int32 name="money"/>
+        <uint32/>
+        <byte count="3"/>
+        <float/>
+        <int32 name="moneyOnScreen"/>
+        <uint32 comment="possibly hiddenPackagesFound"/>
+        <uint32/>
+        <bool32 name="neverGetsTired"/> <!-- also global $0125 -->
+        <bool32 name="fastReload"/>
+        <bool32 name="fireProof"/> <!-- also global $0126 -->
+        <uint8 name="maxHealth"/> <!-- 125 flag set at $0276, 150 at $0443 -->
+        <uint8 name="maxArmor"/> <!-- 150 flag set at global var $0214 -->
+        <bool32 name="getOutOfJailFree"/> <!-- flag also set at $0262 (Staunton Avenging Angels complete) -->
+        <bool32 name="freeHealthCare"/>
+        <bool32/>
+        <byte count="3 + $SizeOf(uint32) * 20"/>
+        <Vector3d/>
+        <float count="4"/>
+        <uint32 count="59"/>
+    </struct>
+
+    <echo message="sizeof(player) = $SizeOf(player)"/>
 </layoutScript>
