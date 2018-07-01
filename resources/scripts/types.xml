@@ -21,4 +21,10 @@
         <char name="tag" count="4"/>
         <uint32 name="blockSize"/>
     </typedef>
+
+    <typedef name="ScriptVariable" kind="union">
+        <int32 name="valueAsInt"/>
+        <float name="valueAsFloat"/>
+        <bool32 name="valueAsBoolean"/>
+    </typedef>
 </layoutScript>
