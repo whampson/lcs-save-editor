@@ -61,7 +61,7 @@ namespace WHampson.LcsSaveEditor
             SaveGame sg = data.Deserialize<SaveGame>(flags);
 
             MessageBox.Show(writer.ToString().Replace('\0', ' '));
-            object outObj = sg.Garages;
+            object outObj = sg;
             File.WriteAllText("out.json", outObj.ToString());
 
         }
@@ -76,6 +76,8 @@ namespace WHampson.LcsSaveEditor
         private ScriptsBlock scripts;
         private GaragesBlock garages;
         private PlayerBlock player;
+        private StatsBlock stats;
+        private Primitive<uint> checksum;
 
         public SaveGame()
         {
@@ -83,6 +85,8 @@ namespace WHampson.LcsSaveEditor
             scripts = new ScriptsBlock();
             garages = new GaragesBlock();
             player = new PlayerBlock();
+            stats = new StatsBlock();
+            checksum = new Primitive<uint>(null, 0);
         }
 
         public SimpleVarsBlock SimpleVars
@@ -103,6 +107,17 @@ namespace WHampson.LcsSaveEditor
         public PlayerBlock Player
         {
             get { return player; }
+        }
+
+        public StatsBlock Stats
+        {
+            get { return stats; }
+        }
+
+        public uint Checksum
+        {
+            get { return checksum.Value; }
+            set { checksum.Value = value; }
         }
 
         public override string ToString()

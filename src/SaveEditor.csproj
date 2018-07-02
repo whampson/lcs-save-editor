@@ -66,6 +66,7 @@
     <Compile Include="SaveData\GameConstants.cs" />
     <Compile Include="SaveData\ScriptsBlock.cs" />
     <Compile Include="SaveData\SimpleVarsBlock.cs" />
+    <Compile Include="SaveData\StatsBlock.cs" />
     <Compile Include="SaveData\StoredCar.cs" />
     <Compile Include="StringWrapper.cs" />
     <EmbeddedResource Include="Form1.resx">
