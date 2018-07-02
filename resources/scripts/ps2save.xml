@@ -240,10 +240,10 @@
         <float name="weaponBudget"/>
         <uint32 name="_loanSharks"/>
         <uint32 name="_movieStunts"/>
-        <uint32 name="pizzasDelivered"/>
-        <uint32 name="noodlesDelivered"/>
-        <uint32 name="moneyMadeFromTourist"/>
-        <uint32 name="touristsTakenToSpots"/>
+        <float name="pizzasDelivered"/>
+        <float name="noodlesDelivered"/>
+        <float name="moneyMadeFromTourist"/>
+        <float name="touristsTakenToSpots"/>
         <uint32 name="_garbagePickups"/>
         <uint32 name="_iceCreamSold"/>
         <uint32 name="_topShootingRangeScore"/>
@@ -262,11 +262,11 @@
         <float name="autoPaitingBudget"/>
         <uint32 name="propertyDestroyed"/>
         <uint32 name="_numPropertyOwned"/>
-        <uint16 name="unlockedCostumes"/> <!-- TODO: enum -->
+        <uint16 name="unlockedCostumes"/>
         <uint32 name="_bloodringKills"/>
         <uint32 name="_bloodringTime"/>
         <byte name="_propertyOwned" count="15"/>
-        <uint32 name="highestChaseValue"/>
+        <float name="highestChaseValue"/>
         <uint32 name="_fastestTimes" count="23"/>
         <uint32 name="_highestScores" count="5"/>
         <uint32 name="_bestPositions" count="1"/>
