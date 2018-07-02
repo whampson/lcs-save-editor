@@ -172,4 +172,180 @@ namespace WHampson.LcsSaveEditor.SaveData
             set { year.Value = value; }
         }
     }
+
+    internal class BanditRaceStat
+    {
+        private readonly Primitive<uint> thrashinRc;
+        private readonly Primitive<uint> raginRc;
+        private readonly Primitive<uint> chasinRc;
+
+        public BanditRaceStat()
+        {
+            thrashinRc = new Primitive<uint>(null, 0);
+            raginRc = new Primitive<uint>(null, 0);
+            chasinRc = new Primitive<uint>(null, 0);
+        }
+
+        public uint ThrashinRc
+        {
+            get { return thrashinRc.Value; }
+            set { thrashinRc.Value = value; }
+        }
+
+        public uint RaginRc
+        {
+            get { return raginRc.Value; }
+            set { raginRc.Value = value; }
+        }
+
+        public uint ChasinRc
+        {
+            get { return chasinRc.Value; }
+            set { chasinRc.Value = value; }
+        }
+    }
+
+    internal class StreetRaceStat
+    {
+        private readonly Primitive<uint> lowRiderRumble;
+        private readonly Primitive<uint> deimosDash;
+        private readonly Primitive<uint> wiCheetahRun;
+        private readonly Primitive<uint> redLightRacing;
+        private readonly Primitive<uint> torringtonTT;
+        private readonly Primitive<uint> gangstaGP;
+
+        public StreetRaceStat()
+        {
+            lowRiderRumble = new Primitive<uint>(null, 0);
+            deimosDash = new Primitive<uint>(null, 0);
+            wiCheetahRun = new Primitive<uint>(null, 0);
+            redLightRacing = new Primitive<uint>(null, 0);
+            torringtonTT = new Primitive<uint>(null, 0);
+            gangstaGP = new Primitive<uint>(null, 0);
+        }
+
+        public uint LowRiderRumble
+        {
+            get { return lowRiderRumble.Value; }
+            set { lowRiderRumble.Value = value; }
+        }
+
+        public uint DeimosDash
+        {
+            get { return deimosDash.Value; }
+            set { deimosDash.Value = value; }
+        }
+
+        public uint WiCheetahRun
+        {
+            get { return wiCheetahRun.Value; }
+            set { wiCheetahRun.Value = value; }
+        }
+
+        public uint RedLightRacing
+        {
+            get { return redLightRacing.Value; }
+            set { redLightRacing.Value = value; }
+        }
+
+        public uint TorringtonTT
+        {
+            get { return torringtonTT.Value; }
+            set { torringtonTT.Value = value; }
+        }
+
+        public uint GangstaGP
+        {
+            get { return gangstaGP.Value; }
+            set { gangstaGP.Value = value; }
+        }
+    }
+
+    internal class DirtBikeStat
+    {
+        private readonly Primitive<uint> course1;
+        private readonly Primitive<uint> course2;
+        private readonly Primitive<uint> course3;
+        private readonly Primitive<uint> course4;
+        private readonly Primitive<uint> course5;
+        private readonly Primitive<uint> course6;
+        private readonly Primitive<uint> course7;
+        private readonly Primitive<uint> course8;
+        private readonly Primitive<uint> course9;
+        private readonly Primitive<uint> course10;
+
+        public DirtBikeStat()
+        {
+            course1 = new Primitive<uint>(null, 0);
+            course2 = new Primitive<uint>(null, 0);
+            course3 = new Primitive<uint>(null, 0);
+            course4 = new Primitive<uint>(null, 0);
+            course5 = new Primitive<uint>(null, 0);
+            course6 = new Primitive<uint>(null, 0);
+            course7 = new Primitive<uint>(null, 0);
+            course8 = new Primitive<uint>(null, 0);
+            course9 = new Primitive<uint>(null, 0);
+            course10 = new Primitive<uint>(null, 0);
+        }
+
+        public uint Course1
+        {
+            get { return course1.Value; }
+            set { course1.Value = value; }
+        }
+
+        public uint Course2
+        {
+            get { return course2.Value; }
+            set { course2.Value = value; }
+        }
+
+        public uint Course3
+        {
+            get { return course3.Value; }
+            set { course3.Value = value; }
+        }
+
+        public uint Course4
+        {
+            get { return course4.Value; }
+            set { course4.Value = value; }
+        }
+
+        public uint Course5
+        {
+            get { return course5.Value; }
+            set { course5.Value = value; }
+        }
+
+        public uint Course6
+        {
+            get { return course6.Value; }
+            set { course6.Value = value; }
+        }
+
+        public uint Course7
+        {
+            get { return course7.Value; }
+            set { course7.Value = value; }
+        }
+
+        public uint Course8
+        {
+            get { return course8.Value; }
+            set { course8.Value = value; }
+        }
+
+        public uint Course9
+        {
+            get { return course9.Value; }
+            set { course9.Value = value; }
+        }
+
+        public uint Course10
+        {
+            get { return course10.Value; }
+            set { course10.Value = value; }
+        }
+    }
 }
