@@ -21,29 +21,43 @@
  */
 #endregion
 
-using Newtonsoft.Json;
 using WHampson.Cascara;
 
 namespace WHampson.LcsSaveEditor.SaveData
 {
-    internal abstract class SaveDataBlock
+    internal class BlockHeader
     {
-        protected readonly BlockHeader header;
+        private readonly Primitive<Char8> tag;
+        private readonly Primitive<uint> blockSize;
 
-        public SaveDataBlock()
+        private StringWrapper tagWrapper;
+
+        public BlockHeader()
         {
-            header = new BlockHeader();
+            tag = new Primitive<Char8>(null, 0);
+            blockSize = new Primitive<uint>(null, 0);
         }
 
-        [JsonProperty(Order = -2)]
-        public BlockHeader Header
+        public string Tag
         {
-            get { return header; }
+            get {
+                if (tagWrapper == null) {
+                    tagWrapper = new StringWrapper(tag);
+                }
+                return tagWrapper.Value;
+            }
+            set {
+                if (tagWrapper == null) {
+                    tagWrapper = new StringWrapper(tag);
+                }
+                tagWrapper.Value = value;
+            }
         }
 
-        public override string ToString()
+        public uint BlockSize
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            get { return blockSize.Value; }
+            set { blockSize.Value = value; }
         }
     }
 }
