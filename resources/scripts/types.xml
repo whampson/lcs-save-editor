@@ -43,7 +43,7 @@
         <uint32 name="gangstaGP"/>
     </typedef>
 
-    <typedef name="DirtBikeStat" kind="struct">
+    <typedef name="DirtBikeRaceStat" kind="struct">
         <uint32 name="course1"/>
         <uint32 name="course2"/>
         <uint32 name="course3"/>

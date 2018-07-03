@@ -134,8 +134,8 @@ namespace WHampson.LcsSaveEditor.SaveData
         private readonly StreetRaceStat bestStreetRacePositions;
         private readonly StreetRaceStat bestStreetRaceLapTimes;
         private readonly StreetRaceStat bestStreetRaceTimes;
-        private readonly DirtBikeStat bestDirtBikeLapTimes;
-        private readonly DirtBikeStat bestDirtBikeTimes;
+        private readonly DirtBikeRaceStat bestDirtBikeLapTimes;
+        private readonly DirtBikeRaceStat bestDirtBikeTimes;
         private readonly Primitive<float> favoriteRadioStationList;
 
         ArrayWrapper<uint> pedTypeWastedWrapper;
@@ -249,8 +249,8 @@ namespace WHampson.LcsSaveEditor.SaveData
             bestStreetRacePositions = new StreetRaceStat();
             bestStreetRaceLapTimes = new StreetRaceStat();
             bestStreetRaceTimes = new StreetRaceStat();
-            bestDirtBikeLapTimes = new DirtBikeStat();
-            bestDirtBikeTimes = new DirtBikeStat();
+            bestDirtBikeLapTimes = new DirtBikeRaceStat();
+            bestDirtBikeTimes = new DirtBikeRaceStat();
             favoriteRadioStationList = new Primitive<float>(null, 0);
         }
 
@@ -895,12 +895,12 @@ namespace WHampson.LcsSaveEditor.SaveData
             get { return bestStreetRaceTimes; }
         }
 
-        public DirtBikeStat BestDirtBikeLapTimes
+        public DirtBikeRaceStat BestDirtBikeLapTimes
         {
             get { return bestDirtBikeLapTimes; }
         }
 
-        public DirtBikeStat BestDirtBikeTimes
+        public DirtBikeRaceStat BestDirtBikeTimes
         {
             get { return bestDirtBikeTimes; }
         }

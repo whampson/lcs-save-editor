@@ -306,8 +306,8 @@
         <StreetRaceStat name="bestStreetRacePositions"/>
         <StreetRaceStat name="bestStreetRaceLapTimes"/>
         <StreetRaceStat name="bestStreetRaceTimes"/>
-        <DirtBikeStat name="bestDirtBikeLapTimes"/>
-        <DirtBikeStat name="bestDirtBikeTimes"/>
+        <DirtBikeRaceStat name="bestDirtBikeLapTimes"/>
+        <DirtBikeRaceStat name="bestDirtBikeTimes"/>
         <float name="favoriteRadioStationList" count="10"/>
     </struct>
 
