@@ -22,6 +22,7 @@
 #endregion
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("WHampson.LcsSaveEditor")]
@@ -36,6 +37,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("77c21ecf-8d3f-42a8-8ea2-7bca285b756a")]
 
-[assembly: AssemblyVersion("0.1.0.72")]
-[assembly: AssemblyFileVersion("0.1.0.72")]
+[assembly: InternalsVisibleTo("WHampson.LcsSaveEditorTests")]
+
+[assembly: AssemblyVersion("0.1.0.86")]
+[assembly: AssemblyFileVersion("0.1.0.86")]
 [assembly: AssemblyInformationalVersion("0.1.0")]

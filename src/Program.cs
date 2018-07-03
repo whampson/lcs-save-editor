@@ -21,7 +21,6 @@
  */
 #endregion
 
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -46,83 +45,11 @@ namespace WHampson.LcsSaveEditor
             Application.SetCompatibleTextRenderingDefault(false);
             // Application.Run(new Form1());
 
-            string scriptPath = "../../resources/scripts/ps2save.xml";
-            LayoutScript script = LayoutScript.Load(scriptPath);
-
             string savePath = "../../test/data/ps2/1 The Sicilian Gambit";
-            BinaryData data = BinaryData.Load(savePath);
-
-            TextWriter writer = new StringWriter();
-            data.RunLayoutScript(script, writer);
-
-            DeserializationFlags flags = 0;
-            flags |= DeserializationFlags.Fields;
-            flags |= DeserializationFlags.NonPublic;
-            SaveGame sg = data.Deserialize<SaveGame>(flags);
-
-            MessageBox.Show(writer.ToString().Replace('\0', ' '));
-            object outObj = sg;
-            File.WriteAllText("out.json", outObj.ToString());
-
+            SaveGame sg = SaveGame.Load(savePath);
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();
-    }
-
-    class SaveGame
-    {
-        private SimpleVarsBlock simpleVars;
-        private ScriptsBlock scripts;
-        private GaragesBlock garages;
-        private PlayerBlock player;
-        private StatsBlock stats;
-        private Primitive<uint> checksum;
-
-        public SaveGame()
-        {
-            simpleVars = new SimpleVarsBlock();
-            scripts = new ScriptsBlock();
-            garages = new GaragesBlock();
-            player = new PlayerBlock();
-            stats = new StatsBlock();
-            checksum = new Primitive<uint>(null, 0);
-        }
-
-        public SimpleVarsBlock SimpleVars
-        {
-            get { return simpleVars; }
-        }
-
-        public ScriptsBlock Scripts
-        {
-            get { return scripts; }
-        }
-
-        public GaragesBlock Garages
-        {
-            get { return garages; }
-        }
-
-        public PlayerBlock Player
-        {
-            get { return player; }
-        }
-
-        public StatsBlock Stats
-        {
-            get { return stats; }
-        }
-
-        public uint Checksum
-        {
-            get { return checksum.Value; }
-            set { checksum.Value = value; }
-        }
-
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
     }
 }
