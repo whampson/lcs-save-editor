@@ -57,17 +57,29 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameVersion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveData\CommonTypes.cs" />
+    <Compile Include="SaveData\BanditRaceStat.cs" />
+    <Compile Include="SaveData\BlockHeader.cs" />
+    <Compile Include="SaveData\BuildingSwap.cs" />
+    <Compile Include="SaveData\DirtBikeRaceStat.cs" />
     <Compile Include="SaveData\GaragesBlock.cs" />
+    <Compile Include="SaveData\InvisibilitySetting.cs" />
+    <Compile Include="SaveData\MissionScript.cs" />
     <Compile Include="SaveData\PlayerBlock.cs" />
     <Compile Include="SaveData\SaveDataBlock.cs" />
-    <Compile Include="SaveData\GameConstants.cs" />
+    <Compile Include="GameConstants.cs" />
+    <Compile Include="SaveData\SaveGame.cs" />
     <Compile Include="SaveData\ScriptsBlock.cs" />
+    <Compile Include="SaveData\ScriptVariable.cs" />
     <Compile Include="SaveData\SimpleVarsBlock.cs" />
     <Compile Include="SaveData\StatsBlock.cs" />
     <Compile Include="SaveData\StoredCar.cs" />
+    <Compile Include="SaveData\StreetRaceStat.cs" />
+    <Compile Include="SaveData\Timestamp.cs" />
+    <Compile Include="SaveData\Vector2d.cs" />
+    <Compile Include="SaveData\Vector3d.cs" />
     <Compile Include="StringWrapper.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
