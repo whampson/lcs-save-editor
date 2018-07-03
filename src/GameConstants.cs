@@ -23,7 +23,7 @@
 
 using System;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor
 {
     internal enum WeatherType : short
     {
