@@ -23,9 +23,9 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class ScriptsBlock : SaveDataBlock
+    public class ScriptsBlock : DataBlock
     {
         private readonly BlockHeader nestedHeader;
         private readonly Primitive<uint> globalVariablesSize;

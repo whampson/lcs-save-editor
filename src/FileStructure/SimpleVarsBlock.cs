@@ -25,9 +25,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class SimpleVarsBlock : SaveDataBlock
+    public class SimpleVarsBlock : DataBlock
     {
         private readonly Primitive<uint> currentLevel;
         private readonly Primitive<uint> currentArea;

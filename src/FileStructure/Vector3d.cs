@@ -23,37 +23,37 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class ScriptVariable
+    public class Vector3d
     {
-        private readonly Primitive<int> valueAsInt;
-        private readonly Primitive<float> valueAsFloat;
-        private readonly Primitive<Bool32> valueAsBoolean;
+        private readonly Primitive<float> x;
+        private readonly Primitive<float> y;
+        private readonly Primitive<float> z;
 
-        public ScriptVariable()
+        public Vector3d()
         {
-            valueAsInt = new Primitive<int>(null, 0);
-            valueAsFloat = new Primitive<float>(null, 0);
-            valueAsBoolean = new Primitive<Bool32>(null, 0);
+            x = new Primitive<float>(null, 0);
+            y = new Primitive<float>(null, 0);
+            z = new Primitive<float>(null, 0);
         }
 
-        public int ValueAsInt
+        public float X
         {
-            get { return valueAsInt.Value; }
-            set { valueAsInt.Value = value; }
+            get { return x.Value; }
+            set { x.Value = value; }
         }
 
-        public float ValueAsFloat
+        public float Y
         {
-            get { return valueAsFloat.Value; }
-            set { valueAsFloat.Value = value; }
+            get { return y.Value; }
+            set { y.Value = value; }
         }
 
-        public Bool32 ValueAsBoolean
+        public float Z
         {
-            get { return valueAsBoolean.Value; }
-            set { valueAsBoolean.Value = value; }
+            get { return z.Value; }
+            set { z.Value = value; }
         }
     }
 }

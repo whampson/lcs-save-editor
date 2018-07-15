@@ -23,37 +23,29 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class BanditRaceStat
+    public class Vector2d
     {
-        private readonly Primitive<uint> thrashinRc;
-        private readonly Primitive<uint> raginRc;
-        private readonly Primitive<uint> chasinRc;
+        private readonly Primitive<float> x;
+        private readonly Primitive<float> y;
 
-        public BanditRaceStat()
+        public Vector2d()
         {
-            thrashinRc = new Primitive<uint>(null, 0);
-            raginRc = new Primitive<uint>(null, 0);
-            chasinRc = new Primitive<uint>(null, 0);
+            x = new Primitive<float>(null, 0);
+            y = new Primitive<float>(null, 0);
         }
 
-        public uint ThrashinRc
+        public float X
         {
-            get { return thrashinRc.Value; }
-            set { thrashinRc.Value = value; }
+            get { return x.Value; }
+            set { x.Value = value; }
         }
 
-        public uint RaginRc
+        public float Y
         {
-            get { return raginRc.Value; }
-            set { raginRc.Value = value; }
-        }
-
-        public uint ChasinRc
-        {
-            get { return chasinRc.Value; }
-            set { chasinRc.Value = value; }
+            get { return y.Value; }
+            set { y.Value = value; }
         }
     }
 }

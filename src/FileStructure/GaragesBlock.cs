@@ -25,9 +25,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class GaragesBlock : SaveDataBlock
+    public class GaragesBlock : DataBlock
     {
         private readonly Primitive<uint> numGarages;
         private readonly Primitive<Bool32> bombsAreFree;

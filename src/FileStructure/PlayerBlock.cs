@@ -23,9 +23,9 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class PlayerBlock : SaveDataBlock
+    public class PlayerBlock : DataBlock
     {
         private readonly Primitive<int> money;
         private readonly Primitive<int> moneyOnScreen;

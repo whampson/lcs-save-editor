@@ -24,9 +24,9 @@
 using System;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class StringWrapper
+    public class StringWrapper
     {
         private readonly Primitive<Char8> str;
         private readonly Primitive<char> str16;

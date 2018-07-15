@@ -23,29 +23,29 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class Vector2d
+    public class InvisibilitySetting
     {
-        private readonly Primitive<float> x;
-        private readonly Primitive<float> y;
+        private readonly Primitive<uint> objectType;
+        private readonly Primitive<uint> objectIndex;
 
-        public Vector2d()
+        public InvisibilitySetting()
         {
-            x = new Primitive<float>(null, 0);
-            y = new Primitive<float>(null, 0);
+            objectType = new Primitive<uint>(null, 0);
+            objectIndex = new Primitive<uint>(null, 0);
         }
 
-        public float X
+        public uint ObjectType
         {
-            get { return x.Value; }
-            set { x.Value = value; }
+            get { return objectType.Value; }
+            set { objectType.Value = value; }
         }
 
-        public float Y
+        public uint ObjectIndex
         {
-            get { return y.Value; }
-            set { y.Value = value; }
+            get { return objectIndex.Value; }
+            set { objectIndex.Value = value; }
         }
     }
 }

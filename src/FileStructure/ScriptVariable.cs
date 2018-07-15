@@ -23,61 +23,52 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class Timestamp
+    public class ScriptVariable
     {
-        private readonly Primitive<uint> second;
-        private readonly Primitive<uint> minute;
-        private readonly Primitive<uint> hour;
-        private readonly Primitive<uint> day;
-        private readonly Primitive<uint> month;
-        private readonly Primitive<uint> year;
+        private readonly Primitive<int> valueAsInt;
+        private readonly Primitive<float> valueAsFloat;
+        private readonly Primitive<Bool32> valueAsBool;
 
-        public Timestamp()
+        public ScriptVariable()
         {
-            second = new Primitive<uint>(null, 0);
-            minute = new Primitive<uint>(null, 0);
-            hour = new Primitive<uint>(null, 0);
-            day = new Primitive<uint>(null, 0);
-            month = new Primitive<uint>(null, 0);
-            year = new Primitive<uint>(null, 0);
+            valueAsInt = new Primitive<int>(null, 0);
+            valueAsFloat = new Primitive<float>(null, 0);
+            valueAsBool = new Primitive<Bool32>(null, 0);
         }
 
-        public uint Second
+        public int ValueAsInt
         {
-            get { return second.Value; }
-            set { second.Value = value; }
+            get { return valueAsInt.Value; }
+            set { valueAsInt.Value = value; }
         }
 
-        public uint Minute
+        public float ValueAsFloat
         {
-            get { return minute.Value; }
-            set { minute.Value = value; }
+            get { return valueAsFloat.Value; }
+            set { valueAsFloat.Value = value; }
         }
 
-        public uint Hour
+        public Bool32 ValueAsBool
         {
-            get { return hour.Value; }
-            set { hour.Value = value; }
+            get { return valueAsBool.Value; }
+            set { valueAsBool.Value = value; }
         }
 
-        public uint Day
+        public static implicit operator int(ScriptVariable v)
         {
-            get { return day.Value; }
-            set { day.Value = value; }
+            return v.ValueAsInt;
         }
 
-        public uint Month
+        public static implicit operator float(ScriptVariable v)
         {
-            get { return month.Value; }
-            set { month.Value = value; }
+            return v.ValueAsFloat;
         }
 
-        public uint Year
+        public static implicit operator bool(ScriptVariable v)
         {
-            get { return year.Value; }
-            set { year.Value = value; }
+            return v.ValueAsBool;
         }
     }
 }

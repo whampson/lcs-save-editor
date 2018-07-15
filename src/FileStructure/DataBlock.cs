@@ -21,49 +21,29 @@
  */
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class ArrayWrapper<T> : IEnumerable<T>
-        where T : struct
+    public abstract class DataBlock
     {
-        private readonly Primitive<T> array;
+        protected readonly BlockHeader header;
 
-        public ArrayWrapper(Primitive<T> array)
+        public DataBlock()
         {
-            if (!array.IsCollection) {
-                throw new ArgumentException("Must be a collection.", nameof(array));
-            }
-
-            this.array = array;
+            header = new BlockHeader();
         }
 
-        public T this[int i]
+        [JsonProperty(Order = -2)]
+        public BlockHeader Header
         {
-            get { return array[i].Value; }
-            set { array[i].Value = value; }
+            get { return header; }
         }
 
-        public int Length
+        public override string ToString()
         {
-            get { return array.ElementCount; }
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            for (int i = 0; i < Length; i++)
-            {
-                yield return this[i];
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

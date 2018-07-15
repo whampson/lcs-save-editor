@@ -23,9 +23,9 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class DirtBikeRaceStat
+    public class DirtBikeRaceStat
     {
         private readonly Primitive<uint> course1;
         private readonly Primitive<uint> course2;

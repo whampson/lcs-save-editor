@@ -23,9 +23,9 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class MissionScript
+    public class MissionScript
     {
         private readonly Primitive<uint> nextScriptPointer;
         private readonly Primitive<uint> previousScriptPointer;

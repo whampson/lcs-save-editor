@@ -25,9 +25,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class StatsBlock : SaveDataBlock
+    public class StatsBlock : DataBlock
     {
         private readonly Primitive<uint> peopleKilledByPlayer;
         private readonly Primitive<uint> peopleKilledByOthers;

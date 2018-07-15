@@ -23,9 +23,9 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class StreetRaceStat
+    public class StreetRaceStat
     {
         private readonly Primitive<uint> lowRiderRumble;
         private readonly Primitive<uint> deimosDash;

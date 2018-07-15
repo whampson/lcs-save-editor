@@ -25,9 +25,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class StoredCar
+    public class StoredCar
     {
         private readonly Primitive<uint> modelId;
         private readonly Vector3d location;

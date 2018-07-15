@@ -23,45 +23,41 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class BuildingSwap
+    public class BlockHeader
     {
-        private readonly Primitive<uint> objectType;
-        private readonly Primitive<uint> objectIndex;
-        private readonly Primitive<int> newModel;
-        private readonly Primitive<int> oldModel;
+        private readonly Primitive<Char8> tag;
+        private readonly Primitive<uint> blockSize;
 
-        public BuildingSwap()
+        private StringWrapper tagWrapper;
+
+        public BlockHeader()
         {
-            objectType = new Primitive<uint>(null, 0);
-            objectIndex = new Primitive<uint>(null, 0);
-            newModel = new Primitive<int>(null, 0);
-            oldModel = new Primitive<int>(null, 0);
+            tag = new Primitive<Char8>(null, 0);
+            blockSize = new Primitive<uint>(null, 0);
         }
 
-        public uint ObjectType
+        public string Tag
         {
-            get { return objectType.Value; }
-            set { objectType.Value = value; }
+            get {
+                if (tagWrapper == null) {
+                    tagWrapper = new StringWrapper(tag);
+                }
+                return tagWrapper.Value;
+            }
+            set {
+                if (tagWrapper == null) {
+                    tagWrapper = new StringWrapper(tag);
+                }
+                tagWrapper.Value = value;
+            }
         }
 
-        public uint ObjectIndex
+        public uint BlockSize
         {
-            get { return objectIndex.Value; }
-            set { objectIndex.Value = value; }
-        }
-
-        public int NewModel
-        {
-            get { return newModel.Value; }
-            set { newModel.Value = value; }
-        }
-
-        public int OldModel
-        {
-            get { return oldModel.Value; }
-            set { oldModel.Value = value; }
+            get { return blockSize.Value; }
+            set { blockSize.Value = value; }
         }
     }
 }

@@ -21,43 +21,49 @@
  */
 #endregion
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor.FileStructure
 {
-    internal class BlockHeader
+    public class ArrayWrapper<T> : IEnumerable<T>
+        where T : struct
     {
-        private readonly Primitive<Char8> tag;
-        private readonly Primitive<uint> blockSize;
+        private readonly Primitive<T> array;
 
-        private StringWrapper tagWrapper;
-
-        public BlockHeader()
+        public ArrayWrapper(Primitive<T> array)
         {
-            tag = new Primitive<Char8>(null, 0);
-            blockSize = new Primitive<uint>(null, 0);
+            if (!array.IsCollection) {
+                throw new ArgumentException("Must be a collection.", nameof(array));
+            }
+
+            this.array = array;
         }
 
-        public string Tag
+        public T this[int i]
         {
-            get {
-                if (tagWrapper == null) {
-                    tagWrapper = new StringWrapper(tag);
-                }
-                return tagWrapper.Value;
-            }
-            set {
-                if (tagWrapper == null) {
-                    tagWrapper = new StringWrapper(tag);
-                }
-                tagWrapper.Value = value;
+            get { return array[i].Value; }
+            set { array[i].Value = value; }
+        }
+
+        public int Length
+        {
+            get { return array.ElementCount; }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                yield return this[i];
             }
         }
 
-        public uint BlockSize
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            get { return blockSize.Value; }
-            set { blockSize.Value = value; }
+            return GetEnumerator();
         }
     }
 }

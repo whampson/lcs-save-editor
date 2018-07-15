@@ -26,12 +26,13 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.IO;
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.FileStructure;
 
-namespace WHampson.LcsSaveEditor.SaveData
+namespace WHampson.LcsSaveEditor
 {
-    internal class SaveGame
+    public class SaveDataFile
     {
-        public static SaveGame Load(string path)
+        public static SaveDataFile Load(string path)
         {
             bool valid = IsFileValid(path, out BinaryData data);
             if (!valid) {
@@ -50,7 +51,7 @@ namespace WHampson.LcsSaveEditor.SaveData
             DeserializationFlags flags = 0;
             flags |= DeserializationFlags.Fields;
             flags |= DeserializationFlags.NonPublic;
-            SaveGame sg = data.Deserialize<SaveGame>(flags);
+            SaveDataFile sg = data.Deserialize<SaveDataFile>(flags);
 
             sg.GameVersion = version;
             sg.RawData = data;
@@ -66,7 +67,7 @@ namespace WHampson.LcsSaveEditor.SaveData
 
         private Primitive<uint> checksum;
 
-        public SaveGame()
+        public SaveDataFile()
         {
             simpleVars = new SimpleVarsBlock();
             scripts = new ScriptsBlock();
@@ -165,6 +166,9 @@ namespace WHampson.LcsSaveEditor.SaveData
                 data = new BinaryData(buf);
             }
 
+            const string SimpTag = "SIMP";
+            const string SrptTag = "SRPT";
+            const string ScrTag = "SCR";
             const int SimpTagOffset = 0x000;
             const int SrptTagOffsetPs2 = 0x100;
             const int SrptTagOffsetMobile = 0x144;
@@ -172,17 +176,17 @@ namespace WHampson.LcsSaveEditor.SaveData
             const int ScrTagOffsetMobile = 0x14C;
 
             // Check for "SIMP" block signature
-            bool simpFound = data.GetString(SimpTagOffset, 4).Equals("SIMP");
+            bool simpFound = data.GetString(SimpTagOffset, 4).Equals(SimpTag);
             if (!simpFound) {
                 data = default(BinaryData);
                 return false;
             }
 
             //  Check for "SRPT" and "SCR" block signatures
-            bool srptPS2Found = data.GetString(SrptTagOffsetPs2, 4).Equals("SRPT");
-            bool srptMobileFound = data.GetString(SrptTagOffsetMobile, 4).Equals("SRPT");
-            bool scrPS2Found = data.GetString(ScrTagOffsetPs2, 4).Equals("SCR");
-            bool scrMobileFound = data.GetString(ScrTagOffsetMobile, 4).Equals("SCR");
+            bool srptPS2Found = data.GetString(SrptTagOffsetPs2, 4).Equals(SrptTag);
+            bool srptMobileFound = data.GetString(SrptTagOffsetMobile, 4).Equals(SrptTag);
+            bool scrPS2Found = data.GetString(ScrTagOffsetPs2, 4).Equals(ScrTag);
+            bool scrMobileFound = data.GetString(ScrTagOffsetMobile, 4).Equals(ScrTag);
 
             if (!(srptPS2Found && scrPS2Found) && !(srptMobileFound && scrMobileFound)) {
                 data = default(BinaryData);
