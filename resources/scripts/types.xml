@@ -25,7 +25,7 @@
     <typedef name="ScriptVariable" kind="union">
         <int32 name="valueAsInt"/>
         <float name="valueAsFloat"/>
-        <bool32 name="valueAsBoolean"/>
+        <bool32 name="valueAsBool"/>
     </typedef>
 
     <typedef name="BanditRaceStat" kind="struct">
