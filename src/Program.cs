@@ -25,7 +25,8 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using WHampson.Cascara;
-using WHampson.LcsSaveEditor.SaveData;
+using WHampson.LcsSaveEditor.FileStructure;
+using WHampson.LcsSaveEditor.UI;
 
 namespace WHampson.LcsSaveEditor
 {
@@ -43,10 +44,7 @@ namespace WHampson.LcsSaveEditor
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // Application.Run(new Form1());
-
-            string savePath = "../../test/data/ps2/1 The Sicilian Gambit";
-            SaveGame sg = SaveGame.Load(savePath);
+            Application.Run(new MainForm());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
