@@ -25,7 +25,7 @@ using System;
 
 namespace WHampson.LcsSaveEditor
 {
-    internal enum GameVersion
+    public enum GameVersion
     {
         [GameVersion("Android", IsSupported = false)]
         Android,
@@ -40,7 +40,7 @@ namespace WHampson.LcsSaveEditor
         Psp
     };
 
-    internal class GameVersionAttribute : Attribute
+    public class GameVersionAttribute : Attribute
     {
         public GameVersionAttribute(string name)
         {
