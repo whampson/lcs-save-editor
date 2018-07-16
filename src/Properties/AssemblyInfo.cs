@@ -39,6 +39,6 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("WHampson.LcsSaveEditorTests")]
 
-[assembly: AssemblyVersion("0.1.0.86")]
-[assembly: AssemblyFileVersion("0.1.0.86")]
+[assembly: AssemblyVersion("0.1.0.284")]
+[assembly: AssemblyFileVersion("0.1.0.284")]
 [assembly: AssemblyInformationalVersion("0.1.0")]

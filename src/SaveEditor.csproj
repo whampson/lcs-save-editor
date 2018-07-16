@@ -50,39 +50,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayWrapper.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FileStructure\ArrayWrapper.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GameVersion.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveData\BanditRaceStat.cs" />
-    <Compile Include="SaveData\BlockHeader.cs" />
-    <Compile Include="SaveData\BuildingSwap.cs" />
-    <Compile Include="SaveData\DirtBikeRaceStat.cs" />
-    <Compile Include="SaveData\GaragesBlock.cs" />
-    <Compile Include="SaveData\InvisibilitySetting.cs" />
-    <Compile Include="SaveData\MissionScript.cs" />
-    <Compile Include="SaveData\PlayerBlock.cs" />
-    <Compile Include="SaveData\SaveDataBlock.cs" />
+    <Compile Include="FileStructure\BanditRaceStat.cs" />
+    <Compile Include="FileStructure\BlockHeader.cs" />
+    <Compile Include="FileStructure\BuildingSwap.cs" />
+    <Compile Include="FileStructure\DirtBikeRaceStat.cs" />
+    <Compile Include="FileStructure\GaragesBlock.cs" />
+    <Compile Include="FileStructure\InvisibilitySetting.cs" />
+    <Compile Include="FileStructure\MissionScript.cs" />
+    <Compile Include="FileStructure\PlayerBlock.cs" />
+    <Compile Include="FileStructure\DataBlock.cs" />
     <Compile Include="GameConstants.cs" />
-    <Compile Include="SaveData\SaveGame.cs" />
-    <Compile Include="SaveData\ScriptsBlock.cs" />
-    <Compile Include="SaveData\ScriptVariable.cs" />
-    <Compile Include="SaveData\SimpleVarsBlock.cs" />
-    <Compile Include="SaveData\StatsBlock.cs" />
-    <Compile Include="SaveData\StoredCar.cs" />
-    <Compile Include="SaveData\StreetRaceStat.cs" />
-    <Compile Include="SaveData\Timestamp.cs" />
-    <Compile Include="SaveData\Vector2d.cs" />
-    <Compile Include="SaveData\Vector3d.cs" />
-    <Compile Include="StringWrapper.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="SaveDataFile.cs" />
+    <Compile Include="FileStructure\ScriptsBlock.cs" />
+    <Compile Include="FileStructure\ScriptVariable.cs" />
+    <Compile Include="FileStructure\SimpleVarsBlock.cs" />
+    <Compile Include="FileStructure\StatsBlock.cs" />
+    <Compile Include="FileStructure\StoredCar.cs" />
+    <Compile Include="FileStructure\StreetRaceStat.cs" />
+    <Compile Include="FileStructure\Timestamp.cs" />
+    <Compile Include="FileStructure\Vector2d.cs" />
+    <Compile Include="FileStructure\Vector3d.cs" />
+    <Compile Include="FileStructure\StringWrapper.cs" />
+    <Compile Include="UI\Page.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\WeaponsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\WeaponsPage.Designer.cs">
+      <DependentUpon>WeaponsPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\WelcomePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\WelcomePage.Designer.cs">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -94,6 +110,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\WeaponsPage.resx">
+      <DependentUpon>WeaponsPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WelcomePage.resx">
+      <DependentUpon>WelcomePage.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
