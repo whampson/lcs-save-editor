@@ -25,7 +25,7 @@ using System;
 
 namespace WHampson.LcsSaveEditor
 {
-    internal enum WeatherType : short
+    public enum WeatherType : short
     {
         Sunny,
         Cloudy,
@@ -37,7 +37,7 @@ namespace WHampson.LcsSaveEditor
         Snow
     }
 
-    internal enum RadioStation : byte
+    public enum RadioStation : byte
     {
         HeadRadio,
         DoubleClefFm,
@@ -53,20 +53,20 @@ namespace WHampson.LcsSaveEditor
         RadioOff
     }
 
-    internal enum RadarMode : uint
+    public enum RadarMode : uint
     {
         MapAndBlips,
         BlipsOnly,
         RadarOff
     }
 
-    internal enum ControllerConfig : ushort
+    public enum ControllerConfig : ushort
     {
         Setup1,
         Setup2
     }
 
-    internal enum Language : uint
+    public enum Language : uint
     {
         English,
         French,
@@ -78,7 +78,7 @@ namespace WHampson.LcsSaveEditor
     }
 
     [Flags]
-    internal enum LoveMediaCars : uint
+    public enum LoveMediaCars : uint
     {
         Hearse          = 1 << 0,
         Faggio          = 1 << 1,
@@ -99,7 +99,7 @@ namespace WHampson.LcsSaveEditor
     }
 
     [Flags]
-    internal enum VehicleFlags : uint
+    public enum VehicleFlags : uint
     {
         BulletProof     = 1 << 0,
         FireProof       = 1 << 1,
@@ -116,7 +116,7 @@ namespace WHampson.LcsSaveEditor
     }
 
     [Flags]
-    internal enum Costumes : ushort
+    public enum Costumes : ushort
     {
         CasualClothes           = 1 << 0,
         LeonesSuit              = 1 << 1,
@@ -136,7 +136,7 @@ namespace WHampson.LcsSaveEditor
         Wiseguy                 = 1 << 15
     }
 
-    internal enum InsaneStuntJump : uint
+    public enum InsaneStuntJump : uint
     {
         NoInstaneStuntsCompleted,
         InsaneStunt,
@@ -147,5 +147,42 @@ namespace WHampson.LcsSaveEditor
         PerfectTripleInsaneStunt,
         QuadrupleInsaneStunt,
         PerfectQuadrupleInsaneStunt
+    }
+
+    public enum Weapon
+    {
+        BrassKnuckles = 1,
+        Chisel,
+        HockeyStick,
+        NightStick,
+        Knife,
+        Bat,
+        Axe,
+        Cleaver,
+        Machete,
+        Katana,
+        Chainsaw,
+        Grenades,
+        RemoteGrenades,
+        TearGas,
+        Molotov,
+        Pistol = 17,
+        Python,
+        Shotgun,
+        SpasShotgun,
+        StubbyShotgun,
+        Tec9,
+        Mac10,
+        Uzi,
+        Mp5,
+        M4,
+        Ak47,
+        SniperRifle,
+        LaserSightedSniperRifle,
+        Rpg,
+        FlameThrower,
+        M60,
+        MiniGun,
+        Camera = 36
     }
 }
