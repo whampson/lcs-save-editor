@@ -30,7 +30,7 @@ using WHampson.LcsSaveEditor.FileStructure;
 
 namespace WHampson.LcsSaveEditor
 {
-    public class SaveDataFile
+    public class SaveDataFile : IDisposable
     {
         public static SaveDataFile Load(string path)
         {
@@ -242,6 +242,11 @@ namespace WHampson.LcsSaveEditor
         private static string GetGameVersionName(GameVersion v)
         {
             return GetAttribute<GameVersionAttribute>(v).Name;
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable) RawData).Dispose();
         }
     }
 }
