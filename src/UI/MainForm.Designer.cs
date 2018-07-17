@@ -72,7 +72,7 @@ namespace WHampson.LcsSaveEditor.UI
             this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(882, 573);
+            this.tabControl.Size = new System.Drawing.Size(584, 431);
             this.tabControl.TabIndex = 0;
             // 
             // menuStrip
@@ -84,7 +84,7 @@ namespace WHampson.LcsSaveEditor.UI
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(882, 28);
+            this.menuStrip.Size = new System.Drawing.Size(584, 24);
             this.menuStrip.TabIndex = 4;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -96,13 +96,13 @@ namespace WHampson.LcsSaveEditor.UI
             this.fileMenuSeparator1,
             this.exitMenuItem});
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(44, 24);
+            this.fileMenu.Size = new System.Drawing.Size(37, 20);
             this.fileMenu.Text = "File";
             // 
             // openMenuItem
             // 
             this.openMenuItem.Name = "openMenuItem";
-            this.openMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.openMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openMenuItem.Text = "&Open...";
             this.openMenuItem.Click += new System.EventHandler(this.OpenMenuItem_OnClick);
             // 
@@ -110,19 +110,19 @@ namespace WHampson.LcsSaveEditor.UI
             // 
             this.closeFileMenuItem.Enabled = false;
             this.closeFileMenuItem.Name = "closeFileMenuItem";
-            this.closeFileMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.closeFileMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeFileMenuItem.Text = "Close Current File";
             this.closeFileMenuItem.Click += new System.EventHandler(this.CloseFileMenuItem_Click);
             // 
             // fileMenuSeparator1
             // 
             this.fileMenuSeparator1.Name = "fileMenuSeparator1";
-            this.fileMenuSeparator1.Size = new System.Drawing.Size(196, 6);
+            this.fileMenuSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // exitMenuItem
             // 
             this.exitMenuItem.Name = "exitMenuItem";
-            this.exitMenuItem.Size = new System.Drawing.Size(199, 26);
+            this.exitMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitMenuItem.Text = "Exit";
             this.exitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
             // 
@@ -131,13 +131,13 @@ namespace WHampson.LcsSaveEditor.UI
             this.helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutMenuItem});
             this.helpMenu.Name = "helpMenu";
-            this.helpMenu.Size = new System.Drawing.Size(53, 24);
+            this.helpMenu.Size = new System.Drawing.Size(44, 20);
             this.helpMenu.Text = "Help";
             // 
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.aboutMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutMenuItem.Text = "About";
             // 
             // panel
@@ -149,14 +149,14 @@ namespace WHampson.LcsSaveEditor.UI
             this.panel.Location = new System.Drawing.Point(0, 31);
             this.panel.Margin = new System.Windows.Forms.Padding(4);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(882, 573);
+            this.panel.Size = new System.Drawing.Size(584, 431);
             this.panel.TabIndex = 5;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 603);
+            this.ClientSize = new System.Drawing.Size(584, 461);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.panel);
             this.DoubleBuffered = true;

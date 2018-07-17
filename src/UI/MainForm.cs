@@ -47,7 +47,7 @@ namespace WHampson.LcsSaveEditor.UI
 
         private bool IsFileOpen
         {
-            get { return GameState.ActiveGameState != null; }
+            get { return Game.ActiveGameState != null; }
         }
 
         protected override CreateParams CreateParams
@@ -102,7 +102,7 @@ namespace WHampson.LcsSaveEditor.UI
 
         private void RefreshActiveTabs()
         {
-            bool isFileLoaded = (GameState.ActiveGameState != null);
+            bool isFileLoaded = (Game.ActiveGameState != null);
 
             foreach (Type t in pageTypes) {
                 if (!typeof(Page).IsAssignableFrom(t)) {
@@ -161,13 +161,13 @@ namespace WHampson.LcsSaveEditor.UI
             }
 
             SaveDataFile saveData = SaveDataFile.Load(path);
-            GameState.ActiveGameState = new GameState(saveData);
+            Game.ActiveGameState = new Game(saveData);
             closeFileMenuItem.Enabled = true;
         }
 
         private void CloseFile()
         {
-            GameState.ActiveGameState = null;
+            Game.ActiveGameState = null;
             closeFileMenuItem.Enabled = false;
         }
 
