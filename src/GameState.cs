@@ -29,18 +29,19 @@ using WHampson.LcsSaveEditor.FileStructure;
 
 namespace WHampson.LcsSaveEditor
 {
-    public class GameState
+    public class Game : GameStateObject
     {
-        public static GameState ActiveGameState
+        public static Game ActiveGameState
         {
             get;
             set;
         }
 
-        public GameState(SaveDataFile data)
+        public Game(SaveDataFile data)
         {
             GameData = data ?? throw new ArgumentNullException(nameof(data));
             Player = new Player(data);
+            Player.PropertyChanged += FirePropertyChanged;
         }
 
         public Player Player
@@ -48,7 +49,7 @@ namespace WHampson.LcsSaveEditor
             get;
         }
 
-        public SaveDataFile GameData
+        private SaveDataFile GameData
         {
             get;
         }
@@ -59,7 +60,22 @@ namespace WHampson.LcsSaveEditor
         }
     }
 
-    public class Player
+    public abstract class GameStateObject : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void FirePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(sender, e);
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class Player : GameStateObject
     {
         public Player(SaveDataFile data)
         {
@@ -68,6 +84,7 @@ namespace WHampson.LcsSaveEditor
             }
 
             Weapons = new Weapons(data);
+            Weapons.PropertyChanged += FirePropertyChanged;
         }
 
         public Weapons Weapons
@@ -76,12 +93,10 @@ namespace WHampson.LcsSaveEditor
         }
     }
 
-    public class Weapons : INotifyPropertyChanged
+    public class Weapons : GameStateObject
     {
         private readonly ScriptVariable[] globals;
         private readonly Dictionary<Weapon, int> weaponAmmoIndex;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public Weapons(SaveDataFile data)
         {
@@ -99,11 +114,6 @@ namespace WHampson.LcsSaveEditor
             }
         }
 
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void InitPs2Weapons()
         {
             weaponAmmoIndex[Weapon.Camera] = 124;
@@ -112,7 +122,7 @@ namespace WHampson.LcsSaveEditor
             weaponAmmoIndex[Weapon.Axe] = 127;
             weaponAmmoIndex[Weapon.HockeyStick] = 128;
             weaponAmmoIndex[Weapon.NightStick] = 129;
-            weaponAmmoIndex[Weapon.Bat] = 130;
+            weaponAmmoIndex[Weapon.BaseballBat] = 130;
             weaponAmmoIndex[Weapon.Cleaver] = 131;
             weaponAmmoIndex[Weapon.Katana] = 132;
             weaponAmmoIndex[Weapon.Knife] = 133;
@@ -129,11 +139,11 @@ namespace WHampson.LcsSaveEditor
             weaponAmmoIndex[Weapon.StubbyShotgun] = 144;
             weaponAmmoIndex[Weapon.Tec9] = 145;
             weaponAmmoIndex[Weapon.Mac10] = 146;
-            weaponAmmoIndex[Weapon.Uzi] = 147;
-            weaponAmmoIndex[Weapon.Mp5] = 148;
+            weaponAmmoIndex[Weapon.MicroSmg] = 147;
+            weaponAmmoIndex[Weapon.Mp5k] = 148;
             weaponAmmoIndex[Weapon.Ak47] = 149;
             weaponAmmoIndex[Weapon.M4] = 150;
-            weaponAmmoIndex[Weapon.Rpg] = 151;
+            weaponAmmoIndex[Weapon.RocketLauncher] = 151;
             weaponAmmoIndex[Weapon.M60] = 152;
             weaponAmmoIndex[Weapon.FlameThrower] = 153;
             weaponAmmoIndex[Weapon.MiniGun] = 154;
@@ -141,12 +151,12 @@ namespace WHampson.LcsSaveEditor
             weaponAmmoIndex[Weapon.LaserSightedSniperRifle] = 156;
         }
 
-        public int CameraShots
+        public int CameraAmmo
         {
             get { return globals[weaponAmmoIndex[Weapon.Camera]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Camera]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -155,7 +165,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.BrassKnuckles]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.BrassKnuckles]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -164,7 +174,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Chisel]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Chisel]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -173,7 +183,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Axe]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Axe]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -182,7 +192,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.HockeyStick]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.HockeyStick]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -191,16 +201,16 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.NightStick]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.NightStick]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
-        public bool BatEquipped
+        public bool BaseballBatEquipped
         {
-            get { return globals[weaponAmmoIndex[Weapon.Bat]].ValueAsBool; }
+            get { return globals[weaponAmmoIndex[Weapon.BaseballBat]].ValueAsBool; }
             set {
-                globals[weaponAmmoIndex[Weapon.Bat]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                globals[weaponAmmoIndex[Weapon.BaseballBat]].ValueAsBool = value;
+                OnPropertyChanged();
             }
         }
 
@@ -209,7 +219,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Cleaver]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Cleaver]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -218,7 +228,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Katana]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Katana]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -227,7 +237,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Knife]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Knife]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -236,7 +246,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Machete]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Machete]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -245,7 +255,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Chisel]].ValueAsBool; }
             set {
                 globals[weaponAmmoIndex[Weapon.Chainsaw]].ValueAsBool = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -254,7 +264,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Grenades]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Grenades]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -263,7 +273,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Molotov]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Molotov]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -272,7 +282,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.TearGas]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.TearGas]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -281,7 +291,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.RemoteGrenades]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.RemoteGrenades]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -290,7 +300,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Pistol]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Pistol]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -299,7 +309,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Python]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Python]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -308,7 +318,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Shotgun]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Shotgun]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -317,7 +327,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.SpasShotgun]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.SpasShotgun]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -326,7 +336,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.StubbyShotgun]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.StubbyShotgun]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -335,7 +345,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Tec9]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Tec9]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -344,25 +354,25 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Mac10]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Mac10]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
-        public int UziAmmo
+        public int MicroSmgAmmo
         {
-            get { return globals[weaponAmmoIndex[Weapon.Uzi]]; }
+            get { return globals[weaponAmmoIndex[Weapon.MicroSmg]]; }
             set {
-                globals[weaponAmmoIndex[Weapon.Uzi]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                globals[weaponAmmoIndex[Weapon.MicroSmg]].ValueAsInt = value;
+                OnPropertyChanged();
             }
         }
 
-        public int Mp5Ammo
+        public int Mp5kAmmo
         {
-            get { return globals[weaponAmmoIndex[Weapon.Mp5]]; }
+            get { return globals[weaponAmmoIndex[Weapon.Mp5k]]; }
             set {
-                globals[weaponAmmoIndex[Weapon.Mp5]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                globals[weaponAmmoIndex[Weapon.Mp5k]].ValueAsInt = value;
+                OnPropertyChanged();
             }
         }
 
@@ -371,7 +381,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.Ak47]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.Ak47]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -380,16 +390,16 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.M4]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.M4]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
-        public int RpgAmmo
+        public int RocketLauncherAmmo
         {
-            get { return globals[weaponAmmoIndex[Weapon.Rpg]]; }
+            get { return globals[weaponAmmoIndex[Weapon.RocketLauncher]]; }
             set {
-                globals[weaponAmmoIndex[Weapon.Rpg]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                globals[weaponAmmoIndex[Weapon.RocketLauncher]].ValueAsInt = value;
+                OnPropertyChanged();
             }
         }
 
@@ -398,7 +408,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.M60]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.M60]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -407,7 +417,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.FlameThrower]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.FlameThrower]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -416,7 +426,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.MiniGun]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.MiniGun]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -425,7 +435,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.SniperRifle]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.SniperRifle]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
 
@@ -434,7 +444,7 @@ namespace WHampson.LcsSaveEditor
             get { return globals[weaponAmmoIndex[Weapon.LaserSightedSniperRifle]]; }
             set {
                 globals[weaponAmmoIndex[Weapon.LaserSightedSniperRifle]].ValueAsInt = value;
-                NotifyPropertyChanged();
+                OnPropertyChanged();
             }
         }
     }
