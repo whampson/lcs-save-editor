@@ -54,11 +54,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands.cs" />
-    <Compile Include="WeaponsPage.xaml.cs">
-      <DependentUpon>WeaponsPage.xaml</DependentUpon>
+    <Compile Include="ApplicationViewModel.cs" />
+    <Compile Include="ObservableObject.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="WeaponsView.xaml.cs">
+      <DependentUpon>WeaponsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="ApplicationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -66,11 +68,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="ApplicationView.xaml.cs">
+      <DependentUpon>ApplicationView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="WeaponsPage.xaml">
+    <Page Include="WeaponsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
