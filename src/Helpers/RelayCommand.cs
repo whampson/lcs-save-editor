@@ -10,7 +10,7 @@ using System.Windows.Input;
  * https://msdn.microsoft.com/en-us/magazine/dd419663.aspx
  */
 
-namespace WHampson.LcsSaveEditor
+namespace WHampson.LcsSaveEditor.Helpers
 {
     public class RelayCommand<T> : ICommand
     {

@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WHampson.LcsSaveEditor
+namespace WHampson.LcsSaveEditor.Helpers
 {
     public abstract class ObservableObject : INotifyPropertyChanged
     {

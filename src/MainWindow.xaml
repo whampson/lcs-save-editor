@@ -3,18 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:v="clr-namespace:WHampson.LcsSaveEditor.Views"
+        xmlns:vm="clr-namespace:WHampson.LcsSaveEditor.ViewModels"
         xmlns:local="clr-namespace:WHampson.LcsSaveEditor"
         mc:Ignorable="d"
         Title="GTA:LCS Save Editor" Height="450" Width="600">
     <Window.DataContext>
-        <local:MainViewModel/>
+        <vm:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type local:StartupViewModel}">
+        <DataTemplate DataType="{x:Type vm:StartupViewModel}">
             <TextBlock Text="Welcome to the GTA LCS Save Editor!"/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local:WeaponsViewModel}">
-            <local:WeaponsView/>
+        <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
+            <v:WeaponsView/>
         </DataTemplate>
     </Window.Resources>
     <Window.InputBindings>

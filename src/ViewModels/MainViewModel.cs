@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using WHampson.LcsSaveEditor.Helpers;
 
-namespace WHampson.LcsSaveEditor
+namespace WHampson.LcsSaveEditor.ViewModels
 {
     public class StartupViewModel : PageViewModel
     {
