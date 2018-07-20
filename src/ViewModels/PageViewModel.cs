@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveEditorWPF
+namespace WHampson.LcsSaveEditor
 {
     public class PageViewModel : ObservableObject
     {

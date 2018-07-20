@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditor", "src\SaveEditor.csproj", "{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditor_Old", "src_old\SaveEditor_Old.csproj", "{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditorWPF", "SaveEditorWPF\SaveEditorWPF.csproj", "{BD1199D6-9D08-47FC-A739-5E2569D37851}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditor", "src\SaveEditor.csproj", "{BD1199D6-9D08-47FC-A739-5E2569D37851}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

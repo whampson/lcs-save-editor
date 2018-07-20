@@ -1,25 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(SolutionDir)\obj\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{77C21ECF-8D3F-42A8-8EA2-7BCA285B756A}</ProjectGuid>
+    <ProjectGuid>{BD1199D6-9D08-47FC-A739-5E2569D37851}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <BaseIntermediateOutputPath>..\obj\</BaseIntermediateOutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(Configuration)\</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
     <RootNamespace>WHampson.LcsSaveEditor</RootNamespace>
     <AssemblyName>WHampson.LcsSaveEditor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,98 +32,87 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cascara">
-      <HintPath>..\lib\Cascara\src\bin\Debug\netstandard2.0\Cascara.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileStructure\ArrayWrapper.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="UI\MainForm.cs">
-      <SubType>Form</SubType>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Helpers\ObservableObject.cs" />
+    <Compile Include="ViewModels\PageViewModel.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Views\WeaponsView.xaml.cs">
+      <DependentUpon>WeaponsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameVersion.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileStructure\BanditRaceStat.cs" />
-    <Compile Include="FileStructure\BlockHeader.cs" />
-    <Compile Include="FileStructure\BuildingSwap.cs" />
-    <Compile Include="FileStructure\DirtBikeRaceStat.cs" />
-    <Compile Include="FileStructure\GaragesBlock.cs" />
-    <Compile Include="FileStructure\InvisibilitySetting.cs" />
-    <Compile Include="FileStructure\MissionScript.cs" />
-    <Compile Include="FileStructure\PlayerBlock.cs" />
-    <Compile Include="FileStructure\DataBlock.cs" />
-    <Compile Include="GameConstants.cs" />
-    <Compile Include="SaveDataFile.cs" />
-    <Compile Include="FileStructure\ScriptsBlock.cs" />
-    <Compile Include="FileStructure\ScriptVariable.cs" />
-    <Compile Include="FileStructure\SimpleVarsBlock.cs" />
-    <Compile Include="FileStructure\StatsBlock.cs" />
-    <Compile Include="FileStructure\StoredCar.cs" />
-    <Compile Include="FileStructure\StreetRaceStat.cs" />
-    <Compile Include="FileStructure\Timestamp.cs" />
-    <Compile Include="FileStructure\Vector2d.cs" />
-    <Compile Include="FileStructure\Vector3d.cs" />
-    <Compile Include="FileStructure\StringWrapper.cs" />
-    <Compile Include="UI\Page.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\WeaponsPage.cs">
-      <SubType>UserControl</SubType>
+    <Page Include="Views\WeaponsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UI\WeaponsPage.Designer.cs">
-      <DependentUpon>WeaponsPage.cs</DependentUpon>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\WelcomePage.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\WelcomePage.Designer.cs">
-      <DependentUpon>WelcomePage.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="UI\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="UI\WeaponsPage.resx">
-      <DependentUpon>WeaponsPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\WelcomePage.resx">
-      <DependentUpon>WelcomePage.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit">
+      <Version>3.4.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,7 +11,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace SaveEditorWPF
+namespace WHampson.LcsSaveEditor
 {
     public class StartupViewModel : PageViewModel
     {
