@@ -27,12 +27,12 @@ namespace SaveEditorWPF
         { }
     }
 
-    public class ApplicationViewModel : ObservableObject
+    public class MainViewModel : ObservableObject
     {
         private bool _isEditingFile;
         private int _selectedTabIndex;
 
-        public ApplicationViewModel()
+        public MainViewModel()
         {
             _isEditingFile = false;
             _selectedTabIndex = 0;
