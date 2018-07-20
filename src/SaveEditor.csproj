@@ -61,6 +61,8 @@
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="ViewModels\PageViewModel.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="ViewModels\StartupPageViewModel.cs" />
+    <Compile Include="ViewModels\WeaponsPageViewModel.cs" />
     <Compile Include="Views\WeaponsView.xaml.cs">
       <DependentUpon>WeaponsView.xaml</DependentUpon>
     </Compile>
