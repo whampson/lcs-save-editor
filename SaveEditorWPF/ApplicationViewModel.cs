@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -12,26 +13,31 @@ using System.Windows.Input;
 
 namespace SaveEditorWPF
 {
-    public class InverseBooleanConverter : IValueConverter
+    public class StartupViewModel : PageViewModel
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool) value;
-        }
+        public StartupViewModel()
+            : base("Welcome")
+        { }
+    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool) value;
-        }
+    public class WeaponsViewModel : PageViewModel
+    {
+        public WeaponsViewModel()
+            : base("Weapons")
+        { }
     }
 
     public class ApplicationViewModel : ObservableObject
     {
         private bool _isEditingFile;
+        private int _selectedTabIndex;
 
         public ApplicationViewModel()
         {
             _isEditingFile = false;
+            _selectedTabIndex = 0;
+            Tabs = new ObservableCollection<PageViewModel>();
+            RefreshTabs();
         }
 
         public bool IsEditingFile
@@ -40,9 +46,29 @@ namespace SaveEditorWPF
             set { _isEditingFile = value; OnPropertyChanged(); }
         }
 
+        public ObservableCollection<PageViewModel> Tabs
+        {
+            get;
+        }
+
+        public int SelectedTabIndex
+        {
+            get { return _selectedTabIndex; }
+            set { _selectedTabIndex = value; OnPropertyChanged(); }
+        }
+
         private void RefreshTabs()
         {
-           
+            Tabs.Clear();
+
+            if (IsEditingFile) {
+                Tabs.Add(new WeaponsViewModel());
+            }
+            else {
+                Tabs.Add(new StartupViewModel());
+            }
+
+            SelectedTabIndex = 0;
         }
 
         public ICommand OpenFile
@@ -78,8 +104,8 @@ namespace SaveEditorWPF
 
         private void CloseFile_Execute()
         {
-            MessageBox.Show("Close");
             IsEditingFile = false;
+            RefreshTabs();
         }
 
         public ICommand ReloadFile

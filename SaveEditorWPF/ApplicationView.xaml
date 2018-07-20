@@ -10,8 +10,12 @@
         <local:ApplicationViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <local:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <DataTemplate DataType="{x:Type local:StartupViewModel}">
+            <TextBlock Text="Welcome to the GTA LCS Save Editor!"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:WeaponsViewModel}">
+            <local:WeaponsView/>
+        </DataTemplate>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{Binding OpenFile}"
@@ -60,11 +64,14 @@
                               InputGestureText="F1"/>
                 </MenuItem>
             </Menu>
-            <TabControl Name="tabControl"
-                        DockPanel.Dock="Top">
-                <TabItem Header="Welcome"
-                         Visibility="{Binding Converter={StaticResource BooleanToVisibilityConverter}, Path=IsEditingFile}"/>
-                <TabItem Header="General"/>
+            <TabControl DockPanel.Dock="Top"
+                        ItemsSource="{Binding Tabs}"
+                        SelectedIndex="{Binding SelectedTabIndex}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Header}"/>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
             </TabControl>
         </DockPanel>
     </Grid>

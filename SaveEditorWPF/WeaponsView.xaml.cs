@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SaveEditorWPF
 {
     /// <summary>
-    /// Interaction logic for WeaponsPage.xaml
+    /// Interaction logic for WeaponsView.xaml
     /// </summary>
-    public partial class WeaponsPage : TabItem
+    public partial class WeaponsView : UserControl
     {
-        public WeaponsPage()
+        public WeaponsView()
         {
             InitializeComponent();
         }
