@@ -26,7 +26,7 @@ using System;
 namespace WHampson.LcsSaveEditor.DataTypes
 {
     [Flags]
-    public enum StoredVehicleProperties : uint
+    public enum StoredCarProperties : uint
     {
         BulletProof     = 1 << 0,
         FireProof       = 1 << 1,
