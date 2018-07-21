@@ -24,6 +24,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.DataTypes;
 
 namespace WHampson.LcsSaveEditor.Models.FileStructure
 {

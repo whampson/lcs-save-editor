@@ -24,6 +24,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.DataTypes;
 
 namespace WHampson.LcsSaveEditor.Models.FileStructure
 {
@@ -65,9 +66,9 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public LoveMediaCars CarTypesCollected
+        public ExportCars CarTypesCollected
         {
-            get { return (LoveMediaCars) carTypesCollected.Value; }
+            get { return (ExportCars) carTypesCollected.Value; }
             set { carTypesCollected.Value = (uint) value; }
         }
 

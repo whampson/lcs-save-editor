@@ -24,6 +24,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.DataTypes;
 
 namespace WHampson.LcsSaveEditor.Models.FileStructure
 {
@@ -152,23 +153,23 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public WeatherType PreviousWeather
+        public Weather PreviousWeather
         {
-            get { return (WeatherType) previousWeather.Value; }
+            get { return (Weather) previousWeather.Value; }
             set { previousWeather.Value = (short) value; }
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public WeatherType CurrentWeather
+        public Weather CurrentWeather
         {
-            get { return (WeatherType) currentWeather.Value; }
+            get { return (Weather) currentWeather.Value; }
             set { currentWeather.Value = (short) value; }
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public WeatherType ForcedWeather
+        public Weather ForcedWeather
         {
-            get { return (WeatherType) forcedWeather.Value; }
+            get { return (Weather) forcedWeather.Value; }
             set { forcedWeather.Value = (short) value; }
         }
 

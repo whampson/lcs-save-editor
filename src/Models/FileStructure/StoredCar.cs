@@ -24,6 +24,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.DataTypes;
 
 namespace WHampson.LcsSaveEditor.Models.FileStructure
 {
@@ -85,9 +86,9 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public VehicleFlags Attributes
+        public StoredCarProperties Attributes
         {
-            get { return (VehicleFlags) attributes.Value; }
+            get { return (StoredCarProperties) attributes.Value; }
             set { attributes.Value = (uint) value; }
         }
 
