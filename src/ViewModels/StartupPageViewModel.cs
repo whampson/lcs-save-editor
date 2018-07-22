@@ -26,7 +26,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
     public class StartupPageViewModel : PageViewModel
     {
         public StartupPageViewModel()
-            : base("Welcome")
+            : base("Welcome", null)
         { }
     }
 }
