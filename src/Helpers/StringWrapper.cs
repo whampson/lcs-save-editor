@@ -24,9 +24,9 @@
 using System;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Helpers
 {
-    public class StringWrapper
+    public class StringWrapper : ObservableObject
     {
         private readonly Primitive<Char8> str;
         private readonly Primitive<char> str16;
@@ -73,6 +73,7 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
                 else {
                     SetString8Value(value);
                 }
+                OnPropertyChanged();
             }
         }
 

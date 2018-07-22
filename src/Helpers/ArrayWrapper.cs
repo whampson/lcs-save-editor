@@ -24,13 +24,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Helpers
 {
-    public class ArrayWrapper<T> : IEnumerable<T>
+    public class ArrayWrapper<T> : IEnumerable<T>, INotifyCollectionChanged
         where T : struct
     {
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
         private readonly Primitive<T> array;
 
         public ArrayWrapper(Primitive<T> array)
@@ -45,7 +48,12 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
         public T this[int i]
         {
             get { return array[i].Value; }
-            set { array[i].Value = value; }
+
+            set {
+                T old = array[i].Value;
+                array[i].Value = value;
+                OnCollectionChanged(old, value, i);
+            }
         }
 
         public int Length
@@ -53,10 +61,17 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
             get { return array.ElementCount; }
         }
 
+        protected virtual void OnCollectionChanged(object oldItem, object newItem, int index)
+        {
+            NotifyCollectionChangedEventHandler fire = CollectionChanged;
+            if (fire != null) {
+                fire(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItem, oldItem, index));
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Length; i++)
-            {
+            for (int i = 0; i < Length; i++) {
                 yield return this[i];
             }
         }
