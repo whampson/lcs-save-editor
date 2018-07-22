@@ -34,11 +34,14 @@ SOFTWARE.
         <vm:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:StartupViewModel}">
+        <DataTemplate DataType="{x:Type vm:StartupPageViewModel}">
             <TextBlock Text="Welcome to the GTA LCS Save Editor!"/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
+        <DataTemplate DataType="{x:Type vm:WeaponsPageViewModel}">
             <v:WeaponsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:TestViewModel}">
+            <v:TestView/>
         </DataTemplate>
     </Window.Resources>
     <Window.InputBindings>
