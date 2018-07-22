@@ -22,6 +22,7 @@
 #endregion
 
 using WHampson.LcsSaveEditor.Helpers;
+using WHampson.LcsSaveEditor.Models;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
@@ -29,19 +30,25 @@ namespace WHampson.LcsSaveEditor.ViewModels
     {
         private string _header;
 
-        public PageViewModel()
-            : this(null)
-        { }
+        //public PageViewModel()
+        //    : this(null)
+        //{ }
 
-        public PageViewModel(string header)
+        public PageViewModel(string header, SaveDataFile gameState)
         {
             _header = header;
+            GameState = gameState;
         }
 
         public string Header
         {
             get { return _header; }
             set { _header = value; OnPropertyChanged(); }
+        }
+
+        public SaveDataFile GameState
+        {
+            get;
         }
     }
 }
