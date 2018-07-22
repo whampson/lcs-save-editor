@@ -22,49 +22,40 @@
 #endregion
 
 using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WHampson.LcsSaveEditor.Helpers;
+using WHampson.LcsSaveEditor.Models;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
-    public class StartupViewModel : PageViewModel
-    {
-        public StartupViewModel()
-            : base("Welcome")
-        { }
-    }
-
-    public class WeaponsViewModel : PageViewModel
-    {
-        public WeaponsViewModel()
-            : base("Weapons")
-        { }
-    }
-
     public class MainViewModel : ObservableObject
     {
-        private bool _isEditingFile;
+        private SaveDataFile _gameState;
         private int _selectedTabIndex;
 
         public MainViewModel()
         {
-            _isEditingFile = false;
+            _gameState = null;
             _selectedTabIndex = 0;
+
             Tabs = new ObservableCollection<PageViewModel>();
             RefreshTabs();
         }
 
         public bool IsEditingFile
         {
-            get { return _isEditingFile; }
-            set { _isEditingFile = value; OnPropertyChanged(); }
+            get { return GameState != null; }
         }
 
-        public ObservableCollection<PageViewModel> Tabs
+        public SaveDataFile GameState
         {
-            get;
+            get { return _gameState; }
+            set { _gameState = value; OnPropertyChanged(); }
         }
 
         public int SelectedTabIndex
@@ -73,18 +64,26 @@ namespace WHampson.LcsSaveEditor.ViewModels
             set { _selectedTabIndex = value; OnPropertyChanged(); }
         }
 
+        public ObservableCollection<PageViewModel> Tabs
+        {
+            get;
+        }
+
         private void RefreshTabs()
         {
             Tabs.Clear();
 
             if (IsEditingFile) {
-                Tabs.Add(new WeaponsViewModel());
+                Tabs.Add(new WeaponsPageViewModel(GameState));
+                Tabs.Add(new TestViewModel(GameState));
             }
             else {
-                Tabs.Add(new StartupViewModel());
+                Tabs.Add(new StartupPageViewModel());
             }
 
-            SelectedTabIndex = 0;
+            if (Tabs.Count() == 1) {
+                SelectedTabIndex = 0;
+            }
         }
 
         public ICommand OpenFile
@@ -99,11 +98,30 @@ namespace WHampson.LcsSaveEditor.ViewModels
             OpenFileDialog diag = new OpenFileDialog();
             bool? fileSelected = diag.ShowDialog();
 
-            if (fileSelected == true) {
-                IsEditingFile = true;
-                //LoadFile(diag.FileName);
-                RefreshTabs();
+            if (fileSelected == null || fileSelected == false) {
+                return;
             }
+
+            SaveDataFile data;
+            try {
+                data = SaveDataFile.Load(diag.FileName);
+            }
+            catch (InvalidDataException e) {
+                ShowErrorDialog(e.Message);
+                return;
+            }
+            catch (NotSupportedException e) {
+                ShowErrorDialog(e.Message);
+                return;
+            }
+
+            GameState = data;
+            RefreshTabs();
+        }
+
+        public static void ShowErrorDialog(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public ICommand FileClose
@@ -120,7 +138,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void CloseFile_Execute()
         {
-            IsEditingFile = false;
+            GameState = null;
             RefreshTabs();
         }
 
