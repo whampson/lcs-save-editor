@@ -21,12 +21,25 @@
  */
 #endregion
 
+using System;
+using WHampson.LcsSaveEditor.Models;
+
 namespace WHampson.LcsSaveEditor.ViewModels
 {
     public class WeaponsPageViewModel : PageViewModel
     {
-        public WeaponsPageViewModel()
-            : base("Weapons")
-        { }
+        public WeaponsPageViewModel(SaveDataFile gameState)
+            : base("Weapons", gameState)
+        {
+            gameState.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+        }
+
+        private void GlobalVariables_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Replace) {
+                Console.WriteLine("Global variable {0} changed from {1} to {2}",
+                    e.NewStartingIndex, e.OldItems[0], e.NewItems[0]);
+            }
+        }
     }
 }
