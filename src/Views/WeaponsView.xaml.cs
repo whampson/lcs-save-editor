@@ -22,6 +22,7 @@
 #endregion
 
 using System.Windows.Controls;
+using WHampson.LcsSaveEditor.ViewModels;
 
 namespace WHampson.LcsSaveEditor.Views
 {
@@ -33,6 +34,12 @@ namespace WHampson.LcsSaveEditor.Views
         public WeaponsView()
         {
             InitializeComponent();
+        }
+
+        public WeaponsView(WeaponsPageViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
         }
     }
 }
