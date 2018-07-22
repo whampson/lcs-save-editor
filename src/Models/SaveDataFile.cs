@@ -27,7 +27,6 @@ using System;
 using System.IO;
 using WHampson.Cascara;
 using WHampson.LcsSaveEditor.Helpers;
-using WHampson.LcsSaveEditor.Models.FileStructure;
 using WHampson.LcsSaveEditor.Properties;
 
 namespace WHampson.LcsSaveEditor.Models
@@ -41,9 +40,9 @@ namespace WHampson.LcsSaveEditor.Models
                 throw new InvalidDataException(Resources.InvalidDataMessage);
             }
 
-            GamePlatform version = DetectFileType(data);
-            if (!IsFileTypeSupported(version)) {
-                string msg = string.Format(Resources.UnsupportedDataFormatMessage, GetGamePlatformName(version));
+            GamePlatform type = DetectFileType(data);
+            if (!IsFileTypeSupported(type)) {
+                string msg = string.Format(Resources.UnsupportedDataFormatMessage, GetGamePlatformName(type));
                 throw new NotSupportedException(msg);
             }
 
@@ -56,7 +55,7 @@ namespace WHampson.LcsSaveEditor.Models
             flags |= DeserializationFlags.NonPublic;
             SaveDataFile sg = data.Deserialize<SaveDataFile>(flags);
 
-            sg.GameVersion = version;
+            sg.FileType = type;
             sg.RawData = data;
 
             return sg;
@@ -82,7 +81,7 @@ namespace WHampson.LcsSaveEditor.Models
         }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public GamePlatform GameVersion
+        public GamePlatform FileType
         {
             get;
             private set;
@@ -133,7 +132,7 @@ namespace WHampson.LcsSaveEditor.Models
 
         private void UpdateChecksum()
         {
-            if (GameVersion != GamePlatform.PS2) {
+            if (FileType != GamePlatform.PS2) {
                 return;
             }
 
