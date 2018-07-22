@@ -26,7 +26,7 @@ using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 using WHampson.LcsSaveEditor.DataTypes;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
     public class SimpleVarsBlock : DataBlock
     {

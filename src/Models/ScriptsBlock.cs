@@ -22,14 +22,15 @@
 #endregion
 
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.Helpers;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
     public class ScriptsBlock : DataBlock
     {
         private readonly BlockHeader nestedHeader;
         private readonly Primitive<uint> globalVariablesSize;
-        private readonly ScriptVariable[] globalVariables;
+        private readonly Primitive<uint> globalVariables;
         private readonly Primitive<uint> onAMissionFlag;
         private readonly Primitive<uint> timeLastMissionPassed;
         private readonly BuildingSwap[] buildingSwapArray;
@@ -41,11 +42,13 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
         private readonly Primitive<ushort> numberOfExclusiveMissionScripts;
         private readonly MissionScript[] runningScripts;
 
+        private ArrayWrapper<uint> globalVariablesWrapper;
+
         public ScriptsBlock()
         {
             nestedHeader = new BlockHeader();
             globalVariablesSize = new Primitive<uint>(null, 0);
-            globalVariables = new ScriptVariable[0];
+            globalVariables = new Primitive<uint>(null, 0);
             onAMissionFlag = new Primitive<uint>(null, 0);
             timeLastMissionPassed = new Primitive<uint>(null, 0);
             buildingSwapArray = new BuildingSwap[0];
@@ -69,9 +72,14 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
             set { globalVariablesSize.Value = value; }
         }
 
-        public ScriptVariable[] GlobalVariables
+        public ArrayWrapper<uint> GlobalVariables
         {
-            get { return globalVariables; }
+            get {
+                if (globalVariablesWrapper == null) {
+                    globalVariablesWrapper = new ArrayWrapper<uint>(globalVariables);
+                }
+                return globalVariablesWrapper;
+            }
         }
 
         public uint OnAMissionFlag

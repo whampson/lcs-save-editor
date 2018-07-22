@@ -22,30 +22,43 @@
 #endregion
 
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.Helpers;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
-    public class InvisibilitySetting
+    public class BlockHeader
     {
-        private readonly Primitive<uint> objectType;
-        private readonly Primitive<uint> objectIndex;
+        private readonly Primitive<Char8> tag;
+        private readonly Primitive<uint> blockSize;
 
-        public InvisibilitySetting()
+        private StringWrapper tagWrapper;
+
+        public BlockHeader()
         {
-            objectType = new Primitive<uint>(null, 0);
-            objectIndex = new Primitive<uint>(null, 0);
+            tag = new Primitive<Char8>(null, 0);
+            blockSize = new Primitive<uint>(null, 0);
         }
 
-        public uint ObjectType
+        public string Tag
         {
-            get { return objectType.Value; }
-            set { objectType.Value = value; }
+            get {
+                if (tagWrapper == null) {
+                    tagWrapper = new StringWrapper(tag);
+                }
+                return tagWrapper.Value;
+            }
+            set {
+                if (tagWrapper == null) {
+                    tagWrapper = new StringWrapper(tag);
+                }
+                tagWrapper.Value = value;
+            }
         }
 
-        public uint ObjectIndex
+        public uint BlockSize
         {
-            get { return objectIndex.Value; }
-            set { objectIndex.Value = value; }
+            get { return blockSize.Value; }
+            set { blockSize.Value = value; }
         }
     }
 }

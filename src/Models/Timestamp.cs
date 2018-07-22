@@ -23,7 +23,7 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
     public class Timestamp
     {

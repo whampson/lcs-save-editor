@@ -25,8 +25,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 using WHampson.LcsSaveEditor.DataTypes;
+using WHampson.LcsSaveEditor.Helpers;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
     public class StatsBlock : DataBlock
     {

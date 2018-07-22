@@ -22,8 +22,9 @@
 #endregion
 
 using WHampson.Cascara;
+using WHampson.LcsSaveEditor.Helpers;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
     public class MissionScript
     {
@@ -34,13 +35,14 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
         private readonly Primitive<uint> instructionPointer;
         private readonly Primitive<uint> returnStack;
         private readonly Primitive<ushort> returnStackTop;
-        private readonly ScriptVariable[] variables;
+        private readonly Primitive<uint> variables;
         private readonly Primitive<uint> timer1;
         private readonly Primitive<uint> timer2;
         private readonly Primitive<uint> wakeupTime;
 
         private StringWrapper nameWrapper;
         private ArrayWrapper<uint> returnStackWrapper;
+        private ArrayWrapper<uint> variablesWrapper;
 
         public MissionScript()
         {
@@ -51,7 +53,7 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
             instructionPointer = new Primitive<uint>(null, 0);
             returnStack = new Primitive<uint>(null, 0);
             returnStackTop = new Primitive<ushort>(null, 0);
-            variables = new ScriptVariable[0];
+            variables = new Primitive<uint>(null, 0);
             timer1 = new Primitive<uint>(null, 0);
             timer2 = new Primitive<uint>(null, 0);
             wakeupTime = new Primitive<uint>(null, 0);
@@ -117,9 +119,15 @@ namespace WHampson.LcsSaveEditor.Models.FileStructure
             set { returnStackTop.Value = value; }
         }
 
-        public ScriptVariable[] Variables
+        public ArrayWrapper<uint> Variables
         {
-            get { return variables; }
+            get {
+                if (variablesWrapper == null) {
+                    variablesWrapper = new ArrayWrapper<uint>(variables);
+                }
+
+                return variablesWrapper;
+            }
         }
 
         public uint Timer1

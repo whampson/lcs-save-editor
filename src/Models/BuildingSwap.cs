@@ -23,37 +23,45 @@
 
 using WHampson.Cascara;
 
-namespace WHampson.LcsSaveEditor.Models.FileStructure
+namespace WHampson.LcsSaveEditor.Models
 {
-    public class Vector3d
+    public class BuildingSwap
     {
-        private readonly Primitive<float> x;
-        private readonly Primitive<float> y;
-        private readonly Primitive<float> z;
+        private readonly Primitive<uint> objectType;
+        private readonly Primitive<uint> objectIndex;
+        private readonly Primitive<int> newModel;
+        private readonly Primitive<int> oldModel;
 
-        public Vector3d()
+        public BuildingSwap()
         {
-            x = new Primitive<float>(null, 0);
-            y = new Primitive<float>(null, 0);
-            z = new Primitive<float>(null, 0);
+            objectType = new Primitive<uint>(null, 0);
+            objectIndex = new Primitive<uint>(null, 0);
+            newModel = new Primitive<int>(null, 0);
+            oldModel = new Primitive<int>(null, 0);
         }
 
-        public float X
+        public uint ObjectType
         {
-            get { return x.Value; }
-            set { x.Value = value; }
+            get { return objectType.Value; }
+            set { objectType.Value = value; }
         }
 
-        public float Y
+        public uint ObjectIndex
         {
-            get { return y.Value; }
-            set { y.Value = value; }
+            get { return objectIndex.Value; }
+            set { objectIndex.Value = value; }
         }
 
-        public float Z
+        public int NewModel
         {
-            get { return z.Value; }
-            set { z.Value = value; }
+            get { return newModel.Value; }
+            set { newModel.Value = value; }
+        }
+
+        public int OldModel
+        {
+            get { return oldModel.Value; }
+            set { oldModel.Value = value; }
         }
     }
 }
