@@ -76,8 +76,7 @@
         <BlockHeader name="header"/>
         <BlockHeader name="nestedHeader"/>
         <uint32 name="globalVariablesSize"/>
-        <ScriptVariable name="globalVariables"
-                        count="${globalVariablesSize} / $SizeOf(ScriptVariable)"/>
+        <uint32 name="globalVariables" count="${globalVariablesSize} / $SizeOf(uint32)"/>
         <uint32/>
         <uint32 name="onAMissionFlag"/>
         <uint32 name="timeLastMissionPassed"/>
@@ -115,7 +114,7 @@
             <uint32 name="returnStack" count="16"/>
             <uint16 name="returnStackTop"/>
             <uint16/>
-            <ScriptVariable name="variables" count="104"/>
+            <uint32 name="variables" count="104"/>
             <uint32 name="timer1"/>
             <uint32 name="timer2"/>
             <uint32/>
