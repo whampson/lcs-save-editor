@@ -55,6 +55,7 @@ SOFTWARE.
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            
             <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Hand"
                       IsChecked="true" IsEnabled="false"/>
             <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Melee"
@@ -63,12 +64,19 @@ SOFTWARE.
                       IsChecked="{Binding IsProjectileSlotEnabled}"/>
             <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Pistol"
                       IsChecked="{Binding IsPistolSlotEnabled}"/>
-            <CheckBox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Shotgun"/>
-            <CheckBox Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="SMG"/>
-            <CheckBox Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Assault"/>
-            <CheckBox Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Heavy"/>
-            <CheckBox Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Sniper"/>
-            <CheckBox Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Special"/>
+            <CheckBox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Shotgun"
+                      IsChecked="{Binding IsShotgunSlotEnabled}"/>
+            <CheckBox Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="SMG"
+                      IsChecked="{Binding IsSmgSlotEnabled}"/>
+            <CheckBox Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Assault"
+                      IsChecked="{Binding IsAssaultSlotEnabled}"/>
+            <CheckBox Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Heavy"
+                      IsChecked="{Binding IsHeavySlotEnabled}"/>
+            <CheckBox Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Sniper"
+                      IsChecked="{Binding IsSniperSlotEnabled}"/>
+            <CheckBox Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Special"
+                      IsChecked="{Binding IsSpecialSlotEnabled}"/>
+            
             <ComboBox Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"
                       ItemTemplate="{StaticResource WeaponListTemplate}"
                       ItemsSource="{Binding HandWeapons}"
@@ -88,12 +96,37 @@ SOFTWARE.
                       ItemsSource="{Binding Pistols}"
                       SelectedItem="{Binding Pistol}"
                       IsEnabled="{Binding IsPistolSlotEnabled}"/>
-            <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="5" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="6" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="7" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="8" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="9" Grid.Column="1" Margin="10,10,10,10"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Shotguns}"
+                      SelectedItem="{Binding Shotgun}"
+                      IsEnabled="{Binding IsShotgunSlotEnabled}"/>
+            <ComboBox Grid.Row="5" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Smgs}"
+                      SelectedItem="{Binding Smg}"
+                      IsEnabled="{Binding IsSmgSlotEnabled}"/>
+            <ComboBox Grid.Row="6" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Assaults}"
+                      SelectedItem="{Binding Assault}"
+                      IsEnabled="{Binding IsAssaultSlotEnabled}"/>
+            <ComboBox Grid.Row="7" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Heavys}"
+                      SelectedItem="{Binding Heavy}"
+                      IsEnabled="{Binding IsHeavySlotEnabled}"/>
+            <ComboBox Grid.Row="8" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Snipers}"
+                      SelectedItem="{Binding Sniper}"
+                      IsEnabled="{Binding IsSniperSlotEnabled}"/>
+            <ComboBox Grid.Row="9" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Specials}"
+                      SelectedItem="{Binding Special}"
+                      IsEnabled="{Binding IsSpecialSlotEnabled}"/>
+            
             <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding ProjectileAmmo}"
                                 Minimum="1"
@@ -102,12 +135,30 @@ SOFTWARE.
                                 Value="{Binding PistolAmmo}"
                                 Minimum="1"
                                 IsEnabled="{Binding IsPistolSlotEnabled}"/>
-            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="2" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="2" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="2" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="2" Margin="10,10,10,10"/>
+            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding ShotgunAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsShotgunSlotEnabled}"/>
+            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding SmgAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsSmgSlotEnabled}"/>
+            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding AssaultAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsAssaultSlotEnabled}"/>
+            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding HeavyAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsHeavySlotEnabled}"/>
+            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding SniperAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsSniperSlotEnabled}"/>
+            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding SpecialAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsSpecialSlotEnabled}"/>
         </Grid>
     </ScrollViewer>
 </UserControl>
