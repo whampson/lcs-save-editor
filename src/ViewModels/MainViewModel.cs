@@ -74,7 +74,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             Tabs.Clear();
 
             if (IsEditingFile) {
-                Tabs.Add(new WeaponsPageViewModel(GameState));
+                Tabs.Add(new WeaponsViewModel(GameState));
                 Tabs.Add(new TestViewModel(GameState));
             }
             else {

@@ -83,6 +83,7 @@ SOFTWARE.
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="DataTypes\ControllerConfig.cs" />
     <Compile Include="DataTypes\Costumes.cs" />
     <Compile Include="DataTypes\ExportCars.cs" />
@@ -122,7 +123,7 @@ SOFTWARE.
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ViewModels\StartupPageViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
-    <Compile Include="ViewModels\WeaponsPageViewModel.cs" />
+    <Compile Include="ViewModels\WeaponsViewModel.cs" />
     <Compile Include="Views\TestView.xaml.cs">
       <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
