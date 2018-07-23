@@ -40,6 +40,10 @@ namespace WHampson.LcsSaveEditor.Helpers
         /// </returns>
         public static T GetAttribute<T>(Enum e) where T : Attribute
         {
+            if (e == null) {
+                return null;
+            }
+
             MemberInfo[] m = e.GetType().GetMember(e.ToString());
             if (m.Count() == 0) {
                 return null;
