@@ -51,8 +51,10 @@ namespace WHampson.LcsSaveEditor.Helpers
 
             set {
                 T old = array[i].Value;
-                array[i].Value = value;
-                OnCollectionChanged(old, value, i);
+                if (!old.Equals(value)) {
+                    array[i].Value = value;
+                    OnCollectionChanged(old, value, i);
+                }
             }
         }
 
