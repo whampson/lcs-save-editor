@@ -130,34 +130,50 @@ SOFTWARE.
             <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding ProjectileAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsProjectileSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="3" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding PistolAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsPistolSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding ShotgunAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsShotgunSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding SmgAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsSmgSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="6" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding AssaultAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsAssaultSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="7" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding HeavyAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsHeavySlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="8" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding SniperAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsSniperSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="9" Grid.Column="2" Margin="10,10,10,10"
                                 Value="{Binding SpecialAmmo}"
                                 Minimum="1"
+                                Maximum="9999"
+                                ClipValueToMinMax="True"
                                 IsEnabled="{Binding IsSpecialSlotEnabled}"/>
         </Grid>
     </ScrollViewer>
