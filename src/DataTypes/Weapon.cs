@@ -21,42 +21,112 @@
  */
 #endregion
 
+using System.ComponentModel;
+
 namespace WHampson.LcsSaveEditor.DataTypes
 {
     public enum Weapon
     {
-        BrassKnuckles = 1,
+        [Description("Fists")]
+        Fists,
+
+        [Description("Brass Knuckles")]
+        BrassKnuckles,
+
+        [Description("Chisel")]
         Chisel,
+
+        [Description("Hockey Stick")]
         HockeyStick,
+
+        [Description("Nightstick")]
         NightStick,
+
+        [Description("Knife")]
         Knife,
+
+        [Description("Baseball Bat")]
         BaseballBat,
+
+        [Description("Axe")]
         Axe,
+
+        [Description("Meat Cleaver")]
         Cleaver,
+
+        [Description("Machete")]
         Machete,
+
+        [Description("Katana")]
         Katana,
+
+        [Description("Chainsaw")]
         Chainsaw,
+
+        [Description("Grenades")]
         Grenades,
+
+        [Description("Remote Grenades")]
         RemoteGrenades,
+
+        [Description("Tear Gas")]
         TearGas,
-        Molotov,
+
+        [Description("Molotov Cocktail")]
+        MolotovCocktail,
+
+        [Description("Pistol")]
         Pistol = 17,
+
+        [Description(".357")]
         Python,
+
+        [Description("Shotgun")]
         Shotgun,
+
+        [Description("S.P.A.S. Shotgun")]
         SpasShotgun,
+
+        [Description("Stubby Shotgun")]
         StubbyShotgun,
+
+        [Description("Tec-9")]
         Tec9,
+
+        [Description("Mac 10")]
         Mac10,
+
+        [Description("Micro SMG")]
         MicroSmg,
+
+        [Description("MP5k")]
         Mp5k,
+
+        [Description("M4")]
         M4,
+
+        [Description("AK-47")]
         Ak47,
+
+        [Description("Sniper Rifle")]
         SniperRifle,
+
+        [Description("Laser-Sighted Sniper Rifle")]
         LaserSightedSniperRifle,
+
+        [Description("Rocket Launcher")]
         RocketLauncher,
+
+        [Description("Flamethrower")]
         FlameThrower,
+
+        [Description("M60")]
         M60,
+
+        [Description("Minigun")]
         MiniGun,
+
+        [Description("Camera")]
         Camera = 36
     }
 }
