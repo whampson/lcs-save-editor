@@ -26,9 +26,16 @@ SOFTWARE.
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
          xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+         xmlns:conv="clr-namespace:WHampson.LcsSaveEditor.Converters"
          xmlns:local="clr-namespace:WHampson.LcsSaveEditor"
          mc:Ignorable="d" 
          d:DesignHeight="500" d:DesignWidth="750">
+    <UserControl.Resources>
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+        <DataTemplate x:Key="WeaponListTemplate" DataType="{x:Type ComboBox}">
+            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+        </DataTemplate>
+    </UserControl.Resources>
     <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Grid MinWidth="500" MaxWidth="750" MaxHeight="500" Background="White">
             <Grid.ColumnDefinitions>
@@ -48,28 +55,53 @@ SOFTWARE.
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Hand"/>
-            <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Melee"/>
-            <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Projectile"/>
-            <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Pistol"/>
+            <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Hand"
+                      IsChecked="true" IsEnabled="false"/>
+            <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Melee"
+                      IsChecked="{Binding IsMeleeSlotEnabled}"/>
+            <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Projectile"
+                      IsChecked="{Binding IsProjectileSlotEnabled}"/>
+            <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Pistol"
+                      IsChecked="{Binding IsPistolSlotEnabled}"/>
             <CheckBox Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Shotgun"/>
             <CheckBox Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="SMG"/>
             <CheckBox Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Assault"/>
             <CheckBox Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Heavy"/>
             <CheckBox Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Sniper"/>
             <CheckBox Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" Content="Special"/>
-            <ComboBox Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"/>
-            <ComboBox Grid.Row="3" Grid.Column="1" Margin="10,10,10,10"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding HandWeapons}"
+                      SelectedItem="{Binding HandWeapon}"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding MeleeWeapons}"
+                      SelectedItem="{Binding MeleeWeapon}"
+                      IsEnabled="{Binding IsMeleeSlotEnabled}"/>
+            <ComboBox Grid.Row="2" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Projectiles}"
+                      SelectedItem="{Binding Projectile}"
+                      IsEnabled="{Binding IsProjectileSlotEnabled}"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" Margin="10,10,10,10"
+                      ItemTemplate="{StaticResource WeaponListTemplate}"
+                      ItemsSource="{Binding Pistols}"
+                      SelectedItem="{Binding Pistol}"
+                      IsEnabled="{Binding IsPistolSlotEnabled}"/>
             <ComboBox Grid.Row="4" Grid.Column="1" Margin="10,10,10,10"/>
             <ComboBox Grid.Row="5" Grid.Column="1" Margin="10,10,10,10"/>
             <ComboBox Grid.Row="6" Grid.Column="1" Margin="10,10,10,10"/>
             <ComboBox Grid.Row="7" Grid.Column="1" Margin="10,10,10,10"/>
             <ComboBox Grid.Row="8" Grid.Column="1" Margin="10,10,10,10"/>
             <ComboBox Grid.Row="9" Grid.Column="1" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2" Margin="10,10,10,10"/>
-            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="2" Margin="10,10,10,10"/>
+            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding ProjectileAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsProjectileSlotEnabled}"/>
+            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="2" Margin="10,10,10,10"
+                                Value="{Binding PistolAmmo}"
+                                Minimum="1"
+                                IsEnabled="{Binding IsPistolSlotEnabled}"/>
             <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2" Margin="10,10,10,10"/>
             <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2" Margin="10,10,10,10"/>
             <xctk:IntegerUpDown Grid.Row="6" Grid.Column="2" Margin="10,10,10,10"/>

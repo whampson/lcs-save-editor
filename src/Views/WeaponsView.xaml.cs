@@ -36,7 +36,7 @@ namespace WHampson.LcsSaveEditor.Views
             InitializeComponent();
         }
 
-        public WeaponsView(WeaponsPageViewModel vm)
+        public WeaponsView(WeaponsViewModel vm)
         {
             InitializeComponent();
             DataContext = vm;
