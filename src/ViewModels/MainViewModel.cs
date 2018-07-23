@@ -36,11 +36,13 @@ namespace WHampson.LcsSaveEditor.ViewModels
     public class MainViewModel : ObservableObject
     {
         private SaveDataFile _gameState;
+        private string _filePath;
         private int _selectedTabIndex;
 
         public MainViewModel()
         {
             _gameState = null;
+            _filePath = null;
             _selectedTabIndex = 0;
 
             Tabs = new ObservableCollection<PageViewModel>();
@@ -56,6 +58,12 @@ namespace WHampson.LcsSaveEditor.ViewModels
         {
             get { return _gameState; }
             set { _gameState = value; OnPropertyChanged(); }
+        }
+
+        public string FilePath
+        {
+            get { return _filePath; }
+            set { _filePath = value; OnPropertyChanged(); }
         }
 
         public int SelectedTabIndex
@@ -116,6 +124,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             }
 
             GameState = data;
+            FilePath = diag.FileName;
             RefreshTabs();
         }
 
@@ -139,6 +148,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void CloseFile_Execute()
         {
             GameState = null;
+            FilePath = null;
             RefreshTabs();
         }
 
@@ -173,7 +183,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void SaveFile_Execute()
         {
-            MessageBox.Show("SaveFile");
+            GameState.Store(FilePath);
         }
 
         public ICommand SaveFileAs
@@ -190,7 +200,16 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void SaveFileAs_Execute()
         {
-            MessageBox.Show("SaveFileAs");
+            SaveFileDialog diag = new SaveFileDialog();
+            diag.Filter = "All Files (*.*)|*.*";
+            bool? fileSelected = diag.ShowDialog();
+
+            if (fileSelected == null || fileSelected == false) {
+                return;
+            }
+
+            FilePath = diag.FileName;
+            SaveFile.Execute(null);
         }
 
         public ICommand ExitApplication
