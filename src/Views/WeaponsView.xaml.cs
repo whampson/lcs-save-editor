@@ -30,9 +30,10 @@ namespace WHampson.LcsSaveEditor.Views
     /// <summary>
     /// Interaction logic for WeaponsView.xaml
     /// </summary>
-    public partial class WeaponsView : ViewBase
+    public partial class WeaponsView : PageViewBase
     {
         public WeaponsView()
+            : base()
         {
             InitializeComponent();
         }

@@ -20,7 +20,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<local:ViewBase x:Class="WHampson.LcsSaveEditor.Views.WeaponsView"
+<local:PageViewBase x:Class="WHampson.LcsSaveEditor.Views.WeaponsView"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -215,4 +215,4 @@ SOFTWARE.
                                 IsEnabled="{Binding IsSpecialSlotEnabled}"/>
         </Grid>
     </ScrollViewer>
-</local:ViewBase>
+</local:PageViewBase>
