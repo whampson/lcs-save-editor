@@ -22,6 +22,7 @@
 #endregion
 
 using System.Windows;
+using WHampson.LcsSaveEditor.ViewModels;
 
 namespace WHampson.LcsSaveEditor
 {
@@ -30,5 +31,10 @@ namespace WHampson.LcsSaveEditor
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow w = new MainWindow(new MainViewModel());
+            w.Show();
+        }
     }
 }
