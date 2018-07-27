@@ -96,6 +96,7 @@ SOFTWARE.
     <Compile Include="DataTypes\Weather.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ArrayWrapper.cs" />
+    <Compile Include="Helpers\MessageBoxEx.cs" />
     <Compile Include="Models\BanditRaceStat.cs" />
     <Compile Include="Models\BlockHeader.cs" />
     <Compile Include="Models\BuildingSwap.cs" />
@@ -124,6 +125,7 @@ SOFTWARE.
     <Compile Include="ViewModels\StartupPageViewModel.cs" />
     <Compile Include="ViewModels\TestViewModel.cs" />
     <Compile Include="ViewModels\WeaponsViewModel.cs" />
+    <Compile Include="Views\ViewBase.cs" />
     <Compile Include="Views\TestView.xaml.cs">
       <DependentUpon>TestView.xaml</DependentUpon>
     </Compile>
