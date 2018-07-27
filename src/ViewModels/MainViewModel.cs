@@ -33,7 +33,7 @@ using WHampson.LcsSaveEditor.Models;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
-    public class MainViewModel : ObservableObject
+    public class MainViewModel : ViewModelBase
     {
         private string _statusText;
         private SaveDataFile _gameState;
@@ -46,7 +46,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
         public MainViewModel()
         {
             _statusText = "No file loaded.";
-            Tabs = new ObservableCollection<PageViewModel>();
+            Tabs = new ObservableCollection<PageViewModelBase>();
             RefreshTabs();
         }
 
@@ -92,7 +92,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             set { _selectedTabIndex = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<PageViewModel> Tabs
+        public ObservableCollection<PageViewModelBase> Tabs
         {
             get;
         }
@@ -103,7 +103,6 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
             if (IsEditingFile) {
                 Tabs.Add(new WeaponsViewModel(GameState));
-                Tabs.Add(new TestViewModel(GameState));
             }
             else {
                 Tabs.Add(new StartupPageViewModel());
@@ -183,7 +182,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void CloseFile_Execute()
         {
             if (IsFileModified) {
-                MessageBoxEx.Show("Do you want to save your changes?", "Save", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                OnMessageBoxRequested(new MessageBoxEventArgs(
+                    null, "Do you want to save your changes?", "Save", MessageBoxButton.YesNoCancel, MessageBoxImage.Question));
             }
 
             GameState = null;
