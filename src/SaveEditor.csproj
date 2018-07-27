@@ -96,6 +96,7 @@ SOFTWARE.
     <Compile Include="DataTypes\Weather.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ArrayWrapper.cs" />
+    <Compile Include="Helpers\MessageBoxEventArgs.cs" />
     <Compile Include="Helpers\MessageBoxEx.cs" />
     <Compile Include="Models\BanditRaceStat.cs" />
     <Compile Include="Models\BlockHeader.cs" />
@@ -120,15 +121,12 @@ SOFTWARE.
     <Compile Include="Models\SaveDataFile.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
-    <Compile Include="ViewModels\PageViewModel.cs" />
+    <Compile Include="ViewModels\PageViewModelBase.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ViewModels\StartupPageViewModel.cs" />
-    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WeaponsViewModel.cs" />
-    <Compile Include="Views\ViewBase.cs" />
-    <Compile Include="Views\TestView.xaml.cs">
-      <DependentUpon>TestView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\PageViewBase.cs" />
     <Compile Include="Views\WeaponsView.xaml.cs">
       <DependentUpon>WeaponsView.xaml</DependentUpon>
     </Compile>
@@ -144,10 +142,6 @@ SOFTWARE.
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\TestView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\WeaponsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
