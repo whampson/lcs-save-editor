@@ -31,9 +31,7 @@ SOFTWARE.
         xmlns:local="clr-namespace:WHampson.LcsSaveEditor"
         mc:Ignorable="d"
         Title="GTA:LCS Save Editor" Height="450" Width="600">
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
@@ -41,12 +39,10 @@ SOFTWARE.
             <TextBlock Text="Welcome to the GTA LCS Save Editor!"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
-            <v:WeaponsView DataChanged="PageView_DataChanged"/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:TestViewModel}">
-            <v:TestView/>
+            <v:WeaponsView DataChanged="View_DataChanged"/>
         </DataTemplate>
     </Window.Resources>
+
     <Window.InputBindings>
         <KeyBinding Command="{Binding OpenFile}"
                     Key="O" Modifiers="Ctrl"/>
@@ -61,11 +57,13 @@ SOFTWARE.
         <KeyBinding Command="{Binding AboutApplication}"
                     Key="F1"/>
     </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
+
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
@@ -108,6 +106,7 @@ SOFTWARE.
                 </TabControl.ItemTemplate>
             </TabControl>
         </DockPanel>
+
         <StatusBar Grid.Row="1" Background="White">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -136,5 +135,6 @@ SOFTWARE.
                            Visibility="{Binding IsEditingFile, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StatusBarItem>
         </StatusBar>
+
     </Grid>
 </Window>
