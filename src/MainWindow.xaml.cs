@@ -22,6 +22,8 @@
 #endregion
 
 using System.Windows;
+using WHampson.LcsSaveEditor.Helpers;
+using WHampson.LcsSaveEditor.ViewModels;
 
 namespace WHampson.LcsSaveEditor
 {
@@ -33,6 +35,12 @@ namespace WHampson.LcsSaveEditor
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void View_DataChanged(object sender, RoutedEventArgs e)
+        {
+            ((MainViewModel) DataContext).IsFileModified = true;
+            MessageBoxEx.Show(this, "Would you like to continue?", "Test", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
         }
     }
 }

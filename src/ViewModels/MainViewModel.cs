@@ -35,23 +35,25 @@ namespace WHampson.LcsSaveEditor.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
+        private string _statusText;
         private SaveDataFile _gameState;
+        private GamePlatform _fileType;
         private string _filePath;
+        private bool _isEditingFile;
+        private bool _isFileModified;
         private int _selectedTabIndex;
 
         public MainViewModel()
         {
-            _gameState = null;
-            _filePath = null;
-            _selectedTabIndex = 0;
-
+            _statusText = "No file loaded.";
             Tabs = new ObservableCollection<PageViewModel>();
             RefreshTabs();
         }
 
-        public bool IsEditingFile
+        public string StatusText
         {
-            get { return GameState != null; }
+            get { return _statusText; }
+            set { _statusText = value; OnPropertyChanged(); }
         }
 
         public SaveDataFile GameState
@@ -60,10 +62,28 @@ namespace WHampson.LcsSaveEditor.ViewModels
             set { _gameState = value; OnPropertyChanged(); }
         }
 
+        public GamePlatform FileType
+        {
+            get { return _fileType; }
+            set { _fileType = value; OnPropertyChanged(); }
+        }
+
         public string FilePath
         {
             get { return _filePath; }
             set { _filePath = value; OnPropertyChanged(); }
+        }
+
+        public bool IsEditingFile
+        {
+            get { return _isEditingFile; }
+            set { _isEditingFile = value; OnPropertyChanged(); }
+        }
+
+        public bool IsFileModified
+        {
+            get { return _isFileModified; }
+            set { _isFileModified = value; OnPropertyChanged(); }
         }
 
         public int SelectedTabIndex
@@ -94,6 +114,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             }
         }
 
+        #region Commands
         public ICommand OpenFile
         {
             get {
@@ -103,6 +124,10 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void OpenFile_Execute()
         {
+            if (IsEditingFile) {
+                CloseFile.Execute(null);
+            }
+
             OpenFileDialog diag = new OpenFileDialog();
             bool? fileSelected = diag.ShowDialog();
 
@@ -110,21 +135,31 @@ namespace WHampson.LcsSaveEditor.ViewModels
                 return;
             }
 
+            OpenFileFromPath(diag.FileName);
+        }
+
+        private void OpenFileFromPath(string path)
+        {
             SaveDataFile data;
             try {
-                data = SaveDataFile.Load(diag.FileName);
+                data = SaveDataFile.Load(path);
             }
             catch (InvalidDataException e) {
                 ShowErrorDialog(e.Message);
+                StatusText = "File load failed.";
                 return;
             }
             catch (NotSupportedException e) {
                 ShowErrorDialog(e.Message);
+                StatusText = "File load failed.";
                 return;
             }
 
             GameState = data;
-            FilePath = diag.FileName;
+            FileType = data.FileType;
+            FilePath = path;
+            IsEditingFile = true;
+            StatusText = "File loaded successfully!";
             RefreshTabs();
         }
 
@@ -133,7 +168,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        public ICommand FileClose
+        public ICommand CloseFile
         {
             get {
                 return new RelayCommand(CloseFile_Execute, CloseFile_CanExecute);
@@ -147,9 +182,16 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void CloseFile_Execute()
         {
+            if (IsFileModified) {
+                MessageBoxEx.Show("Do you want to save your changes?", "Save", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            }
+
             GameState = null;
             FilePath = null;
+            IsEditingFile = false;
+            StatusText = "No file loaded.";
             RefreshTabs();
+            IsFileModified = false;
         }
 
         public ICommand ReloadFile
@@ -166,7 +208,9 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void ReloadFile_Execute()
         {
-            MessageBox.Show("ReloadFile");
+            string path = FilePath;
+            CloseFile.Execute(null);
+            OpenFileFromPath(path);
         }
 
         public ICommand SaveFile
@@ -184,6 +228,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void SaveFile_Execute()
         {
             GameState.Store(FilePath);
+            IsFileModified = false;
+            StatusText = "File saved successfully!";
         }
 
         public ICommand SaveFileAs
@@ -221,7 +267,9 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void ExitApplication_Execute()
         {
-            // TODO: check if file modified (listen on Exit event?)
+            if (IsEditingFile) {
+                CloseFile.Execute(null);
+            }
             Application.Current.Shutdown();
         }
 
@@ -236,5 +284,6 @@ namespace WHampson.LcsSaveEditor.ViewModels
         {
             MessageBox.Show("AboutApplication");
         }
+        #endregion
     }
 }

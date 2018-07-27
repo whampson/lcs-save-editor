@@ -27,6 +27,7 @@ SOFTWARE.
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:v="clr-namespace:WHampson.LcsSaveEditor.Views"
         xmlns:vm="clr-namespace:WHampson.LcsSaveEditor.ViewModels"
+        xmlns:conv="clr-namespace:WHampson.LcsSaveEditor.Converters"
         xmlns:local="clr-namespace:WHampson.LcsSaveEditor"
         mc:Ignorable="d"
         Title="GTA:LCS Save Editor" Height="450" Width="600">
@@ -34,11 +35,13 @@ SOFTWARE.
         <vm:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
         <DataTemplate DataType="{x:Type vm:StartupPageViewModel}">
             <TextBlock Text="Welcome to the GTA LCS Save Editor!"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
-            <v:WeaponsView/>
+            <v:WeaponsView DataChanged="PageView_DataChanged"/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:TestViewModel}">
             <v:TestView/>
@@ -47,7 +50,7 @@ SOFTWARE.
     <Window.InputBindings>
         <KeyBinding Command="{Binding OpenFile}"
                     Key="O" Modifiers="Ctrl"/>
-        <KeyBinding Command="{Binding FileClose}"
+        <KeyBinding Command="{Binding CloseFile}"
                     Key="W" Modifiers="Ctrl"/>
         <KeyBinding Command="{Binding SaveFile}"
                     Key="S" Modifiers="Ctrl"/>
@@ -59,6 +62,10 @@ SOFTWARE.
                     Key="F1"/>
     </Window.InputBindings>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
@@ -66,7 +73,7 @@ SOFTWARE.
                               Header="_Open..."
                               InputGestureText="Ctrl+O"/>
                     <MenuItem Header="O_pen Recent"/>
-                    <MenuItem Command="{Binding FileClose}"
+                    <MenuItem Command="{Binding CloseFile}"
                               Header="_Close"
                               InputGestureText="Ctrl+W"/>
                     <Separator/>
@@ -101,5 +108,33 @@ SOFTWARE.
                 </TabControl.ItemTemplate>
             </TabControl>
         </DockPanel>
+        <StatusBar Grid.Row="1" Background="White">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0" HorizontalContentAlignment="Left">
+                <TextBlock Text="{Binding StatusText}"/>
+            </StatusBarItem>
+            <Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
+                <TextBlock Text="Modified"
+                           Visibility="{Binding IsFileModified, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            </StatusBarItem>
+            <Separator Grid.Column="3"/>
+            <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Center">
+                <TextBlock Text="{Binding FileType, Converter={StaticResource EnumDescriptionConverter}}"
+                           Visibility="{Binding IsEditingFile, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

@@ -21,6 +21,7 @@
  */
 #endregion
 
+using System.Windows;
 using WHampson.LcsSaveEditor.Helpers;
 using WHampson.LcsSaveEditor.Models;
 
@@ -29,10 +30,6 @@ namespace WHampson.LcsSaveEditor.ViewModels
     public class PageViewModel : ObservableObject
     {
         private string _header;
-
-        //public PageViewModel()
-        //    : this(null)
-        //{ }
 
         public PageViewModel(string header, SaveDataFile gameState)
         {
