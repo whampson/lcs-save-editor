@@ -32,7 +32,7 @@ using WHampson.LcsSaveEditor.Models;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
-    public class WeaponsViewModel : PageViewModel
+    public class WeaponsViewModel : PageViewModelBase
     {
         private readonly ArrayWrapper<uint> globals;
         private readonly Dictionary<Weapon, int> weaponAmmoIndexMap;
@@ -60,7 +60,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private bool suppressGlobalVariablesChanged;
 
         public WeaponsViewModel(SaveDataFile gameState)
-            : base("Weapons", gameState)
+            : base("Weapons")
         {
             weaponAmmoIndexMap = new Dictionary<Weapon, int>();
 

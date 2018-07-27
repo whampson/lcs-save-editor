@@ -21,12 +21,18 @@
  */
 #endregion
 
+using System;
+using WHampson.LcsSaveEditor.Helpers;
+
 namespace WHampson.LcsSaveEditor.ViewModels
 {
-    public class StartupPageViewModel : PageViewModelBase
+    public class ViewModelBase : ObservableObject
     {
-        public StartupPageViewModel()
-            : base("Welcome")
-        { }
+        public event EventHandler<MessageBoxEventArgs> MessageBoxRequested;
+
+        protected void OnMessageBoxRequested(MessageBoxEventArgs e)
+        {
+            MessageBoxRequested?.Invoke(this, e);
+        }
     }
 }
