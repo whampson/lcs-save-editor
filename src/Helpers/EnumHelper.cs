@@ -51,5 +51,19 @@ namespace WHampson.LcsSaveEditor.Helpers
 
             return (T) Attribute.GetCustomAttribute(m[0], typeof(T));
         }
+
+        public static bool HasAttribute<T>(Enum e) where T : Attribute
+        {
+            if (e == null) {
+                return false;
+            }
+
+            MemberInfo[] m = e.GetType().GetMember(e.ToString());
+            if (m.Count() == 0) {
+                return false;
+            }
+
+            return Attribute.IsDefined(m[0], typeof(T));
+        }
     }
 }
