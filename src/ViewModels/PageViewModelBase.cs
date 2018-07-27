@@ -27,25 +27,19 @@ using WHampson.LcsSaveEditor.Models;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
-    public class PageViewModel : ObservableObject
+    public class PageViewModelBase : ViewModelBase
     {
         private string _header;
 
-        public PageViewModel(string header, SaveDataFile gameState)
+        public PageViewModelBase(string header)
         {
             _header = header;
-            GameState = gameState;
         }
 
         public string Header
         {
             get { return _header; }
             set { _header = value; OnPropertyChanged(); }
-        }
-
-        public SaveDataFile GameState
-        {
-            get;
         }
     }
 }
