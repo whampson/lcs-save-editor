@@ -21,6 +21,7 @@
  */
 #endregion
 
+using System.Windows;
 using System.Windows.Controls;
 using WHampson.LcsSaveEditor.ViewModels;
 
@@ -29,7 +30,7 @@ namespace WHampson.LcsSaveEditor.Views
     /// <summary>
     /// Interaction logic for WeaponsView.xaml
     /// </summary>
-    public partial class WeaponsView : UserControl
+    public partial class WeaponsView : ViewBase
     {
         public WeaponsView()
         {
@@ -37,8 +38,8 @@ namespace WHampson.LcsSaveEditor.Views
         }
 
         public WeaponsView(WeaponsViewModel vm)
+            : this()
         {
-            InitializeComponent();
             DataContext = vm;
         }
     }
