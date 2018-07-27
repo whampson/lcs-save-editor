@@ -24,6 +24,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.ComponentModel;
 using System.IO;
 using WHampson.Cascara;
 using WHampson.LcsSaveEditor.Helpers;
@@ -241,12 +242,12 @@ namespace WHampson.LcsSaveEditor.Models
 
         private static bool IsFileTypeSupported(GamePlatform v)
         {
-            return EnumHelper.GetAttribute<GamePlatformAttribute>(v).IsSupported;
+            return !EnumHelper.HasAttribute<NotSupportedAttribute>(v);
         }
 
         private static string GetGamePlatformName(GamePlatform v)
         {
-            return EnumHelper.GetAttribute<GamePlatformAttribute>(v).Name;
+            return EnumHelper.GetAttribute<DescriptionAttribute>(v).Description;
         }
 
         public void Dispose()

@@ -22,41 +22,28 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 
 namespace WHampson.LcsSaveEditor.Models
 {
     public enum GamePlatform
     {
-        [GamePlatform("Android", IsSupported = false)]
+        [NotSupported]
+        [Description("Android")]
         Android,
 
-        [GamePlatform("iOS", IsSupported = false)]
+        [NotSupported]
+        [Description("iOS")]
         IOS,
 
-        [GamePlatform("PlayStation 2", IsSupported = true)]
+        [Description("PS2")]
         PS2,
 
-        [GamePlatform("PlayStation Portable", IsSupported = false)]
+        [NotSupported]
+        [Description("PSP")]
         PSP
     };
 
-    public class GamePlatformAttribute : Attribute
-    {
-        public GamePlatformAttribute(string name)
-        {
-            Name = name;
-            IsSupported = true;
-        }
-
-        public string Name
-        {
-            get;
-        }
-
-        public bool IsSupported
-        {
-            get;
-            set;
-        }
-    }
+    public class NotSupportedAttribute : Attribute
+    { }
 }
