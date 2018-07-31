@@ -33,8 +33,8 @@ namespace WHampson.LcsSaveEditor
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            MainWindow w = new MainWindow(new MainViewModel());
-            w.Show();
+            MainWindow = new MainWindow(new MainViewModel());
+            MainWindow.Show();
         }
     }
 }
