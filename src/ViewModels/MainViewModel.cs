@@ -184,15 +184,28 @@ namespace WHampson.LcsSaveEditor.ViewModels
                 MessageBoxImage.Error));
         }
 
-        private void ShowSavePrompt(Action<MessageBoxResult> resultAction)
+        private void ShowSavePrompt()
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
-                resultAction,
+                SavePromptResultAction,
                 Resources.FileSavePromptDialogMessage,
                 Resources.FileSavePromptDialogCaption,
                 MessageBoxButton.YesNoCancel,
                 MessageBoxImage.Question,
                 MessageBoxResult.Yes));
+        }
+
+        private void SavePromptResultAction(MessageBoxResult dialogResult)
+        {
+            switch (dialogResult) {
+                case MessageBoxResult.Yes:
+                    SaveFile.Execute(null);
+                    DoFileClose();
+                    break;
+                case MessageBoxResult.No:
+                    DoFileClose();
+                    break;
+            }
         }
 
         #region Commands
@@ -240,23 +253,10 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void CloseFile_Execute()
         {
             if (IsFileModified) {
-                ShowSavePrompt(DecideSaveAndCloseFile);
+                ShowSavePrompt();
             }
             else {
                 DoFileClose();
-            }
-        }
-
-        private void DecideSaveAndCloseFile(MessageBoxResult dialogResult)
-        {
-            switch (dialogResult) {
-                case MessageBoxResult.Yes:
-                    SaveFile.Execute(null);
-                    DoFileClose();
-                    break;
-                case MessageBoxResult.No:
-                    DoFileClose();
-                    break;
             }
         }
 
@@ -307,7 +307,6 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void SaveFile_Execute()
         {
-            OnMessageBoxRequested(new MessageBoxEventArgs(null, "Saving File!"));
             SaveFileToPath(FilePath);
         }
 

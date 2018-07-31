@@ -32,7 +32,7 @@ namespace WHampson.LcsSaveEditor.Helpers
         /// <summary>
         /// Gets an <see cref="Attribute"/> attached to an enum value.
         /// </summary>
-        /// <typeparam name="T">The Attribute type.</typeparam>
+        /// <typeparam name="T">The attribute type.</typeparam>
         /// <param name="e">The enum value.</param>
         /// <returns>
         /// The <see cref="Attribute"/> instance attached to the enum value.
@@ -52,6 +52,16 @@ namespace WHampson.LcsSaveEditor.Helpers
             return (T) Attribute.GetCustomAttribute(m[0], typeof(T));
         }
 
+        /// <summary>
+        /// Checks whether an enum value has a specific <see cref="Attribute"/>
+        /// attached to it.
+        /// </summary>
+        /// <typeparam name="T">The attribute type.</typeparam>
+        /// <param name="e">The enum value.</param>
+        /// <returns>
+        /// True if the specified enum value has the attribute attached to it,
+        /// False otherwise.
+        /// </returns>
         public static bool HasAttribute<T>(Enum e) where T : Attribute
         {
             if (e == null) {

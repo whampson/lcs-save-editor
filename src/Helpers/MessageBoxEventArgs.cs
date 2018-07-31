@@ -86,7 +86,14 @@ namespace WHampson.LcsSaveEditor.Helpers
 
         public void Show(Window w)
         {
-            MessageBoxResult result = MessageBoxEx.Show(w, Text, Caption, Buttons, Icon, DefaultResult, Options);
+            MessageBoxResult result;
+            if (w == null) {
+                result = MessageBoxEx.Show(Text, Caption, Buttons, Icon, DefaultResult, Options);
+            }
+            else {
+                result = MessageBoxEx.Show(w, Text, Caption, Buttons, Icon, DefaultResult, Options);
+            }
+
             ResultAction?.Invoke(result);
         }
     }
