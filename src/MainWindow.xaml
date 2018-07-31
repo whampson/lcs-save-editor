@@ -30,7 +30,8 @@ SOFTWARE.
         xmlns:conv="clr-namespace:WHampson.LcsSaveEditor.Converters"
         xmlns:local="clr-namespace:WHampson.LcsSaveEditor"
         mc:Ignorable="d"
-        Title="GTA:LCS Save Editor" Height="450" Width="600">
+        Title="GTA:LCS Save Editor" Height="450" Width="600"
+        Closing="Window_Closing">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>

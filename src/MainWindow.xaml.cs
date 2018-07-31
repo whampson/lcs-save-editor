@@ -54,5 +54,18 @@ namespace WHampson.LcsSaveEditor
         {
             e.Show(this);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainViewModel vm = (MainViewModel) DataContext;
+            if (vm.IsEditingFile) {
+                vm.CloseFile.Execute(null);
+            }
+
+            // Only close if user didn't cancel
+            if (vm.IsEditingFile) {
+                e.Cancel = true;
+            }
+        }
     }
 }
