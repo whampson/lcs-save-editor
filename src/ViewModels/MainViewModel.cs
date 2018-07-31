@@ -25,11 +25,11 @@ using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WHampson.LcsSaveEditor.Helpers;
 using WHampson.LcsSaveEditor.Models;
+using WHampson.LcsSaveEditor.Properties;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
@@ -45,9 +45,9 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         public MainViewModel()
         {
-            _statusText = "No file loaded.";
+            _statusText = Resources.NoFileLoadedMessage;
             Tabs = new ObservableCollection<PageViewModelBase>();
-            RefreshTabs();
+            ReloadTabs();
         }
 
         public string StatusText
@@ -97,7 +97,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get;
         }
 
-        private void RefreshTabs()
+        private void ReloadTabs()
         {
             Tabs.Clear();
 
@@ -108,9 +108,91 @@ namespace WHampson.LcsSaveEditor.ViewModels
                 Tabs.Add(new StartupPageViewModel());
             }
 
-            if (Tabs.Count() == 1) {
-                SelectedTabIndex = 0;
+            SelectedTabIndex = 0;
+        }
+
+        private void OpenFileFromPath(string path)
+        {
+            SaveDataFile data;
+            try {
+                data = SaveDataFile.Load(path);
             }
+            catch (InvalidDataException e) {
+                OnFileLoadFailed(e);
+                return;
+            }
+            catch (NotSupportedException e) {
+                OnFileLoadFailed(e);
+                return;
+            }
+            catch (IOException e) {
+                OnFileLoadFailed(e);
+                return;
+            }
+            catch (UnauthorizedAccessException e) {
+                OnFileLoadFailed(e);
+                return;
+            }
+
+            GameState = data;
+            FileType = data.FileType;
+            FilePath = path;
+            IsEditingFile = true;
+            StatusText = Resources.FileLoadSuccessMessage;
+            ReloadTabs();
+        }
+
+        private void SaveFileToPath(string path)
+        {
+            try {
+                GameState.Store(path);
+            }
+            catch (IOException e) {
+                OnFileSaveFailed(e);
+                return;
+            }
+            catch (UnauthorizedAccessException e) {
+                OnFileSaveFailed(e);
+                return;
+            }
+            
+            IsFileModified = false;
+            StatusText = Resources.FileSaveSuccessMessage;
+        }        
+
+        private void OnFileLoadFailed(Exception e)
+        {
+            ShowErrorDialog(e.Message);
+            StatusText = Resources.FileLoadFailureMessage;
+            Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);       // TODO: logger
+        }
+
+        private void OnFileSaveFailed(Exception e)
+        {
+            ShowErrorDialog(e.Message);
+            StatusText = Resources.FileSaveFailureMessage;
+            Console.WriteLine("{0}: {1}", e.GetType().Name, e.Message);       // TODO: logger
+        }
+
+        private void ShowErrorDialog(string text)
+        {
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                null,
+                text,
+                Resources.ErrorDialogCaption,
+                MessageBoxButton.OK,
+                MessageBoxImage.Error));
+        }
+
+        private void ShowSavePrompt(Action<MessageBoxResult> resultAction)
+        {
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                resultAction,
+                Resources.FileSavePromptDialogMessage,
+                Resources.FileSavePromptDialogCaption,
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question,
+                MessageBoxResult.Yes));
         }
 
         #region Commands
@@ -127,6 +209,12 @@ namespace WHampson.LcsSaveEditor.ViewModels
                 CloseFile.Execute(null);
             }
 
+            // Don't continue if user cancelled
+            if (IsEditingFile) {
+                return;
+            }
+
+            // TODO: this should be invoked by the view
             OpenFileDialog diag = new OpenFileDialog();
             bool? fileSelected = diag.ShowDialog();
 
@@ -135,36 +223,6 @@ namespace WHampson.LcsSaveEditor.ViewModels
             }
 
             OpenFileFromPath(diag.FileName);
-        }
-
-        private void OpenFileFromPath(string path)
-        {
-            SaveDataFile data;
-            try {
-                data = SaveDataFile.Load(path);
-            }
-            catch (InvalidDataException e) {
-                ShowErrorDialog(e.Message);
-                StatusText = "File load failed.";
-                return;
-            }
-            catch (NotSupportedException e) {
-                ShowErrorDialog(e.Message);
-                StatusText = "File load failed.";
-                return;
-            }
-
-            GameState = data;
-            FileType = data.FileType;
-            FilePath = path;
-            IsEditingFile = true;
-            StatusText = "File loaded successfully!";
-            RefreshTabs();
-        }
-
-        public static void ShowErrorDialog(string message)
-        {
-            MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public ICommand CloseFile
@@ -182,15 +240,33 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void CloseFile_Execute()
         {
             if (IsFileModified) {
-                OnMessageBoxRequested(new MessageBoxEventArgs(
-                    null, "Do you want to save your changes?", "Save", MessageBoxButton.YesNoCancel, MessageBoxImage.Question));
+                ShowSavePrompt(DecideSaveAndCloseFile);
             }
+            else {
+                DoFileClose();
+            }
+        }
 
+        private void DecideSaveAndCloseFile(MessageBoxResult dialogResult)
+        {
+            switch (dialogResult) {
+                case MessageBoxResult.Yes:
+                    SaveFile.Execute(null);
+                    DoFileClose();
+                    break;
+                case MessageBoxResult.No:
+                    DoFileClose();
+                    break;
+            }
+        }
+
+        private void DoFileClose()
+        {
             GameState = null;
             FilePath = null;
             IsEditingFile = false;
-            StatusText = "No file loaded.";
-            RefreshTabs();
+            ReloadTabs();
+            StatusText = Resources.NoFileLoadedMessage;
             IsFileModified = false;
         }
 
@@ -210,7 +286,11 @@ namespace WHampson.LcsSaveEditor.ViewModels
         {
             string path = FilePath;
             CloseFile.Execute(null);
-            OpenFileFromPath(path);
+
+            if (!IsEditingFile) {
+                // Only reload if user didn't cancel
+                OpenFileFromPath(path);
+            }
         }
 
         public ICommand SaveFile
@@ -227,9 +307,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void SaveFile_Execute()
         {
-            GameState.Store(FilePath);
-            IsFileModified = false;
-            StatusText = "File saved successfully!";
+            OnMessageBoxRequested(new MessageBoxEventArgs(null, "Saving File!"));
+            SaveFileToPath(FilePath);
         }
 
         public ICommand SaveFileAs
@@ -246,8 +325,11 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void SaveFileAs_Execute()
         {
-            SaveFileDialog diag = new SaveFileDialog();
-            diag.Filter = "All Files (*.*)|*.*";
+            // TODO: this should be invoked by the view
+            SaveFileDialog diag = new SaveFileDialog
+            {
+                Filter = "All Files (*.*)|*.*"
+            };
             bool? fileSelected = diag.ShowDialog();
 
             if (fileSelected == null || fileSelected == false) {
@@ -267,10 +349,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
         private void ExitApplication_Execute()
         {
-            if (IsEditingFile) {
-                CloseFile.Execute(null);
-            }
-            Application.Current.Shutdown();
+            Application.Current.MainWindow.Close();
         }
 
         public ICommand AboutApplication
