@@ -117,8 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorDialogCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FileLoadFailureMessage" xml:space="preserve">
+    <value>Failed to load file!</value>
+  </data>
+  <data name="FileLoadSuccessMessage" xml:space="preserve">
+    <value>File loaded successfully.</value>
+  </data>
+  <data name="FileSaveFailureMessage" xml:space="preserve">
+    <value>Failed to save file!</value>
+  </data>
+  <data name="FileSavePromptDialogCaption" xml:space="preserve">
+    <value>Save File</value>
+  </data>
+  <data name="FileSavePromptDialogMessage" xml:space="preserve">
+    <value>Do you want to save your changes?</value>
+  </data>
+  <data name="FileSaveSuccessMessage" xml:space="preserve">
+    <value>File saved successfully.</value>
+  </data>
   <data name="InvalidDataMessage" xml:space="preserve">
     <value>Invalid savedata file.</value>
+  </data>
+  <data name="NoFileLoadedMessage" xml:space="preserve">
+    <value>No file loaded.</value>
   </data>
   <data name="UnknownDataFormatMessage" xml:space="preserve">
     <value>Unable to detect savedata type.</value>

@@ -61,11 +61,83 @@ namespace WHampson.LcsSaveEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string ErrorDialogCaption {
+            get {
+                return ResourceManager.GetString("ErrorDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load file!.
+        /// </summary>
+        internal static string FileLoadFailureMessage {
+            get {
+                return ResourceManager.GetString("FileLoadFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File loaded successfully..
+        /// </summary>
+        internal static string FileLoadSuccessMessage {
+            get {
+                return ResourceManager.GetString("FileLoadSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save file!.
+        /// </summary>
+        internal static string FileSaveFailureMessage {
+            get {
+                return ResourceManager.GetString("FileSaveFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save File.
+        /// </summary>
+        internal static string FileSavePromptDialogCaption {
+            get {
+                return ResourceManager.GetString("FileSavePromptDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save your changes?.
+        /// </summary>
+        internal static string FileSavePromptDialogMessage {
+            get {
+                return ResourceManager.GetString("FileSavePromptDialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File saved successfully..
+        /// </summary>
+        internal static string FileSaveSuccessMessage {
+            get {
+                return ResourceManager.GetString("FileSaveSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid savedata file..
         /// </summary>
         internal static string InvalidDataMessage {
             get {
                 return ResourceManager.GetString("InvalidDataMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file loaded..
+        /// </summary>
+        internal static string NoFileLoadedMessage {
+            get {
+                return ResourceManager.GetString("NoFileLoadedMessage", resourceCulture);
             }
         }
         
