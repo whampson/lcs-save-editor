@@ -70,7 +70,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
 
             switch (gameState.FileType) {
                 case GamePlatform.Android:
-                    InitAndroidWeaponVars();
+                case GamePlatform.IOS:
+                    InitMobileWeaponVars();
                     break;
                 case GamePlatform.PS2:
                     InitPS2WeaponVars();
@@ -810,7 +811,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             });
         }
 
-        private void InitAndroidWeaponVars()
+        private void InitMobileWeaponVars()
         {
             weaponAmmoIndexMap[Weapon.Camera] = 125;
             weaponAmmoIndexMap[Weapon.BrassKnuckles] = 126;

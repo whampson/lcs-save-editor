@@ -52,6 +52,9 @@ namespace WHampson.LcsSaveEditor.Models
                 case GamePlatform.Android:
                     scriptPath = "../../resources/scripts/androidsave.xml";
                     break;
+                case GamePlatform.IOS:
+                    scriptPath = "../../resources/scripts/iossave.xml";
+                    break;
                 case GamePlatform.PS2:
                     scriptPath = "../../resources/scripts/ps2save.xml";
                     break;

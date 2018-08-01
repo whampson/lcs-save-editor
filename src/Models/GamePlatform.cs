@@ -28,11 +28,9 @@ namespace WHampson.LcsSaveEditor.Models
 {
     public enum GamePlatform
     {
-        //[NotSupported]
         [Description("Android")]
         Android,
 
-        [NotSupported]
         [Description("iOS")]
         IOS,
 
