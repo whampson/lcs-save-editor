@@ -69,9 +69,14 @@ namespace WHampson.LcsSaveEditor.ViewModels
             suppressGlobalVariablesChanged = false;
 
             switch (gameState.FileType) {
+                case GamePlatform.Android:
+                    InitAndroidWeaponVars();
+                    break;
                 case GamePlatform.PS2:
                     InitPS2WeaponVars();
                     break;
+                default:
+                    throw new NotSupportedException();
             }
 
             InitWeaponLists();
@@ -803,6 +808,43 @@ namespace WHampson.LcsSaveEditor.ViewModels
             {
                 Weapon.Camera
             });
+        }
+
+        private void InitAndroidWeaponVars()
+        {
+            weaponAmmoIndexMap[Weapon.Camera] = 125;
+            weaponAmmoIndexMap[Weapon.BrassKnuckles] = 126;
+            weaponAmmoIndexMap[Weapon.Chisel] = 127;
+            weaponAmmoIndexMap[Weapon.Axe] = 128;
+            weaponAmmoIndexMap[Weapon.HockeyStick] = 129;
+            weaponAmmoIndexMap[Weapon.NightStick] = 130;
+            weaponAmmoIndexMap[Weapon.BaseballBat] = 131;
+            weaponAmmoIndexMap[Weapon.Cleaver] = 132;
+            weaponAmmoIndexMap[Weapon.Katana] = 133;
+            weaponAmmoIndexMap[Weapon.Knife] = 134;
+            weaponAmmoIndexMap[Weapon.Machete] = 135;
+            weaponAmmoIndexMap[Weapon.Chainsaw] = 136;
+            weaponAmmoIndexMap[Weapon.Grenades] = 137;
+            weaponAmmoIndexMap[Weapon.MolotovCocktail] = 138;
+            weaponAmmoIndexMap[Weapon.TearGas] = 139;
+            weaponAmmoIndexMap[Weapon.RemoteGrenades] = 140;
+            weaponAmmoIndexMap[Weapon.Pistol] = 141;
+            weaponAmmoIndexMap[Weapon.Python] = 142;
+            weaponAmmoIndexMap[Weapon.Shotgun] = 143;
+            weaponAmmoIndexMap[Weapon.SpasShotgun] = 144;
+            weaponAmmoIndexMap[Weapon.StubbyShotgun] = 145;
+            weaponAmmoIndexMap[Weapon.Tec9] = 146;
+            weaponAmmoIndexMap[Weapon.Mac10] = 147;
+            weaponAmmoIndexMap[Weapon.MicroSmg] = 148;
+            weaponAmmoIndexMap[Weapon.Mp5k] = 149;
+            weaponAmmoIndexMap[Weapon.Ak47] = 150;
+            weaponAmmoIndexMap[Weapon.M4] = 151;
+            weaponAmmoIndexMap[Weapon.RocketLauncher] = 152;
+            weaponAmmoIndexMap[Weapon.M60] = 153;
+            weaponAmmoIndexMap[Weapon.FlameThrower] = 154;
+            weaponAmmoIndexMap[Weapon.MiniGun] = 155;
+            weaponAmmoIndexMap[Weapon.SniperRifle] = 156;
+            weaponAmmoIndexMap[Weapon.LaserSightedSniperRifle] = 157;
         }
 
         private void InitPS2WeaponVars()

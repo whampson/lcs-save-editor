@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    This is a Cascara layout script.
+    Visit https://github.com/whampson/cascara for more info.
+-->
+
+<layoutScript game="LCS" platform="Android">
+    <include path="types.xml"/>
+
+    <struct name="simpleVars">
+        <BlockHeader name="header"/>
+        <uint32 count="3"/>
+        <char16 name="lastMissionPassed" count="8"/>
+        <uint32 count="24"/>
+        <uint16 count="4"/>
+        <uint32 name="currentLevel"/>
+        <uint32 name="currentArea"/>
+        <uint32 name="prefsLanguage"/>
+        <uint32 name="millisecondsPerGameMinute"/>
+        <uint32 name="lastClockTick"/>
+        <uint8 name="gameClockHours"/>
+        <uint8 name="gameClockMinutes"/>
+        <uint16 name="_gameClockSeconds"/>
+        <uint32 name="totalTimePlayedInMilliseconds"/>
+        <float name="_timeScale"/>
+        <float name="_timeStep"/>
+        <float name="_timeScaleNonClipped"/>
+        <float name="_framesPerUpdate"/>
+        <uint32 name="frameCounter"/>
+        <int16 name="previousWeather"/>
+        <int16 name="currentWeather"/>
+        <int16 name="forcedWeather"/>
+        <byte count="2"/>
+        <uint32 name="weatherIndex"/>
+        <float name="weatherInterpolation"/>
+        <Vector3d name="cameraPosition"/>
+        <float name="prefsVehicleCameraMode"/>
+        <float/>
+        <uint32 count="2"/>
+        <float/>
+        <uint32 name="prefsBrightness"/>
+        <bool name="prefsShowHud"/>
+        <bool name="prefsShowSubtitles"/>
+        <byte count="2"/>
+        <uint32 name="radarMode"/>
+        <bool name="blurOn"/>
+        <byte count="3"/>
+        <uint32 name="prefsRadioVolume"/>
+        <uint32 name="prefsSfxVolume"/>
+        <uint8 name="_prefsRadioStation"/>
+        <uint8 name="_prefsOutput"/>
+        <byte count="2"/>
+        <uint32 count="11"/>
+        <uint16/>
+        <bool name="_prefsInvertLook"/> <!-- TODO: look into this, appears to be the opposite value of PS2 -->
+        <bool name="_swapNippleAndDPad"/>
+        <bool name="hasPlayerCheated"/>
+        <bool name="_allTaxisHaveNitro"/>
+        <bool name="targetIsOn"/>
+        <byte/>
+        <Vector2d name="targetPosition"/>
+    </struct>
+
+    <struct name="scripts">
+        <BlockHeader name="header"/>
+        <BlockHeader name="nestedHeader"/>
+        <uint32 name="globalVariablesSize"/>
+        <uint32 name="globalVariables" count="${globalVariablesSize} / $SizeOf(uint32)"/>
+        <uint32/>
+        <uint32 name="onAMissionFlag"/>
+        <uint32 name="timeLastMissionPassed"/>
+        <struct name="_collectiveArray" count="32">
+            <uint32/>
+            <uint32/>
+        </struct>
+        <uint32 name="_nextFreeCollective"/>
+        <struct name="buildingSwapArray" count="80">
+            <uint32 name="objectType"/>
+            <uint32 name="objectIndex"/>
+            <int32 name="newModel"/>
+            <int32 name="oldModel"/>
+        </struct>
+        <struct name="invisibilitySettingArray" count="52">
+            <uint32 name="objectType"/>
+            <uint32 name="objectIndex"/>
+        </struct>
+        <bool name="usingAMultiScriptFile"/>
+        <bool name="_playerHasMetDebbieHarry"/>
+        <byte count="2"/>
+        <uint32 name="mainScriptSize"/>
+        <uint32 name="largestMissionScriptSize"/>
+        <uint16 name="numberOfMissionScripts"/>
+        <byte count="2"/>
+        <uint16 name="numberOfExclusiveMissionScripts"/>
+        <byte count="2"/>
+        <struct name="runningScripts" count="${numberOfExclusiveMissionScripts}">
+            <uint32 name="nextScriptPointer"/>
+            <uint32 name="previousScriptPointer"/>
+            <uint32 name="threadId"/>
+            <uint32/>
+            <char name="name" count="8"/>
+            <uint32 name="instructionPointer"/>
+            <uint32 name="returnStack" count="16"/>
+            <uint16 name="returnStackTop"/>
+            <uint16/>
+            <uint32 name="variables" count="104"/>
+            <uint32 name="timer1"/>
+            <uint32 name="timer2"/>
+            <uint32/>
+            <bool count="4"/>
+            <uint32 name="wakeupTime"/>
+            <bool count="4"/>
+            <uint32/>
+        </struct>
+    </struct>
+
+    <struct name="garages">
+        <BlockHeader name="header"/>
+        <uint32 name="numGarages"/>
+        <bool32 name="bombsAreFree"/>
+        <bool32 name="respraysAreFree"/>
+        <uint32 name="_carsCollected"/>
+        <uint32 name="_bankVansCollected"/>
+        <uint32 name="_policeCarsCollected"/>
+        <uint32 name="carTypesCollected"/>
+        <uint32 name="_carTypesCollected2"/>
+        <uint32 name="_carTypesCollected3"/>
+        <uint32 name="_carTypesCollected4"/>
+        <uint32 name="timeLastHelpMessage"/>
+        <struct name="carsInSafeHouse" count="48">
+            <uint32 name="modelId"/>
+            <Vector3d name="location"/>
+            <Vector2d name="rotation"/>
+            <float name="pitch"/>
+            <float name="handlingMultiplier"/>
+            <uint32 name="attributes"/>
+            <uint8 name="color1"/>
+            <uint8 name="color2"/>
+            <uint8 name="radioStation"/>
+            <int8 name="extra1"/>
+            <int8 name="extra2"/>
+            <byte count="3"/>
+        </struct>
+        <!-- the rest is garage object data (presumably) -->
+        <byte count="${header.blockSize} - ${__OFFSET__} + $SizeOf(BlockHeader)"/>
+    </struct>
+
+    <struct name="player">
+        <BlockHeader name="header"/>
+        <uint32 count="32"/>
+        <int32 name="money"/>
+        <uint32/>
+        <int32 name="moneyOnScreen"/>
+        <uint32 count="2"/>
+        <float/>
+        <uint32/>
+        <uint8 name="maxHealth"/>
+        <uint8 name="maxArmor"/>
+        <uint16/>
+        <bool name="neverGetsTired"/>
+        <bool name="fastReload"/>
+        <bool name="fireProof"/>
+        <bool name="getOutOfJailFree"/>
+        <bool name="freeHealthCare"/>
+        <bool/>
+        <uint16/>
+    </struct>
+
+    <struct name="stats">
+        <BlockHeader name="header"/>
+        <uint32 name="peopleKilledByPlayer"/>
+        <uint32 name="peopleKilledByOthers"/>
+        <uint32 name="carsExploded"/>
+        <uint32 name="boatsExploded"/>
+        <uint32 name="tiresPopped"/>
+        <uint32 name="roundsFiredByPlayer"/>
+        <uint32 name="pedTypeWasted" count="23"/>
+        <uint32 name="helisDestroyed"/>
+        <float name="progressMade"/>
+        <float name="totalProgressInGame"/>
+        <uint32 name="kgsOfExplosivesUsed"/>
+        <uint32 name="bulletsThatHit"/>
+        <uint32 name="carsCrushed"/>
+        <uint32 name="headsPopped"/>
+        <uint32 name="wantedStarsAttained"/>
+        <uint32 name="wantedStarsEvaded"/>
+        <uint32 name="timesArrested"/>
+        <uint32 name="timesDied"/>
+        <uint32 name="daysPassed"/>
+        <uint32 name="safeHouseVisits"/>
+        <uint32 name="sprayings"/>
+        <float name="maximumJumpDistance"/>
+        <float name="maximumJumpHeight"/>
+        <uint32 name="maximumJumpFlips"/>
+        <uint32 name="maximumJumpSpins"/>
+        <uint32 name="bestInsaneStuntJump"/>
+        <uint32 name="numberOfUniqueStuntJumpsFound"/>
+        <uint32 name="totalNumberOfUniqueStuntJumps"/>
+        <uint32 name="missionsGiven"/>
+        <uint32 name="passengersDroppedOffWithTaxi"/>
+        <uint32 name="moneyMadeWithTaxi"/>
+        <bool32 name="industrialPassed"/>
+        <bool32 name="commercialPassed"/>
+        <bool32 name="suburbanPassed"/>
+        <bool32 name="pamphletMissionPassed"/>
+        <bool32 name="noMoreHurricanes"/>
+        <float name="distanceTravelledOnFoot"/>
+        <float name="distanceTravelledByCar"/>
+        <float name="distanceTravelledByBike"/>
+        <float name="distanceTravelledByBoat"/>
+        <float name="distanceTravelledByPlane"/>
+        <uint32 name="livesSavedWithAmbulance"/>
+        <uint32 name="criminalsCaught"/>
+        <uint32 name="firesExtinguished"/>
+        <uint32 name="highestLevelVigilanteMission"/>
+        <uint32 name="highestLevelAmbulanceMission"/>
+        <uint32 name="highestLevelFireMission"/>
+        <uint32 name="photosTaken"/>
+        <uint32 name="numberKillFrenziesPassed"/>
+        <uint32 name="maxSecondsOnCarnageLeft"/>
+        <uint32 name="maxKillsOnRcTriad"/>
+        <uint32 name="totalNumbeKillFrenzies"/>
+        <uint32 name="totalNumberMissions"/>
+        <uint32 name="timesDrowned"/>
+        <uint32 name="seagullsKilled"/>
+        <float name="weaponBudget"/>
+        <uint32 name="_loanSharks"/>
+        <uint32 name="_movieStunts"/>
+        <float name="pizzasDelivered"/>
+        <float name="noodlesDelivered"/>
+        <float name="moneyMadeFromTourist"/>
+        <float name="touristsTakenToSpots"/>
+        <uint32 name="_garbagePickups"/>
+        <uint32 name="_iceCreamSold"/>
+        <uint32 name="_topShootingRangeScore"/>
+        <uint32 name="_shootingRank"/>
+        <float name="topScrapyardChallengeScore"/>
+        <float name="top9mmMayhemScore"/>
+        <float name="topScooterShooterScore"/>
+        <float name="topWichitaWipeoutScore"/>
+        <uint32 name="longestWheelieTime"/>
+        <uint32 name="longestStoppieTime"/>
+        <uint32 name="longest2WheelTime"/>
+        <float name="longestWheelieDist"/>
+        <float name="longestStoppieDist"/>
+        <float name="longest2WheelDist"/>
+        <float name="longestFacePlantDist"/>
+        <float name="autoPaitingBudget"/>
+        <uint32 name="propertyDestroyed"/>
+        <uint32 name="_numPropertyOwned"/>
+        <uint16 name="unlockedCostumes"/>
+        <uint32 name="_bloodringKills"/>
+        <uint32 name="_bloodringTime"/>
+        <byte name="_propertyOwned" count="15"/>
+        <float name="highestChaseValue"/>
+        <uint32 name="_fastestTimes" count="23"/>
+        <uint32 name="_highestScores" count="5"/>
+        <uint32 name="_bestPositions" count="1"/>
+        <uint32 name="killsSinceLastCheckpoint"/>
+        <uint32 name="totalLegitimateKills"/>
+        <char name="lastMissionPassedName" count="8"/>
+        <uint32 name="cheatedCount"/>
+        <uint32 name="carsSold"/>
+        <uint32 name="moneyMadeWithCarSales"/>
+        <uint32 name="bikesSold"/>
+        <uint32 name="moneyMadeWithBikeSales"/>
+        <uint32 name="numberOfExportedCars"/>
+        <uint32 name="totalNumberOfCarExport"/>
+        <uint32 name="highestLevelSlashTv"/>
+        <uint32 name="moneyMadeWithSlashTv"/>
+        <uint32 name="totalKillsOnSlashTv"/>
+        <uint32 name="_packagesSmuggled"/>
+        <uint32 name="_smugglersWasted"/>
+        <uint32 name="_fastestSmugglingTime"/>
+        <uint32 name="_moneyMadeInCoach"/>
+        <uint32 name="cashMadeCollectingTrash"/>
+        <uint32 name="hitmenKilled"/>
+        <uint32 name="highestGuardianAngelJusticeDished"/>
+        <uint32 name="guardianAngelMissionsPassed"/>
+        <uint32 name="guardianAngelHighestLevelIndustrial"/>
+        <uint32 name="guardianAngelHighestLevelCommercial"/>
+        <uint32 name="guardianAngelHighestLevelSuburban"/>
+        <uint32 name="mostTimeLeftTrainRace"/>
+        <uint32 name="bestTimeGoGoFaggio"/>
+        <uint32 name="highestTrainCashEarned"/>
+        <uint32 name="dirtBikeMostAir"/>
+        <uint32 name="_fastedHeliRaceTime"/>
+        <uint32 name="_bestHeliRacePosition"/>
+        <uint32 name="numberOutfitChanges"/>
+        <BanditRaceStat name="bestBanditLapTimes"/>
+        <BanditRaceStat name="bestBanditPositions"/>
+        <StreetRaceStat name="bestStreetRacePositions"/>
+        <StreetRaceStat name="bestStreetRaceLapTimes"/>
+        <StreetRaceStat name="bestStreetRaceTimes"/>
+        <DirtBikeRaceStat name="bestDirtBikeLapTimes"/>
+        <DirtBikeRaceStat name="bestDirtBikeTimes"/>
+        <float name="favoriteRadioStationList" count="11"/>
+    </struct>
+
+    <byte count="3"/>
+
+    <echo message="sizeof(simpleVars) = $SizeOf(simpleVars)"/>
+    <echo message="sizeof(scripts) = $SizeOf(scripts)"/>
+    <echo message="sizeof(garages) = $SizeOf(garages)"/>
+    <echo message="sizeof(player) = $SizeOf(player)"/>
+    <echo message="sizeof(stats) = $SizeOf(stats)"/>
+</layoutScript>

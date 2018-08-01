@@ -47,7 +47,19 @@ namespace WHampson.LcsSaveEditor.Models
                 throw new NotSupportedException(msg);
             }
 
-            string scriptPath = "../../resources/scripts/ps2save.xml";
+            string scriptPath;
+            switch (type) {
+                case GamePlatform.Android:
+                    scriptPath = "../../resources/scripts/androidsave.xml";
+                    break;
+                case GamePlatform.PS2:
+                    scriptPath = "../../resources/scripts/ps2save.xml";
+                    break;
+                default:
+                    scriptPath = string.Empty;
+                    break;
+            }
+
             LayoutScript script = LayoutScript.Load(scriptPath);
             data.RunLayoutScript(script);
 
@@ -55,9 +67,10 @@ namespace WHampson.LcsSaveEditor.Models
             flags |= DeserializationFlags.Fields;
             flags |= DeserializationFlags.NonPublic;
             SaveDataFile sg = data.Deserialize<SaveDataFile>(flags);
-
             sg.FileType = type;
             sg.RawData = data;
+
+            File.WriteAllText("out.json", sg.ToString());
 
             return sg;
         }
@@ -148,7 +161,15 @@ namespace WHampson.LcsSaveEditor.Models
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            // TODO: this is a hotfix to prevent an exception from being thrown when
+            // serailizing properties that don't exist for the curretn file type.
+            // This is NOT a good way to handle this issue and should be corrected.
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Error = (sender, e) => e.ErrorContext.Handled = true
+            };
+
+            return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
         }
 
         /// <summary>
