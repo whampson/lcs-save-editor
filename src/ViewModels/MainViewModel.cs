@@ -25,6 +25,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using WHampson.LcsSaveEditor.Helpers;
@@ -83,7 +84,12 @@ namespace WHampson.LcsSaveEditor.ViewModels
         public bool IsFileModified
         {
             get { return _isFileModified; }
-            set { _isFileModified = value; OnPropertyChanged(); }
+            set {
+                if (_isEditingFile) {
+                    _isFileModified = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         public int SelectedTabIndex
@@ -138,6 +144,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             FileType = data.FileType;
             FilePath = path;
             IsEditingFile = true;
+            IsFileModified = false;
             StatusText = Resources.FileLoadSuccessMessage;
             ReloadTabs();
         }
@@ -264,10 +271,10 @@ namespace WHampson.LcsSaveEditor.ViewModels
         {
             GameState = null;
             FilePath = null;
+            IsFileModified = false;
             IsEditingFile = false;
             ReloadTabs();
             StatusText = Resources.NoFileLoadedMessage;
-            IsFileModified = false;
         }
 
         public ICommand ReloadFile
