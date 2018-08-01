@@ -139,7 +139,7 @@
     <value>File saved successfully.</value>
   </data>
   <data name="InvalidDataMessage" xml:space="preserve">
-    <value>Invalid savedata file.</value>
+    <value>Invalid GTA:LCS savedata file.</value>
   </data>
   <data name="NoFileLoadedMessage" xml:space="preserve">
     <value>No file loaded.</value>

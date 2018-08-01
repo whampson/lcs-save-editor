@@ -124,7 +124,7 @@ namespace WHampson.LcsSaveEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid savedata file..
+        ///   Looks up a localized string similar to Invalid GTA:LCS savedata file..
         /// </summary>
         internal static string InvalidDataMessage {
             get {
