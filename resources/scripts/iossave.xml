@@ -5,7 +5,7 @@
     Visit https://github.com/whampson/cascara for more info.
 -->
 
-<layoutScript game="LCS" platform="Android">
+<layoutScript game="LCS" platform="iOS">
     <include path="types.xml"/>
 
     <struct name="simpleVars">
