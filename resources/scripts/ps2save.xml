@@ -37,11 +37,12 @@
         <uint32 count="2"/>
         <float count="1"/>
         <uint32 name="prefsBrightness"/>
-        <bool8 name="prefsShowHud"/>
-        <bool8 name="prefsShowSubtitles"/>
+        <bool name="prefsShowHud"/>
+        <bool name="prefsShowSubtitles"/>
         <byte count="2"/>
         <uint32 name="radarMode"/>
-        <bool32 name="blurOn"/>
+        <bool name="blurOn"/>
+        <byte count="3"/>
         <uint32 count="2"/>
         <bool8 name="prefsUseWideScreen"/>
         <byte count="3"/>
@@ -54,12 +55,16 @@
         <float count="1"/>
         <uint16 name="controllerConfiguration"/>
         <uint16 count="1"/>
-        <bool32 name="prefsDisableInvertLook"/>
+        <bool name="prefsDisableInvertLook"/>
+        <byte count="3"/>
         <bool8 name="prefsUseVibration"/>
         <byte count="3"/>
-        <bool32 name="hasPlayerCheated"/>
-        <bool32 name="_allTaxisHaveNitro"/>
-        <bool32 name="targetIsOn"/>
+        <bool name="hasPlayerCheated"/>
+        <byte count="3"/>
+        <bool name="_allTaxisHaveNitro"/>
+        <byte count="3"/>
+        <bool name="targetIsOn"/>
+        <byte count="3"/>
         <Vector2d name="targetPosition"/>
         <uint32 count="1"/>
         <struct name="timestamp">
@@ -80,11 +85,11 @@
         <uint32/>
         <uint32 name="onAMissionFlag"/>
         <uint32 name="timeLastMissionPassed"/>
-        <struct count="32">
+        <struct name="_collectiveArray" count="32">
             <uint32/>
             <uint32/>
         </struct>
-        <uint32/>
+        <uint32 name="_nextFreeCollective"/>
         <struct name="buildingSwapArray" count="80">
             <uint32 name="objectType"/>
             <uint32 name="objectIndex"/>
@@ -96,7 +101,7 @@
             <uint32 name="objectIndex"/>
         </struct>
         <bool name="usingAMultiScriptFile"/>
-        <bool/>
+        <bool name="_playerHasMetDebbieHarry"/>
         <byte count="2"/>
         <uint32 name="mainScriptSize"/>
         <uint32 name="largestMissionScriptSize"/>
@@ -165,14 +170,20 @@
         <int32 name="moneyOnScreen"/>
         <uint32 comment="possibly hiddenPackagesFound"/>
         <uint32/>
-        <bool32 name="neverGetsTired"/> <!-- also global $0125 -->
-        <bool32 name="fastReload"/>
-        <bool32 name="fireProof"/> <!-- also global $0126 -->
-        <uint8 name="maxHealth"/> <!-- 125 flag set at $0276, 150 at $0443 -->
-        <uint8 name="maxArmor"/> <!-- 150 flag set at global var $0214 -->
-        <bool32 name="getOutOfJailFree"/> <!-- flag also set at $0262 (Staunton Avenging Angels complete) -->
-        <bool32 name="freeHealthCare"/>
-        <bool32/>
+        <bool name="neverGetsTired"/>
+        <byte count="3"/>
+        <bool name="fastReload"/>
+        <byte count="3"/>
+        <bool name="fireProof"/>
+        <byte count="3"/>
+        <uint8 name="maxHealth"/>
+        <uint8 name="maxArmor"/>
+        <bool name="getOutOfJailFree"/>
+        <byte count="3"/>
+        <bool name="freeHealthCare"/>
+        <byte count="3"/>
+        <bool/>
+        <byte count="3"/>
         <byte count="3 + $SizeOf(uint32) * 20"/>
         <Vector3d/>
         <float count="4"/>

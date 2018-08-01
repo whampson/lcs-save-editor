@@ -29,25 +29,25 @@ namespace WHampson.LcsSaveEditor.Models
     {
         private readonly Primitive<int> money;
         private readonly Primitive<int> moneyOnScreen;
-        private readonly Primitive<Bool32> neverGetsTired;
-        private readonly Primitive<Bool32> fastReload;
-        private readonly Primitive<Bool32> fireProof;
+        private readonly Primitive<bool> neverGetsTired;
+        private readonly Primitive<bool> fastReload;
+        private readonly Primitive<bool> fireProof;
         private readonly Primitive<byte> maxHealth;
         private readonly Primitive<byte> maxArmor;
-        private readonly Primitive<Bool32> getOutOfJailFree;
-        private readonly Primitive<Bool32> freeHealthCare;
+        private readonly Primitive<bool> getOutOfJailFree;
+        private readonly Primitive<bool> freeHealthCare;
 
         public PlayerBlock()
         {
             money = new Primitive<int>(null, 0);
             moneyOnScreen = new Primitive<int>(null, 0);
-            neverGetsTired = new Primitive<Bool32>(null, 0);
-            fastReload = new Primitive<Bool32>(null, 0);
-            fireProof = new Primitive<Bool32>(null, 0);
+            neverGetsTired = new Primitive<bool>(null, 0);
+            fastReload = new Primitive<bool>(null, 0);
+            fireProof = new Primitive<bool>(null, 0);
             maxHealth = new Primitive<byte>(null, 0);
             maxArmor = new Primitive<byte>(null, 0);
-            getOutOfJailFree = new Primitive<Bool32>(null, 0);
-            freeHealthCare = new Primitive<Bool32>(null, 0);
+            getOutOfJailFree = new Primitive<bool>(null, 0);
+            freeHealthCare = new Primitive<bool>(null, 0);
         }
 
         public int Money
@@ -62,19 +62,19 @@ namespace WHampson.LcsSaveEditor.Models
             set { moneyOnScreen.Value = value; }
         }
 
-        public Bool32 NeverGetsTired
+        public bool NeverGetsTired
         {
             get { return neverGetsTired.Value; }
             set { neverGetsTired.Value = value; }
         }
 
-        public Bool32 FastReload
+        public bool FastReload
         {
             get { return fastReload.Value; }
             set { fastReload.Value = value; }
         }
 
-        public Bool32 FireProof
+        public bool FireProof
         {
             get { return fireProof.Value; }
             set { fireProof.Value = value; }
@@ -92,13 +92,13 @@ namespace WHampson.LcsSaveEditor.Models
             set { maxArmor.Value = value; }
         }
 
-        public Bool32 GetOutOfJailFree
+        public bool GetOutOfJailFree
         {
             get { return getOutOfJailFree.Value; }
             set { getOutOfJailFree.Value = value; }
         }
 
-        public Bool32 FreeHealthCare
+        public bool FreeHealthCare
         {
             get { return freeHealthCare.Value; }
             set { freeHealthCare.Value = value; }

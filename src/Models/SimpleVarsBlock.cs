@@ -25,11 +25,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using WHampson.Cascara;
 using WHampson.LcsSaveEditor.DataTypes;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
     public class SimpleVarsBlock : DataBlock
     {
+        private readonly Primitive<char> lastMissionPassed;
         private readonly Primitive<uint> currentLevel;
         private readonly Primitive<uint> currentArea;
         private readonly Primitive<uint> prefsLanguage;
@@ -50,20 +52,23 @@ namespace WHampson.LcsSaveEditor.Models
         private readonly Primitive<bool> prefsShowHud;
         private readonly Primitive<bool> prefsShowSubtitles;
         private readonly Primitive<uint> radarMode;
-        private readonly Primitive<Bool32> blurOn;
+        private readonly Primitive<bool> blurOn;
         private readonly Primitive<bool> prefsUseWideScreen;
         private readonly Primitive<uint> prefsRadioVolume;
         private readonly Primitive<uint> prefsSfxVolume;
         private readonly Primitive<ushort> controllerConfiguration;
-        private readonly Primitive<Bool32> prefsDisableInvertLook;
+        private readonly Primitive<bool> prefsDisableInvertLook;
         private readonly Primitive<bool> prefsUseVibration;
-        private readonly Primitive<Bool32> hasPlayerCheated;
-        private readonly Primitive<Bool32> targetIsOn;
+        private readonly Primitive<bool> hasPlayerCheated;
+        private readonly Primitive<bool> targetIsOn;
         private readonly Vector2d targetPosition;
         private readonly Timestamp timestamp;
 
+        private StringWrapper lastMissionPassedWrapper;
+
         public SimpleVarsBlock()
         {
+            lastMissionPassed = new Primitive<char>(null, 0);
             currentLevel = new Primitive<uint>(null, 0);
             currentArea = new Primitive<uint>(null, 0);
             prefsLanguage = new Primitive<uint>(null, 0);
@@ -84,17 +89,34 @@ namespace WHampson.LcsSaveEditor.Models
             prefsShowHud = new Primitive<bool>(null, 0);
             prefsShowSubtitles = new Primitive<bool>(null, 0);
             radarMode = new Primitive<uint>(null, 0);
-            blurOn = new Primitive<Bool32>(null, 0);
+            blurOn = new Primitive<bool>(null, 0);
             prefsUseWideScreen = new Primitive<bool>(null, 0);
             prefsRadioVolume = new Primitive<uint>(null, 0);
             prefsSfxVolume = new Primitive<uint>(null, 0);
             controllerConfiguration = new Primitive<ushort>(null, 0);
-            prefsDisableInvertLook = new Primitive<Bool32>(null, 0);
+            prefsDisableInvertLook = new Primitive<bool>(null, 0);
             prefsUseVibration = new Primitive<bool>(null, 0);
-            hasPlayerCheated = new Primitive<Bool32>(null, 0);
-            targetIsOn = new Primitive<Bool32>(null, 0);
+            hasPlayerCheated = new Primitive<bool>(null, 0);
+            targetIsOn = new Primitive<bool>(null, 0);
             targetPosition = new Vector2d();
             timestamp = new Timestamp();
+        }
+
+        public string LastMissionPassed
+        {
+            get {
+                if (lastMissionPassedWrapper == null) {
+                    lastMissionPassedWrapper = new StringWrapper(lastMissionPassed);
+                }
+                return lastMissionPassedWrapper.Value;
+            }
+
+            set {
+                if (lastMissionPassedWrapper == null) {
+                    lastMissionPassedWrapper = new StringWrapper(lastMissionPassed);
+                }
+                lastMissionPassedWrapper.Value = value;
+            }
         }
 
         public uint CurrentLevel
@@ -221,7 +243,7 @@ namespace WHampson.LcsSaveEditor.Models
             set { radarMode.Value = (uint) value; }
         }
 
-        public Bool32 BlurOn
+        public bool BlurOn
         {
             get { return blurOn.Value; }
             set { blurOn.Value = value; }
@@ -252,7 +274,7 @@ namespace WHampson.LcsSaveEditor.Models
             set { controllerConfiguration.Value = (ushort) value; }
         }
 
-        public Bool32 PrefsDisableInvertLook
+        public bool PrefsDisableInvertLook
         {
             get { return prefsDisableInvertLook.Value; }
             set { prefsDisableInvertLook.Value = value; }
@@ -264,13 +286,13 @@ namespace WHampson.LcsSaveEditor.Models
             set { prefsUseVibration.Value = value; }
         }
 
-        public Bool32 HasPlayerCheated
+        public bool HasPlayerCheated
         {
             get { return hasPlayerCheated.Value; }
             set { hasPlayerCheated.Value = value; }
         }
 
-        public Bool32 TargetIsOn
+        public bool TargetIsOn
         {
             get { return targetIsOn.Value; }
             set { targetIsOn.Value = value; }
