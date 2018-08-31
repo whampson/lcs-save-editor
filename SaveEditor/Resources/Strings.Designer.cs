@@ -115,6 +115,15 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple calls to this function are not supported..
+        /// </summary>
+        public static string ExceptionMessageMultipleCallsNotSupported {
+            get {
+                return ResourceManager.GetString("ExceptionMessageMultipleCallsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load file!.
         /// </summary>
         public static string MessageFileLoadFailed {

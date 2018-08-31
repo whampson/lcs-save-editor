@@ -135,6 +135,9 @@
   <data name="ExceptionMessageInvalidSaveData" xml:space="preserve">
     <value>Not a valid GTA:LCS savedata file.</value>
   </data>
+  <data name="ExceptionMessageMultipleCallsNotSupported" xml:space="preserve">
+    <value>Multiple calls to this function are not supported.</value>
+  </data>
   <data name="MessageFileLoadFailed" xml:space="preserve">
     <value>Failed to load file!</value>
   </data>

@@ -27,6 +27,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Interop;
+using WHampson.LcsSaveEditor.Resources;
 
 namespace WHampson.LcsSaveEditor.Helpers
 {
@@ -155,7 +156,10 @@ namespace WHampson.LcsSaveEditor.Helpers
         private static void Initialize()
         {
             if (_hHook != IntPtr.Zero) {
-                throw new NotSupportedException("Multiple calls are not supported.");
+                string msg = string.Format("{0} ({1}.{2}())",
+                    Strings.ExceptionMessageMultipleCallsNotSupported, 
+                    nameof(MessageBoxEx), nameof(Initialize));
+                throw new NotSupportedException();
             }
 
 #pragma warning disable 0618    // GetCurrentThreadId() still works for what we need it to do.
