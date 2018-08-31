@@ -21,16 +21,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <BaseIntermediateOutputPath>$(SolutionDir)\obj\$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
-  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{BD1199D6-9D08-47FC-A739-5E2569D37851}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <OutputPath>$(SolutionDir)\bin\$(Configuration)\</OutputPath>
+    <OutputPath>$(SolutionDir)\$(MSBuildProjectPath)\bin\$(Configuration)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <RootNamespace>WHampson.LcsSaveEditor</RootNamespace>
     <AssemblyName>lcs-save-editor</AssemblyName>
