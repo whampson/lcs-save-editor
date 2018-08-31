@@ -27,6 +27,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using WHampson.LcsSaveEditor.Helpers;
+using WHampson.LcsSaveEditor.Resources;
 
 namespace WHampson.LcsSaveEditor.Converters
 {
