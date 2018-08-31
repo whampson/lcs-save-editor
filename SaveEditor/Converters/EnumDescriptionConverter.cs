@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-#region License
+﻿#region License
 /* Copyright(c) 2016-2018 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,6 +21,8 @@ using System.ComponentModel;
  */
 #endregion
 
+using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -31,6 +30,11 @@ using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Converters
 {
+    /// <summary>
+    /// Converts an Enum value into a string containing the text from it's
+    /// <see cref="DescriptionAttribute"/>. If no <see cref="DescriptionAttribute"/>
+    /// is available, the Enum's ToString() value is used.
+    /// </summary>
     [ValueConversion(typeof(Enum), typeof(string))]
     public class EnumDescriptionConverter : IValueConverter
     {
@@ -52,7 +56,7 @@ namespace WHampson.LcsSaveEditor.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException("ConvertBack is not supported for this converter.");
+            throw new NotSupportedException(Strings.ExceptionMessageConvertBackNotSupported);
         }
     }
 }
