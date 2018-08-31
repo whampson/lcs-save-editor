@@ -28,6 +28,7 @@ using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using WHampson.LcsSaveEditor.Events;
 using WHampson.LcsSaveEditor.Helpers;
 using WHampson.LcsSaveEditor.Models;
 using WHampson.LcsSaveEditor.Properties;
@@ -184,7 +185,6 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void ShowErrorDialog(string text)
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
-                null,
                 text,
                 Resources.ErrorDialogCaption,
                 MessageBoxButton.OK,
@@ -194,12 +194,12 @@ namespace WHampson.LcsSaveEditor.ViewModels
         private void ShowSavePrompt()
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
-                SavePromptResultAction,
                 Resources.FileSavePromptDialogMessage,
                 Resources.FileSavePromptDialogCaption,
                 MessageBoxButton.YesNoCancel,
                 MessageBoxImage.Question,
-                MessageBoxResult.Yes));
+                MessageBoxResult.Yes,
+                resultAction: SavePromptResultAction));
         }
 
         private void SavePromptResultAction(MessageBoxResult dialogResult)

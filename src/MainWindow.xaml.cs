@@ -23,7 +23,7 @@
 
 using System;
 using System.Windows;
-using WHampson.LcsSaveEditor.Helpers;
+using WHampson.LcsSaveEditor.Events;
 using WHampson.LcsSaveEditor.ViewModels;
 
 namespace WHampson.LcsSaveEditor

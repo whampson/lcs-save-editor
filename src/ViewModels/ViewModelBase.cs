@@ -22,6 +22,7 @@
 #endregion
 
 using System;
+using WHampson.LcsSaveEditor.Events;
 using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.ViewModels
