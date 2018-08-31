@@ -88,7 +88,9 @@ namespace WHampson.LcsSaveEditor.Events
                     dialog = new SaveFileDialog();
                     break;
                 default:
-                    throw new InvalidOperationException(Strings.ExceptionMessageInvalidOperation);
+                    string msg = string.Format("{0} ({1})",
+                        Strings.ExceptionMessageInvalidOperation, nameof(FileDialogEventArgs));
+                    throw new InvalidOperationException(msg);
             }
 
             dialog.Title = Title;
