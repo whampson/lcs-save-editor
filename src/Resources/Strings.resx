@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DialogTextFileSavePrompt" xml:space="preserve">
+    <value>Do you want to save your changes?</value>
+  </data>
+  <data name="DialogTitleError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DialogTitleFileSavePrompt" xml:space="preserve">
+    <value>Save File?</value>
+  </data>
+  <data name="ExceptionMessageInvalidData" xml:space="preserve">
+    <value>Not a valid GTA:LCS savedata file.</value>
+  </data>
   <data name="ExceptionMessageInvalidOperation" xml:space="preserve">
     <value>You weren't supposed to be able to get here, you know.</value>
+  </data>
+  <data name="MessageFileLoadFailed" xml:space="preserve">
+    <value>Failed to load file!</value>
+  </data>
+  <data name="MessageFileLoadSuccessful" xml:space="preserve">
+    <value>File loaded successfully.</value>
+  </data>
+  <data name="MessageFileNotLoaded" xml:space="preserve">
+    <value>No file loaded.</value>
+  </data>
+  <data name="MessageFileSaveFailed" xml:space="preserve">
+    <value>Failed to save file!</value>
+  </data>
+  <data name="MessageFileSaveSuccessful" xml:space="preserve">
+    <value>File saved successfully.</value>
   </data>
 </root>

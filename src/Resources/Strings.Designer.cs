@@ -61,11 +61,92 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to save your changes?.
+        /// </summary>
+        public static string DialogTextFileSavePrompt {
+            get {
+                return ResourceManager.GetString("DialogTextFileSavePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string DialogTitleError {
+            get {
+                return ResourceManager.GetString("DialogTitleError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save File?.
+        /// </summary>
+        public static string DialogTitleFileSavePrompt {
+            get {
+                return ResourceManager.GetString("DialogTitleFileSavePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file..
+        /// </summary>
+        public static string ExceptionMessageInvalidData {
+            get {
+                return ResourceManager.GetString("ExceptionMessageInvalidData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You weren&apos;t supposed to be able to get here, you know..
         /// </summary>
         public static string ExceptionMessageInvalidOperation {
             get {
                 return ResourceManager.GetString("ExceptionMessageInvalidOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load file!.
+        /// </summary>
+        public static string MessageFileLoadFailed {
+            get {
+                return ResourceManager.GetString("MessageFileLoadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File loaded successfully..
+        /// </summary>
+        public static string MessageFileLoadSuccessful {
+            get {
+                return ResourceManager.GetString("MessageFileLoadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file loaded..
+        /// </summary>
+        public static string MessageFileNotLoaded {
+            get {
+                return ResourceManager.GetString("MessageFileNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save file!.
+        /// </summary>
+        public static string MessageFileSaveFailed {
+            get {
+                return ResourceManager.GetString("MessageFileSaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File saved successfully..
+        /// </summary>
+        public static string MessageFileSaveSuccessful {
+            get {
+                return ResourceManager.GetString("MessageFileSaveSuccessful", resourceCulture);
             }
         }
     }
