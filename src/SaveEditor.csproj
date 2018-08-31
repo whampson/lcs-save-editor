@@ -98,6 +98,7 @@ SOFTWARE.
     <Compile Include="Helpers\ArrayWrapper.cs" />
     <Compile Include="Helpers\MessageBoxEventArgs.cs" />
     <Compile Include="Helpers\MessageBoxEx.cs" />
+    <Compile Include="Helpers\SerializableObject.cs" />
     <Compile Include="Models\BanditRaceStat.cs" />
     <Compile Include="Models\BlockHeader.cs" />
     <Compile Include="Models\BuildingSwap.cs" />
