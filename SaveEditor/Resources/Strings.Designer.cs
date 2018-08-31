@@ -88,11 +88,11 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file..
+        ///   Looks up a localized string similar to ConvertBack is not supported for this converter..
         /// </summary>
-        public static string ExceptionMessageInvalidData {
+        public static string ExceptionMessageConvertBackNotSupported {
             get {
-                return ResourceManager.GetString("ExceptionMessageInvalidData", resourceCulture);
+                return ResourceManager.GetString("ExceptionMessageConvertBackNotSupported", resourceCulture);
             }
         }
         
@@ -102,6 +102,15 @@ namespace WHampson.LcsSaveEditor.Resources {
         public static string ExceptionMessageInvalidOperation {
             get {
                 return ResourceManager.GetString("ExceptionMessageInvalidOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file..
+        /// </summary>
+        public static string ExceptionMessageInvalidSaveData {
+            get {
+                return ResourceManager.GetString("ExceptionMessageInvalidSaveData", resourceCulture);
             }
         }
         

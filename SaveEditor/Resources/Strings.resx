@@ -126,11 +126,14 @@
   <data name="DialogTitleFileSavePrompt" xml:space="preserve">
     <value>Save File?</value>
   </data>
-  <data name="ExceptionMessageInvalidData" xml:space="preserve">
-    <value>Not a valid GTA:LCS savedata file.</value>
+  <data name="ExceptionMessageConvertBackNotSupported" xml:space="preserve">
+    <value>ConvertBack is not supported for this converter.</value>
   </data>
   <data name="ExceptionMessageInvalidOperation" xml:space="preserve">
     <value>You weren't supposed to be able to get here, you know.</value>
+  </data>
+  <data name="ExceptionMessageInvalidSaveData" xml:space="preserve">
+    <value>Not a valid GTA:LCS savedata file.</value>
   </data>
   <data name="MessageFileLoadFailed" xml:space="preserve">
     <value>Failed to load file!</value>
