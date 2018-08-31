@@ -94,6 +94,8 @@ SOFTWARE.
     <Compile Include="DataTypes\StoredCarProperties.cs" />
     <Compile Include="DataTypes\Weapon.cs" />
     <Compile Include="DataTypes\Weather.cs" />
+    <Compile Include="Events\DialogCloseEventArgs.cs" />
+    <Compile Include="Events\FileDialogEventArgs.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\ArrayWrapper.cs" />
     <Compile Include="Events\MessageBoxEventArgs.cs" />
@@ -120,6 +122,11 @@ SOFTWARE.
     <Compile Include="Models\Vector3d.cs" />
     <Compile Include="Models\GamePlatform.cs" />
     <Compile Include="Models\SaveDataFile.cs" />
+    <Compile Include="Resources\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="ViewModels\PageViewModelBase.cs" />
@@ -165,6 +172,10 @@ SOFTWARE.
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
