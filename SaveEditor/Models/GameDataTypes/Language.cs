@@ -21,7 +21,7 @@
  */
 #endregion
 
-namespace WHampson.LcsSaveEditor.DataTypes
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
     public enum Language : uint
     {

@@ -21,28 +21,12 @@
  */
 #endregion
 
-using System;
-
-namespace WHampson.LcsSaveEditor.DataTypes
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
-    [Flags]
-    public enum ExportCars : uint
+    public enum RadarMode : uint
     {
-        Hearse          = 1 << 0,
-        Faggio          = 1 << 1,
-        Freeway         = 1 << 2,
-        DeimosSP        = 1 << 3,
-        Manana          = 1 << 4,
-        HellenbachGT    = 1 << 5,
-        PhobosVT        = 1 << 6,
-        V8Ghost         = 1 << 7,
-        ThunderRodd     = 1 << 8,
-        Pcj600          = 1 << 9,
-        Sentinel        = 1 << 10,
-        Infernus        = 1 << 11,
-        Banshee         = 1 << 12,
-        Patriot         = 1 << 13,
-        BFInjection     = 1 << 14,
-        Landstalker     = 1 << 15
+        MapAndBlips,
+        BlipsOnly,
+        RadarOff
     }
 }

@@ -21,11 +21,17 @@
  */
 #endregion
 
-namespace WHampson.LcsSaveEditor.DataTypes
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
-    public enum ControllerConfig : ushort
+    public enum Weather : short
     {
-        Setup1,
-        Setup2
+        Sunny,
+        Cloudy,
+        Rainy,
+        Foggy,
+        ExtraSunny,
+        Hurricane,
+        ExtraColors,
+        Snow
     }
 }

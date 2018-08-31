@@ -21,28 +21,18 @@
  */
 #endregion
 
-using System;
-
-namespace WHampson.LcsSaveEditor.DataTypes
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
-    [Flags]
-    public enum Costumes : ushort
+    public enum InsaneStuntJump : uint
     {
-        CasualClothes           = 1 << 0,
-        LeonesSuit              = 1 << 1,
-        Overalls                = 1 << 2,
-        AvengingAngelsFatigues  = 1 << 3,
-        ChauffeursClothes       = 1 << 4,
-        LawyersSuit             = 1 << 5,
-        Tuxedo                  = 1 << 6,
-        TheKingJumpsuit         = 1 << 7,
-        CoxMascotSuit           = 1 << 8,
-        Underwear               = 1 << 9,
-        HeroGarb                = 1 << 10,
-        DragonJumpsuit          = 1 << 11,
-        Antonio                 = 1 << 12,
-        Sweats                  = 1 << 13,
-        Goodfella               = 1 << 14,
-        Wiseguy                 = 1 << 15
+        NoInstaneStuntsCompleted,
+        InsaneStunt,
+        PerfectInsaneStunt,
+        DoubleInsaneStunt,
+        PerfectDoubleInsaneStunt,
+        TripleInsaneStunt,
+        PerfectTripleInsaneStunt,
+        QuadrupleInsaneStunt,
+        PerfectQuadrupleInsaneStunt
     }
 }

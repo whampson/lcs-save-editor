@@ -23,7 +23,7 @@
 
 using System;
 
-namespace WHampson.LcsSaveEditor.DataTypes
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
     [Flags]
     public enum StoredCarProperties : uint

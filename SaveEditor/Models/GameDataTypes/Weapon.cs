@@ -23,7 +23,7 @@
 
 using System.ComponentModel;
 
-namespace WHampson.LcsSaveEditor.DataTypes
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
     public enum Weapon
     {

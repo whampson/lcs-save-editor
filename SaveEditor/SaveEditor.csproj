@@ -81,16 +81,16 @@ SOFTWARE.
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
-    <Compile Include="DataTypes\ControllerConfig.cs" />
-    <Compile Include="DataTypes\Costumes.cs" />
-    <Compile Include="DataTypes\ExportCars.cs" />
-    <Compile Include="DataTypes\InsaneStuntJump.cs" />
-    <Compile Include="DataTypes\Language.cs" />
-    <Compile Include="DataTypes\RadarMode.cs" />
-    <Compile Include="DataTypes\RadioStation.cs" />
-    <Compile Include="DataTypes\StoredCarProperties.cs" />
-    <Compile Include="DataTypes\Weapon.cs" />
-    <Compile Include="DataTypes\Weather.cs" />
+    <Compile Include="Models\GameDataTypes\ControllerConfig.cs" />
+    <Compile Include="Models\GameDataTypes\Costumes.cs" />
+    <Compile Include="Models\GameDataTypes\ExportCars.cs" />
+    <Compile Include="Models\GameDataTypes\InsaneStuntJump.cs" />
+    <Compile Include="Models\GameDataTypes\Language.cs" />
+    <Compile Include="Models\GameDataTypes\RadarMode.cs" />
+    <Compile Include="Models\GameDataTypes\RadioStation.cs" />
+    <Compile Include="Models\GameDataTypes\StoredCarProperties.cs" />
+    <Compile Include="Models\GameDataTypes\Weapon.cs" />
+    <Compile Include="Models\GameDataTypes\Weather.cs" />
     <Compile Include="Events\DialogCloseEventArgs.cs" />
     <Compile Include="Events\FileDialogEventArgs.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />

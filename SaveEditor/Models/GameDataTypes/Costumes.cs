@@ -21,12 +21,28 @@
  */
 #endregion
 
-namespace WHampson.LcsSaveEditor.DataTypes
+using System;
+
+namespace WHampson.LcsSaveEditor.Models.GameDataTypes
 {
-    public enum RadarMode : uint
+    [Flags]
+    public enum Costumes : ushort
     {
-        MapAndBlips,
-        BlipsOnly,
-        RadarOff
+        CasualClothes           = 1 << 0,
+        LeonesSuit              = 1 << 1,
+        Overalls                = 1 << 2,
+        AvengingAngelsFatigues  = 1 << 3,
+        ChauffeursClothes       = 1 << 4,
+        LawyersSuit             = 1 << 5,
+        Tuxedo                  = 1 << 6,
+        TheKingJumpsuit         = 1 << 7,
+        CoxMascotSuit           = 1 << 8,
+        Underwear               = 1 << 9,
+        HeroGarb                = 1 << 10,
+        DragonJumpsuit          = 1 << 11,
+        Antonio                 = 1 << 12,
+        Sweats                  = 1 << 13,
+        Goodfella               = 1 << 14,
+        Wiseguy                 = 1 << 15
     }
 }
