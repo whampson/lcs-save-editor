@@ -94,7 +94,6 @@ SOFTWARE.
     <Compile Include="Events\DialogCloseEventArgs.cs" />
     <Compile Include="Events\FileDialogEventArgs.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="Helpers\ArrayWrapper.cs" />
     <Compile Include="Events\MessageBoxEventArgs.cs" />
     <Compile Include="Helpers\MessageBoxEx.cs" />
     <Compile Include="Helpers\SerializableObject.cs" />
@@ -113,7 +112,6 @@ SOFTWARE.
     <Compile Include="Models\StatsBlock.cs" />
     <Compile Include="Models\StoredCar.cs" />
     <Compile Include="Models\StreetRaceStat.cs" />
-    <Compile Include="Helpers\StringWrapper.cs" />
     <Compile Include="Models\Timestamp.cs" />
     <Compile Include="Models\Vector2d.cs" />
     <Compile Include="Models\Vector3d.cs" />
