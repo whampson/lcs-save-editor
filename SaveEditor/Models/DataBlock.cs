@@ -21,9 +21,6 @@
  */
 #endregion
 
-using Newtonsoft.Json;
-using WHampson.Cascara;
-
 namespace WHampson.LcsSaveEditor.Models
 {
     /// <summary>
