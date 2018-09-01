@@ -26,15 +26,14 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Data;
-using WHampson.LcsSaveEditor.DataTypes;
-using WHampson.LcsSaveEditor.Helpers;
 using WHampson.LcsSaveEditor.Models;
+using WHampson.LcsSaveEditor.Models.GameDataTypes;
 
 namespace WHampson.LcsSaveEditor.ViewModels
 {
     public class WeaponsViewModel : PageViewModelBase
     {
-        private readonly ArrayWrapper<uint> globals;
+        //private readonly ArrayWrapper<uint> globals;
         private readonly Dictionary<Weapon, int> weaponAmmoIndexMap;
 
         private Weapon? _handWeapon;
@@ -64,8 +63,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
         {
             weaponAmmoIndexMap = new Dictionary<Weapon, int>();
 
-            globals = gameState.Scripts.GlobalVariables;
-            globals.CollectionChanged += GlobalVariables_CollectionChanged;
+            //globals = gameState.Scripts.GlobalVariables;
+            //globals.CollectionChanged += GlobalVariables_CollectionChanged;
             suppressGlobalVariablesChanged = false;
 
             switch (gameState.FileType) {
@@ -73,7 +72,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
                 case GamePlatform.IOS:
                     InitMobileWeaponVars();
                     break;
-                case GamePlatform.PS2:
+                case GamePlatform.PlayStation2:
                     InitPS2WeaponVars();
                     break;
                 default:
@@ -99,7 +98,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _handWeapon; }
             set {
                 _handWeapon = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteHandWeaponSlot();
             }
         }
@@ -133,7 +132,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _meleeWeapon; }
             set {
                 _meleeWeapon = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteMeleeWeaponSlot();
             }
         }
@@ -148,8 +147,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                 else {
                     MeleeWeapon = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ProjectileAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(ProjectileAmmo));
             }
         }
 
@@ -188,7 +187,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _projectile; }
             set {
                 _projectile = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteProjectileSlot();
             }
         }
@@ -198,7 +197,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _projectileAmmo; }
             set {
                 _projectileAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteProjectileSlot();
             }
         }
@@ -215,8 +214,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _projectileAmmo = 0;
                     Projectile = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ProjectileAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(ProjectileAmmo));
             }
         }
 
@@ -257,7 +256,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _pistol; }
             set {
                 _pistol = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WritePistolSlot();
             }
         }
@@ -267,7 +266,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _pistolAmmo; }
             set {
                 _pistolAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WritePistolSlot();
             }
         }
@@ -284,8 +283,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _pistolAmmo = 0;
                     Pistol = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PistolAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(PistolAmmo));
             }
         }
 
@@ -326,7 +325,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _shotgun; }
             set {
                 _shotgun = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteShotgunSlot();
             }
         }
@@ -336,7 +335,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _shotgunAmmo; }
             set {
                 _shotgunAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteShotgunSlot();
             }
         }
@@ -353,8 +352,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _shotgunAmmo = 0;
                     Shotgun = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ShotgunAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(ShotgunAmmo));
             }
         }
 
@@ -395,7 +394,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _smg; }
             set {
                 _smg = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteSmgSlot();
             }
         }
@@ -405,7 +404,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _smgAmmo; }
             set {
                 _smgAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteSmgSlot();
             }
         }
@@ -422,8 +421,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _smgAmmo = 0;
                     Smg = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(SmgAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(SmgAmmo));
             }
         }
 
@@ -464,7 +463,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _assault; }
             set {
                 _assault = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteAssaultSlot();
             }
         }
@@ -474,7 +473,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _assaultAmmo; }
             set {
                 _assaultAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteAssaultSlot();
             }
         }
@@ -491,8 +490,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _assaultAmmo = 0;
                     Assault = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(AssaultAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(AssaultAmmo));
             }
         }
 
@@ -533,7 +532,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _heavy; }
             set {
                 _heavy = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteHeavySlot();
             }
         }
@@ -543,7 +542,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _heavyAmmo; }
             set {
                 _heavyAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteHeavySlot();
             }
         }
@@ -560,8 +559,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _heavyAmmo = 0;
                     Heavy = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(HeavyAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(HeavyAmmo));
             }
         }
 
@@ -602,7 +601,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _sniper; }
             set {
                 _sniper = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteSniperSlot();
             }
         }
@@ -612,7 +611,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _sniperAmmo; }
             set {
                 _sniperAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteSniperSlot();
             }
         }
@@ -629,8 +628,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _sniperAmmo = 0;
                     Sniper = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(SniperAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(SniperAmmo));
             }
         }
 
@@ -671,7 +670,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _special; }
             set {
                 _special = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteSpecialSlot();
             }
         }
@@ -681,7 +680,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             get { return _specialAmmo; }
             set {
                 _specialAmmo = value;
-                OnPropertyChanged();
+                FirePropertyChanged();
                 WriteSpecialSlot();
             }
         }
@@ -698,8 +697,8 @@ namespace WHampson.LcsSaveEditor.ViewModels
                     _specialAmmo = 0;
                     Special = null;
                 }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(SpecialAmmo));
+                FirePropertyChanged();
+                FirePropertyChanged(nameof(SpecialAmmo));
             }
         }
 
