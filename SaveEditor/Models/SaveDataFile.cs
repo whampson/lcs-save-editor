@@ -21,209 +21,160 @@
  */
 #endregion
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.IO;
-using WHampson.Cascara;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WHampson.LcsSaveEditor.Helpers;
-using WHampson.LcsSaveEditor.Properties;
+using WHampson.LcsSaveEditor.Resources;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class SaveDataFile : IDisposable
+    public abstract class SaveDataFile : SerializableObject
     {
-        public static SaveDataFile Load(string path)
+        private const string SimpleVarsTag = "SIMP";
+        private const string ScriptsTag = "SRPT";
+        private const string GaragesTag = "GRGE";
+        private const string PlayerInfoTag = "PLYR";
+        private const string StatsTag = "STAT";
+
+        protected DataBlock m_simpleVars;
+        protected DataBlock m_scripts;
+        protected DataBlock m_garages;
+        protected DataBlock m_playerInfo;
+        protected DataBlock m_stats;
+        protected DataBlock m_padding;
+
+        public SaveDataFile(GamePlatform flieType)
         {
-            bool valid = IsFileValid(path, out BinaryData data);
-            if (!valid) {
-                throw new InvalidDataException(Resources.InvalidDataMessage);
-            }
-
-            GamePlatform type = DetectFileType(data);
-            if (!IsFileTypeSupported(type)) {
-                string msg = string.Format(Resources.UnsupportedDataFormatMessage, GetGamePlatformName(type));
-                throw new NotSupportedException(msg);
-            }
-
-            string scriptPath;
-            switch (type) {
-                case GamePlatform.Android:
-                    scriptPath = "../../resources/scripts/androidsave.xml";
-                    break;
-                case GamePlatform.IOS:
-                    scriptPath = "../../resources/scripts/iossave.xml";
-                    break;
-                case GamePlatform.PS2:
-                    scriptPath = "../../resources/scripts/ps2save.xml";
-                    break;
-                default:
-                    scriptPath = string.Empty;
-                    break;
-            }
-
-            LayoutScript script = LayoutScript.Load(scriptPath);
-            data.RunLayoutScript(script);
-
-            DeserializationFlags flags = 0;
-            flags |= DeserializationFlags.Fields;
-            flags |= DeserializationFlags.NonPublic;
-            SaveDataFile sg = data.Deserialize<SaveDataFile>(flags);
-            sg.FileType = type;
-            sg.RawData = data;
-
-            File.WriteAllText("out.json", sg.ToString());
-
-            return sg;
-        }
-
-        private SimpleVarsBlock simpleVars;
-        private ScriptsBlock scripts;
-        private GaragesBlock garages;
-        private PlayerBlock player;
-        private StatsBlock stats;
-
-        private Primitive<uint> checksum;
-
-        public SaveDataFile()
-        {
-            simpleVars = new SimpleVarsBlock();
-            scripts = new ScriptsBlock();
-            garages = new GaragesBlock();
-            player = new PlayerBlock();
-            stats = new StatsBlock();
-
-            checksum = new Primitive<uint>(null, 0);
-        }
-
-        [JsonConverter(typeof(StringEnumConverter))]
-        public GamePlatform FileType
-        {
-            get;
-            private set;
-        }
-
-        public SimpleVarsBlock SimpleVars
-        {
-            get { return simpleVars; }
-        }
-
-        public ScriptsBlock Scripts
-        {
-            get { return scripts; }
-        }
-
-        public GaragesBlock Garages
-        {
-            get { return garages; }
-        }
-
-        public PlayerBlock Player
-        {
-            get { return player; }
-        }
-
-        public StatsBlock Stats
-        {
-            get { return stats; }
-        }
-
-        private uint Checksum
-        {
-            get { return checksum.Value; }
-            set { checksum.Value = value; }
-        }
-
-        private BinaryData RawData
-        {
-            get;
-            set;
-        }
-
-        public void Store(string path)
-        {
-            UpdateChecksum();
-            RawData.Store(path);
-        }
-
-        private void UpdateChecksum()
-        {
-            if (FileType != GamePlatform.PS2) {
-                return;
-            }
-
-            uint cksum = 0;
-            byte[] data = RawData.ToArray();
-
-            for (int i = 0; i < data.Length - sizeof(uint); i++) {
-                cksum += data[i];
-            }
-            Checksum = cksum;
-        }
-
-        public override string ToString()
-        {
-            // TODO: this is a hotfix to prevent an exception from being thrown when
-            // serailizing properties that don't exist for the curretn file type.
-            // This is NOT a good way to handle this issue and should be corrected.
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                Error = (sender, e) => e.ErrorContext.Handled = true
-            };
-
-            return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
+            m_simpleVars = new DataBlock() { Tag = SimpleVarsTag };
+            m_scripts = new DataBlock() { Tag = SimpleVarsTag };
+            m_garages = new DataBlock() { Tag = SimpleVarsTag };
+            m_playerInfo = new DataBlock() { Tag = SimpleVarsTag };
+            m_stats = new DataBlock() { Tag = SimpleVarsTag };
+            m_padding = new DataBlock();
         }
 
         /// <summary>
-        /// Determines whether a set of data is a valid GTA:LCS savedata file.
+        /// Gets the file format type based on the <see cref="GamePlatform"/>
+        /// that created this save data.
         /// </summary>
-        private static bool IsFileValid(string path, out BinaryData data)
+        public GamePlatform FileType
         {
-            const int OneKibiByte = 1024;
-            const int OneMebiByte = 1024 * 1024;
+            get;
+        }
 
-            using (FileStream fs = new FileStream(path, FileMode.Open)) {
-                // Quick validation by checking file size
-                if (fs.Length < OneKibiByte || fs.Length > OneMebiByte) {
-                    data = default(BinaryData);
-                    return false;
+        /// <summary>
+        /// Writes this saved game data to a file.
+        /// </summary>
+        /// <param name="path">The file to write.</param>
+        public void Store(string path)
+        {
+            byte[] data = Serialize(this);
+            File.WriteAllBytes(path, data);
+        }
+
+        /// <summary>
+        /// Computes the checksum that goes in the footer of the file.
+        /// </summary>
+        /// <param name="stream">The stream containing the serialized save data.</param>
+        /// <returns>The serialized data checksum.</returns>
+        protected int GetChecksum(Stream stream)
+        {
+            using (MemoryStream m = new MemoryStream()) {
+                stream.Position = 0;
+                stream.CopyTo(m);
+                return m.ToArray().Sum(x => x);
+            }
+        }
+
+        /// <summary>
+        /// Sets the Data field of a <see cref="DataBlock"/> by
+        /// reading data at the current position in a stream in
+        /// accordance with the <see cref="DataBlock"/> parameters.
+        /// </summary>
+        /// <param name="stream">The stream to read.</param>
+        /// <param name="block">The block to populate.</param>
+        /// <returns>The number of bytes read.</returns>
+        protected int ReadDataBlock(Stream stream, DataBlock block)
+        {
+            // Format:
+            //     Tag
+            //     sizeof(Data)
+            //     Data
+
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                string tag;
+                int blockSize;
+
+                tag = Encoding.ASCII.GetString(r.ReadBytes(block.Tag.Length));
+                if (tag != block.Tag) {
+                    //string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
+                    //    tag.StripNull(), block.Tag.StripNull());
+                    //throw new InvalidDataException(msg);
+
+                    // TODO: message
+                    throw new InvalidDataException();
                 }
 
-                byte[] buf = new byte[fs.Length];
-                fs.Read(buf, 0, buf.Length);
-
-                data = new BinaryData(buf);
+                blockSize = r.ReadInt32();
+                if (blockSize > stream.Length) {
+                    // TODO: message
+                    throw new InvalidDataException();
+                }
+                block.Data = r.ReadBytes(blockSize);
             }
 
-            const string SimpTag = "SIMP";
-            const string SrptTag = "SRPT";
-            const string ScrTag = "SCR";
-            const int SimpTagOffset = 0x000;
-            const int SrptTagOffsetPs2 = 0x100;
-            const int SrptTagOffsetMobile = 0x144;
-            const int ScrTagOffsetPs2 = 0x108;
-            const int ScrTagOffsetMobile = 0x14C;
+            return (int) (stream.Position - start);
+        }
 
-            // Check for "SIMP" block signature
-            bool simpFound = data.GetString(SimpTagOffset, 4).Equals(SimpTag);
-            if (!simpFound) {
-                data = default(BinaryData);
-                return false;
+        /// <summary>
+        /// Creates a new <see cref="SaveDataFile"/> object from binary
+        /// data found inside the specified file.
+        /// </summary>
+        /// <param name="path">The path to the file to load.</param>
+        /// <returns>The newly-created <see cref="SaveDataFile"/>.</returns>
+        /// <exception cref="InvalidDataException">
+        /// Thrown if the file is not a valid GTA3 save data file.
+        /// </exception>
+        public static SaveDataFile Load(string path)
+        {
+            byte[] data = File.ReadAllBytes(path);
+            GamePlatform fileType = DetectFileType(data);
+
+            switch (fileType) {
+                //case GamePlatform.Android:
+                //    return Deserialize<SaveDataFileAndroid>(data);
+                //case GamePlatform.IOS:
+                //    return Deserialize<SaveDataFileIOS>(data);
+                case GamePlatform.PlayStation2:
+                    return Deserialize<SaveDataFilePS2>(data);
+                default:
+                    throw new InvalidOperationException(
+                        string.Format("{0} ({1})",
+                            Strings.ExceptionMessageInvalidOperation,
+                            nameof(SaveDataFile)));
             }
+        }
 
-            //  Check for "SRPT" and "SCR" block signatures
-            bool srptPS2Found = data.GetString(SrptTagOffsetPs2, 4).Equals(SrptTag);
-            bool srptMobileFound = data.GetString(SrptTagOffsetMobile, 4).Equals(SrptTag);
-            bool scrPS2Found = data.GetString(ScrTagOffsetPs2, 4).Equals(ScrTag);
-            bool scrMobileFound = data.GetString(ScrTagOffsetMobile, 4).Equals(ScrTag);
+        /// <summary>
+        /// Unpacks all data blocks into their respective data fields.
+        /// </summary>
+        protected void DeserializeDataBlocks()
+        {
+            // TODO
+        }
 
-            if (!(srptPS2Found && scrPS2Found) && !(srptMobileFound && scrMobileFound)) {
-                data = default(BinaryData);
-                return false;
-            }
-
-            return true;
+        /// <summary>
+        /// Serializes all data fields and stores the result in the respective
+        /// data blocks.
+        /// </summary>
+        protected void SerializeDataBlocks()
+        {
+            // TODO
         }
 
         /// <summary>
@@ -231,24 +182,24 @@ namespace WHampson.LcsSaveEditor.Models
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        private static GamePlatform DetectFileType(BinaryData data)
+        private static GamePlatform DetectFileType(byte[] data)
         {
             const int SimpSizePs2 = 0x0F8;
             const int MissionScriptSizeAndroid = 0x21C;
             const int MissionScriptSizeIos = 0x228;
 
             // Determine if PS2 by size of SIMP block.
-            int sizeOfSimp = data.Get<int>(0x04);
+            int sizeOfSimp = ReadInt(data, 0x04);
             if (sizeOfSimp == SimpSizePs2) {
-                return GamePlatform.PS2;
+                return GamePlatform.PlayStation2;
             }
 
             // Distinguish iOS and Android by size of MissionScript.
-            int sizeOfSrpt = data.Get<int>(sizeOfSimp + 0x0C);
+            int sizeOfSrpt = ReadInt(data, sizeOfSimp + 0x0C);
             int srptDataOffset = sizeOfSimp + 0x10;
-            int scriptVarSpaceSize = data.Get<int>(srptDataOffset + 0x08);
+            int scriptVarSpaceSize = ReadInt(data, srptDataOffset + 0x08);
             int scriptVarOffset = srptDataOffset + 0x0C;
-            int numRunningScripts = data.Get<int>(scriptVarOffset + scriptVarSpaceSize + 0x7C0);
+            int numRunningScripts = ReadInt(data, scriptVarOffset + scriptVarSpaceSize + 0x7C0);
             int runningScriptsOffset = scriptVarOffset + scriptVarSpaceSize + 0x7C4;
 
             int sizeOfRunningScript = (sizeOfSrpt + srptDataOffset - runningScriptsOffset) / numRunningScripts;
@@ -261,22 +212,15 @@ namespace WHampson.LcsSaveEditor.Models
             }
 
             // PSP -- ???? (TODO)
-            throw new InvalidDataException(Resources.UnknownDataFormatMessage);
+            throw new InvalidDataException(Strings.ExceptionMessageInvalidSaveData);
         }
 
-        private static bool IsFileTypeSupported(GamePlatform v)
+        /// <summary>
+        /// Reads a 32-bit integer from an arbitrary address in an array.
+        /// </summary>
+        private static int ReadInt(byte[] data, int addr)
         {
-            return !EnumHelper.HasAttribute<NotSupportedAttribute>(v);
-        }
-
-        private static string GetGamePlatformName(GamePlatform v)
-        {
-            return EnumHelper.GetAttribute<DescriptionAttribute>(v).Description;
-        }
-
-        public void Dispose()
-        {
-            ((IDisposable) RawData).Dispose();
+            return BitConverter.ToInt32(data, addr);
         }
     }
 }

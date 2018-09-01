@@ -26,24 +26,38 @@ using WHampson.Cascara;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public abstract class DataBlock
+    /// <summary>
+    /// Represents a data container for a <see cref="SaveDataFile"/>.
+    /// </summary>
+    public class DataBlock
     {
-        protected readonly BlockHeader header;
-
+        /// <summary>
+        /// Creates a new <see cref="DataBlock"/> object with no
+        /// <see cref="Tag"/>, zero bytes of <see cref="Data"/>, and
+        /// <see cref="StoreBlockSize"/> set to true.
+        /// </summary>
         public DataBlock()
         {
-            header = new BlockHeader();
+            Data = new byte[0];
+            Tag = null;
         }
 
-        [JsonProperty(Order = -2)]
-        public BlockHeader Header
+        /// <summary>
+        /// Gets or sets the data stored in this <see cref="DataBlock"/>.
+        /// </summary>
+        public byte[] Data
         {
-            get { return header; }
+            get;
+            set;
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Gets or sets the block identifier.
+        /// </summary>
+        public string Tag
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            get;
+            set;
         }
     }
 }
