@@ -22,11 +22,9 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WHampson.LcsSaveEditor.Helpers;
 using WHampson.LcsSaveEditor.Resources;
 
@@ -47,7 +45,7 @@ namespace WHampson.LcsSaveEditor.Models
         protected DataBlock m_stats;
         protected DataBlock m_padding;
 
-        public SaveDataFile(GamePlatform flieType)
+        protected SaveDataFile(GamePlatform flieType)
         {
             m_simpleVars = new DataBlock() { Tag = SimpleVarsTag };
             m_scripts = new DataBlock() { Tag = SimpleVarsTag };
