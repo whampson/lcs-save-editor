@@ -21,95 +21,121 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class DirtBikeRaceStat
+    public class DirtBikeRaceStat : SerializableObject
     {
-        private readonly Primitive<uint> course1;
-        private readonly Primitive<uint> course2;
-        private readonly Primitive<uint> course3;
-        private readonly Primitive<uint> course4;
-        private readonly Primitive<uint> course5;
-        private readonly Primitive<uint> course6;
-        private readonly Primitive<uint> course7;
-        private readonly Primitive<uint> course8;
-        private readonly Primitive<uint> course9;
-        private readonly Primitive<uint> course10;
-
-        public DirtBikeRaceStat()
-        {
-            course1 = new Primitive<uint>(null, 0);
-            course2 = new Primitive<uint>(null, 0);
-            course3 = new Primitive<uint>(null, 0);
-            course4 = new Primitive<uint>(null, 0);
-            course5 = new Primitive<uint>(null, 0);
-            course6 = new Primitive<uint>(null, 0);
-            course7 = new Primitive<uint>(null, 0);
-            course8 = new Primitive<uint>(null, 0);
-            course9 = new Primitive<uint>(null, 0);
-            course10 = new Primitive<uint>(null, 0);
-        }
+        private uint m_course1;
+        private uint m_course2;
+        private uint m_course3;
+        private uint m_course4;
+        private uint m_course5;
+        private uint m_course6;
+        private uint m_course7;
+        private uint m_course8;
+        private uint m_course9;
+        private uint m_course10;
 
         public uint Course1
         {
-            get { return course1.Value; }
-            set { course1.Value = value; }
+            get { return m_course1; }
+            set { m_course1 = value; FirePropertyChanged(); }
         }
 
         public uint Course2
         {
-            get { return course2.Value; }
-            set { course2.Value = value; }
+            get { return m_course2; }
+            set { m_course2 = value; FirePropertyChanged(); }
         }
 
         public uint Course3
         {
-            get { return course3.Value; }
-            set { course3.Value = value; }
+            get { return m_course3; }
+            set { m_course3 = value; FirePropertyChanged(); }
         }
 
         public uint Course4
         {
-            get { return course4.Value; }
-            set { course4.Value = value; }
+            get { return m_course4; }
+            set { m_course4 = value; FirePropertyChanged(); }
         }
 
         public uint Course5
         {
-            get { return course5.Value; }
-            set { course5.Value = value; }
+            get { return m_course5; }
+            set { m_course5 = value; FirePropertyChanged(); }
         }
 
         public uint Course6
         {
-            get { return course6.Value; }
-            set { course6.Value = value; }
+            get { return m_course6; }
+            set { m_course6 = value; FirePropertyChanged(); }
         }
 
         public uint Course7
         {
-            get { return course7.Value; }
-            set { course7.Value = value; }
+            get { return m_course7; }
+            set { m_course7 = value; FirePropertyChanged(); }
         }
 
         public uint Course8
         {
-            get { return course8.Value; }
-            set { course8.Value = value; }
+            get { return m_course8; }
+            set { m_course8 = value; FirePropertyChanged(); }
         }
 
         public uint Course9
         {
-            get { return course9.Value; }
-            set { course9.Value = value; }
+            get { return m_course9; }
+            set { m_course9 = value; FirePropertyChanged(); }
         }
 
         public uint Course10
         {
-            get { return course10.Value; }
-            set { course10.Value = value; }
+            get { return m_course10; }
+            set { m_course10 = value; FirePropertyChanged(); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_course1 = r.ReadUInt32();
+                m_course2 = r.ReadUInt32();
+                m_course3 = r.ReadUInt32();
+                m_course4 = r.ReadUInt32();
+                m_course5 = r.ReadUInt32();
+                m_course6 = r.ReadUInt32();
+                m_course7 = r.ReadUInt32();
+                m_course8 = r.ReadUInt32();
+                m_course9 = r.ReadUInt32();
+                m_course10 = r.ReadUInt32();
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_course1);
+                w.Write(m_course2);
+                w.Write(m_course3);
+                w.Write(m_course4);
+                w.Write(m_course5);
+                w.Write(m_course6);
+                w.Write(m_course7);
+                w.Write(m_course8);
+                w.Write(m_course9);
+                w.Write(m_course10);
+            }
+
+            return stream.Position - start;
         }
     }
 }

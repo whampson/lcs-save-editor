@@ -21,31 +21,76 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class Vector2d
+    public class Vector2d : SerializableObject, IComparable, IComparable<Vector3d>
     {
-        private readonly Primitive<float> x;
-        private readonly Primitive<float> y;
-
-        public Vector2d()
-        {
-            x = new Primitive<float>(null, 0);
-            y = new Primitive<float>(null, 0);
-        }
+        private float m_x;
+        private float m_y;
 
         public float X
         {
-            get { return x.Value; }
-            set { x.Value = value; }
+            get { return m_x; }
+            set { m_x = value; FirePropertyChanged(); }
         }
 
         public float Y
         {
-            get { return y.Value; }
-            set { y.Value = value; }
+            get { return m_y; }
+            set { m_y = value; FirePropertyChanged(); }
+        }
+
+        public float Magnitude
+        {
+            get { return (float) Math.Sqrt((m_x * m_x) + (m_y * m_y)); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_x = r.ReadSingle();
+                m_y = r.ReadSingle();
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_x);
+                w.Write(m_y);
+            }
+
+            return stream.Position - start;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return CompareTo(obj as Vector3d);
+        }
+
+        public int CompareTo(Vector3d other)
+        {
+            if (other == null || Magnitude > other.Magnitude) {
+                return 1;
+            }
+            else if (Magnitude < other.Magnitude) {
+                return -1;
+            }
+            return 0;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("<{0},{1}>", m_x, m_y);
         }
     }
 }

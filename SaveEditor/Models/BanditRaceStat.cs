@@ -21,39 +21,58 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class BanditRaceStat
+    public class BanditRaceStat : SerializableObject
     {
-        private readonly Primitive<uint> thrashinRc;
-        private readonly Primitive<uint> raginRc;
-        private readonly Primitive<uint> chasinRc;
-
-        public BanditRaceStat()
-        {
-            thrashinRc = new Primitive<uint>(null, 0);
-            raginRc = new Primitive<uint>(null, 0);
-            chasinRc = new Primitive<uint>(null, 0);
-        }
+        private uint m_thrashinRc;
+        private uint m_raginRc;
+        private uint m_chasinRc;
 
         public uint ThrashinRc
         {
-            get { return thrashinRc.Value; }
-            set { thrashinRc.Value = value; }
+            get { return m_thrashinRc; }
+            set { m_thrashinRc = value; FirePropertyChanged(); }
         }
 
         public uint RaginRc
         {
-            get { return raginRc.Value; }
-            set { raginRc.Value = value; }
+            get { return m_raginRc; }
+            set { m_raginRc = value; FirePropertyChanged(); }
         }
 
         public uint ChasinRc
         {
-            get { return chasinRc.Value; }
-            set { chasinRc.Value = value; }
+            get { return m_chasinRc; }
+            set { m_chasinRc = value; FirePropertyChanged(); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_thrashinRc = r.ReadUInt32();
+                m_raginRc = r.ReadUInt32();
+                m_chasinRc = r.ReadUInt32();
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_thrashinRc);
+                w.Write(m_raginRc);
+                w.Write(m_chasinRc);
+            }
+
+            return stream.Position - start;
         }
     }
 }
