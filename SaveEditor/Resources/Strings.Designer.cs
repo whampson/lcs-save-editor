@@ -97,6 +97,33 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} savedata files are not supported at this time..
+        /// </summary>
+        public static string ExceptionMessageFileTypeNotSupported {
+            get {
+                return ResourceManager.GetString("ExceptionMessageFileTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The block size in the header does not match the number of available bytes in the stream..
+        /// </summary>
+        public static string ExceptionMessageIncorrectBlockSize {
+            get {
+                return ResourceManager.GetString("ExceptionMessageIncorrectBlockSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect block tag - &apos;{0}&apos;. Expected &apos;{1}&apos;..
+        /// </summary>
+        public static string ExceptionMessageInvalidBlockTag {
+            get {
+                return ResourceManager.GetString("ExceptionMessageInvalidBlockTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file..
         /// </summary>
         public static string ExceptionMessageInvalidSaveData {

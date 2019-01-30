@@ -129,6 +129,17 @@
   <data name="ExceptionMessageConvertBackNotSupported" xml:space="preserve">
     <value>ConvertBack is not supported for this converter.</value>
   </data>
+  <data name="ExceptionMessageFileTypeNotSupported" xml:space="preserve">
+    <value>{0} savedata files are not supported at this time.</value>
+    <comment>{0} = gaming platform name</comment>
+  </data>
+  <data name="ExceptionMessageIncorrectBlockSize" xml:space="preserve">
+    <value>The block size in the header does not match the number of available bytes in the stream.</value>
+  </data>
+  <data name="ExceptionMessageInvalidBlockTag" xml:space="preserve">
+    <value>Incorrect block tag - '{0}'. Expected '{1}'.</value>
+    <comment>{0} = bad tag; {1} = expected tag</comment>
+  </data>
   <data name="ExceptionMessageInvalidSaveData" xml:space="preserve">
     <value>Not a valid GTA:LCS savedata file.</value>
   </data>
