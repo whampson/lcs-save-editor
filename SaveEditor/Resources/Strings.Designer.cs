@@ -61,6 +61,69 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to thehambone.
+        /// </summary>
+        public static string AppAuthor {
+            get {
+                return ResourceManager.GetString("AppAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wes Hampson.
+        /// </summary>
+        public static string AppAuthorAlternate {
+            get {
+                return ResourceManager.GetString("AppAuthorAlternate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to thehambone93@gmail.com.
+        /// </summary>
+        public static string AppAuthorContact {
+            get {
+                return ResourceManager.GetString("AppAuthorContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright (C) 2016-2019 Wes Hampson. All Rights Reserved..
+        /// </summary>
+        public static string AppCopyright {
+            get {
+                return ResourceManager.GetString("AppCopyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grand Theft Auto: Liberty City Stories savegame editor..
+        /// </summary>
+        public static string AppDescription {
+            get {
+                return ResourceManager.GetString("AppDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A graphical tool for editing savegame files for Grand Theft Auto: Liberty City Stories..
+        /// </summary>
+        public static string AppDescriptionLong {
+            get {
+                return ResourceManager.GetString("AppDescriptionLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GTA:LCS Save Editor.
+        /// </summary>
+        public static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save your changes?.
         /// </summary>
         public static string DialogTextFileSavePrompt {
