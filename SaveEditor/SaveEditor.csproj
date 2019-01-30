@@ -55,9 +55,6 @@ SOFTWARE.
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cascara">
-      <HintPath>..\lib\Cascara\src\bin\Debug\netstandard2.0\Cascara.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -81,6 +78,9 @@ SOFTWARE.
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Converters\StringToUriConverter.cs" />
+    <Compile Include="Converters\Vector3dToStringConverter.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\GameDataTypes\ControllerConfig.cs" />
     <Compile Include="Models\GameDataTypes\Costumes.cs" />
     <Compile Include="Models\GameDataTypes\ExportCars.cs" />
@@ -98,16 +98,16 @@ SOFTWARE.
     <Compile Include="Helpers\MessageBoxEx.cs" />
     <Compile Include="Helpers\SerializableObject.cs" />
     <Compile Include="Models\BanditRaceStat.cs" />
-    <Compile Include="Models\BlockHeader.cs" />
     <Compile Include="Models\BuildingSwap.cs" />
     <Compile Include="Models\DataBlock.cs" />
     <Compile Include="Models\DirtBikeRaceStat.cs" />
     <Compile Include="Models\GaragesBlock.cs" />
     <Compile Include="Models\InvisibilitySetting.cs" />
-    <Compile Include="Models\MissionScript.cs" />
+    <Compile Include="Models\RunningScript.cs" />
     <Compile Include="Models\PlayerBlock.cs" />
+    <Compile Include="Models\SaveDataFile.cs" />
+    <Compile Include="Models\SaveDataFilePS2.cs" />
     <Compile Include="Models\ScriptsBlock.cs" />
-    <Compile Include="Models\ScriptVariable.cs" />
     <Compile Include="Models\SimpleVarsBlock.cs" />
     <Compile Include="Models\StatsBlock.cs" />
     <Compile Include="Models\StoredCar.cs" />
@@ -116,7 +116,6 @@ SOFTWARE.
     <Compile Include="Models\Vector2d.cs" />
     <Compile Include="Models\Vector3d.cs" />
     <Compile Include="Models\GamePlatform.cs" />
-    <Compile Include="Models\SaveDataFile.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -177,9 +176,6 @@ SOFTWARE.
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit">
       <Version>3.4.0</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
