@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -75,13 +75,15 @@ namespace WHampson.LcsSaveEditor.Helpers
             return MessageBox.Show(text, caption, buttons, icon);
         }
 
-        public static MessageBoxResult Show(string text, string caption, MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult)
+        public static MessageBoxResult Show(string text, string caption,
+            MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult)
         {
             Initialize();
             return MessageBox.Show(text, caption, buttons, icon, defResult);
         }
 
-        public static MessageBoxResult Show(string text, string caption, MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult, MessageBoxOptions options)
+        public static MessageBoxResult Show(string text, string caption,
+            MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult, MessageBoxOptions options)
         {
             Initialize();
             return MessageBox.Show(text, caption, buttons, icon, defResult, options);
@@ -120,7 +122,8 @@ namespace WHampson.LcsSaveEditor.Helpers
             return MessageBox.Show(owner, text, caption, buttons);
         }
 
-        public static MessageBoxResult Show(Window owner, string text, string caption, MessageBoxButton buttons, MessageBoxImage icon)
+        public static MessageBoxResult Show(Window owner, string text, string caption,
+            MessageBoxButton buttons, MessageBoxImage icon)
         {
             if (owner == null) {
                 return Show(text, caption, buttons, icon);
@@ -131,7 +134,8 @@ namespace WHampson.LcsSaveEditor.Helpers
             return MessageBox.Show(owner, text, caption, buttons, icon);
         }
 
-        public static MessageBoxResult Show(Window owner, string text, string caption, MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult)
+        public static MessageBoxResult Show(Window owner, string text, string caption,
+            MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult)
         {
             if (owner == null) {
                 return Show(text, caption, buttons, icon, defResult);
@@ -142,7 +146,8 @@ namespace WHampson.LcsSaveEditor.Helpers
             return MessageBox.Show(owner, text, caption, buttons, icon, defResult);
         }
 
-        public static MessageBoxResult Show(Window owner, string text, string caption, MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult, MessageBoxOptions options)
+        public static MessageBoxResult Show(Window owner, string text, string caption,
+            MessageBoxButton buttons, MessageBoxImage icon, MessageBoxResult defResult, MessageBoxOptions options)
         {
             if (owner == null) {
                 return Show(text, caption, buttons, icon, defResult, options);
@@ -162,7 +167,7 @@ namespace WHampson.LcsSaveEditor.Helpers
                 throw new NotSupportedException();
             }
 
-#pragma warning disable 0618    // GetCurrentThreadId() still works for what we need it to do.
+#pragma warning disable 0618    // GetCurrentThreadId() is marked obsolete, but it still works for what we need it to do.
             if (_owner != null) {
                 _hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, _hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
             }
@@ -210,8 +215,8 @@ namespace WHampson.LcsSaveEditor.Helpers
 
             System.Drawing.Point ptStart = new System.Drawing.Point(0, 0)
             {
-                X = (ptCenter.X - (width / 2)),
-                Y = (ptCenter.Y - (height / 2))
+                X = ptCenter.X - (width / 2),
+                Y = ptCenter.Y - (height / 2)
             };
 
             ptStart.X = (ptStart.X < 0) ? 0 : ptStart.X;
