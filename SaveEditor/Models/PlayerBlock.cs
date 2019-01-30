@@ -21,87 +21,103 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class PlayerBlock : DataBlock
+    public class PlayerBlock : SerializableObject
     {
-        private readonly Primitive<int> money;
-        private readonly Primitive<int> moneyOnScreen;
-        private readonly Primitive<bool> neverGetsTired;
-        private readonly Primitive<bool> fastReload;
-        private readonly Primitive<bool> fireProof;
-        private readonly Primitive<byte> maxHealth;
-        private readonly Primitive<byte> maxArmor;
-        private readonly Primitive<bool> getOutOfJailFree;
-        private readonly Primitive<bool> freeHealthCare;
+        // TODO: this is for PS2, implement iOS and Android
+        private int m_money;
+        private uint m_unknown04;
+        private byte m_unknown08;
+        private byte m_unknown09;
+        private byte m_unknown0A;
+        private float m_unknown0B;
+        private int m_moneyOnScreen;
+        private uint m_hiddenPackagesFound;
+        private uint m_unknown17;
+        private bool m_neverGetsTired;
+        private bool m_fastReload;
+        private bool m_fireProof;
+        private byte m_maxHealth;
+        private byte m_maxArmor;
+        private bool m_getOutOfJailFree;
+        private bool m_freeHealthCare;
+        private bool m_unknown31;
+        private byte m_unknown35;
+        private byte m_unknown36;
+        private byte m_unknown37;
+        private uint[] m_unknown38;
 
         public PlayerBlock()
         {
-            money = new Primitive<int>(null, 0);
-            moneyOnScreen = new Primitive<int>(null, 0);
-            neverGetsTired = new Primitive<bool>(null, 0);
-            fastReload = new Primitive<bool>(null, 0);
-            fireProof = new Primitive<bool>(null, 0);
-            maxHealth = new Primitive<byte>(null, 0);
-            maxArmor = new Primitive<byte>(null, 0);
-            getOutOfJailFree = new Primitive<bool>(null, 0);
-            freeHealthCare = new Primitive<bool>(null, 0);
+            m_unknown38 = new uint[86];
         }
 
-        public int Money
+        protected override long DeserializeObject(Stream stream)
         {
-            get { return money.Value; }
-            set { money.Value = value; }
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_money = r.ReadInt32();
+                m_unknown04 = r.ReadUInt32();
+                m_unknown08 = r.ReadByte();
+                m_unknown09 = r.ReadByte();
+                m_unknown0A = r.ReadByte();
+                m_unknown0B = r.ReadSingle();
+                m_moneyOnScreen = r.ReadInt32();
+                m_hiddenPackagesFound = r.ReadUInt32();
+                m_unknown17 = r.ReadUInt32();
+                m_neverGetsTired = r.ReadUInt32() != 0;
+                m_fastReload = r.ReadUInt32() != 0;
+                m_fireProof = r.ReadUInt32() != 0;
+                m_maxHealth = r.ReadByte();
+                m_maxArmor = r.ReadByte();
+                m_getOutOfJailFree = r.ReadUInt32() != 0;
+                m_freeHealthCare = r.ReadUInt32() != 0;
+                m_unknown31 = r.ReadUInt32() != 0;
+                m_unknown35 = r.ReadByte();
+                m_unknown36 = r.ReadByte();
+                m_unknown37 = r.ReadByte();
+                for (int i = 0; i < m_unknown38.Length; i++) {
+                    m_unknown38[i] = r.ReadUInt32();
+                }
+            }
+
+            return stream.Position - start;
         }
 
-        public int MoneyOnScreen
+        protected override long SerializeObject(Stream stream)
         {
-            get { return moneyOnScreen.Value; }
-            set { moneyOnScreen.Value = value; }
-        }
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_money);
+                w.Write(m_unknown04);
+                w.Write(m_unknown08);
+                w.Write(m_unknown09);
+                w.Write(m_unknown0A);
+                w.Write(m_unknown0B);
+                w.Write(m_moneyOnScreen);
+                w.Write(m_hiddenPackagesFound);
+                w.Write(m_neverGetsTired ? 1U : 0);
+                w.Write(m_fastReload ? 1U : 0);
+                w.Write(m_fireProof ? 1U : 0);
+                w.Write(m_maxHealth);
+                w.Write(m_maxArmor);
+                w.Write(m_getOutOfJailFree ? 1U : 0);
+                w.Write(m_freeHealthCare ? 1U : 0);
+                w.Write(m_unknown31 ? 1U : 0);
+                w.Write(m_unknown35);
+                w.Write(m_unknown36);
+                w.Write(m_unknown37);
+                for (int i = 0; i < m_unknown38.Length; i++) {
+                    w.Write(m_unknown38[i]);
+                }
+            }
 
-        public bool NeverGetsTired
-        {
-            get { return neverGetsTired.Value; }
-            set { neverGetsTired.Value = value; }
-        }
-
-        public bool FastReload
-        {
-            get { return fastReload.Value; }
-            set { fastReload.Value = value; }
-        }
-
-        public bool FireProof
-        {
-            get { return fireProof.Value; }
-            set { fireProof.Value = value; }
-        }
-
-        public byte MaxHealth
-        {
-            get { return maxHealth.Value; }
-            set { maxHealth.Value = value; }
-        }
-
-        public byte MaxArmor
-        {
-            get { return maxArmor.Value; }
-            set { maxArmor.Value = value; }
-        }
-
-        public bool GetOutOfJailFree
-        {
-            get { return getOutOfJailFree.Value; }
-            set { getOutOfJailFree.Value = value; }
-        }
-
-        public bool FreeHealthCare
-        {
-            get { return freeHealthCare.Value; }
-            set { freeHealthCare.Value = value; }
+            return stream.Position - start;
         }
     }
 }

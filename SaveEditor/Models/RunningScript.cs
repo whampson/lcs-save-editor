@@ -30,7 +30,7 @@ namespace WHampson.LcsSaveEditor.Models
     public class RunningScript : SerializableObject
     {
         // TODO: this is the PS2/Android version
-        //       impement iOS version
+        //       implement iOS version
 
         private const int NameLength = 8;
         private const int ReturnStackSize = 16;
@@ -103,7 +103,37 @@ namespace WHampson.LcsSaveEditor.Models
 
         protected override long SerializeObject(Stream stream)
         {
-            throw new System.NotImplementedException();
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_nextScriptPointer);
+                w.Write(m_prevScriptPointer);
+                w.Write(m_threadId);
+                w.Write(m_unknown0C);
+                w.Write(Encoding.ASCII.GetBytes(m_name.ToCharArray(), 0, NameLength));  // TODO: check whether NUL is required
+                w.Write(m_instructionPointer);
+                for (int i = 0; i < m_returnStack.Length; i++) {
+                    w.Write(m_returnStack[i]);
+                }
+                w.Write(m_returnStackCount);
+                for (int i = 0; i < m_localVariables.Length; i++) {
+                    w.Write(m_localVariables[i]);
+                }
+                w.Write(m_timer1);
+                w.Write(m_timer2);
+                w.Write(m_unknown208);
+                w.Write(m_unknown20C);
+                w.Write(m_unknown20D);
+                w.Write(m_unknown20E);
+                w.Write(m_unknown20F);
+                w.Write(m_wakeTime);
+                w.Write(m_unknown214);
+                w.Write(m_unknown215);
+                w.Write(m_unknown216);
+                w.Write(m_unknown217);
+                w.Write(m_unknown218);
+            }
+
+            return stream.Position - start;
         }
     }
 }

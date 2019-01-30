@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,106 +21,143 @@
  */
 #endregion
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using WHampson.Cascara;
-using WHampson.LcsSaveEditor.DataTypes;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
+using WHampson.LcsSaveEditor.Models.GameDataTypes;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class StoredCar
+    public class StoredCar : SerializableObject
     {
-        private readonly Primitive<uint> modelId;
-        private readonly Vector3d location;
-        private readonly Vector2d rotation;
-        private readonly Primitive<float> pitch;
-        private readonly Primitive<float> handlingMultiplier;
-        private readonly Primitive<uint> attributes;
-        private readonly Primitive<byte> color1;
-        private readonly Primitive<byte> color2;
-        private readonly Primitive<byte> radioStation;
-        private readonly Primitive<sbyte> extra1;
-        private readonly Primitive<sbyte> extra2;
+        private uint m_modelId;
+        private Vector3d m_location;
+        private Vector2d m_rotation;
+        private float m_pitch;
+        private float m_handlingMultiplier;
+        private uint m_attributes;
+        private byte m_color1;
+        private byte m_color2;
+        private byte m_radioStation;
+        private sbyte m_extra1;
+        private sbyte m_extra2;
 
         public StoredCar()
         {
-            modelId = new Primitive<uint>(null, 0);
-            location = new Vector3d();
-            rotation = new Vector2d();
-            pitch = new Primitive<float>(null, 0);
-            handlingMultiplier = new Primitive<float>(null, 0);
-            attributes = new Primitive<uint>(null, 0);
-            color1 = new Primitive<byte>(null, 0);
-            color2 = new Primitive<byte>(null, 0);
-            radioStation = new Primitive<byte>(null, 0);
-            extra1 = new Primitive<sbyte>(null, 0);
-            extra2 = new Primitive<sbyte>(null, 0);
+            m_location = new Vector3d();
+            m_rotation = new Vector2d();
         }
 
         public uint ModelId
         {
-            get { return modelId.Value; }
-            set { modelId.Value = value; }
+            get { return m_modelId; }
+            set { m_modelId = value; OnPropertyChanged(); }
         }
 
         public Vector3d Location
         {
-            get { return location; }
+            get { return m_location; }
+            set { m_location = value; OnPropertyChanged(); }
         }
 
         public Vector2d Rotation
         {
-            get { return rotation; }
+            get { return m_rotation; }
+            set { m_rotation = value; OnPropertyChanged(); }
         }
 
         public float Pitch
         {
-            get { return pitch.Value; }
-            set { pitch.Value = value; }
+            get { return m_pitch; }
+            set { m_pitch = value; OnPropertyChanged(); }
         }
 
         public float HandlingMultiplier
         {
-            get { return handlingMultiplier.Value; }
-            set { handlingMultiplier.Value = value; }
+            get { return m_handlingMultiplier; }
+            set { m_handlingMultiplier = value; OnPropertyChanged(); }
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
         public StoredCarProperties Attributes
         {
-            get { return (StoredCarProperties) attributes.Value; }
-            set { attributes.Value = (uint) value; }
+            get { return (StoredCarProperties) m_attributes; }
+            set { m_attributes = (uint) value; }
         }
 
         public byte Color1
         {
-            get { return color1.Value; }
-            set { color1.Value = value; }
+            get { return m_color1; }
+            set { m_color1 = value; OnPropertyChanged(); }
         }
 
         public byte Color2
         {
-            get { return color2.Value; }
-            set { color2.Value = value; }
+            get { return m_color2; }
+            set { m_color2 = value; OnPropertyChanged(); }
         }
 
-        [JsonConverter(typeof(StringEnumConverter))]
         public RadioStation RadioStation
         {
-            get { return (RadioStation) radioStation.Value; }
-            set { radioStation.Value = (byte) value; }
+            get { return (RadioStation) m_radioStation; }
+            set { m_radioStation = (byte) value; }
         }
 
         public sbyte Extra1
         {
-            get { return extra1.Value; }
-            set { extra1.Value = value; }
+            get { return m_extra1; }
+            set { m_extra1 = value; OnPropertyChanged(); }
         }
 
         public sbyte Extra2
         {
-            get { return extra2.Value; }
-            set { extra2.Value = value; }
+            get { return m_extra2; }
+            set { m_extra2 = value; OnPropertyChanged(); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_modelId = r.ReadUInt32();
+                Deserialize(stream, out m_location);
+                Deserialize(stream, out m_rotation);
+                m_pitch = r.ReadSingle();
+                m_handlingMultiplier = r.ReadSingle();
+                m_attributes = r.ReadUInt32();
+                m_color1 = r.ReadByte();
+                m_color2 = r.ReadByte();
+                m_radioStation = r.ReadByte();
+                m_extra1 = r.ReadSByte();
+                m_extra2 = r.ReadSByte();
+                r.ReadByte();       // Align byte
+                r.ReadByte();       // Align byte
+                r.ReadByte();       // Align byte
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_modelId);
+                Serialize(m_location, stream);
+                Serialize(m_rotation, stream);
+                w.Write(m_pitch);
+                w.Write(m_handlingMultiplier);
+                w.Write(m_attributes);
+                w.Write(m_color1);
+                w.Write(m_color2);
+                w.Write(m_radioStation);
+                w.Write(m_extra1);
+                w.Write(m_extra2);
+                w.Write((byte) 0);      // Align byte
+                w.Write((byte) 0);      // Align byte
+                w.Write((byte) 0);      // Align byte
+            }
+
+            return stream.Position - start;
         }
     }
 }

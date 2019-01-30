@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,63 +21,85 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class StreetRaceStat
+    public class StreetRaceStat : SerializableObject
     {
-        private readonly Primitive<uint> lowRiderRumble;
-        private readonly Primitive<uint> deimosDash;
-        private readonly Primitive<uint> wiCheetahRun;
-        private readonly Primitive<uint> redLightRacing;
-        private readonly Primitive<uint> torringtonTT;
-        private readonly Primitive<uint> gangstaGP;
-
-        public StreetRaceStat()
-        {
-            lowRiderRumble = new Primitive<uint>(null, 0);
-            deimosDash = new Primitive<uint>(null, 0);
-            wiCheetahRun = new Primitive<uint>(null, 0);
-            redLightRacing = new Primitive<uint>(null, 0);
-            torringtonTT = new Primitive<uint>(null, 0);
-            gangstaGP = new Primitive<uint>(null, 0);
-        }
+        private uint m_lowRiderRumble;
+        private uint m_deimosDash;
+        private uint m_wiCheetahRun;
+        private uint m_redLightRacing;
+        private uint m_torringtonTT;
+        private uint m_gangstaGP;
 
         public uint LowRiderRumble
         {
-            get { return lowRiderRumble.Value; }
-            set { lowRiderRumble.Value = value; }
+            get { return m_lowRiderRumble; }
+            set { m_lowRiderRumble = value; OnPropertyChanged(); }
         }
 
         public uint DeimosDash
         {
-            get { return deimosDash.Value; }
-            set { deimosDash.Value = value; }
+            get { return m_deimosDash; }
+            set { m_deimosDash = value; OnPropertyChanged(); }
         }
 
         public uint WiCheetahRun
         {
-            get { return wiCheetahRun.Value; }
-            set { wiCheetahRun.Value = value; }
+            get { return m_wiCheetahRun; }
+            set { m_wiCheetahRun = value; OnPropertyChanged(); }
         }
 
         public uint RedLightRacing
         {
-            get { return redLightRacing.Value; }
-            set { redLightRacing.Value = value; }
+            get { return m_redLightRacing; }
+            set { m_redLightRacing = value; OnPropertyChanged(); }
         }
 
         public uint TorringtonTT
         {
-            get { return torringtonTT.Value; }
-            set { torringtonTT.Value = value; }
+            get { return m_torringtonTT; }
+            set { m_torringtonTT = value; OnPropertyChanged(); }
         }
 
         public uint GangstaGP
         {
-            get { return gangstaGP.Value; }
-            set { gangstaGP.Value = value; }
+            get { return m_gangstaGP; }
+            set { m_gangstaGP = value; OnPropertyChanged(); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_lowRiderRumble = r.ReadUInt32();
+                m_deimosDash = r.ReadUInt32();
+                m_wiCheetahRun = r.ReadUInt32();
+                m_redLightRacing = r.ReadUInt32();
+                m_torringtonTT = r.ReadUInt32();
+                m_gangstaGP = r.ReadUInt32();
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_lowRiderRumble);
+                w.Write(m_deimosDash);
+                w.Write(m_wiCheetahRun);
+                w.Write(m_redLightRacing);
+                w.Write(m_torringtonTT);
+                w.Write(m_gangstaGP);
+            }
+
+            return stream.Position - start;
         }
     }
 }

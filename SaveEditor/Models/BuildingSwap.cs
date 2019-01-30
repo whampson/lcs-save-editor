@@ -21,47 +21,68 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class BuildingSwap
+    public class BuildingSwap : SerializableObject
     {
-        private readonly Primitive<uint> objectType;
-        private readonly Primitive<uint> objectIndex;
-        private readonly Primitive<int> newModel;
-        private readonly Primitive<int> oldModel;
+        private uint m_objectType;
+        private uint m_objectIndex;
+        private int m_newModel;
+        private int m_oldModel;
 
-        public BuildingSwap()
-        {
-            objectType = new Primitive<uint>(null, 0);
-            objectIndex = new Primitive<uint>(null, 0);
-            newModel = new Primitive<int>(null, 0);
-            oldModel = new Primitive<int>(null, 0);
-        }
-
+        // TODO: enum
         public uint ObjectType
         {
-            get { return objectType.Value; }
-            set { objectType.Value = value; }
+            get { return m_objectType; }
+            set { m_objectType = value; OnPropertyChanged(); }
         }
 
         public uint ObjectIndex
         {
-            get { return objectIndex.Value; }
-            set { objectIndex.Value = value; }
+            get { return m_objectIndex; }
+            set { m_objectIndex = value; OnPropertyChanged(); }
         }
 
         public int NewModel
         {
-            get { return newModel.Value; }
-            set { newModel.Value = value; }
+            get { return m_newModel; }
+            set { m_newModel = value; OnPropertyChanged(); }
         }
 
         public int OldModel
         {
-            get { return oldModel.Value; }
-            set { oldModel.Value = value; }
+            get { return m_oldModel; }
+            set { m_oldModel = value; OnPropertyChanged(); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_objectType = r.ReadUInt32();
+                m_objectIndex = r.ReadUInt32();
+                m_newModel = r.ReadInt32();
+                m_oldModel = r.ReadInt32();
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_objectType);
+                w.Write(m_objectIndex);
+                w.Write(m_newModel);
+                w.Write(m_oldModel);
+            }
+
+            return stream.Position - start;
         }
     }
 }

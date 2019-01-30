@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,63 +21,85 @@
  */
 #endregion
 
-using WHampson.Cascara;
+using System.IO;
+using System.Text;
+using WHampson.LcsSaveEditor.Helpers;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class Timestamp
+    public class Timestamp : SerializableObject
     {
-        private readonly Primitive<uint> second;
-        private readonly Primitive<uint> minute;
-        private readonly Primitive<uint> hour;
-        private readonly Primitive<uint> day;
-        private readonly Primitive<uint> month;
-        private readonly Primitive<uint> year;
-
-        public Timestamp()
-        {
-            second = new Primitive<uint>(null, 0);
-            minute = new Primitive<uint>(null, 0);
-            hour = new Primitive<uint>(null, 0);
-            day = new Primitive<uint>(null, 0);
-            month = new Primitive<uint>(null, 0);
-            year = new Primitive<uint>(null, 0);
-        }
+        private uint m_second;
+        private uint m_minute;
+        private uint m_hour;
+        private uint m_day;
+        private uint m_month;
+        private uint m_year;
 
         public uint Second
         {
-            get { return second.Value; }
-            set { second.Value = value; }
+            get { return m_second; }
+            set { m_second = value; OnPropertyChanged(); }
         }
 
         public uint Minute
         {
-            get { return minute.Value; }
-            set { minute.Value = value; }
+            get { return m_minute; }
+            set { m_minute = value; OnPropertyChanged(); }
         }
 
         public uint Hour
         {
-            get { return hour.Value; }
-            set { hour.Value = value; }
+            get { return m_hour; }
+            set { m_hour = value; OnPropertyChanged(); }
         }
 
         public uint Day
         {
-            get { return day.Value; }
-            set { day.Value = value; }
+            get { return m_day; }
+            set { m_day = value; OnPropertyChanged(); }
         }
 
         public uint Month
         {
-            get { return month.Value; }
-            set { month.Value = value; }
+            get { return m_month; }
+            set { m_month = value; OnPropertyChanged(); }
         }
 
         public uint Year
         {
-            get { return year.Value; }
-            set { year.Value = value; }
+            get { return m_year; }
+            set { m_year = value; OnPropertyChanged(); }
+        }
+
+        protected override long DeserializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                m_second = r.ReadUInt32();
+                m_minute = r.ReadUInt32();
+                m_hour = r.ReadUInt32();
+                m_day = r.ReadUInt32();
+                m_month = r.ReadUInt32();
+                m_year = r.ReadUInt32();
+            }
+
+            return stream.Position - start;
+        }
+
+        protected override long SerializeObject(Stream stream)
+        {
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_second);
+                w.Write(m_minute);
+                w.Write(m_hour);
+                w.Write(m_day);
+                w.Write(m_month);
+                w.Write(m_year);
+            }
+
+            return stream.Position - start;
         }
     }
 }
