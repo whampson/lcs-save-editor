@@ -88,8 +88,9 @@ namespace WHampson.LcsSaveEditor.Events
                     dialog = new SaveFileDialog();
                     break;
                 default:
+                    // Should never get here...
                     string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionMessageInvalidOperation, nameof(FileDialogEventArgs));
+                        Strings.ExceptionMessageOops, nameof(FileDialogEventArgs));
                     throw new InvalidOperationException(msg);
             }
 

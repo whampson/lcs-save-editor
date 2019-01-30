@@ -97,15 +97,6 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You weren&apos;t supposed to be able to get here, you know..
-        /// </summary>
-        public static string ExceptionMessageInvalidOperation {
-            get {
-                return ResourceManager.GetString("ExceptionMessageInvalidOperation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file..
         /// </summary>
         public static string ExceptionMessageInvalidSaveData {
@@ -120,6 +111,15 @@ namespace WHampson.LcsSaveEditor.Resources {
         public static string ExceptionMessageMultipleCallsNotSupported {
             get {
                 return ResourceManager.GetString("ExceptionMessageMultipleCallsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You weren&apos;t supposed to be able to get here, you know..
+        /// </summary>
+        public static string ExceptionMessageOops {
+            get {
+                return ResourceManager.GetString("ExceptionMessageOops", resourceCulture);
             }
         }
         
