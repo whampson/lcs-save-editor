@@ -36,13 +36,13 @@ namespace WHampson.LcsSaveEditor.Models
         public uint ObjectType
         {
             get { return m_objectType; }
-            set { m_objectType = value; FirePropertyChanged(); }
+            set { m_objectType = value; OnPropertyChanged(); }
         }
 
         public uint ObjectIndex
         {
             get { return m_objectIndex; }
-            set { m_objectIndex = value; FirePropertyChanged(); }
+            set { m_objectIndex = value; OnPropertyChanged(); }
         }
 
         protected override long DeserializeObject(Stream stream)

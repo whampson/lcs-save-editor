@@ -36,19 +36,19 @@ namespace WHampson.LcsSaveEditor.Models
         public uint ThrashinRc
         {
             get { return m_thrashinRc; }
-            set { m_thrashinRc = value; FirePropertyChanged(); }
+            set { m_thrashinRc = value; OnPropertyChanged(); }
         }
 
         public uint RaginRc
         {
             get { return m_raginRc; }
-            set { m_raginRc = value; FirePropertyChanged(); }
+            set { m_raginRc = value; OnPropertyChanged(); }
         }
 
         public uint ChasinRc
         {
             get { return m_chasinRc; }
-            set { m_chasinRc = value; FirePropertyChanged(); }
+            set { m_chasinRc = value; OnPropertyChanged(); }
         }
 
         protected override long DeserializeObject(Stream stream)

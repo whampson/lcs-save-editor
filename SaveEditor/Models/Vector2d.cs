@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,13 +36,13 @@ namespace WHampson.LcsSaveEditor.Models
         public float X
         {
             get { return m_x; }
-            set { m_x = value; FirePropertyChanged(); }
+            set { m_x = value; OnPropertyChanged(); }
         }
 
         public float Y
         {
             get { return m_y; }
-            set { m_y = value; FirePropertyChanged(); }
+            set { m_y = value; OnPropertyChanged(); }
         }
 
         public float Magnitude

@@ -52,19 +52,19 @@ namespace WHampson.LcsSaveEditor.Models
         public bool BombsAreFree
         {
             get { return m_bombsAreFree; }
-            set { m_bombsAreFree = value; FirePropertyChanged(); }
+            set { m_bombsAreFree = value; OnPropertyChanged(); }
         }
 
         public bool RespraysAreFree
         {
             get { return m_respraysAreFree; }
-            set { m_respraysAreFree = value; FirePropertyChanged(); }
+            set { m_respraysAreFree = value; OnPropertyChanged(); }
         }
 
         public ExportCars LoveMediaCarsCollected
         {
             get { return (ExportCars) m_carTypesCollected; }
-            set { m_carTypesCollected = (uint) value; FirePropertyChanged(); }
+            set { m_carTypesCollected = (uint) value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<StoredCar> StoredCars

@@ -43,61 +43,61 @@ namespace WHampson.LcsSaveEditor.Models
         public uint Course1
         {
             get { return m_course1; }
-            set { m_course1 = value; FirePropertyChanged(); }
+            set { m_course1 = value; OnPropertyChanged(); }
         }
 
         public uint Course2
         {
             get { return m_course2; }
-            set { m_course2 = value; FirePropertyChanged(); }
+            set { m_course2 = value; OnPropertyChanged(); }
         }
 
         public uint Course3
         {
             get { return m_course3; }
-            set { m_course3 = value; FirePropertyChanged(); }
+            set { m_course3 = value; OnPropertyChanged(); }
         }
 
         public uint Course4
         {
             get { return m_course4; }
-            set { m_course4 = value; FirePropertyChanged(); }
+            set { m_course4 = value; OnPropertyChanged(); }
         }
 
         public uint Course5
         {
             get { return m_course5; }
-            set { m_course5 = value; FirePropertyChanged(); }
+            set { m_course5 = value; OnPropertyChanged(); }
         }
 
         public uint Course6
         {
             get { return m_course6; }
-            set { m_course6 = value; FirePropertyChanged(); }
+            set { m_course6 = value; OnPropertyChanged(); }
         }
 
         public uint Course7
         {
             get { return m_course7; }
-            set { m_course7 = value; FirePropertyChanged(); }
+            set { m_course7 = value; OnPropertyChanged(); }
         }
 
         public uint Course8
         {
             get { return m_course8; }
-            set { m_course8 = value; FirePropertyChanged(); }
+            set { m_course8 = value; OnPropertyChanged(); }
         }
 
         public uint Course9
         {
             get { return m_course9; }
-            set { m_course9 = value; FirePropertyChanged(); }
+            set { m_course9 = value; OnPropertyChanged(); }
         }
 
         public uint Course10
         {
             get { return m_course10; }
-            set { m_course10 = value; FirePropertyChanged(); }
+            set { m_course10 = value; OnPropertyChanged(); }
         }
 
         protected override long DeserializeObject(Stream stream)

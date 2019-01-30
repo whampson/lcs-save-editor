@@ -46,7 +46,7 @@ namespace WHampson.LcsSaveEditor.Helpers
         /// Raises the <see cref="PropertyChanged"/> event.
         /// </summary>
         /// <param name="propertyName">The name of the property that changed.</param>
-        protected virtual void FirePropertyChanged([CallerMemberName] string propertyName = "")
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             VerifyPropertyName(propertyName);
 
