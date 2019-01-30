@@ -1,5 +1,5 @@
 #region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ using System.Windows;
 [assembly: AssemblyTitle("GTA:LCS Save Editor")]
 [assembly: AssemblyDescription("Grand Theft Auto: Liberty City Stories savegame editor.")]
 [assembly: AssemblyProduct("GTA:LCS Save Editor")]
-[assembly: AssemblyCopyright("Copyright (C) 2016-2018 Wes Hampson. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright (C) 2016-2019 Wes Hampson. All rights reserved.")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
@@ -53,6 +53,6 @@ using System.Windows;
     ResourceDictionaryLocation.SourceAssembly   // generic resource dictionary 
 )]
 
-[assembly: AssemblyVersion("0.3.0.356")]
-[assembly: AssemblyFileVersion("0.3.0.356")]
+[assembly: AssemblyVersion("0.3.0.361")]
+[assembly: AssemblyFileVersion("0.3.0.361")]
 [assembly: AssemblyInformationalVersion("0.3.0")]
