@@ -21,12 +21,15 @@
  */
 #endregion
 
-using System;
 using System.IO;
 using System.Text;
 
 namespace WHampson.LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Represents a saved Grand Theft Auto: Liberty City Stories game
+    /// formatted for the PlayStation 2 version of the game.
+    /// </summary>
     public class SaveDataPS2 : SaveData
     {
         /// <summary>
@@ -42,13 +45,18 @@ namespace WHampson.LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                // Read data
                 ReadDataBlock(stream, m_simpleVars);
                 ReadDataBlock(stream, m_scripts);
                 ReadDataBlock(stream, m_garages);
                 ReadDataBlock(stream, m_playerInfo);
                 ReadDataBlock(stream, m_stats);
-                r.ReadBytes(FileSize - (int) stream.Position - 4);  // Read padding (ignored)
-                r.ReadInt32();                                      // Read checksum (ignored)
+
+                // Read padding (ignored)
+                r.ReadBytes(FileSize - (int) stream.Position - 4);
+
+                // Read checksum (ignored)
+                r.ReadInt32();
             }
 
             DeserializeDataBlocks();
@@ -58,7 +66,28 @@ namespace WHampson.LcsSaveEditor.Models
 
         protected override long SerializeObject(Stream stream)
         {
-            throw new NotImplementedException();
+            SerializeDataBlocks();
+
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                // Data
+                WriteBlockData(stream, m_simpleVars);
+                WriteBlockData(stream, m_scripts);
+                WriteBlockData(stream, m_garages);
+                WriteBlockData(stream, m_playerInfo);
+                WriteBlockData(stream, m_stats);
+
+                // Padding
+                int numPadding = FileSize - (int) stream.Position - 4;
+                for (int i = 0; i < numPadding; i++) {
+                    w.Write((byte) 0);
+                }
+
+                // Checksum
+                w.Write(GetPS2Checksum(stream));
+            }
+
+            return stream.Position - start;
         }
     }
 }

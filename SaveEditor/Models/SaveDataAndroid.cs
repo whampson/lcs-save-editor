@@ -27,6 +27,10 @@ using System.Text;
 
 namespace WHampson.LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Represents a saved Grand Theft Auto: Liberty City Stories game
+    /// formatted for the Android version of the game.
+    /// </summary>
     public class SaveDataAndroid : SaveData
     {
         public SaveDataAndroid()
@@ -52,7 +56,24 @@ namespace WHampson.LcsSaveEditor.Models
 
         protected override long SerializeObject(Stream stream)
         {
-            throw new NotImplementedException();
+            SerializeDataBlocks();
+
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                // Data
+                WriteBlockData(stream, m_simpleVars);
+                WriteBlockData(stream, m_scripts);
+                WriteBlockData(stream, m_garages);
+                WriteBlockData(stream, m_playerInfo);
+                WriteBlockData(stream, m_stats);
+
+                // Trailing bytes
+                w.Write((byte) 0);
+                w.Write((byte) 0);
+                w.Write((byte) 0);
+            }
+
+            return stream.Position - start;
         }
     }
 }
