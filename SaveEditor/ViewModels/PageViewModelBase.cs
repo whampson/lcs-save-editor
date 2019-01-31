@@ -39,7 +39,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
         public string Header
         {
             get { return _header; }
-            set { _header = value; FirePropertyChanged(); }
+            set { _header = value; OnPropertyChanged(); }
         }
     }
 }

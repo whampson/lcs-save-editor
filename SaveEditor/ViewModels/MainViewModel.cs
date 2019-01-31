@@ -55,31 +55,31 @@ namespace WHampson.LcsSaveEditor.ViewModels
         public string StatusText
         {
             get { return _statusText; }
-            set { _statusText = value; FirePropertyChanged(); }
+            set { _statusText = value; OnPropertyChanged(); }
         }
 
         public SaveDataFile GameState
         {
             get { return _gameState; }
-            set { _gameState = value; FirePropertyChanged(); }
+            set { _gameState = value; OnPropertyChanged(); }
         }
 
         public GamePlatform FileType
         {
             get { return _fileType; }
-            set { _fileType = value; FirePropertyChanged(); }
+            set { _fileType = value; OnPropertyChanged(); }
         }
 
         public string FilePath
         {
             get { return _filePath; }
-            set { _filePath = value; FirePropertyChanged(); }
+            set { _filePath = value; OnPropertyChanged(); }
         }
 
         public bool IsEditingFile
         {
             get { return _isEditingFile; }
-            set { _isEditingFile = value; FirePropertyChanged(); }
+            set { _isEditingFile = value; OnPropertyChanged(); }
         }
 
         public bool IsFileModified
@@ -88,7 +88,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
             set {
                 if (_isEditingFile) {
                     _isFileModified = value;
-                    FirePropertyChanged();
+                    OnPropertyChanged();
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace WHampson.LcsSaveEditor.ViewModels
         public int SelectedTabIndex
         {
             get { return _selectedTabIndex; }
-            set { _selectedTabIndex = value; FirePropertyChanged(); }
+            set { _selectedTabIndex = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<PageViewModelBase> Tabs
