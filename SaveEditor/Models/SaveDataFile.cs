@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,11 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using WHampson.Gta3CarGenEditor.Extensions;
 using WHampson.LcsSaveEditor.Helpers;
 using WHampson.LcsSaveEditor.Resources;
 
@@ -43,16 +45,16 @@ namespace WHampson.LcsSaveEditor.Models
         protected DataBlock m_garages;
         protected DataBlock m_playerInfo;
         protected DataBlock m_stats;
-        protected DataBlock m_padding;
 
-        protected SaveDataFile(GamePlatform flieType)
+        protected SaveDataFile(GamePlatform fileType)
         {
+            FileType = fileType;
+
             m_simpleVars = new DataBlock() { Tag = SimpleVarsTag };
-            m_scripts = new DataBlock() { Tag = SimpleVarsTag };
-            m_garages = new DataBlock() { Tag = SimpleVarsTag };
-            m_playerInfo = new DataBlock() { Tag = SimpleVarsTag };
-            m_stats = new DataBlock() { Tag = SimpleVarsTag };
-            m_padding = new DataBlock();
+            m_scripts = new DataBlock() { Tag = ScriptsTag };
+            m_garages = new DataBlock() { Tag = GaragesTag };
+            m_playerInfo = new DataBlock() { Tag = PlayerInfoTag };
+            m_stats = new DataBlock() { Tag = StatsTag };
         }
 
         /// <summary>
@@ -98,31 +100,26 @@ namespace WHampson.LcsSaveEditor.Models
         /// <returns>The number of bytes read.</returns>
         protected int ReadDataBlock(Stream stream, DataBlock block)
         {
-            // Format:
-            //     Tag
-            //     sizeof(Data)
-            //     Data
-
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 string tag;
                 int blockSize;
 
+                // Read block tag
                 tag = Encoding.ASCII.GetString(r.ReadBytes(block.Tag.Length));
                 if (tag != block.Tag) {
-                    //string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
-                    //    tag.StripNull(), block.Tag.StripNull());
-                    //throw new InvalidDataException(msg);
-
-                    // TODO: message
-                    throw new InvalidDataException();
+                    string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
+                        tag.StripNull(), block.Tag.StripNull());
+                    throw new InvalidDataException(msg);
                 }
 
+                // Read block size
                 blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
-                    // TODO: message
-                    throw new InvalidDataException();
+                    throw new InvalidDataException(Strings.ExceptionMessageIncorrectBlockSize);
                 }
+
+                // Read block data
                 block.Data = r.ReadBytes(blockSize);
             }
 
@@ -135,26 +132,37 @@ namespace WHampson.LcsSaveEditor.Models
         /// </summary>
         /// <param name="path">The path to the file to load.</param>
         /// <returns>The newly-created <see cref="SaveDataFile"/>.</returns>
+        /// <exception cref="PlatformNotSupportedException">
+        /// Thrown if the file is a valid GTA:LCS save data file, but
+        /// is from a gaming platform that is unsupported.
+        /// </exception>
         /// <exception cref="InvalidDataException">
-        /// Thrown if the file is not a valid GTA3 save data file.
+        /// Thrown if the file is not a valid GTA:LCS save data file.
         /// </exception>
         public static SaveDataFile Load(string path)
         {
             byte[] data = File.ReadAllBytes(path);
             GamePlatform fileType = DetectFileType(data);
 
+            // Check if file type is supported by the editor
+            if (EnumHelper.HasAttribute<NotSupportedAttribute>(fileType)) {
+                string msg = string.Format(Strings.ExceptionMessageFileTypeNotSupported,
+                    EnumHelper.GetAttribute<DescriptionAttribute>(fileType).Description);
+                throw new PlatformNotSupportedException(msg);
+            }
+
             switch (fileType) {
-                //case GamePlatform.Android:
-                //    return Deserialize<SaveDataFileAndroid>(data);
+                case GamePlatform.Android:
+                    return Deserialize<SaveDataFileAndroid>(data);
                 //case GamePlatform.IOS:
                 //    return Deserialize<SaveDataFileIOS>(data);
-                case GamePlatform.PlayStation2:
+                case GamePlatform.PS2:
                     return Deserialize<SaveDataFilePS2>(data);
                 default:
-                    throw new InvalidOperationException(
-                        string.Format("{0} ({1})",
-                            Strings.ExceptionMessageInvalidOperation,
-                            nameof(SaveDataFile)));
+                    // Should never get here...
+                    string msg = string.Format("{0} ({1})",
+                        Strings.ExceptionMessageOops, nameof(SaveDataFile));
+                    throw new InvalidOperationException(msg);
             }
         }
 
@@ -163,7 +171,7 @@ namespace WHampson.LcsSaveEditor.Models
         /// </summary>
         protected void DeserializeDataBlocks()
         {
-            // TODO
+            // TODO: finish
         }
 
         /// <summary>
@@ -189,7 +197,7 @@ namespace WHampson.LcsSaveEditor.Models
             // Determine if PS2 by size of SIMP block.
             int sizeOfSimp = ReadInt(data, 0x04);
             if (sizeOfSimp == SimpSizePs2) {
-                return GamePlatform.PlayStation2;
+                return GamePlatform.PS2;
             }
 
             // Distinguish iOS and Android by size of MissionScript.
