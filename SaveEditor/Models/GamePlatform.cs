@@ -35,7 +35,7 @@ namespace WHampson.LcsSaveEditor.Models
         IOS,
 
         [Description("PlayStation 2")]
-        PlayStation2,
+        PS2,
 
         [NotSupported]
         [Description("PSP")]
