@@ -151,7 +151,7 @@
     <value>ConvertBack is not supported for this converter.</value>
   </data>
   <data name="ExceptionMessageFileTypeNotSupported" xml:space="preserve">
-    <value>{0} savedata files are not supported at this time.</value>
+    <value>{0} save data files are not supported at this time.</value>
     <comment>{0} = gaming platform name</comment>
   </data>
   <data name="ExceptionMessageIncorrectBlockSize" xml:space="preserve">

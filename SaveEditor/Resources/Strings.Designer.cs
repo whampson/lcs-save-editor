@@ -160,7 +160,7 @@ namespace WHampson.LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} savedata files are not supported at this time..
+        ///   Looks up a localized string similar to {0} save data files are not supported at this time..
         /// </summary>
         public static string ExceptionMessageFileTypeNotSupported {
             get {
