@@ -32,14 +32,19 @@ using WHampson.LcsSaveEditor.Resources;
 
 namespace WHampson.LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Represents a saved Grand Theft Auto: Liberty City Stories game.
+    /// </summary>
     public abstract class SaveData : SerializableObject
     {
+        // Block header tags
         private const string SimpleVarsTag = "SIMP";
         private const string ScriptsTag = "SRPT";
         private const string GaragesTag = "GRGE";
         private const string PlayerInfoTag = "PLYR";
         private const string StatsTag = "STAT";
-
+        
+        // Raw block data
         protected DataBlock m_simpleVars;
         protected DataBlock m_scripts;
         protected DataBlock m_garages;
@@ -58,7 +63,7 @@ namespace WHampson.LcsSaveEditor.Models
         }
 
         /// <summary>
-        /// Gets the file format type based on the <see cref="GamePlatform"/>
+        /// Gets the file format type, represented as the <see cref="GamePlatform"/>
         /// that created this save data.
         /// </summary>
         public GamePlatform FileType
@@ -77,11 +82,11 @@ namespace WHampson.LcsSaveEditor.Models
         }
 
         /// <summary>
-        /// Computes the checksum that goes in the footer of the file.
+        /// Computes the checksum that goes in the footer of a PS2-formatted file.
         /// </summary>
         /// <param name="stream">The stream containing the serialized save data.</param>
         /// <returns>The serialized data checksum.</returns>
-        protected int GetChecksum(Stream stream)
+        protected int GetPS2Checksum(Stream stream)
         {
             using (MemoryStream m = new MemoryStream()) {
                 stream.Position = 0;
@@ -91,21 +96,23 @@ namespace WHampson.LcsSaveEditor.Models
         }
 
         /// <summary>
-        /// Sets the Data field of a <see cref="DataBlock"/> by
-        /// reading data at the current position in a stream in
-        /// accordance with the <see cref="DataBlock"/> parameters.
+        /// Reads raw block data into the Data field of a <see cref="DataBlock"/> object.
         /// </summary>
         /// <param name="stream">The stream to read.</param>
         /// <param name="block">The block to populate.</param>
         /// <returns>The number of bytes read.</returns>
         protected int ReadDataBlock(Stream stream, DataBlock block)
         {
+            if (block == null) {
+                throw new ArgumentNullException(nameof(block));
+            }
+
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 string tag;
                 int blockSize;
 
-                // Read block tag
+                // Read block tag and check that it matches the expected tag
                 tag = Encoding.ASCII.GetString(r.ReadBytes(block.Tag.Length));
                 if (tag != block.Tag) {
                     string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
@@ -126,21 +133,41 @@ namespace WHampson.LcsSaveEditor.Models
             return (int) (stream.Position - start);
         }
 
+        protected int WriteBlockData(Stream stream, DataBlock block)
+        {
+            // TODO
+            return -1;
+        }
+
+        
+        protected void DeserializeDataBlocks()
+        {
+            // TODO: finish
+        }
+
+        
+        protected void SerializeDataBlocks()
+        {
+            // TODO
+        }
+
         /// <summary>
-        /// Creates a new <see cref="SaveData"/> object from binary
-        /// data found inside the specified file.
+        /// Creates a new <see cref="SaveData"/> object by parsing bytes
+        /// from the specified file.
         /// </summary>
         /// <param name="path">The path to the file to load.</param>
         /// <returns>The newly-created <see cref="SaveData"/>.</returns>
         /// <exception cref="PlatformNotSupportedException">
-        /// Thrown if the file is a valid GTA:LCS save data file, but
-        /// is from a gaming platform that is unsupported.
+        /// Thrown if the file is a valid save data file, but is of
+        /// a format that is not yet supported.
         /// </exception>
         /// <exception cref="InvalidDataException">
-        /// Thrown if the file is not a valid GTA:LCS save data file.
+        /// Thrown if the file is not a valid save data file.
         /// </exception>
         public static SaveData Load(string path)
         {
+            // TODO: decrypt PSP saves (?)
+
             byte[] data = File.ReadAllBytes(path);
             GamePlatform fileType = DetectFileType(data);
 
@@ -151,6 +178,7 @@ namespace WHampson.LcsSaveEditor.Models
                 throw new PlatformNotSupportedException(msg);
             }
 
+            // Deserialize the data
             switch (fileType) {
                 case GamePlatform.Android:
                     return Deserialize<SaveDataAndroid>(data);
@@ -166,28 +194,7 @@ namespace WHampson.LcsSaveEditor.Models
             }
         }
 
-        /// <summary>
-        /// Unpacks all data blocks into their respective data fields.
-        /// </summary>
-        protected void DeserializeDataBlocks()
-        {
-            // TODO: finish
-        }
-
-        /// <summary>
-        /// Serializes all data fields and stores the result in the respective
-        /// data blocks.
-        /// </summary>
-        protected void SerializeDataBlocks()
-        {
-            // TODO
-        }
-
-        /// <summary>
-        /// Attempts to determine the file type (game platform) of a GTA:LCS savedata file.
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
+        
         private static GamePlatform DetectFileType(byte[] data)
         {
             const int SimpSizePs2 = 0x0F8;
@@ -217,16 +224,15 @@ namespace WHampson.LcsSaveEditor.Models
                 return GamePlatform.IOS;
             }
 
-            // PSP -- ???? (TODO)
             throw new InvalidDataException(Strings.ExceptionMessageInvalidSaveData);
         }
 
         /// <summary>
-        /// Reads a 32-bit integer from an arbitrary address in an array.
+        /// Reads a 32-bit integer from an arbitrary index in an array.
         /// </summary>
-        private static int ReadInt(byte[] data, int addr)
+        private static int ReadInt(byte[] data, int index)
         {
-            return BitConverter.ToInt32(data, addr);
+            return BitConverter.ToInt32(data, index);
         }
     }
 }
