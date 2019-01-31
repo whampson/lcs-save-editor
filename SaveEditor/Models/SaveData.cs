@@ -191,8 +191,8 @@ namespace WHampson.LcsSaveEditor.Models
             switch (fileType) {
                 case GamePlatform.Android:
                     return Deserialize<SaveDataAndroid>(data);
-                //case GamePlatform.IOS:
-                //    return Deserialize<SaveDataFileIOS>(data);
+                case GamePlatform.IOS:
+                    return Deserialize<SaveDataIOS>(data);
                 case GamePlatform.PS2:
                     return Deserialize<SaveDataPS2>(data);
                 default:
