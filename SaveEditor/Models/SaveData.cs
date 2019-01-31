@@ -55,11 +55,11 @@ namespace WHampson.LcsSaveEditor.Models
         {
             FileType = fileType;
 
-            m_simpleVars = new DataBlock() { Tag = SimpleVarsTag };
-            m_scripts = new DataBlock() { Tag = ScriptsTag };
-            m_garages = new DataBlock() { Tag = GaragesTag };
-            m_playerInfo = new DataBlock() { Tag = PlayerInfoTag };
-            m_stats = new DataBlock() { Tag = StatsTag };
+            m_simpleVars = new DataBlock(SimpleVarsTag);
+            m_scripts = new DataBlock(ScriptsTag);
+            m_garages = new DataBlock(GaragesTag);
+            m_playerInfo = new DataBlock(PlayerInfoTag);
+            m_stats = new DataBlock(StatsTag);
         }
 
         /// <summary>
@@ -96,17 +96,14 @@ namespace WHampson.LcsSaveEditor.Models
         }
 
         /// <summary>
-        /// Reads raw block data into the Data field of a <see cref="DataBlock"/> object.
+        /// Reads raw block data from a stream into the Data field of a
+        /// <see cref="DataBlock"/> object.
         /// </summary>
         /// <param name="stream">The stream to read.</param>
         /// <param name="block">The block to populate.</param>
         /// <returns>The number of bytes read.</returns>
         protected int ReadDataBlock(Stream stream, DataBlock block)
         {
-            if (block == null) {
-                throw new ArgumentNullException(nameof(block));
-            }
-
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 string tag;
@@ -133,10 +130,22 @@ namespace WHampson.LcsSaveEditor.Models
             return (int) (stream.Position - start);
         }
 
+        /// <summary>
+        /// Writes raw block data to a stream.
+        /// </summary>
+        /// <param name="stream">The stream to write.</param>
+        /// <param name="block">The block to write.</param>
+        /// <returns>The number of bytes written.</returns>
         protected int WriteBlockData(Stream stream, DataBlock block)
         {
-            // TODO
-            return -1;
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(Encoding.ASCII.GetBytes(block.Tag));
+                w.Write(block.Data.Length);
+                w.Write(block.Data);
+            }
+
+            return (int) (stream.Position - start);
         }
 
         
