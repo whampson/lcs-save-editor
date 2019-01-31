@@ -33,25 +33,24 @@ namespace WHampson.LcsSaveEditor.Models
         /// <see cref="Tag"/>, zero bytes of <see cref="Data"/>, and
         /// <see cref="StoreBlockSize"/> set to true.
         /// </summary>
-        public DataBlock()
+        public DataBlock(string tag)
         {
+            Tag = tag;
             Data = new byte[0];
-            Tag = null;
+        }
+
+        /// <summary>
+        /// Gets the block identifier.
+        /// </summary>
+        public string Tag
+        {
+            get;
         }
 
         /// <summary>
         /// Gets or sets the data stored in this <see cref="DataBlock"/>.
         /// </summary>
         public byte[] Data
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the block identifier.
-        /// </summary>
-        public string Tag
         {
             get;
             set;
