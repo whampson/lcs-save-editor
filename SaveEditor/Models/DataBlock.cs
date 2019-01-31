@@ -24,7 +24,7 @@
 namespace WHampson.LcsSaveEditor.Models
 {
     /// <summary>
-    /// Represents a data container for a <see cref="SaveDataFile"/>.
+    /// Represents a data container for a chunk of data in a <see cref="SaveData"/> file.
     /// </summary>
     public class DataBlock
     {
