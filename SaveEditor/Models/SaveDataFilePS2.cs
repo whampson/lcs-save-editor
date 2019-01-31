@@ -1,5 +1,5 @@
 ﻿#region License
-/* Copyright(c) 2016-2018 Wes Hampson
+/* Copyright(c) 2016-2019 Wes Hampson
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,18 +22,20 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace WHampson.LcsSaveEditor.Models
 {
     public class SaveDataFilePS2 : SaveDataFile
     {
+        /// <summary>
+        /// PS2 saves have a constant file size.
+        /// </summary>
+        private const int FileSize = 0x19000;
+
         public SaveDataFilePS2()
-            : base(GamePlatform.PlayStation2)
+            : base(GamePlatform.PS2)
         { }
 
         protected override long DeserializeObject(Stream stream)
@@ -45,7 +47,8 @@ namespace WHampson.LcsSaveEditor.Models
                 ReadDataBlock(stream, m_garages);
                 ReadDataBlock(stream, m_playerInfo);
                 ReadDataBlock(stream, m_stats);
-                r.ReadInt32();      // Read checksum (ignored)
+                r.ReadBytes(FileSize - (int) stream.Position - 4);  // Read padding (ignored)
+                r.ReadInt32();                                      // Read checksum (ignored)
             }
 
             DeserializeDataBlocks();
