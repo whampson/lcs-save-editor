@@ -206,14 +206,18 @@ namespace WHampson.LcsSaveEditor.Models
         
         private static GamePlatform DetectFileType(byte[] data)
         {
-            const int SimpSizePs2 = 0x0F8;
+            const int SimpSizePS2 = 0x0F8;
+            const int SimpSizePSP = 0x0BC;
             const int MissionScriptSizeAndroid = 0x21C;
-            const int MissionScriptSizeIos = 0x228;
+            const int MissionScriptSizeIOS = 0x228;
 
             // Determine if PS2 by size of SIMP block.
             int sizeOfSimp = ReadInt(data, 0x04);
-            if (sizeOfSimp == SimpSizePs2) {
+            if (sizeOfSimp == SimpSizePS2) {
                 return GamePlatform.PS2;
+            }
+            else if (sizeOfSimp == SimpSizePSP) {
+                return GamePlatform.PSP;
             }
 
             // Distinguish iOS and Android by size of MissionScript.
@@ -229,7 +233,7 @@ namespace WHampson.LcsSaveEditor.Models
             if (sizeOfRunningScript == MissionScriptSizeAndroid) {
                 return GamePlatform.Android;
             }
-            else if (sizeOfRunningScript == MissionScriptSizeIos) {
+            else if (sizeOfRunningScript == MissionScriptSizeIOS) {
                 return GamePlatform.IOS;
             }
 
