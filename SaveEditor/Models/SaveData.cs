@@ -32,7 +32,7 @@ using WHampson.LcsSaveEditor.Resources;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public abstract class SaveDataFile : SerializableObject
+    public abstract class SaveData : SerializableObject
     {
         private const string SimpleVarsTag = "SIMP";
         private const string ScriptsTag = "SRPT";
@@ -46,7 +46,7 @@ namespace WHampson.LcsSaveEditor.Models
         protected DataBlock m_playerInfo;
         protected DataBlock m_stats;
 
-        protected SaveDataFile(GamePlatform fileType)
+        protected SaveData(GamePlatform fileType)
         {
             FileType = fileType;
 
@@ -127,11 +127,11 @@ namespace WHampson.LcsSaveEditor.Models
         }
 
         /// <summary>
-        /// Creates a new <see cref="SaveDataFile"/> object from binary
+        /// Creates a new <see cref="SaveData"/> object from binary
         /// data found inside the specified file.
         /// </summary>
         /// <param name="path">The path to the file to load.</param>
-        /// <returns>The newly-created <see cref="SaveDataFile"/>.</returns>
+        /// <returns>The newly-created <see cref="SaveData"/>.</returns>
         /// <exception cref="PlatformNotSupportedException">
         /// Thrown if the file is a valid GTA:LCS save data file, but
         /// is from a gaming platform that is unsupported.
@@ -139,7 +139,7 @@ namespace WHampson.LcsSaveEditor.Models
         /// <exception cref="InvalidDataException">
         /// Thrown if the file is not a valid GTA:LCS save data file.
         /// </exception>
-        public static SaveDataFile Load(string path)
+        public static SaveData Load(string path)
         {
             byte[] data = File.ReadAllBytes(path);
             GamePlatform fileType = DetectFileType(data);
@@ -153,15 +153,15 @@ namespace WHampson.LcsSaveEditor.Models
 
             switch (fileType) {
                 case GamePlatform.Android:
-                    return Deserialize<SaveDataFileAndroid>(data);
+                    return Deserialize<SaveDataAndroid>(data);
                 //case GamePlatform.IOS:
                 //    return Deserialize<SaveDataFileIOS>(data);
                 case GamePlatform.PS2:
-                    return Deserialize<SaveDataFilePS2>(data);
+                    return Deserialize<SaveDataPS2>(data);
                 default:
                     // Should never get here...
                     string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionMessageOops, nameof(SaveDataFile));
+                        Strings.ExceptionMessageOops, nameof(SaveData));
                     throw new InvalidOperationException(msg);
             }
         }

@@ -27,14 +27,14 @@ using System.Text;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class SaveDataFilePS2 : SaveDataFile
+    public class SaveDataPS2 : SaveData
     {
         /// <summary>
         /// PS2 saves have a constant file size.
         /// </summary>
         private const int FileSize = 0x19000;
 
-        public SaveDataFilePS2()
+        public SaveDataPS2()
             : base(GamePlatform.PS2)
         { }
 

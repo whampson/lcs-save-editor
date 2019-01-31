@@ -27,9 +27,9 @@ using System.Text;
 
 namespace WHampson.LcsSaveEditor.Models
 {
-    public class SaveDataFileAndroid : SaveDataFile
+    public class SaveDataAndroid : SaveData
     {
-        public SaveDataFileAndroid()
+        public SaveDataAndroid()
             : base(GamePlatform.Android)
         { }
 
