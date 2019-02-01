@@ -1,0 +1,7 @@
+﻿lcs_android_save00:
+    - Mission:  Home Sweet Home
+    - Progress: 0.58%
+
+lcs_android_save01:
+    - Mission:  Grease Sucho
+    - Progress: 29.24%
