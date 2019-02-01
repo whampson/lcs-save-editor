@@ -22,12 +22,9 @@
 #endregion
 
 using LcsSaveEditor.Models;
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test
 {
@@ -40,15 +37,51 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformPS2, 3);
+            string path = GetSaveFilePath(PlatformPS2, 5);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
             Console.WriteLine("Format: {0}", save.FileType);
+            PrintSimpleVars(save);
+
+            save.Store(path + "_out");
 
             Console.Write("\nPress any key to exit...");
             Console.ReadKey();
+        }
+
+        static void PrintSimpleVars(SaveData save)
+        {
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.SaveNameGxt), save.SimpleVars.SaveNameGxt);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Language), save.SimpleVars.Language);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.MillisecondsPerGameMinute), save.SimpleVars.MillisecondsPerGameMinute);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.LastClockTick), save.SimpleVars.LastClockTick);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.GameClockHours), save.SimpleVars.GameClockHours);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.GameClockMinutes), save.SimpleVars.GameClockMinutes);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.TotalTimePlayedInMilliseconds), save.SimpleVars.TotalTimePlayedInMilliseconds);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.PreviousWeather), save.SimpleVars.PreviousWeather);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.CurrentWeather), save.SimpleVars.CurrentWeather);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ForcedWeather), save.SimpleVars.ForcedWeather);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WeatherIndex), save.SimpleVars.WeatherIndex);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.CameraPosition), save.SimpleVars.CameraPosition);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.VehicleCamera), save.SimpleVars.VehicleCamera);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Brightness), save.SimpleVars.Brightness);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowHud), save.SimpleVars.ShowHud);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowSubtitles), save.SimpleVars.ShowSubtitles);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.RadarMode), save.SimpleVars.RadarMode);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.BlurOn), save.SimpleVars.BlurOn);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Widescreen), save.SimpleVars.Widescreen);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.RadioVolume), save.SimpleVars.RadioVolume);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.SfxVolume), save.SimpleVars.SfxVolume);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ControllerConfiguration), save.SimpleVars.ControllerConfiguration);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.InvertLook), save.SimpleVars.InvertLook);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Vibration), save.SimpleVars.Vibration);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.HasPlayerCheated), save.SimpleVars.HasPlayerCheated);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowWaypoint), save.SimpleVars.ShowWaypoint);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WaypointPosition), save.SimpleVars.WaypointPosition);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Timestamp), save.SimpleVars.Timestamp);
+
         }
 
         static string GetSaveFilePath(string platform, int num)
