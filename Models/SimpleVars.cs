@@ -57,7 +57,7 @@ namespace LcsSaveEditor.Models
         protected Weather m_currWeatherType;
         protected Weather m_forcedWeatherType;
         protected uint m_weatherTypeInList;
-        protected uint _m_interpolationValue;
+        protected float _m_interpolationValue;
         protected Vector3d m_cameraPosition;
         protected VehicleCameraMode m_prefsVehicleCameraMode;
         protected uint m_prefsBrightness;
