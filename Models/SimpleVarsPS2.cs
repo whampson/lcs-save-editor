@@ -22,13 +22,15 @@
 #endregion
 
 using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Extensions;
 using System.IO;
 using System.Text;
 
 namespace LcsSaveEditor.Models
 {
     /// <summary>
-    /// Miscellaneous game variables formatted for a PS2 save data file.
+    /// Miscellaneous game variables formatted for the
+    /// PlayStation 2 version of the game.
     /// </summary>
     public class SimpleVarsPS2 : SimpleVars
     {
@@ -103,7 +105,7 @@ namespace LcsSaveEditor.Models
                 m_prefsShowSubtitles = r.ReadBoolean();
                 r.ReadUInt16();     // align bytes
                 m_prefsRadarMode = (RadarMode) r.ReadUInt32();
-                m_blurOn = (r.ReadUInt32() != 0);
+                m_blurOn = r.ReadBoolean32();
                 m_unknown78 = r.ReadUInt32();
                 m_unknown7C = r.ReadUInt32();
                 m_prefsUseWideScreen = r.ReadBoolean();
@@ -129,14 +131,14 @@ namespace LcsSaveEditor.Models
                 m_unknownB8 = r.ReadSingle();
                 m_prefsControllerConfig = (ControllerConfig) r.ReadUInt16();
                 m_unknownBE = r.ReadUInt16();
-                m_prefsDisableInvertLook = (r.ReadUInt32() != 0);
+                m_prefsDisableInvertLook = r.ReadBoolean32();
                 m_prefsUseVibration = r.ReadBoolean();
                 m_unknownC5 = r.ReadByte();
                 m_unknownC6 = r.ReadByte();
                 m_unknownC7 = r.ReadByte();
-                m_playerHasCheated = (r.ReadUInt32() != 0);
-                _m_allTaxisHaveNitro = (r.ReadUInt32() != 0);
-                m_targetIsOn = (r.ReadUInt32() != 0);
+                m_playerHasCheated = r.ReadBoolean32();
+                _m_allTaxisHaveNitro = r.ReadBoolean32();
+                m_targetIsOn = r.ReadBoolean32();
                 m_targetPosition = Deserialize<Vector2d>(stream);
                 m_unknownDC = r.ReadUInt32();
                 m_saveTime = Deserialize<Timestamp>(stream);
@@ -184,7 +186,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_prefsShowSubtitles);
                 w.Write((ushort) 0);    // align bytes
                 w.Write((uint) m_prefsRadarMode);
-                w.Write(m_blurOn ? 1U : 0U);
+                w.WriteBoolean32(m_blurOn);
                 w.Write(m_unknown78);
                 w.Write(m_unknown7C);
                 w.Write(m_prefsUseWideScreen);
@@ -210,14 +212,14 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknownB8);
                 w.Write((ushort) m_prefsControllerConfig);
                 w.Write(m_unknownBE);
-                w.Write(m_prefsDisableInvertLook ? 1U : 0U);
+                w.WriteBoolean32(m_prefsDisableInvertLook);
                 w.Write(m_prefsUseVibration);
                 w.Write(m_unknownC5);
                 w.Write(m_unknownC6);
                 w.Write(m_unknownC7);
-                w.Write(m_playerHasCheated ? 1U : 0U);
-                w.Write(_m_allTaxisHaveNitro ? 1U : 0U);
-                w.Write(m_targetIsOn ? 1U : 0U);
+                w.WriteBoolean32(m_playerHasCheated);
+                w.WriteBoolean32(_m_allTaxisHaveNitro);
+                w.WriteBoolean32(m_targetIsOn);
                 Serialize(m_targetPosition, stream);
                 w.Write(m_unknownDC);
                 Serialize(m_saveTime, stream);
