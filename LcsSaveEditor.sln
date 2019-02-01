@@ -19,10 +19,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{926FC80B-20E4-4352-9BF3-6793F1D46483}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionProperties", "SolutionProperties", "{56A6CC30-125B-42BD-A224-A26A14555FC1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{56A6CC30-125B-42BD-A224-A26A14555FC1}"
 	ProjectSection(SolutionItems) = preProject
 		AssemblyInfo.cs = AssemblyInfo.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{5F6F6403-BB71-4E9B-83EC-7DBDDCBF3DF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{926FC80B-20E4-4352-9BF3-6793F1D46483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{926FC80B-20E4-4352-9BF3-6793F1D46483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{926FC80B-20E4-4352-9BF3-6793F1D46483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F6F6403-BB71-4E9B-83EC-7DBDDCBF3DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6F6403-BB71-4E9B-83EC-7DBDDCBF3DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6F6403-BB71-4E9B-83EC-7DBDDCBF3DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6F6403-BB71-4E9B-83EC-7DBDDCBF3DF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
