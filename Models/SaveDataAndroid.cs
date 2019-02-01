@@ -41,12 +41,15 @@ namespace LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
+                // Read data
                 ReadDataBlock(stream, m_simpleVars);
                 ReadDataBlock(stream, m_scripts);
                 ReadDataBlock(stream, m_garages);
                 ReadDataBlock(stream, m_playerInfo);
                 ReadDataBlock(stream, m_stats);
-                r.ReadBytes(3);                 // Read trailing 3 bytes (ignored)
+
+                // Read trailing bytes (ignored)
+                r.ReadBytes(3);
             }
 
             DeserializeDataBlocks();
