@@ -114,19 +114,16 @@ namespace LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
-                string tag;
-                int blockSize;
-
                 // Read block tag and check that it matches the expected tag
-                tag = Encoding.ASCII.GetString(r.ReadBytes(block.Tag.Length));
+                string tag = r.ReadString(block.Tag.Length);
                 if (tag != block.Tag) {
                     string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
-                        tag.StripNull(), block.Tag.StripNull());
+                        tag, block.Tag);
                     throw new InvalidDataException(msg);
                 }
 
                 // Read block size
-                blockSize = r.ReadInt32();
+                int blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
                     throw new InvalidDataException(Strings.ExceptionMessageIncorrectBlockSize);
                 }
@@ -148,7 +145,7 @@ namespace LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
-                w.Write(Encoding.ASCII.GetBytes(block.Tag));
+                w.WriteString(block.Tag, block.Tag.Length);
                 w.Write(block.Data.Length);
                 w.Write(block.Data);
             }
@@ -160,6 +157,10 @@ namespace LcsSaveEditor.Models
         protected void DeserializeDataBlocks()
         {
             switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    SimpleVars = Deserialize<SimpleVarsMobile>(m_simpleVars.Data);
+                    break;
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
                     break;

@@ -50,6 +50,7 @@
     <Compile Include="SaveDataIOS.cs" />
     <Compile Include="SaveDataPS2.cs" />
     <Compile Include="SimpleVars.cs" />
+    <Compile Include="SimpleVarsMobile.cs" />
     <Compile Include="SimpleVarsPS2.cs" />
     <Compile Include="Timestamp.cs" />
     <Compile Include="Vector2d.cs" />
