@@ -21,11 +21,11 @@
  */
 #endregion
 
+using LcsSaveEditor.Models;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using WHampson.LcsSaveEditor.Models;
 
 namespace LcsSaveEditor.Converters
 {

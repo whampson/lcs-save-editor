@@ -21,9 +21,9 @@
  */
 #endregion
 
+using LcsSaveEditor.Models;
 using Microsoft.Win32;
 using System.Windows;
-//using WHampson.LcsSaveEditor.Models;
 
 namespace LcsSaveEditor
 {
@@ -43,17 +43,17 @@ namespace LcsSaveEditor
                 goto exit;
             }
 
-            //SaveData data = SaveData.Load(fd.FileName);
-            //MessageBox.Show(data.FileType.ToString());
+            SaveData data = SaveData.Load(fd.FileName);
+            MessageBox.Show(data.FileType.ToString());
 
             fd = new SaveFileDialog();
             if (fd.ShowDialog() != true) {
                 goto exit;
             }
 
-            //data.Store(fd.FileName);
+            data.Store(fd.FileName);
 
-        exit:
+            exit:
             Application.Current.Shutdown();
         }
     }

@@ -21,6 +21,8 @@
  */
 #endregion
 
+using LcsSaveEditor.Helpers;
+using LcsSaveEditor.Resources;
 using System;
 using System.ComponentModel;
 using System.Globalization;
