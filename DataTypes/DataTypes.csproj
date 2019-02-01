@@ -48,6 +48,7 @@
     <Compile Include="Attributes\NotSupportedAttribute.cs" />
     <Compile Include="Enums\ControllerConfig.cs" />
     <Compile Include="Enums\Costumes.cs" />
+    <Compile Include="Enums\VehicleCameraMode.cs" />
     <Compile Include="Interfaces\DataBlock.cs" />
     <Compile Include="Enums\ExportCars.cs" />
     <Compile Include="Enums\GamePlatform.cs" />
