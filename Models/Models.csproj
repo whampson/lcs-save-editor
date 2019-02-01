@@ -41,7 +41,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
@@ -50,6 +49,8 @@
     <Compile Include="SaveDataAndroid.cs" />
     <Compile Include="SaveDataIOS.cs" />
     <Compile Include="SaveDataPS2.cs" />
+    <Compile Include="SimpleVars.cs" />
+    <Compile Include="SimpleVarsPS2.cs" />
     <Compile Include="Timestamp.cs" />
     <Compile Include="Vector2d.cs" />
     <Compile Include="Vector3d.cs" />

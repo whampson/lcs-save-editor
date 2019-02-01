@@ -73,6 +73,12 @@ namespace LcsSaveEditor.Models
             get;
         }
 
+        public SimpleVars SimpleVars
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Writes this saved game data to a file.
         /// </summary>
@@ -153,13 +159,17 @@ namespace LcsSaveEditor.Models
         
         protected void DeserializeDataBlocks()
         {
-            // TODO: finish
+            switch (FileType) {
+                case GamePlatform.PS2:
+                    SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
+                    break;
+            }
         }
 
         
         protected void SerializeDataBlocks()
         {
-            // TODO
+            m_simpleVars.Data = Serialize(SimpleVars);
         }
 
         /// <summary>
