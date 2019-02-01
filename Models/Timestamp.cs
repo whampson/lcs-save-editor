@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.Infrastructure;
+using System;
 using System.IO;
 using System.Text;
 
@@ -72,6 +73,17 @@ namespace LcsSaveEditor.Models
             set { m_year = value; OnPropertyChanged(); }
         }
 
+        public DateTime ToDateTime()
+        {
+            return new DateTime(
+                (int) m_year,
+                (int) m_month,
+                (int) m_day,
+                (int) m_hour,
+                (int) m_minute,
+                (int) m_second);
+        }
+
         protected override long DeserializeObject(Stream stream)
         {
             long start = stream.Position;
@@ -100,6 +112,11 @@ namespace LcsSaveEditor.Models
             }
 
             return stream.Position - start;
+        }
+
+        public override string ToString()
+        {
+            return ToDateTime().ToString("dddd, dd MMMM yyyy HH:mm:ss");
         }
     }
 }
