@@ -38,7 +38,7 @@ namespace LcsSaveEditor.Models
          */
         #pragma warning disable 0169
 
-        private string m_saveNameGxt;
+        protected string m_saveNameGxt;
         protected uint _m_currLevel;
         protected uint _m_currArea;
         protected Language m_prefsLanguage;
