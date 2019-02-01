@@ -1,0 +1,40 @@
+lcs_ps2_save00:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
+
+lcs_ps2_save01:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
+
+lcs_ps2_save02:
+    - Mission:  False Idols
+    - Progress: 71.93%
+
+lcs_ps2_save03:
+    - Mission:  Bone Voyeur!
+    - Progress: 2.92%
+
+lcs_ps2_save04:
+    - Mission:  Home Sweet Home
+    - Progress: 48.54%
+
+lcs_ps2_save05:
+    - Mission:  Home Sweet Home
+    - Progress: 0.58%
+
+lcs_ps2_save06:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
+
+lcs_ps2_save07:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
+
+lcs_ps2_save08:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
+
+lcs_ps2_save09:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
+
