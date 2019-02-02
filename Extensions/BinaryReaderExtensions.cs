@@ -64,7 +64,8 @@ namespace LcsSaveEditor.Extensions
         /// <summary>
         /// Reads a string of the specified length from the current stream and
         /// advances the current position of the stream by the number of bytes
-        /// read.
+        /// read. If a NUL character is found, the string returned contains the
+        /// characters preceding the NUL character.
         /// </summary>
         /// <param name="r">The <see cref="BinaryReader"/> reading the stream.</param>
         /// <param name="length">The number of characters to read.</param>
@@ -79,9 +80,17 @@ namespace LcsSaveEditor.Extensions
             }
 
             string s = "";
+            char c;
+            bool zeroSeen = false;
 
             for (int i = 0; i < length; i++) {
-                s += (char) r.ReadByte();
+                c = (char) r.ReadByte();
+                if (c == '\0') {
+                    zeroSeen = true;
+                }
+                if (!zeroSeen) {
+                    s += c;
+                }
             }
 
             return s;
@@ -109,7 +118,9 @@ namespace LcsSaveEditor.Extensions
         /// <summary>
         /// Reads wide a string of the specified length from the current stream
         /// and advances the current position of the stream by the number of bytes
-        /// read. In a wide string, each character occupies two bytes.
+        /// read. In a wide string, each character occupies two bytes. If a NUL
+        /// character is found, the string returned contains the characters
+        /// preceding the NUL character.
         /// </summary>
         /// <param name="r">The <see cref="BinaryReader"/> reading the stream.</param>
         /// <param name="length">The number of characters to read.</param>
@@ -124,9 +135,17 @@ namespace LcsSaveEditor.Extensions
             }
 
             string s = "";
+            char c;
+            bool zeroSeen = false;
 
             for (int i = 0; i < length; i++) {
-                s += (char) r.ReadUInt16();
+                c = (char) r.ReadUInt16();
+                if (c == '\0') {
+                    zeroSeen = true;
+                }
+                if (!zeroSeen) {
+                    s += c;
+                }
             }
 
             return s;
