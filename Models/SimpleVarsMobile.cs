@@ -38,6 +38,26 @@ namespace LcsSaveEditor.Models
         private uint m_unknown04;
         private uint m_unknown08;
         private uint[] m_unknown1C;
+        private ushort m_unknown7C;
+        private ushort m_unknown7E;
+        private ushort m_unknown80;
+        private ushort m_unknown82;
+        private float m_unknownD4;
+        private uint m_unknownD8;
+        private uint m_unknownDC;
+        private float m_unknownE0;
+        private uint m_unknown100;
+        private uint m_unknown104;
+        private uint m_unknown108;
+        private uint m_unknown10C;
+        private uint m_unknown110;
+        private uint m_unknown114;
+        private uint m_unknown118;
+        private uint m_unknown11C;
+        private uint m_unknown120;
+        private uint m_unknown124;
+        private float m_unknown128;
+        private ushort m_unknown12C;
 
         public SimpleVarsMobile()
         {
@@ -51,78 +71,68 @@ namespace LcsSaveEditor.Models
                 m_unknown00 = r.ReadUInt32();
                 m_unknown04 = r.ReadUInt32();
                 m_unknown08 = r.ReadUInt32();
-
-                m_saveNameGxt = r.ReadWideString();
-
-                //m_unknown00 = r.ReadUInt32();
-                //_m_currLevel = r.ReadUInt32();
-                //_m_currArea = r.ReadUInt32();
-                //m_prefsLanguage = (Language) r.ReadUInt32();
-                //m_millisecondsPerGameMinute = r.ReadUInt32();
-                //m_lastClockTick = r.ReadUInt32();
-                //m_gameClockHours = r.ReadByte();
-                //m_gameClockMinutes = r.ReadByte();
-                //_m_gameClockSeconds = r.ReadUInt16();
-                //m_totalTimePlayedInMilliseconds = r.ReadUInt32();
-                //_m_timeScale = r.ReadSingle();
-                //_m_timeStep = r.ReadSingle();
-                //_m_timeStepNonClipped = r.ReadSingle();
-                //_m_framesPerUpdate = r.ReadSingle();
-                //_m_frameCounter = r.ReadUInt32();
-                //m_prevWeatherType = (Weather) r.ReadInt16();
-                //m_currWeatherType = (Weather) r.ReadInt16();
-                //m_forcedWeatherType = (Weather) r.ReadInt16();
-                //r.ReadUInt16();     // align bytes
-                //m_weatherTypeInList = r.ReadUInt32();
-                //_m_interpolationValue = r.ReadSingle();
-                //m_cameraPosition = Deserialize<Vector3d>(stream);
-                //m_prefsVehicleCameraMode = (VehicleCameraMode) r.ReadSingle();
-                //m_unknown58 = r.ReadSingle();
-                //m_unknown5C = r.ReadUInt32();
-                //m_unknown60 = r.ReadUInt32();
-                //m_unknown64 = r.ReadSingle();
-                //m_prefsBrightness = r.ReadUInt32();
-                //m_prefsDisplayHud = r.ReadBoolean();
-                //m_prefsShowSubtitles = r.ReadBoolean();
-                //r.ReadUInt16();     // align bytes
-                //m_prefsRadarMode = (RadarMode) r.ReadUInt32();
-                //m_blurOn = (r.ReadUInt32() != 0);
-                //m_unknown78 = r.ReadUInt32();
-                //m_unknown7C = r.ReadUInt32();
-                //m_prefsUseWideScreen = r.ReadBoolean();
-                //m_unknown81 = r.ReadByte();
-                //m_unknown82 = r.ReadByte();
-                //m_unknown83 = r.ReadByte();
-                //m_prefsRadioVolume = r.ReadUInt32();
-                //m_prefsSfxVolume = r.ReadUInt32();
-                //_m_prefsRadioStation = (RadioStation) r.ReadByte();
-                //_m_prefsOutput = r.ReadByte();
-                //m_unknown8E = r.ReadByte();
-                //m_unknown8F = r.ReadByte();
-                //m_unknown90 = r.ReadUInt32();
-                //m_unknown94 = r.ReadUInt32();
-                //m_unknown98 = r.ReadUInt32();
-                //m_unknown9C = r.ReadUInt32();
-                //m_unknownA0 = r.ReadUInt32();
-                //m_unknownA4 = r.ReadUInt32();
-                //m_unknownA8 = r.ReadUInt32();
-                //m_unknownAC = r.ReadUInt32();
-                //m_unknownB0 = r.ReadUInt32();
-                //m_unknownB4 = r.ReadUInt32();
-                //m_unknownB8 = r.ReadSingle();
-                //m_prefsControllerConfig = (ControllerConfig) r.ReadUInt16();
-                //m_unknownBE = r.ReadUInt16();
-                //m_prefsDisableInvertLook = (r.ReadUInt32() != 0);
-                //m_prefsUseVibration = r.ReadBoolean();
-                //m_unknownC5 = r.ReadByte();
-                //m_unknownC6 = r.ReadByte();
-                //m_unknownC7 = r.ReadByte();
-                //m_playerHasCheated = (r.ReadUInt32() != 0);
-                //_m_allTaxisHaveNitro = (r.ReadUInt32() != 0);
-                //m_targetIsOn = (r.ReadUInt32() != 0);
-                //m_targetPosition = Deserialize<Vector2d>(stream);
-                //m_unknownDC = r.ReadUInt32();
-                //m_saveTime = Deserialize<Timestamp>(stream);
+                m_saveNameGxt = r.ReadWideString(8);
+                for (int i = 0; i < m_unknown1C.Length; i++) { m_unknown1C[i] = r.ReadUInt32(); }
+                m_unknown7C = r.ReadUInt16();
+                m_unknown7E = r.ReadUInt16();
+                m_unknown80 = r.ReadUInt16();
+                m_unknown82 = r.ReadUInt16();
+                _m_currLevel = r.ReadUInt32();
+                _m_currArea = r.ReadUInt32();
+                m_prefsLanguage = (Language) r.ReadUInt32();
+                m_millisecondsPerGameMinute = r.ReadUInt32();
+                m_lastClockTick = r.ReadUInt32();
+                m_gameClockHours = r.ReadByte();
+                m_gameClockMinutes = r.ReadByte();
+                _m_gameClockSeconds = r.ReadUInt16();
+                m_totalTimePlayedInMilliseconds = r.ReadUInt32();
+                _m_timeScale = r.ReadSingle();
+                _m_timeStep = r.ReadSingle();
+                _m_timeStepNonClipped = r.ReadSingle();
+                _m_framesPerUpdate = r.ReadSingle();
+                _m_frameCounter = r.ReadUInt32();
+                m_prevWeatherType = (Weather) r.ReadInt16();
+                m_currWeatherType = (Weather) r.ReadInt16();
+                m_forcedWeatherType = (Weather) r.ReadInt16();
+                r.ReadUInt16();     // align bytes
+                m_weatherTypeInList = r.ReadUInt32();
+                _m_interpolationValue = r.ReadSingle();
+                m_cameraPosition = Deserialize<Vector3d>(stream);
+                m_prefsVehicleCameraMode = (VehicleCameraMode) r.ReadSingle();
+                m_unknownD4 = r.ReadSingle();
+                m_unknownD8 = r.ReadUInt32();
+                m_unknownDC = r.ReadUInt32();
+                m_unknownE0 = r.ReadSingle();
+                m_prefsBrightness = r.ReadUInt32();
+                m_prefsDisplayHud = r.ReadBoolean();
+                m_prefsShowSubtitles = r.ReadBoolean();
+                r.ReadUInt16();     // align bytes
+                m_prefsRadarMode = (RadarMode) r.ReadUInt32();
+                m_blurOn = r.ReadBoolean();
+                r.ReadBytes(3);     // align bytes
+                m_prefsRadioVolume = r.ReadUInt32();
+                m_prefsSfxVolume = r.ReadUInt32();
+                _m_prefsRadioStation = (RadioStation) r.ReadByte();
+                _m_prefsOutput = r.ReadByte();
+                r.ReadBytes(2);     // align bytes
+                m_unknown100 = r.ReadUInt32();
+                m_unknown104 = r.ReadUInt32();
+                m_unknown108 = r.ReadUInt32();
+                m_unknown10C = r.ReadUInt32();
+                m_unknown110 = r.ReadUInt32();
+                m_unknown114 = r.ReadUInt32();
+                m_unknown118 = r.ReadUInt32();
+                m_unknown11C = r.ReadUInt32();
+                m_unknown120 = r.ReadUInt32();
+                m_unknown124 = r.ReadUInt32();
+                m_unknown128 = r.ReadSingle();
+                m_unknown12C = r.ReadUInt16();
+                m_prefsInvertLook = r.ReadBoolean();
+                _m_prefsSwapNippleAndDPad = r.ReadBoolean();
+                m_playerHasCheated = r.ReadBoolean();
+                _m_allTaxisHaveNitro = r.ReadBoolean();
+                m_targetIsOn = r.ReadBoolean();
+                m_targetPosition = Deserialize<Vector2d>(stream);
             }
 
             return stream.Position - start;
