@@ -236,7 +236,7 @@ namespace LcsSaveEditor.Models
             set { m_prefsUseVibration = value; OnPropertyChanged(); }
         }
 
-        public bool HasPlayerCheated
+        public bool PlayerHasCheated
         {
             get { return m_playerHasCheated; }
             set { m_playerHasCheated = value; OnPropertyChanged(); }

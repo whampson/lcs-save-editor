@@ -37,15 +37,13 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformPS2, 5);
+            string path = GetSaveFilePath(PlatformAndroid, 1);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
             Console.WriteLine("Format: {0}", save.FileType);
             PrintSimpleVars(save);
-
-            save.Store(path + "_out");
 
             Console.Write("\nPress any key to exit...");
             Console.ReadKey();
@@ -77,7 +75,7 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ControllerConfiguration), save.SimpleVars.ControllerConfiguration);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.InvertLook), save.SimpleVars.InvertLook);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Vibration), save.SimpleVars.Vibration);
-            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.HasPlayerCheated), save.SimpleVars.HasPlayerCheated);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.PlayerHasCheated), save.SimpleVars.PlayerHasCheated);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowWaypoint), save.SimpleVars.ShowWaypoint);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WaypointPosition), save.SimpleVars.WaypointPosition);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Timestamp), save.SimpleVars.Timestamp);
