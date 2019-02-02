@@ -73,6 +73,9 @@ namespace LcsSaveEditor.Models
             get;
         }
 
+        /// <summary>
+        /// Gets or sets the collection of miscellaneous game variables.
+        /// </summary>
         public SimpleVars SimpleVars
         {
             get;
