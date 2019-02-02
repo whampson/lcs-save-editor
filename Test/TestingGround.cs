@@ -37,7 +37,7 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformAndroid, 1);
+            string path = GetSaveFilePath(PlatformIOS, 0);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
