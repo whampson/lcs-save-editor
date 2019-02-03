@@ -21,8 +21,6 @@
  */
 #endregion
 
-using System.Collections.Generic;
-
 namespace LcsSaveEditor.DataTypes
 {
     /// <summary>
