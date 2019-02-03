@@ -42,6 +42,7 @@ namespace LcsSaveEditor.Models
         // Block header tags
         private const string SimpleVarsTag = "SIMP";
         private const string ScriptsTag = "SRPT";
+        private const string ScriptsTag2 = "SCR";
         private const string GaragesTag = "GRGE";
         private const string PlayerInfoTag = "PLYR";
         private const string StatsTag = "STAT";
@@ -58,7 +59,7 @@ namespace LcsSaveEditor.Models
             FileType = fileType;
 
             m_simpleVars = new DataBlock(SimpleVarsTag);
-            m_scripts = new DataBlock(ScriptsTag);
+            m_scripts = new DataBlock(ScriptsTag, ScriptsTag2);
             m_garages = new DataBlock(GaragesTag);
             m_playerInfo = new DataBlock(PlayerInfoTag);
             m_stats = new DataBlock(StatsTag);
@@ -118,7 +119,7 @@ namespace LcsSaveEditor.Models
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 // Read block tag and check that it matches the expected tag
-                string tag = r.ReadString(block.Tag.Length);
+                string tag = r.ReadString(4);
                 if (tag != block.Tag) {
                     string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
                         tag, block.Tag);
@@ -129,6 +130,21 @@ namespace LcsSaveEditor.Models
                 int blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
                     throw new InvalidDataException(Strings.ExceptionMessageIncorrectBlockSize);
+                }
+
+                // Read nested header, if applicable
+                if (block.NestedTag != null) {
+                    tag = r.ReadString(4);
+                    if (tag != block.NestedTag) {
+                        string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
+                            tag, block.Tag);
+                        throw new InvalidDataException(msg);
+                    }
+
+                    blockSize = r.ReadInt32();
+                    if (blockSize > stream.Length) {
+                        throw new InvalidDataException(Strings.ExceptionMessageIncorrectBlockSize);
+                    }
                 }
 
                 // Read block data
@@ -148,7 +164,11 @@ namespace LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
-                w.WriteString(block.Tag, block.Tag.Length);
+                w.WriteString(block.Tag, 4);
+                if (block.NestedTag != null) {
+                    w.Write(block.Data.Length + 8);
+                    w.WriteString(block.NestedTag, 4);
+                }
                 w.Write(block.Data.Length);
                 w.Write(block.Data);
             }

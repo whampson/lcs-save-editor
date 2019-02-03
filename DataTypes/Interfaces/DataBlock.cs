@@ -21,6 +21,8 @@
  */
 #endregion
 
+using System.Collections.Generic;
+
 namespace LcsSaveEditor.DataTypes
 {
     /// <summary>
@@ -35,8 +37,25 @@ namespace LcsSaveEditor.DataTypes
         /// </summary>
         /// <param name="tag">A four-character block identifier.</param>
         public DataBlock(string tag)
+            : this(tag, null)
+        { }
+
+        /// <summary>
+        /// Creates a new <see cref="DataBlock"/> object with the
+        /// specified block tags. If the nested tag is not null,
+        /// this data block will contain two headers, the second
+        /// header being nested inside the data of the first.
+        /// </summary>
+        /// <param name="tag">
+        /// A four-character block identifier.
+        /// </param>
+        /// <param name="nestedTag">
+        /// A four-character block identifier for the nested block header.
+        /// </param>
+        public DataBlock(string tag, string nestedTag)
         {
             Tag = tag;
+            NestedTag = nestedTag;
             Data = new byte[0];
         }
 
@@ -44,6 +63,14 @@ namespace LcsSaveEditor.DataTypes
         /// Gets the block identifier.
         /// </summary>
         public string Tag
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the nested block identifier.
+        /// </summary>
+        public string NestedTag
         {
             get;
         }
@@ -59,9 +86,17 @@ namespace LcsSaveEditor.DataTypes
 
         public override string ToString()
         {
-            return string.Format("{0} = {1}, {2} = {3}",
-                nameof(Tag), Tag,
-                "Length", Data.Length);
+            if (NestedTag == null) {
+                return string.Format("{0} = {1}, {2} = {3}",
+                    nameof(Tag), Tag,
+                    "Length", Data.Length);
+            }
+            else {
+                return string.Format("{0} = {1}, {2} = {3}, {4} = {5}",
+                    nameof(Tag), Tag,
+                    nameof(NestedTag), NestedTag,
+                    "Length", Data.Length);
+            }
         }
     }
 }
