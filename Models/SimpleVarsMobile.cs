@@ -94,7 +94,7 @@ namespace LcsSaveEditor.Models
                 m_prevWeatherType = (Weather) r.ReadInt16();
                 m_currWeatherType = (Weather) r.ReadInt16();
                 m_forcedWeatherType = (Weather) r.ReadInt16();
-                r.ReadUInt16();     // align bytes
+                r.ReadBytes(2);     // align bytes
                 m_weatherTypeInList = r.ReadUInt32();
                 _m_interpolationValue = r.ReadSingle();
                 m_cameraPosition = Deserialize<Vector3d>(stream);
@@ -106,7 +106,7 @@ namespace LcsSaveEditor.Models
                 m_prefsBrightness = r.ReadUInt32();
                 m_prefsDisplayHud = r.ReadBoolean();
                 m_prefsShowSubtitles = r.ReadBoolean();
-                r.ReadUInt16();     // align bytes
+                r.ReadBytes(2);     // align bytes
                 m_prefsRadarMode = (RadarMode) r.ReadUInt32();
                 m_blurOn = r.ReadBoolean();
                 r.ReadBytes(3);     // align bytes
@@ -132,6 +132,7 @@ namespace LcsSaveEditor.Models
                 m_playerHasCheated = r.ReadBoolean();
                 _m_allTaxisHaveNitro = r.ReadBoolean();
                 m_targetIsOn = r.ReadBoolean();
+                r.ReadBytes(1);     // align byte
                 m_targetPosition = Deserialize<Vector2d>(stream);
             }
 
@@ -142,78 +143,72 @@ namespace LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
-                //w.Write(m_unknown00);
-                //w.Write(m_unknown02);
-                //w.Write(m_unknown04);
-                //w.Write(m_unknown06);
-                //w.Write(_m_currLevel);
-                //w.Write(_m_currArea);
-                //w.Write((uint) m_prefsLanguage);
-                //w.Write(m_millisecondsPerGameMinute);
-                //w.Write(m_lastClockTick);
-                //w.Write(m_gameClockHours);
-                //w.Write(m_gameClockMinutes);
-                //w.Write(_m_gameClockSeconds);
-                //w.Write(m_totalTimePlayedInMilliseconds);
-                //w.Write(_m_timeScale);
-                //w.Write(_m_timeStep);
-                //w.Write(_m_timeStepNonClipped);
-                //w.Write(_m_framesPerUpdate);
-                //w.Write(_m_frameCounter);
-                //w.Write((short) m_prevWeatherType);
-                //w.Write((short) m_currWeatherType);
-                //w.Write((short) m_forcedWeatherType);
-                //w.Write((ushort) 0);    // align bytes
-                //w.Write(m_weatherTypeInList);
-                //w.Write(_m_interpolationValue);
-                //Serialize(m_cameraPosition, stream);
-                //w.Write((float) m_prefsVehicleCameraMode);
-                //w.Write(m_unknown58);
-                //w.Write(m_unknown5C);
-                //w.Write(m_unknown60);
-                //w.Write(m_unknown64);
-                //w.Write(m_prefsBrightness);
-                //w.Write(m_prefsDisplayHud);
-                //w.Write(m_prefsShowSubtitles);
-                //w.Write((ushort) 0);    // align bytes
-                //w.Write((uint) m_prefsRadarMode);
-                //w.Write(m_blurOn ? 1U : 0U);
-                //w.Write(m_unknown78);
-                //w.Write(m_unknown7C);
-                //w.Write(m_prefsUseWideScreen);
-                //w.Write(m_unknown81);
-                //w.Write(m_unknown82);
-                //w.Write(m_unknown83);
-                //w.Write(m_prefsRadioVolume);
-                //w.Write(m_prefsSfxVolume);
-                //w.Write((byte) _m_prefsRadioStation);
-                //w.Write(_m_prefsOutput);
-                //w.Write(m_unknown8E);
-                //w.Write(m_unknown8F);
-                //w.Write(m_unknown90);
-                //w.Write(m_unknown94);
-                //w.Write(m_unknown98);
-                //w.Write(m_unknown9C);
-                //w.Write(m_unknownA0);
-                //w.Write(m_unknownA4);
-                //w.Write(m_unknownA8);
-                //w.Write(m_unknownAC);
-                //w.Write(m_unknownB0);
-                //w.Write(m_unknownB4);
-                //w.Write(m_unknownB8);
-                //w.Write((ushort) m_prefsControllerConfig);
-                //w.Write(m_unknownBE);
-                //w.Write(m_prefsDisableInvertLook ? 1U : 0U);
-                //w.Write(m_prefsUseVibration);
-                //w.Write(m_unknownC5);
-                //w.Write(m_unknownC6);
-                //w.Write(m_unknownC7);
-                //w.Write(m_playerHasCheated ? 1U : 0U);
-                //w.Write(_m_allTaxisHaveNitro ? 1U : 0U);
-                //w.Write(m_targetIsOn ? 1U : 0U);
-                //Serialize(m_targetPosition, stream);
-                //w.Write(m_unknownDC);
-                //Serialize(m_saveTime, stream);
+                w.Write(m_unknown00);
+                w.Write(m_unknown04);
+                w.Write(m_unknown08);
+                w.WriteWideString(m_saveNameGxt, 8);
+                for (int i = 0; i < m_unknown1C.Length; i++) { w.Write(m_unknown1C[i]); }
+                w.Write(m_unknown7C);
+                w.Write(m_unknown7E);
+                w.Write(m_unknown80);
+                w.Write(m_unknown82);
+                w.Write(_m_currLevel);
+                w.Write(_m_currArea);
+                w.Write((uint) m_prefsLanguage);
+                w.Write(m_millisecondsPerGameMinute);
+                w.Write(m_lastClockTick);
+                w.Write(m_gameClockHours);
+                w.Write(m_gameClockMinutes);
+                w.Write(_m_gameClockSeconds);
+                w.Write(m_totalTimePlayedInMilliseconds);
+                w.Write(_m_timeScale);
+                w.Write(_m_timeStep);
+                w.Write(_m_timeStepNonClipped);
+                w.Write(_m_framesPerUpdate);
+                w.Write(_m_frameCounter);
+                w.Write((short) m_prevWeatherType);
+                w.Write((short) m_currWeatherType);
+                w.Write((short) m_forcedWeatherType);
+                w.Write(new byte[2]);       // align bytes
+                w.Write(m_weatherTypeInList);
+                w.Write(_m_interpolationValue);
+                Serialize(m_cameraPosition, stream);
+                w.Write((float) m_prefsVehicleCameraMode);
+                w.Write(m_unknownD4);
+                w.Write(m_unknownD8);
+                w.Write(m_unknownDC);
+                w.Write(m_unknownE0);
+                w.Write(m_prefsBrightness);
+                w.Write(m_prefsDisplayHud);
+                w.Write(m_prefsShowSubtitles);
+                w.Write(new byte[2]);       // align bytes
+                w.Write((uint) m_prefsRadarMode);
+                w.Write(m_blurOn);
+                w.Write(new byte[3]);       // align bytes
+                w.Write(m_prefsRadioVolume);
+                w.Write(m_prefsSfxVolume);
+                w.Write((byte) _m_prefsRadioStation);
+                w.Write(_m_prefsOutput);
+                w.Write(new byte[2]);       // align bytes
+                w.Write(m_unknown100);
+                w.Write(m_unknown104);
+                w.Write(m_unknown108);
+                w.Write(m_unknown10C);
+                w.Write(m_unknown110);
+                w.Write(m_unknown114);
+                w.Write(m_unknown118);
+                w.Write(m_unknown11C);
+                w.Write(m_unknown120);
+                w.Write(m_unknown124);
+                w.Write(m_unknown128);
+                w.Write(m_unknown12C);
+                w.Write(m_prefsInvertLook);
+                w.Write(_m_prefsSwapNippleAndDPad);
+                w.Write(m_playerHasCheated);
+                w.Write(_m_allTaxisHaveNitro);
+                w.Write(m_targetIsOn);
+                w.Write(new byte[1]);       // align byte
+                Serialize(m_targetPosition, stream);
             }
 
             return stream.Position - start;
