@@ -26,9 +26,12 @@ using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Scripts variables formatted for the Android and
+    /// PlayStation 2 versions of the game.
+    /// </summary>
     public class ScriptsAndroidPS2 : Scripts
     {
-
         protected override long DeserializeObject(Stream stream)
         {
             long start = stream.Position;
