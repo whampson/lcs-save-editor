@@ -192,6 +192,7 @@ namespace LcsSaveEditor.Models
                     break;
                 case GamePlatform.IOS:
                     SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
+                    Scripts = Deserialize<ScriptsIOS>(m_scripts.Data);
                     break;
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);

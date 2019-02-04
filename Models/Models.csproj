@@ -46,6 +46,7 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="RunningScript.cs" />
+    <Compile Include="RunningScriptIOS.cs" />
     <Compile Include="RunningScriptAndroidPS2.cs" />
     <Compile Include="ScriptsAndroidPS2.cs" />
     <Compile Include="ScriptsIOS.cs" />
