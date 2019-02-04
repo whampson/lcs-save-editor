@@ -59,7 +59,7 @@
     <Compile Include="Scripts.cs" />
     <Compile Include="ScriptVariable.cs" />
     <Compile Include="SimpleVars.cs" />
-    <Compile Include="SimpleVarsMobile.cs" />
+    <Compile Include="SimpleVarsAndroidIOS.cs" />
     <Compile Include="SimpleVarsPS2.cs" />
     <Compile Include="Timestamp.cs" />
     <Compile Include="Vector2d.cs" />

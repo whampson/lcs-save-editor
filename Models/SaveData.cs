@@ -187,11 +187,11 @@ namespace LcsSaveEditor.Models
         {
             switch (FileType) {
                 case GamePlatform.Android:
-                    SimpleVars = Deserialize<SimpleVarsMobile>(m_simpleVars.Data);
+                    SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
                     Scripts = Deserialize<ScriptsAndroidPS2>(m_scripts.Data);
                     break;
                 case GamePlatform.IOS:
-                    SimpleVars = Deserialize<SimpleVarsMobile>(m_simpleVars.Data);
+                    SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
                     break;
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);

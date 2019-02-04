@@ -32,7 +32,7 @@ namespace LcsSaveEditor.Models
     /// Miscellaneous game variables formatted for the
     /// Android and iOS versions of the game.
     /// </summary>
-    public class SimpleVarsMobile : SimpleVars
+    public class SimpleVarsAndroidIOS : SimpleVars
     {
         private uint m_unknown00;
         private uint m_unknown04;
@@ -59,7 +59,7 @@ namespace LcsSaveEditor.Models
         private float m_unknown128;
         private ushort m_unknown12C;
 
-        public SimpleVarsMobile()
+        public SimpleVarsAndroidIOS()
         {
             m_unknown1C = new uint[24];
         }
