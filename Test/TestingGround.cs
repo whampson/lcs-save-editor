@@ -37,13 +37,15 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformIOS, 0);
+            string path = GetSaveFilePath(PlatformAndroid, 1);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
             Console.WriteLine("Format: {0}", save.FileType);
-            PrintSimpleVars(save);
+            PrintScripts(save);
+
+            save.Store(path + "_out");
 
             Console.Write("\nPress any key to exit...");
             Console.ReadKey();
@@ -79,7 +81,39 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowWaypoint), save.SimpleVars.ShowWaypoint);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WaypointPosition), save.SimpleVars.WaypointPosition);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Timestamp), save.SimpleVars.Timestamp);
+        }
 
+        static void PrintScripts(SaveData save)
+        {
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.GlobalVariablesSize), save.Scripts.GlobalVariablesSize);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.GlobalVariables), save.Scripts.GlobalVariables.Count);
+            for (int i = 0; i < save.Scripts.GlobalVariables.Count; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.GlobalVariables), i, save.Scripts.GlobalVariables[i]);
+            }
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.OnMissionFlag), save.Scripts.OnMissionFlag);
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.LastMissionPassedTime), save.Scripts.LastMissionPassedTime);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.CollectiveArray), save.Scripts.CollectiveArray.Length);
+            for (int i = 0; i < save.Scripts.CollectiveArray.Length; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.CollectiveArray), i, save.Scripts.CollectiveArray[i]);
+            }
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.NextFreeCollective), save.Scripts.NextFreeCollective);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.BuildingSwapArray), save.Scripts.BuildingSwapArray.Length);
+            for (int i = 0; i < save.Scripts.BuildingSwapArray.Length; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.BuildingSwapArray), i, save.Scripts.BuildingSwapArray[i]);
+            }
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.InvisibilitySettingArray), save.Scripts.InvisibilitySettingArray.Length);
+            for (int i = 0; i < save.Scripts.InvisibilitySettingArray.Length; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.InvisibilitySettingArray), i, save.Scripts.InvisibilitySettingArray[i]);
+            }
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.UsingAMultiScriptFile), save.Scripts.UsingAMultiScriptFile);
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.MainScriptSize), save.Scripts.MainScriptSize);
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.LargestMissionScriptSize), save.Scripts.LargestMissionScriptSize);
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.NumberOfMissionScripts), save.Scripts.NumberOfMissionScripts);
+            Console.WriteLine("{0}: {1}", nameof(save.Scripts.NumberOfExclusiveMissionScripts), save.Scripts.NumberOfExclusiveMissionScripts);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.RunningScripts), save.Scripts.RunningScripts.Count);
+            for (int i = 0; i < save.Scripts.RunningScripts.Count; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.RunningScripts), i, save.Scripts.RunningScripts[i]);
+            }
         }
 
         static string GetSaveFilePath(string platform, int num)
