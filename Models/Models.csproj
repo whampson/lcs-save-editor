@@ -45,10 +45,19 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="RunningScript.cs" />
+    <Compile Include="RunningScriptAndroidPS2.cs" />
+    <Compile Include="ScriptsAndroidPS2.cs" />
+    <Compile Include="ScriptsIOS.cs" />
+    <Compile Include="StaticReplacement.cs" />
+    <Compile Include="Collective.cs" />
+    <Compile Include="InvisibleObject.cs" />
     <Compile Include="SaveData.cs" />
     <Compile Include="SaveDataAndroid.cs" />
     <Compile Include="SaveDataIOS.cs" />
     <Compile Include="SaveDataPS2.cs" />
+    <Compile Include="Scripts.cs" />
+    <Compile Include="ScriptVariable.cs" />
     <Compile Include="SimpleVars.cs" />
     <Compile Include="SimpleVarsMobile.cs" />
     <Compile Include="SimpleVarsPS2.cs" />
