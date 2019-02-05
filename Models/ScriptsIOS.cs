@@ -22,7 +22,6 @@
 #endregion
 
 using System.IO;
-using System.Text;
 
 namespace LcsSaveEditor.Models
 {
@@ -36,10 +35,8 @@ namespace LcsSaveEditor.Models
             long start = stream.Position;
             base.DeserializeObject(stream);
 
-            using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
-                for (int i = 0; i < m_numberOfExclusiveMissionScripts; i++) {
-                    m_runningScripts.Add(Deserialize<RunningScriptIOS>(stream));
-                }
+            for (int i = 0; i < m_numberOfExclusiveMissionScripts; i++) {
+                m_runningScripts.Add(Deserialize<RunningScriptIOS>(stream));
             }
 
             return stream.Position - start;

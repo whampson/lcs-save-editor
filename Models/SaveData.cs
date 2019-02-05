@@ -205,6 +205,7 @@ namespace LcsSaveEditor.Models
         protected void SerializeDataBlocks()
         {
             m_simpleVars.Data = Serialize(SimpleVars);
+            m_scripts.Data = Serialize(Scripts);
         }
 
         /// <summary>

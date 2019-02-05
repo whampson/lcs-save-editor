@@ -41,7 +41,6 @@ namespace LcsSaveEditor.Models
         protected override long DeserializeObject(Stream stream)
         {
             long start = stream.Position;
-
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_nextScript = r.ReadUInt32();
                 m_unknown04 = r.ReadUInt32();
@@ -81,7 +80,42 @@ namespace LcsSaveEditor.Models
 
         protected override long SerializeObject(Stream stream)
         {
-            throw new NotImplementedException();
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_nextScript);
+                w.Write(m_unknown04);
+                w.Write(m_prevScript);
+                w.Write(m_unknown0C);
+                w.Write(m_threadId);
+                w.Write(m_unknown14);
+                w.WriteString(m_name, 8);
+                w.Write(m_instructionPointer);
+                for (int i = 0; i < m_returnStack.Length; i++) {
+                    w.Write(m_returnStack[i]);
+                }
+                w.Write(m_returnStackCount);
+                w.Write(new byte[2]);       // align bytes
+                for (int i = 0; i < m_localVariables.Length; i++) {
+                    Serialize(m_localVariables[i], stream);
+                }
+                w.Write(m_timer1);
+                w.Write(m_timer2);
+                w.Write(m_unknown210);
+                w.Write(m_unknown214);
+                w.Write(m_ifResult);
+                w.Write(m_usesMissionCleanup);
+                w.Write(m_isActive);
+                w.Write(m_wakeTime);
+                w.Write(m_logicalOperation);
+                w.Write(m_notFlag);
+                w.Write(m_isWastedBustedCheckEnabled);
+                w.Write(m_isWastedBusted);
+                w.Write(m_isMission);
+                w.Write(m_unknown222);
+                w.Write(m_unknown224);
+            }
+
+            return stream.Position - start;
         }
     }
 }

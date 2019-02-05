@@ -182,7 +182,40 @@ namespace LcsSaveEditor.Models
 
         protected override long SerializeObject(Stream stream)
         {
-            throw new NotImplementedException();
+            long start = stream.Position;
+            using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
+                w.Write(m_globalVarsSize);
+                for (int i = 0; i < m_globalVarsSize / 4; i++) {
+                    Serialize(m_globalVars[i], stream);
+                }
+                w.Write(m_unknown);
+                w.Write(m_onMissionFlag);
+                w.Write(m_lastMissionPassedTime);
+                for (int i = 0; i < m_collectiveArray.Length; i++) {
+                    Serialize(m_collectiveArray[i], stream);
+                }
+                w.Write(m_nextFreeCollective);
+                for (int i = 0; i < m_buildingSwapArray.Length; i++) {
+                    Serialize(m_buildingSwapArray[i], stream);
+                }
+                for (int i = 0; i < m_invisibilitySettingArray.Length; i++) {
+                    Serialize(m_invisibilitySettingArray[i], stream);
+                }
+                w.Write(m_usingAMultiScriptFile);
+                w.Write(_m_playerHasMetDebbieHarry);
+                w.Write(new byte[2]);       // align bytes
+                w.Write(m_mainScriptSize);
+                w.Write(m_largestMissionScriptSize);
+                w.Write(m_numberOfMissionScripts);
+                w.Write(new byte[2]);       // align bytes
+                w.Write(m_numberOfExclusiveMissionScripts);
+                w.Write(new byte[2]);       // align bytes
+                for (int i = 0; i < m_numberOfExclusiveMissionScripts; i++) {
+                    Serialize(m_runningScripts[i], stream);
+                }
+            }
+
+            return stream.Position - start;
         }
     }
 }
