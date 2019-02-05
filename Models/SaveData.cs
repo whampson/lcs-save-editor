@@ -89,6 +89,12 @@ namespace LcsSaveEditor.Models
             set;
         }
 
+        public GarageData Garages
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Writes this saved game data to a file.
         /// </summary>
@@ -197,6 +203,7 @@ namespace LcsSaveEditor.Models
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
                     Scripts = Deserialize<ScriptsAndroidPS2>(m_scripts.Data);
+                    Garages = Deserialize<GarageDataPS2>(m_garages.Data);
                     break;
             }
         }
@@ -206,6 +213,7 @@ namespace LcsSaveEditor.Models
         {
             m_simpleVars.Data = Serialize(SimpleVars);
             m_scripts.Data = Serialize(Scripts);
+            m_garages.Data = Serialize(Garages);
         }
 
         /// <summary>
