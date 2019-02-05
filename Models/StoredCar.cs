@@ -152,5 +152,12 @@ namespace LcsSaveEditor.Models
 
             return stream.Position - start;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} = {1}, {2} = {3}",
+                nameof(Vehicle), Vehicle,
+                nameof(Perks), Perks);
+        }
     }
 }
