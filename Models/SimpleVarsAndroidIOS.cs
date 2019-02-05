@@ -72,7 +72,9 @@ namespace LcsSaveEditor.Models
                 m_unknown04 = r.ReadUInt32();
                 m_unknown08 = r.ReadUInt32();
                 m_saveNameGxt = r.ReadWideString(8);
-                for (int i = 0; i < m_unknown1C.Length; i++) { m_unknown1C[i] = r.ReadUInt32(); }
+                for (int i = 0; i < m_unknown1C.Length; i++) {
+                    m_unknown1C[i] = r.ReadUInt32();
+                }
                 m_unknown7C = r.ReadUInt16();
                 m_unknown7E = r.ReadUInt16();
                 m_unknown80 = r.ReadUInt16();
@@ -147,7 +149,9 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown04);
                 w.Write(m_unknown08);
                 w.WriteWideString(m_saveNameGxt, 8);
-                for (int i = 0; i < m_unknown1C.Length; i++) { w.Write(m_unknown1C[i]); }
+                for (int i = 0; i < m_unknown1C.Length; i++) {
+                    w.Write(m_unknown1C[i]);
+                }
                 w.Write(m_unknown7C);
                 w.Write(m_unknown7E);
                 w.Write(m_unknown80);
