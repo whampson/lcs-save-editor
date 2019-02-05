@@ -28,6 +28,9 @@ using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Represents a 2-dimensional vector.
+    /// </summary>
     public class Vector2d : SerializableObject, IComparable, IComparable<Vector3d>
     {
         private float m_x;
