@@ -42,7 +42,6 @@ namespace LcsSaveEditor.Models
         private ushort m_unknown7E;
         private ushort m_unknown80;
         private ushort m_unknown82;
-        private float m_unknownD4;
         private uint m_unknownD8;
         private uint m_unknownDC;
         private float m_unknownE0;
@@ -101,7 +100,7 @@ namespace LcsSaveEditor.Models
                 _m_interpolationValue = r.ReadSingle();
                 m_cameraPosition = Deserialize<Vector3d>(stream);
                 m_prefsVehicleCameraMode = (VehicleCameraMode) r.ReadSingle();
-                m_unknownD4 = r.ReadSingle();
+                m_prefsPlayerCameraMode = (PlayerCameraMode) r.ReadSingle();
                 m_unknownD8 = r.ReadUInt32();
                 m_unknownDC = r.ReadUInt32();
                 m_unknownE0 = r.ReadSingle();
@@ -178,7 +177,7 @@ namespace LcsSaveEditor.Models
                 w.Write(_m_interpolationValue);
                 Serialize(m_cameraPosition, stream);
                 w.Write((float) m_prefsVehicleCameraMode);
-                w.Write(m_unknownD4);
+                w.Write((float) m_prefsPlayerCameraMode);
                 w.Write(m_unknownD8);
                 w.Write(m_unknownDC);
                 w.Write(m_unknownE0);

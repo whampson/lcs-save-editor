@@ -60,6 +60,7 @@ namespace LcsSaveEditor.Models
         protected float _m_interpolationValue;
         protected Vector3d m_cameraPosition;
         protected VehicleCameraMode m_prefsVehicleCameraMode;
+        protected PlayerCameraMode m_prefsPlayerCameraMode;
         protected uint m_prefsBrightness;
         protected bool m_prefsDisplayHud;
         protected bool m_prefsShowSubtitles;
@@ -164,6 +165,12 @@ namespace LcsSaveEditor.Models
         {
             get { return m_prefsVehicleCameraMode; }
             set { m_prefsVehicleCameraMode = value; OnPropertyChanged(); }
+        }
+
+        public PlayerCameraMode PlayerCamera
+        {
+            get { return m_prefsPlayerCameraMode; }
+            set { m_prefsPlayerCameraMode = value; OnPropertyChanged(); }
         }
 
         public uint Brightness

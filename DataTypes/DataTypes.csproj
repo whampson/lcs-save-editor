@@ -52,6 +52,7 @@
     <Compile Include="Enums\GarageType.cs" />
     <Compile Include="Enums\ObjectType.cs" />
     <Compile Include="Enums\Vehicle.cs" />
+    <Compile Include="Enums\PlayerCameraMode.cs" />
     <Compile Include="Enums\VehicleCameraMode.cs" />
     <Compile Include="Interfaces\DataBlock.cs" />
     <Compile Include="Enums\ExportCars.cs" />
