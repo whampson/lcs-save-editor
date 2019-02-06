@@ -51,6 +51,9 @@
     <Compile Include="GarageDataAndroidIOS.cs" />
     <Compile Include="GarageDataPS2.cs" />
     <Compile Include="GaragePS2.cs" />
+    <Compile Include="PlayerInfo.cs" />
+    <Compile Include="PlayerInfoAndroidIOS.cs" />
+    <Compile Include="PlayerInfoPS2.cs" />
     <Compile Include="Quaternion.cs" />
     <Compile Include="RunningScript.cs" />
     <Compile Include="RunningScriptIOS.cs" />

@@ -37,13 +37,13 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformIOS, 0);
+            string path = GetSaveFilePath(PlatformIOS, 2);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
             Console.WriteLine("Format: {0}", save.FileType);
-            PrintGarages(save);
+            PrintPlayerInfo(save);
 
             save.Store(path + "_out");
 
@@ -131,6 +131,21 @@ namespace Test
             for (int i = 0; i < save.Garages.Garages.Length; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.Garages), i, save.Garages.Garages[i]);
             }
+        }
+
+        static void PrintPlayerInfo(SaveData save)
+        {
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.Money), save.PlayerInfo.Money);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.MoneyOnScreen), save.PlayerInfo.MoneyOnScreen);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.NumHiddenPackagesFound), save.PlayerInfo.NumHiddenPackagesFound);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.MaxHealth), save.PlayerInfo.MaxHealth);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.MaxArmor), save.PlayerInfo.MaxArmor);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.HasInfiniteSprint), save.PlayerInfo.HasInfiniteSprint);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.HasFastReload), save.PlayerInfo.HasFastReload);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.IsFireProof), save.PlayerInfo.IsFireProof);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.HasGetOutOfJailFree), save.PlayerInfo.HasGetOutOfJailFree);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.HasFreeHealthcare), save.PlayerInfo.HasFreeHealthcare);
+            Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.CanDoDriveBy), save.PlayerInfo.CanDoDriveBy);
         }
 
         static string GetSaveFilePath(string platform, int num)
