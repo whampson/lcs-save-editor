@@ -37,13 +37,13 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformAndroid, 1);
+            string path = GetSaveFilePath(PlatformIOS, 0);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
             Console.WriteLine("Format: {0}", save.FileType);
-            PrintScripts(save);
+            PrintGarages(save);
 
             save.Store(path + "_out");
 
@@ -113,6 +113,23 @@ namespace Test
             Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.RunningScripts), save.Scripts.RunningScripts.Count);
             for (int i = 0; i < save.Scripts.RunningScripts.Count; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.RunningScripts), i, save.Scripts.RunningScripts[i]);
+            }
+        }
+
+        static void PrintGarages(SaveData save)
+        {
+            Console.WriteLine("{0}: {1}", nameof(save.Garages.NumberOfGarages), save.Garages.NumberOfGarages);
+            Console.WriteLine("{0}: {1}", nameof(save.Garages.BombsAreFree), save.Garages.BombsAreFree);
+            Console.WriteLine("{0}: {1}", nameof(save.Garages.RespraysAreFree), save.Garages.RespraysAreFree);
+            Console.WriteLine("{0}: {1}", nameof(save.Garages.CarTypesCollected), save.Garages.CarTypesCollected);
+            Console.WriteLine("{0}: {1}", nameof(save.Garages.LastTimeHelpMessage), save.Garages.LastTimeHelpMessage);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.StoredCars), save.Garages.StoredCars.Length);
+            for (int i = 0; i < save.Garages.StoredCars.Length; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.StoredCars), i, save.Garages.StoredCars[i]);
+            }
+            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.Garages), save.Garages.Garages.Length);
+            for (int i = 0; i < save.Garages.Garages.Length; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.Garages), i, save.Garages.Garages[i]);
             }
         }
 
