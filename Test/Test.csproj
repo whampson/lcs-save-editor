@@ -50,7 +50,10 @@
     <None Include="App.config" />
     <None Include="SaveData\Android\lcs_android_save00" />
     <None Include="SaveData\Android\lcs_android_save01" />
+    <None Include="SaveData\Android\lcs_android_save02" />
     <None Include="SaveData\iOS\lcs_ios_save00" />
+    <None Include="SaveData\iOS\lcs_ios_save01" />
+    <None Include="SaveData\iOS\lcs_ios_save02" />
     <None Include="SaveData\PS2\lcs_ps2_save00" />
     <None Include="SaveData\PS2\lcs_ps2_save01" />
     <None Include="SaveData\PS2\lcs_ps2_save02" />

@@ -1,3 +1,9 @@
 lcs_ios_save00:
     - Mission:  Biker Heat
     - Progress: 64.91%
+lcs_ios_save01:
+    - Mission:  Home Sweet Home
+    - Progress: 25.15%
+lcs_ios_save02:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
