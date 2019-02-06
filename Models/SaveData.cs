@@ -188,17 +188,18 @@ namespace LcsSaveEditor.Models
             return (int) (stream.Position - start);
         }
 
-        
         protected void DeserializeDataBlocks()
         {
             switch (FileType) {
                 case GamePlatform.Android:
                     SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
                     Scripts = Deserialize<ScriptsAndroidPS2>(m_scripts.Data);
+                    Garages = Deserialize<GarageDataAndroidIOS>(m_garages.Data);
                     break;
                 case GamePlatform.IOS:
                     SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
                     Scripts = Deserialize<ScriptsIOS>(m_scripts.Data);
+                    Garages = Deserialize<GarageDataAndroidIOS>(m_garages.Data);
                     break;
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
@@ -207,7 +208,6 @@ namespace LcsSaveEditor.Models
                     break;
             }
         }
-
         
         protected void SerializeDataBlocks()
         {
@@ -258,7 +258,6 @@ namespace LcsSaveEditor.Models
                     throw new InvalidOperationException(msg);
             }
         }
-
         
         private static GamePlatform DetectFileType(byte[] data)
         {

@@ -46,7 +46,9 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Garage.cs" />
+    <Compile Include="GarageAndroidIOS.cs" />
     <Compile Include="GarageData.cs" />
+    <Compile Include="GarageDataAndroidIOS.cs" />
     <Compile Include="GarageDataPS2.cs" />
     <Compile Include="GaragePS2.cs" />
     <Compile Include="Quaternion.cs" />
