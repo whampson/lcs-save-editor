@@ -28,6 +28,9 @@ using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Garage object for the PlayStation 2 version of the game.
+    /// </summary>
     public class GaragePS2 : Garage
     {
         private byte m_unknown03;

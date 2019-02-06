@@ -26,6 +26,9 @@ using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Garage data for the PlayStation 2 version of the game.
+    /// </summary>
     public class GarageDataPS2 : GarageData
     {
         protected override long DeserializeObject(Stream stream)
