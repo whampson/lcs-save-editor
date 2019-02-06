@@ -5,3 +5,7 @@
 lcs_android_save01:
     - Mission:  Grease Sucho
     - Progress: 29.24%
+
+lcs_android_save02:
+    - Mission:  The Sicilian Gambit
+    - Progress: 100%
