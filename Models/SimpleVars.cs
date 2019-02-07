@@ -71,13 +71,13 @@ namespace LcsSaveEditor.Models
         protected uint m_prefsSfxVolume;
         protected RadioStation _m_prefsRadioStation;
         protected byte _m_prefsOutput;
-        protected ControllerConfig m_prefsControllerConfig;
-        protected bool m_prefsDisableInvertLook;  // TODO: this is on PS2, I think 1 = disabled
-        protected bool m_prefsInvertLook;         // TODO: this is on mobile, I think 1 = enabled
+        protected ushort m_prefsControllerConfig;
+        protected bool m_prefsDisableInvertLook;
+        protected bool m_prefsInvertLook;
         protected bool m_prefsUseVibration;
-        protected bool _m_prefsSwapNippleAndDPad;
-        protected bool m_playerHasCheated;
-        protected bool _m_allTaxisHaveNitro;
+        protected bool m_prefsSwapNippleAndDPad;
+        protected bool m_hasPlayerCheated;
+        protected bool m_allTaxisHaveNitro;
         protected bool m_targetIsOn;
         protected Vector2d m_targetPosition;
         protected Timestamp m_saveTime;
@@ -197,13 +197,13 @@ namespace LcsSaveEditor.Models
             set { m_prefsRadarMode = value; OnPropertyChanged(); }
         }
 
-        public bool BlurOn
+        public bool UseVibrantColors
         {
             get { return m_blurOn; }
             set { m_blurOn = value; OnPropertyChanged(); }
         }
 
-        public bool Widescreen
+        public bool WidescreenEnabled
         {
             get { return m_prefsUseWideScreen; }
             set { m_prefsUseWideScreen = value; OnPropertyChanged(); }
@@ -221,7 +221,7 @@ namespace LcsSaveEditor.Models
             set { m_prefsSfxVolume = value; OnPropertyChanged(); }
         }
 
-        public ControllerConfig ControllerConfiguration
+        public ushort ControllerConfiguration
         {
             get { return m_prefsControllerConfig; }
             set { m_prefsControllerConfig = value; OnPropertyChanged(); }
@@ -237,16 +237,28 @@ namespace LcsSaveEditor.Models
             }
         }
 
-        public bool Vibration
+        public bool VibrationEnabled
         {
             get { return m_prefsUseVibration; }
             set { m_prefsUseVibration = value; OnPropertyChanged(); }
         }
 
-        public bool PlayerHasCheated
+        public bool SwapAnalogAndDPad
         {
-            get { return m_playerHasCheated; }
-            set { m_playerHasCheated = value; OnPropertyChanged(); }
+            get { return m_prefsSwapNippleAndDPad; }
+            set { m_prefsSwapNippleAndDPad = value; OnPropertyChanged(); }
+        }
+
+        public bool HasPlayerCheated
+        {
+            get { return m_hasPlayerCheated; }
+            set { m_hasPlayerCheated = value; OnPropertyChanged(); }
+        }
+
+        public bool TaxiBounceEnabled
+        {
+            get { return m_allTaxisHaveNitro; }
+            set { m_allTaxisHaveNitro = value; OnPropertyChanged(); }
         }
 
         public bool ShowWaypoint

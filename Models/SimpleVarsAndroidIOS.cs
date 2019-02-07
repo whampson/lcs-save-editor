@@ -56,7 +56,6 @@ namespace LcsSaveEditor.Models
         private uint m_unknown120;
         private uint m_unknown124;
         private float m_unknown128;
-        private ushort m_unknown12C;
 
         public SimpleVarsAndroidIOS()
         {
@@ -127,11 +126,11 @@ namespace LcsSaveEditor.Models
                 m_unknown120 = r.ReadUInt32();
                 m_unknown124 = r.ReadUInt32();
                 m_unknown128 = r.ReadSingle();
-                m_unknown12C = r.ReadUInt16();
+                m_prefsControllerConfig = r.ReadUInt16();
                 m_prefsInvertLook = r.ReadBoolean();
-                _m_prefsSwapNippleAndDPad = r.ReadBoolean();
-                m_playerHasCheated = r.ReadBoolean();
-                _m_allTaxisHaveNitro = r.ReadBoolean();
+                m_prefsSwapNippleAndDPad = r.ReadBoolean();
+                m_hasPlayerCheated = r.ReadBoolean();
+                m_allTaxisHaveNitro = r.ReadBoolean();
                 m_targetIsOn = r.ReadBoolean();
                 r.ReadBytes(1);     // align byte
                 m_targetPosition = Deserialize<Vector2d>(stream);
@@ -204,11 +203,11 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown120);
                 w.Write(m_unknown124);
                 w.Write(m_unknown128);
-                w.Write(m_unknown12C);
+                w.Write(m_prefsControllerConfig);
                 w.Write(m_prefsInvertLook);
-                w.Write(_m_prefsSwapNippleAndDPad);
-                w.Write(m_playerHasCheated);
-                w.Write(_m_allTaxisHaveNitro);
+                w.Write(m_prefsSwapNippleAndDPad);
+                w.Write(m_hasPlayerCheated);
+                w.Write(m_allTaxisHaveNitro);
                 w.Write(m_targetIsOn);
                 w.Write(new byte[1]);       // align byte
                 Serialize(m_targetPosition, stream);
