@@ -219,6 +219,7 @@ namespace LcsSaveEditor.Models
                     SimpleVars = Deserialize<SimpleVarsPSP>(m_simpleVars.Data);
                     Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
                     Garages = Deserialize<Garages<GaragePSP>>(m_garages.Data);
+                    PlayerInfo = Deserialize<PlayerInfoPSP>(m_playerInfo.Data);
                     break;
             }
         }
@@ -228,7 +229,7 @@ namespace LcsSaveEditor.Models
             m_simpleVars.Data = Serialize(SimpleVars);
             m_scripts.Data = Serialize(Scripts);
             m_garages.Data = Serialize(Garages);
-            //m_playerInfo.Data = Serialize(PlayerInfo);
+            m_playerInfo.Data = Serialize(PlayerInfo);
         }
 
         /// <summary>

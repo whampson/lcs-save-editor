@@ -53,6 +53,7 @@
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="PlayerInfoAndroidIOS.cs" />
     <Compile Include="PlayerInfoPS2.cs" />
+    <Compile Include="PlayerInfoPSP.cs" />
     <Compile Include="Quaternion.cs" />
     <Compile Include="RunningScript.cs" />
     <Compile Include="RunningScriptIOS.cs" />
