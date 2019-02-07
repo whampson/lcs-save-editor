@@ -58,8 +58,10 @@
     <Compile Include="RunningScript.cs" />
     <Compile Include="RunningScriptIOS.cs" />
     <Compile Include="RunningScriptAndroidPS2.cs" />
+    <Compile Include="SaveDataPSP.cs" />
     <Compile Include="ScriptsAndroidPS2.cs" />
     <Compile Include="ScriptsIOS.cs" />
+    <Compile Include="SimpleVarsPSP.cs" />
     <Compile Include="StaticReplacement.cs" />
     <Compile Include="Collective.cs" />
     <Compile Include="InvisibleObject.cs" />
