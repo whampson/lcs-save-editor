@@ -64,11 +64,16 @@
     <None Include="SaveData\PS2\lcs_ps2_save07" />
     <None Include="SaveData\PS2\lcs_ps2_save08" />
     <None Include="SaveData\PS2\lcs_ps2_save09" />
+    <None Include="SaveData\PSP\lcs_psp_save00" />
+    <None Include="SaveData\PSP\lcs_psp_save01" />
+    <None Include="SaveData\PSP\lcs_psp_save02" />
+    <None Include="SaveData\PSP\lcs_psp_save03" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SaveData\Android\saveinfo.txt" />
     <Content Include="SaveData\iOS\saveinfo.txt" />
     <Content Include="SaveData\PS2\saveinfo.txt" />
+    <Content Include="SaveData\PSP\saveinfo.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTypes\DataTypes.csproj">
@@ -92,5 +97,6 @@
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
