@@ -246,13 +246,6 @@ namespace LcsSaveEditor.Models
             byte[] data = File.ReadAllBytes(path);
             GamePlatform fileType = DetectFileType(data);
 
-            // Check if file type is supported by the editor
-            if (EnumHelper.HasAttribute<NotSupportedAttribute>(fileType)) {
-                string msg = string.Format(Strings.ExceptionMessageFileTypeNotSupported,
-                    EnumHelper.GetAttribute<DescriptionAttribute>(fileType).Description);
-                throw new PlatformNotSupportedException(msg);
-            }
-
             // Deserialize the data
             switch (fileType) {
                 case GamePlatform.Android:

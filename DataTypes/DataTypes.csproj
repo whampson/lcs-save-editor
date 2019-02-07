@@ -45,7 +45,6 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Attributes\NotSupportedAttribute.cs" />
     <Compile Include="Enums\ControllerConfig.cs" />
     <Compile Include="Enums\Costumes.cs" />
     <Compile Include="Enums\GarageState.cs" />
@@ -65,6 +64,8 @@
     <Compile Include="Enums\Weapon.cs" />
     <Compile Include="Enums\Weather.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

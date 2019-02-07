@@ -39,7 +39,6 @@ namespace LcsSaveEditor.DataTypes
         [Description("PlayStation 2")]
         PS2,
 
-        [NotSupported]
         [Description("PlayStation Portable")]
         PSP
     };
