@@ -47,6 +47,7 @@
     </Compile>
     <Compile Include="Garage.cs" />
     <Compile Include="GarageAndroidIOS.cs" />
+    <Compile Include="GaragePSP.cs" />
     <Compile Include="Garages.cs" />
     <Compile Include="GaragePS2.cs" />
     <Compile Include="PlayerInfo.cs" />
