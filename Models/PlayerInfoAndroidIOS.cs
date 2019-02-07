@@ -21,12 +21,15 @@
  */
 #endregion
 
-using LcsSaveEditor.Extensions;
 using System.IO;
 using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// The PlayerInfo structure for the Android and iOS
+    /// versions of the game.
+    /// </summary>
     public class PlayerInfoAndroidIOS : PlayerInfo
     {
         private uint[] m_unknown00;

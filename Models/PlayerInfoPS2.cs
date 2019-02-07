@@ -22,12 +22,15 @@
 #endregion
 
 using LcsSaveEditor.Extensions;
-using System;
 using System.IO;
 using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// The PlayerInfo structure for the PlayStation 2 version
+    /// of the game.
+    /// </summary>
     public class PlayerInfoPS2 : PlayerInfo
     {
         private uint m_unknown04;

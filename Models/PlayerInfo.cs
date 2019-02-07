@@ -25,6 +25,10 @@ using LcsSaveEditor.Infrastructure;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// Keeps track of player attributes, such as money and perks.
+    /// This information is stored in Block 3 of the save file.
+    /// </summary>
     public abstract class PlayerInfo : SerializableObject
     {
         protected int m_money;
