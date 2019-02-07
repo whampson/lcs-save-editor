@@ -22,12 +22,15 @@
 #endregion
 
 using LcsSaveEditor.Extensions;
-using System;
 using System.IO;
 using System.Text;
 
 namespace LcsSaveEditor.Models
 {
+    /// <summary>
+    /// RunningScript formatted for the iOS version of
+    /// the game.
+    /// </summary>
     public class RunningScriptIOS : RunningScript
     {
         private uint m_unknown04;
