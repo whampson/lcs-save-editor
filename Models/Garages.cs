@@ -31,8 +31,9 @@ using LcsSaveEditor.Infrastructure;
 namespace LcsSaveEditor.Models
 {
     /// <summary>
-    /// Keeps track of saved vehicles, garage objects, and
-    /// the progress of the Love Media car exports.
+    /// Keeps track of saved vehicles, garage objects, and the progress
+    /// of the Love Media car exports. This information is stored in
+    /// Block 2 of the save file.
     /// </summary>
     public abstract class Garages : SerializableObject
     {
