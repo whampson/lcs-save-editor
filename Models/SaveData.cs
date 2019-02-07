@@ -101,6 +101,12 @@ namespace LcsSaveEditor.Models
             set;
         }
 
+        public Stats Stats
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Writes this saved game data to a file.
         /// </summary>
@@ -202,24 +208,28 @@ namespace LcsSaveEditor.Models
                     Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
                     Garages = Deserialize<Garages<GarageAndroidIOS>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoAndroidIOS>(m_playerInfo.Data);
+                    Stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_stats.Data);
                     break;
                 case GamePlatform.IOS:
                     SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
                     Scripts = Deserialize<Scripts<RunningScriptIOS>>(m_scripts.Data);
                     Garages = Deserialize<Garages<GarageAndroidIOS>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoAndroidIOS>(m_playerInfo.Data);
+                    Stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_stats.Data);
                     break;
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
                     Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
                     Garages = Deserialize<Garages<GaragePS2>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoPS2>(m_playerInfo.Data);
+                    Stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_stats.Data);
                     break;
                 case GamePlatform.PSP:
                     SimpleVars = Deserialize<SimpleVarsPSP>(m_simpleVars.Data);
                     Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
                     Garages = Deserialize<Garages<GaragePSP>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoPSP>(m_playerInfo.Data);
+                    Stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_stats.Data);
                     break;
             }
         }
@@ -230,6 +240,7 @@ namespace LcsSaveEditor.Models
             m_scripts.Data = Serialize(Scripts);
             m_garages.Data = Serialize(Garages);
             m_playerInfo.Data = Serialize(PlayerInfo);
+            m_stats.Data = Serialize(Stats);
         }
 
         /// <summary>

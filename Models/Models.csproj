@@ -45,6 +45,11 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BanditRaceStat.cs" />
+    <Compile Include="DirtBikeRaceStat.cs" />
+    <Compile Include="FavoriteRadioStationList.cs" />
+    <Compile Include="FavoriteRadioStationListAndroidIOS.cs" />
+    <Compile Include="FavoriteRadioStationListPS2PSP.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="GarageAndroidIOS.cs" />
     <Compile Include="GaragePSP.cs" />
@@ -72,7 +77,9 @@
     <Compile Include="SimpleVars.cs" />
     <Compile Include="SimpleVarsAndroidIOS.cs" />
     <Compile Include="SimpleVarsPS2.cs" />
+    <Compile Include="Stats.cs" />
     <Compile Include="StoredCar.cs" />
+    <Compile Include="StreetRaceStat.cs" />
     <Compile Include="Timestamp.cs" />
     <Compile Include="Vector2d.cs" />
     <Compile Include="Vector3d.cs" />
