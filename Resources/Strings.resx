@@ -150,10 +150,6 @@
   <data name="ExceptionMessageConvertBackNotSupported" xml:space="preserve">
     <value>ConvertBack is not supported for this converter.</value>
   </data>
-  <data name="ExceptionMessageFileTypeNotSupported" xml:space="preserve">
-    <value>{0} save data files are not supported at this time.</value>
-    <comment>{0} = gaming platform name</comment>
-  </data>
   <data name="ExceptionMessageIncorrectBlockSize" xml:space="preserve">
     <value>The block size in the header does not match the number of available bytes in the stream.</value>
   </data>
@@ -162,7 +158,7 @@
     <comment>{0} = bad tag; {1} = expected tag</comment>
   </data>
   <data name="ExceptionMessageInvalidSaveData" xml:space="preserve">
-    <value>Not a valid GTA:LCS savedata file.</value>
+    <value>Not a valid GTA:LCS savedata file. If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
   <data name="ExceptionMessageMultipleCallsNotSupported" xml:space="preserve">
     <value>Multiple calls to this function are not supported.</value>

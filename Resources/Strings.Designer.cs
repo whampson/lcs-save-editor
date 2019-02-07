@@ -160,15 +160,6 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} save data files are not supported at this time..
-        /// </summary>
-        public static string ExceptionMessageFileTypeNotSupported {
-            get {
-                return ResourceManager.GetString("ExceptionMessageFileTypeNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The block size in the header does not match the number of available bytes in the stream..
         /// </summary>
         public static string ExceptionMessageIncorrectBlockSize {
@@ -187,7 +178,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file..
+        ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file. If you are trying to load a PSP save, you may have to decrypt it first..
         /// </summary>
         public static string ExceptionMessageInvalidSaveData {
             get {
