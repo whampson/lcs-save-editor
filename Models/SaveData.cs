@@ -254,6 +254,8 @@ namespace LcsSaveEditor.Models
                     return Deserialize<SaveDataIOS>(data);
                 case GamePlatform.PS2:
                     return Deserialize<SaveDataPS2>(data);
+                case GamePlatform.PSP:
+                    return Deserialize<SaveDataPSP>(data);
                 default:
                     // Should never get here...
                     string msg = string.Format("{0} ({1})",
@@ -269,7 +271,7 @@ namespace LcsSaveEditor.Models
             const int MissionScriptSizeAndroid = 0x21C;
             const int MissionScriptSizeIOS = 0x228;
 
-            // Determine if PS2 by size of SIMP block.
+            // Determine if PS2 or PSP by size of SIMP block.
             int sizeOfSimp = ReadInt(data, 0x04);
             if (sizeOfSimp == SimpSizePS2) {
                 return GamePlatform.PS2;
