@@ -37,13 +37,13 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformIOS, 2);
+            string path = GetSaveFilePath(PlatformPSP, 2);
 
             Console.WriteLine("Loading {0}...", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
             Console.WriteLine("Format: {0}", save.FileType);
-            PrintPlayerInfo(save);
+            PrintScripts(save);
 
             save.Store(path + "_out");
 
@@ -129,9 +129,9 @@ namespace Test
             for (int i = 0; i < save.Garages.StoredCars.Length; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.StoredCars), i, save.Garages.StoredCars[i]);
             }
-            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.Garages), save.Garages.Garages.Length);
-            for (int i = 0; i < save.Garages.Garages.Length; i++) {
-                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.Garages), i, save.Garages.Garages[i]);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.GarageArray), save.Garages.GarageArray.Length);
+            for (int i = 0; i < save.Garages.GarageArray.Length; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.GarageArray), i, save.Garages.GarageArray[i]);
             }
         }
 

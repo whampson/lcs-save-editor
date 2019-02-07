@@ -144,7 +144,11 @@ namespace LcsSaveEditor.Models
             get { return m_runningScripts; }
             set { m_runningScripts = value; OnPropertyChanged(); }
         }
+    }
 
+    public class Scripts<T> : Scripts
+        where T : RunningScript, new()
+    {
         protected override long DeserializeObject(Stream stream)
         {
             long start = stream.Position;
@@ -175,6 +179,9 @@ namespace LcsSaveEditor.Models
                 r.ReadBytes(2);     // align bytes
                 m_numberOfExclusiveMissionScripts = r.ReadUInt16();
                 r.ReadBytes(2);     // align bytes
+                for (int i = 0; i < m_numberOfExclusiveMissionScripts; i++) {
+                    m_runningScripts.Add(Deserialize<T>(stream));
+                }
             }
 
             return stream.Position - start;

@@ -34,7 +34,7 @@ namespace LcsSaveEditor.Models
     /// Keeps track of saved vehicles, garage objects, and
     /// the progress of the Love Media car exports.
     /// </summary>
-    public abstract class GarageData : SerializableObject
+    public abstract class Garages : SerializableObject
     {
         protected uint m_numGarages;
         protected bool m_bombsAreFree;
@@ -48,13 +48,13 @@ namespace LcsSaveEditor.Models
         protected uint _m_carTypesCollected4;
         protected uint m_lastTimeHelpMessage;
         protected StoredCar[] m_storedCars;
-        protected Garage[] m_garages;
+        protected Garage[] m_garageArray;
         protected byte[] m_unknown;     // padding?
 
-        public GarageData()
+        public Garages()
         {
             m_storedCars = new StoredCar[48];
-            m_garages = new Garage[32];
+            m_garageArray = new Garage[32];
             m_unknown = new byte[344];
         }
 
@@ -94,12 +94,16 @@ namespace LcsSaveEditor.Models
             set { m_storedCars = value; OnPropertyChanged(); }
         }
 
-        public Garage[] Garages
+        public Garage[] GarageArray
         {
-            get { return m_garages; }
-            set { m_garages = value; OnPropertyChanged(); }
+            get { return m_garageArray; }
+            set { m_garageArray = value; OnPropertyChanged(); }
         }
+    }
 
+    public class Garages<T> : Garages
+        where T : Garage, new()
+    {
         protected override long DeserializeObject(Stream stream)
         {
             long start = stream.Position;
@@ -117,6 +121,12 @@ namespace LcsSaveEditor.Models
                 m_lastTimeHelpMessage = r.ReadUInt32();
                 for (int i = 0; i < m_storedCars.Length; i++) {
                     m_storedCars[i] = Deserialize<StoredCar>(stream);
+                }
+                for (int i = 0; i < m_garageArray.Length; i++) {
+                    m_garageArray[i] = Deserialize<T>(stream);
+                }
+                for (int i = 0; i < m_unknown.Length; i++) {
+                    m_unknown[i] = r.ReadByte();
                 }
             }
 
@@ -141,8 +151,8 @@ namespace LcsSaveEditor.Models
                 for (int i = 0; i < m_storedCars.Length; i++) {
                     Serialize(m_storedCars[i], stream);
                 }
-                for (int i = 0; i < m_garages.Length; i++) {
-                    Serialize(m_garages[i], stream);
+                for (int i = 0; i < m_garageArray.Length; i++) {
+                    Serialize(m_garageArray[i], stream);
                 }
                 w.Write(m_unknown);
             }

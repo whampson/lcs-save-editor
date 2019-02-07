@@ -89,7 +89,7 @@ namespace LcsSaveEditor.Models
             set;
         }
 
-        public GarageData Garages
+        public Garages Garages
         {
             get;
             set;
@@ -199,25 +199,25 @@ namespace LcsSaveEditor.Models
             switch (FileType) {
                 case GamePlatform.Android:
                     SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
-                    Scripts = Deserialize<ScriptsAndroidPS2PSP>(m_scripts.Data);
-                    Garages = Deserialize<GarageDataAndroidIOS>(m_garages.Data);
+                    Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
+                    Garages = Deserialize<Garages<GarageAndroidIOS>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoAndroidIOS>(m_playerInfo.Data);
                     break;
                 case GamePlatform.IOS:
                     SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
-                    Scripts = Deserialize<ScriptsIOS>(m_scripts.Data);
-                    Garages = Deserialize<GarageDataAndroidIOS>(m_garages.Data);
+                    Scripts = Deserialize<Scripts<RunningScriptIOS>>(m_scripts.Data);
+                    Garages = Deserialize<Garages<GarageAndroidIOS>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoAndroidIOS>(m_playerInfo.Data);
                     break;
                 case GamePlatform.PS2:
                     SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
-                    Scripts = Deserialize<ScriptsAndroidPS2PSP>(m_scripts.Data);
-                    Garages = Deserialize<GarageDataPS2>(m_garages.Data);
+                    Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
+                    Garages = Deserialize<Garages<GaragePS2>>(m_garages.Data);
                     PlayerInfo = Deserialize<PlayerInfoPS2>(m_playerInfo.Data);
                     break;
                 case GamePlatform.PSP:
                     SimpleVars = Deserialize<SimpleVarsPSP>(m_simpleVars.Data);
-                    Scripts = Deserialize<ScriptsAndroidPS2PSP>(m_scripts.Data);
+                    Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
                     break;
             }
         }

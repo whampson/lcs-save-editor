@@ -47,9 +47,7 @@
     </Compile>
     <Compile Include="Garage.cs" />
     <Compile Include="GarageAndroidIOS.cs" />
-    <Compile Include="GarageData.cs" />
-    <Compile Include="GarageDataAndroidIOS.cs" />
-    <Compile Include="GarageDataPS2.cs" />
+    <Compile Include="Garages.cs" />
     <Compile Include="GaragePS2.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="PlayerInfoAndroidIOS.cs" />
@@ -59,8 +57,6 @@
     <Compile Include="RunningScriptIOS.cs" />
     <Compile Include="RunningScriptAndroidPS2PSP.cs" />
     <Compile Include="SaveDataPSP.cs" />
-    <Compile Include="ScriptsAndroidPS2PSP.cs" />
-    <Compile Include="ScriptsIOS.cs" />
     <Compile Include="SimpleVarsPSP.cs" />
     <Compile Include="StaticReplacement.cs" />
     <Compile Include="Collective.cs" />
