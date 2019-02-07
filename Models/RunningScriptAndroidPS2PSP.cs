@@ -22,13 +22,16 @@
 #endregion
 
 using LcsSaveEditor.Extensions;
-using System;
 using System.IO;
 using System.Text;
 
 namespace LcsSaveEditor.Models
 {
-    public class RunningScriptAndroidPS2 : RunningScript
+    /// <summary>
+    /// RunningScript formatted for the Android, PlayStation 2,
+    /// and PlayStation Portable versions of the game.
+    /// </summary>
+    public class RunningScriptAndroidPS2PSP : RunningScript
     {
         private uint m_unknown0C;
         private uint m_unknown208;

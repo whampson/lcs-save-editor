@@ -57,9 +57,9 @@
     <Compile Include="Quaternion.cs" />
     <Compile Include="RunningScript.cs" />
     <Compile Include="RunningScriptIOS.cs" />
-    <Compile Include="RunningScriptAndroidPS2.cs" />
+    <Compile Include="RunningScriptAndroidPS2PSP.cs" />
     <Compile Include="SaveDataPSP.cs" />
-    <Compile Include="ScriptsAndroidPS2.cs" />
+    <Compile Include="ScriptsAndroidPS2PSP.cs" />
     <Compile Include="ScriptsIOS.cs" />
     <Compile Include="SimpleVarsPSP.cs" />
     <Compile Include="StaticReplacement.cs" />

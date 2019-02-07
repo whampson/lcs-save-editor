@@ -26,10 +26,10 @@ using System.IO;
 namespace LcsSaveEditor.Models
 {
     /// <summary>
-    /// Scripts variables formatted for the Android and
-    /// PlayStation 2 versions of the game.
+    /// Scripts variables formatted for the Android, PlayStation 2,
+    /// and PLayStation Portable versions of the game.
     /// </summary>
-    public class ScriptsAndroidPS2 : Scripts
+    public class ScriptsAndroidPS2PSP : Scripts
     {
         protected override long DeserializeObject(Stream stream)
         {
@@ -37,7 +37,7 @@ namespace LcsSaveEditor.Models
             base.DeserializeObject(stream);
 
             for (int i = 0; i < m_numberOfExclusiveMissionScripts; i++) {
-                m_runningScripts.Add(Deserialize<RunningScriptAndroidPS2>(stream));
+                m_runningScripts.Add(Deserialize<RunningScriptAndroidPS2PSP>(stream));
             }
 
             return stream.Position - start;
