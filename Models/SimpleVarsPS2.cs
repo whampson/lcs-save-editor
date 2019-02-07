@@ -38,15 +38,18 @@ namespace LcsSaveEditor.Models
         private ushort m_unknown02;
         private ushort m_unknown04;
         private ushort m_unknown06;
+        private ushort m_unknown3E;
         private float m_unknown58;
         private uint m_unknown5C;
         private uint m_unknown60;
         private float m_unknown64;
+        private ushort m_unknown6E;
         private uint m_unknown78;
         private uint m_unknown7C;
         private byte m_unknown81;
         private byte m_unknown82;
         private byte m_unknown83;
+        private ushort m_unknown8E;
         private uint m_unknown90;
         private uint m_unknown94;
         private uint m_unknown98;
@@ -89,7 +92,7 @@ namespace LcsSaveEditor.Models
                 m_prevWeatherType = (Weather) r.ReadInt16();
                 m_currWeatherType = (Weather) r.ReadInt16();
                 m_forcedWeatherType = (Weather) r.ReadInt16();
-                r.ReadBytes(2);     // align bytes
+                m_unknown3E = r.ReadUInt16();
                 m_weatherTypeInList = r.ReadUInt32();
                 _m_interpolationValue = r.ReadSingle();
                 m_cameraPosition = Deserialize<Vector3d>(stream);
@@ -101,7 +104,7 @@ namespace LcsSaveEditor.Models
                 m_prefsBrightness = r.ReadUInt32();
                 m_prefsDisplayHud = r.ReadBoolean();
                 m_prefsShowSubtitles = r.ReadBoolean();
-                r.ReadBytes(2);     // align bytes
+                m_unknown6E = r.ReadUInt16();
                 m_prefsRadarMode = (RadarMode) r.ReadUInt32();
                 m_blurOn = r.ReadBoolean32();
                 m_unknown78 = r.ReadUInt32();
@@ -114,7 +117,7 @@ namespace LcsSaveEditor.Models
                 m_prefsSfxVolume = r.ReadUInt32();
                 _m_prefsRadioStation = (RadioStation) r.ReadByte();
                 _m_prefsOutput = r.ReadByte();
-                r.ReadBytes(2);     // align bytes
+                m_unknown8E = r.ReadUInt16();
                 m_unknown90 = r.ReadUInt32();
                 m_unknown94 = r.ReadUInt32();
                 m_unknown98 = r.ReadUInt32();
@@ -169,7 +172,7 @@ namespace LcsSaveEditor.Models
                 w.Write((short) m_prevWeatherType);
                 w.Write((short) m_currWeatherType);
                 w.Write((short) m_forcedWeatherType);
-                w.Write(new byte[2]);   // align bytes
+                w.Write(m_unknown3E);
                 w.Write(m_weatherTypeInList);
                 w.Write(_m_interpolationValue);
                 Serialize(m_cameraPosition, stream);
@@ -181,7 +184,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_prefsBrightness);
                 w.Write(m_prefsDisplayHud);
                 w.Write(m_prefsShowSubtitles);
-                w.Write(new byte[2]);   // align bytes
+                w.Write(m_unknown6E);
                 w.Write((uint) m_prefsRadarMode);
                 w.WriteBoolean32(m_blurOn);
                 w.Write(m_unknown78);
@@ -194,7 +197,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_prefsSfxVolume);
                 w.Write((byte) _m_prefsRadioStation);
                 w.Write(_m_prefsOutput);
-                w.Write(new byte[2]);   // align bytes
+                w.Write(m_unknown8E);
                 w.Write(m_unknown90);
                 w.Write(m_unknown94);
                 w.Write(m_unknown98);

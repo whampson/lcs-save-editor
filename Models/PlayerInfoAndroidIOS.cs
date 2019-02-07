@@ -37,6 +37,7 @@ namespace LcsSaveEditor.Models
         private uint m_unknown90;
         private float m_unknown94;
         private uint m_unknown98;
+        private ushort m_unknown9E;
 
         public PlayerInfoAndroidIOS()
         {
@@ -59,7 +60,7 @@ namespace LcsSaveEditor.Models
                 m_unknown98 = r.ReadUInt32();
                 m_maxHealth = r.ReadByte();
                 m_maxArmor = r.ReadByte();
-                r.ReadBytes(2);     // align bytes
+                m_unknown9E = r.ReadUInt16();
                 m_neverGetsTired = r.ReadBoolean();
                 m_fastReload = r.ReadBoolean();
                 m_fireProof = r.ReadBoolean();
@@ -88,7 +89,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown98);
                 w.Write(m_maxHealth);
                 w.Write(m_maxArmor);
-                w.Write(new byte[2]);       // align bytes
+                w.Write(m_unknown9E);
                 w.Write(m_neverGetsTired);
                 w.Write(m_fastReload);
                 w.Write(m_fireProof);

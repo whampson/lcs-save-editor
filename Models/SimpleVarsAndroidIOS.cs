@@ -42,9 +42,15 @@ namespace LcsSaveEditor.Models
         private ushort m_unknown7E;
         private ushort m_unknown80;
         private ushort m_unknown82;
+        private ushort m_unknownBA;
         private uint m_unknownD8;
         private uint m_unknownDC;
         private float m_unknownE0;
+        private ushort m_unknownEA;
+        private byte m_unknownF1;
+        private byte m_unknownF2;
+        private byte m_unknownF3;
+        private ushort m_unknownFE;
         private uint m_unknown100;
         private uint m_unknown104;
         private uint m_unknown108;
@@ -56,6 +62,7 @@ namespace LcsSaveEditor.Models
         private uint m_unknown120;
         private uint m_unknown124;
         private float m_unknown128;
+        private byte m_unknown133;
 
         public SimpleVarsAndroidIOS()
         {
@@ -94,7 +101,7 @@ namespace LcsSaveEditor.Models
                 m_prevWeatherType = (Weather) r.ReadInt16();
                 m_currWeatherType = (Weather) r.ReadInt16();
                 m_forcedWeatherType = (Weather) r.ReadInt16();
-                r.ReadBytes(2);     // align bytes
+                m_unknownBA = r.ReadUInt16();
                 m_weatherTypeInList = r.ReadUInt32();
                 _m_interpolationValue = r.ReadSingle();
                 m_cameraPosition = Deserialize<Vector3d>(stream);
@@ -106,15 +113,17 @@ namespace LcsSaveEditor.Models
                 m_prefsBrightness = r.ReadUInt32();
                 m_prefsDisplayHud = r.ReadBoolean();
                 m_prefsShowSubtitles = r.ReadBoolean();
-                r.ReadBytes(2);     // align bytes
+                m_unknownEA = r.ReadUInt16();
                 m_prefsRadarMode = (RadarMode) r.ReadUInt32();
                 m_blurOn = r.ReadBoolean();
-                r.ReadBytes(3);     // align bytes
+                m_unknownF1 = r.ReadByte();
+                m_unknownF2 = r.ReadByte();
+                m_unknownF3 = r.ReadByte();
                 m_prefsRadioVolume = r.ReadUInt32();
                 m_prefsSfxVolume = r.ReadUInt32();
                 _m_prefsRadioStation = (RadioStation) r.ReadByte();
                 _m_prefsOutput = r.ReadByte();
-                r.ReadBytes(2);     // align bytes
+                m_unknownFE = r.ReadUInt16();
                 m_unknown100 = r.ReadUInt32();
                 m_unknown104 = r.ReadUInt32();
                 m_unknown108 = r.ReadUInt32();
@@ -132,7 +141,7 @@ namespace LcsSaveEditor.Models
                 m_hasPlayerCheated = r.ReadBoolean();
                 m_allTaxisHaveNitro = r.ReadBoolean();
                 m_targetIsOn = r.ReadBoolean();
-                r.ReadBytes(1);     // align byte
+                m_unknown133 = r.ReadByte();
                 m_targetPosition = Deserialize<Vector2d>(stream);
             }
 
@@ -171,7 +180,7 @@ namespace LcsSaveEditor.Models
                 w.Write((short) m_prevWeatherType);
                 w.Write((short) m_currWeatherType);
                 w.Write((short) m_forcedWeatherType);
-                w.Write(new byte[2]);       // align bytes
+                w.Write(m_unknownBA);
                 w.Write(m_weatherTypeInList);
                 w.Write(_m_interpolationValue);
                 Serialize(m_cameraPosition, stream);
@@ -183,15 +192,17 @@ namespace LcsSaveEditor.Models
                 w.Write(m_prefsBrightness);
                 w.Write(m_prefsDisplayHud);
                 w.Write(m_prefsShowSubtitles);
-                w.Write(new byte[2]);       // align bytes
+                w.Write(m_unknownEA);
                 w.Write((uint) m_prefsRadarMode);
                 w.Write(m_blurOn);
-                w.Write(new byte[3]);       // align bytes
+                w.Write(m_unknownF1);
+                w.Write(m_unknownF2);
+                w.Write(m_unknownF3);
                 w.Write(m_prefsRadioVolume);
                 w.Write(m_prefsSfxVolume);
                 w.Write((byte) _m_prefsRadioStation);
                 w.Write(_m_prefsOutput);
-                w.Write(new byte[2]);       // align bytes
+                w.Write(m_unknownFE);
                 w.Write(m_unknown100);
                 w.Write(m_unknown104);
                 w.Write(m_unknown108);
@@ -209,7 +220,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_hasPlayerCheated);
                 w.Write(m_allTaxisHaveNitro);
                 w.Write(m_targetIsOn);
-                w.Write(new byte[1]);       // align byte
+                w.Write(m_unknown133);
                 Serialize(m_targetPosition, stream);
             }
 
