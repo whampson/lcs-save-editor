@@ -45,7 +45,6 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Enums\ControllerConfig.cs" />
     <Compile Include="Enums\Costumes.cs" />
     <Compile Include="Enums\GarageState.cs" />
     <Compile Include="Enums\GarageType.cs" />
