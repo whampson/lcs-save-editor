@@ -132,6 +132,7 @@ namespace LcsSaveEditor.ViewModels
 
             // Update UI state
             CurrentSaveData = saveData;
+            ReloadTabs();
             WindowTitle = string.Format("{0} - [{1}]", Strings.AppName, path);
             StatusText = Strings.StatusTextFileOpenSuccess;
         }
@@ -147,7 +148,6 @@ namespace LcsSaveEditor.ViewModels
             }
 
             IsFileModified = false;
-            WindowTitle = string.Format("{0} - {1}", Strings.AppName, path);
             StatusText = Strings.StatusTextFileSaveSuccess;
         }
 
@@ -163,8 +163,9 @@ namespace LcsSaveEditor.ViewModels
 
         private void DoCloseFile()
         {
-            CurrentSaveData = null;
             IsFileModified = false;
+            CurrentSaveData = null;
+            ReloadTabs();
             WindowTitle = Strings.AppName;
             StatusText = Strings.StatusTextFileNotLoaded;
         }
@@ -172,6 +173,17 @@ namespace LcsSaveEditor.ViewModels
         private void ExitApp()
         {
             Application.Current.MainWindow.Close();
+        }
+
+        private void ReloadTabs()
+        {
+            Tabs.Clear();
+            SelectedTabIndex = -1;
+
+            if (IsFileOpen) {
+                Tabs.Add(new WeaponsViewModel(CurrentSaveData));
+                SelectedTabIndex = 0;
+            }
         }
 
         private void ShowErrorDialog(string message)
