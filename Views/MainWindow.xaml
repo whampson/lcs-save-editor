@@ -134,7 +134,7 @@ SOFTWARE.
             <Separator Grid.Column="1"/>
 
             <StatusBarItem Grid.Column="2" HorizontalAlignment="Center">
-                <TextBlock Text="{x:Static r:Strings.TextFileModified}"
+                <TextBlock Text="{x:Static r:Strings.FlagFileModified}"
                            Visibility="{Binding IsFileModified, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock.ToolTip>
                         <ToolTip>
