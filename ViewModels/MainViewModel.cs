@@ -84,6 +84,16 @@ namespace LcsSaveEditor.ViewModels
             set { m_statusText = value; OnPropertyChanged(); }
         }
 
+        public string FileModifiedToolTipText
+        {
+            get {
+                if (CurrentSaveData == null) {
+                    return string.Empty;
+                }
+                return Strings.ToolTipTextFileModified;
+            }
+        }
+
         public string FileTypeToolTipText
         {
             get {
@@ -93,8 +103,8 @@ namespace LcsSaveEditor.ViewModels
                 GamePlatform plat = CurrentSaveData.FileType;
                 string platName = EnumHelper.GetAttribute<DescriptionAttribute>(plat).Description;
                 string fmt = (plat == GamePlatform.Android || plat == GamePlatform.IOS)
-                    ? Strings.TextFileType2
-                    : Strings.TextFileType1;
+                    ? Strings.ToolTipTextFileType2
+                    : Strings.ToolTipTextFileType1;
 
                 return string.Format(fmt, platName);
             }

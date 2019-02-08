@@ -125,7 +125,13 @@ SOFTWARE.
 
             <StatusBarItem Grid.Column="2" HorizontalAlignment="Center">
                 <TextBlock Text="{x:Static r:Strings.TextFileModified}"
-                           Visibility="{Binding IsFileModified, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                           Visibility="{Binding IsFileModified, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock.ToolTip>
+                        <ToolTip>
+                            <TextBlock Text="{Binding FileModifiedToolTipText}"/>
+                        </ToolTip>
+                    </TextBlock.ToolTip>
+                </TextBlock>
             </StatusBarItem>
 
             <Separator Grid.Column="3"/>
