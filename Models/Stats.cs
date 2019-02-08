@@ -133,7 +133,7 @@ namespace LcsSaveEditor.Models
         protected float m_autoPaintingBudget;
         protected uint m_propertyDestroyed;
         protected uint _m_numPropertyOwned;
-        protected ushort m_unlockedCostumes;
+        protected Costumes m_unlockedCostumes;
         protected uint m_bloodringKills;
         protected uint m_bloodringTime;
         protected byte[] _m_propertyOwned;
@@ -189,7 +189,780 @@ namespace LcsSaveEditor.Models
             _m_bestPositions = new uint[1];
         }
 
-        // TODO: proprties
+        public uint PeopleKilledByPlayer
+        {
+            get { return m_peopleKilledByPlayer; }
+            set { m_peopleKilledByPlayer = value; OnPropertyChanged(); }
+        }
+
+        public uint PeopleKilledByOthers
+        {
+            get { return m_peopleKilledByOthers; }
+            set { m_peopleKilledByOthers = value; OnPropertyChanged(); }
+        }
+
+        public uint CarsExploded
+        {
+            get { return m_carsExploded; }
+            set { m_carsExploded = value; OnPropertyChanged(); }
+        }
+
+        public uint BoatsExploded
+        {
+            get { return m_boatsExploded; }
+            set { m_boatsExploded = value; OnPropertyChanged(); }
+        }
+
+        public uint TyresPopped
+        {
+            get { return m_tyresPopped; }
+            set { m_tyresPopped = value; OnPropertyChanged(); }
+        }
+
+        public uint RoundsFiredByPlayer
+        {
+            get { return m_roundsFiredByPlayer; }
+            set { m_roundsFiredByPlayer = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType00Wasted
+        {
+            get { return m_pedType00Wasted; }
+            set { m_pedType00Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType01Wasted
+        {
+            get { return m_pedType01Wasted; }
+            set { m_pedType01Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType02Wasted
+        {
+            get { return m_pedType02Wasted; }
+            set { m_pedType02Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType03Wasted
+        {
+            get { return m_pedType03Wasted; }
+            set { m_pedType03Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType04Wasted
+        {
+            get { return m_pedType04Wasted; }
+            set { m_pedType04Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType05Wasted
+        {
+            get { return m_pedType05Wasted; }
+            set { m_pedType05Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType06Wasted
+        {
+            get { return m_pedType06Wasted; }
+            set { m_pedType06Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType07Wasted
+        {
+            get { return m_pedType07Wasted; }
+            set { m_pedType07Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType08Wasted
+        {
+            get { return m_pedType08Wasted; }
+            set { m_pedType08Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType09Wasted
+        {
+            get { return m_pedType09Wasted; }
+            set { m_pedType09Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType10Wasted
+        {
+            get { return m_pedType10Wasted; }
+            set { m_pedType10Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType11Wasted
+        {
+            get { return m_pedType11Wasted; }
+            set { m_pedType11Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType12Wasted
+        {
+            get { return m_pedType12Wasted; }
+            set { m_pedType12Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType13Wasted
+        {
+            get { return m_pedType13Wasted; }
+            set { m_pedType13Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType14Wasted
+        {
+            get { return m_pedType14Wasted; }
+            set { m_pedType14Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType15Wasted
+        {
+            get { return m_pedType15Wasted; }
+            set { m_pedType15Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType16Wasted
+        {
+            get { return m_pedType16Wasted; }
+            set { m_pedType16Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType17Wasted
+        {
+            get { return m_pedType17Wasted; }
+            set { m_pedType17Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType18Wasted
+        {
+            get { return m_pedType18Wasted; }
+            set { m_pedType18Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType19Wasted
+        {
+            get { return m_pedType19Wasted; }
+            set { m_pedType19Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType20Wasted
+        {
+            get { return m_pedType20Wasted; }
+            set { m_pedType20Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType21Wasted
+        {
+            get { return m_pedType21Wasted; }
+            set { m_pedType21Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint PedType22Wasted
+        {
+            get { return m_pedType22Wasted; }
+            set { m_pedType22Wasted = value; OnPropertyChanged(); }
+        }
+
+        public uint HelisDestroyed
+        {
+            get { return m_helisDestroyed; }
+            set { m_helisDestroyed = value; OnPropertyChanged(); }
+        }
+
+        public float ProgressMade
+        {
+            get { return m_progressMade; }
+            set { m_progressMade = value; OnPropertyChanged(); }
+        }
+
+        public float TotalProgressInGame
+        {
+            get { return m_totalProgressInGame; }
+            set { m_totalProgressInGame = value; OnPropertyChanged(); }
+        }
+
+        public uint KgsOfExplosivesUsed
+        {
+            get { return m_kgsOfExplosivesUsed; }
+            set { m_kgsOfExplosivesUsed = value; OnPropertyChanged(); }
+        }
+
+        public uint BulletsThatHit
+        {
+            get { return m_bulletsThatHit; }
+            set { m_bulletsThatHit = value; OnPropertyChanged(); }
+        }
+
+        public uint CarsCrushed
+        {
+            get { return m_carsCrushed; }
+            set { m_carsCrushed = value; OnPropertyChanged(); }
+        }
+
+        public uint HeadsPopped
+        {
+            get { return m_headsPopped; }
+            set { m_headsPopped = value; OnPropertyChanged(); }
+        }
+
+        public uint WantedStarsAttained
+        {
+            get { return m_wantedStarsAttained; }
+            set { m_wantedStarsAttained = value; OnPropertyChanged(); }
+        }
+
+        public uint WantedStarsEvaded
+        {
+            get { return m_wantedStarsEvaded; }
+            set { m_wantedStarsEvaded = value; OnPropertyChanged(); }
+        }
+
+        public uint TimesArrested
+        {
+            get { return m_timesArrested; }
+            set { m_timesArrested = value; OnPropertyChanged(); }
+        }
+
+        public uint TimesDied
+        {
+            get { return m_timesDied; }
+            set { m_timesDied = value; OnPropertyChanged(); }
+        }
+
+        public uint DaysPassed
+        {
+            get { return m_daysPassed; }
+            set { m_daysPassed = value; OnPropertyChanged(); }
+        }
+
+        public uint SafeHouseVisits
+        {
+            get { return m_safeHouseVisits; }
+            set { m_safeHouseVisits = value; OnPropertyChanged(); }
+        }
+
+        public uint Sprayings
+        {
+            get { return m_sprayings; }
+            set { m_sprayings = value; OnPropertyChanged(); }
+        }
+
+        public float MaximumJumpDistance
+        {
+            get { return m_maximumJumpDistance; }
+            set { m_maximumJumpDistance = value; OnPropertyChanged(); }
+        }
+
+        public float MaximumJumpHeight
+        {
+            get { return m_maximumJumpHeight; }
+            set { m_maximumJumpHeight = value; OnPropertyChanged(); }
+        }
+
+        public uint MaximumJumpFlips
+        {
+            get { return m_maximumJumpFlips; }
+            set { m_maximumJumpFlips = value; OnPropertyChanged(); }
+        }
+
+        public uint MaximumJumpSpins
+        {
+            get { return m_maximumJumpSpins; }
+            set { m_maximumJumpSpins = value; OnPropertyChanged(); }
+        }
+
+        public InsaneStuntJump BestStuntJump
+        {
+            get { return m_bestStuntJump; }
+            set { m_bestStuntJump = value; OnPropertyChanged(); }
+        }
+
+        public uint NumberOfUniqueJumpsFound
+        {
+            get { return m_numberOfUniqueJumpsFound; }
+            set { m_numberOfUniqueJumpsFound = value; OnPropertyChanged(); }
+        }
+
+        public uint TotalNumberOfUniqueJumps
+        {
+            get { return m_totalNumberOfUniqueJumps; }
+            set { m_totalNumberOfUniqueJumps = value; OnPropertyChanged(); }
+        }
+
+        public uint MissionsGiven
+        {
+            get { return m_missionsGiven; }
+            set { m_missionsGiven = value; OnPropertyChanged(); }
+        }
+
+        public uint PassengersDroppedOffWithTaxi
+        {
+            get { return m_passengersDroppedOffWithTaxi; }
+            set { m_passengersDroppedOffWithTaxi = value; OnPropertyChanged(); }
+        }
+
+        public uint MoneyMadeWithTaxi
+        {
+            get { return m_moneyMadeWithTaxi; }
+            set { m_moneyMadeWithTaxi = value; OnPropertyChanged(); }
+        }
+
+        public bool IndustrialPassed
+        {
+            get { return m_industrialPassed; }
+            set { m_industrialPassed = value; OnPropertyChanged(); }
+        }
+
+        public bool CommercialPassed
+        {
+            get { return m_commercialPassed; }
+            set { m_commercialPassed = value; OnPropertyChanged(); }
+        }
+
+        public bool SuburbanPassed
+        {
+            get { return m_suburbanPassed; }
+            set { m_suburbanPassed = value; OnPropertyChanged(); }
+        }
+
+        public bool PamphletMissionPassed
+        {
+            get { return m_pamphletMissionPassed; }
+            set { m_pamphletMissionPassed = value; OnPropertyChanged(); }
+        }
+
+        public float DistanceTravelledOnFoot
+        {
+            get { return m_distanceTravelledOnFoot; }
+            set { m_distanceTravelledOnFoot = value; OnPropertyChanged(); }
+        }
+
+        public float DistanceTravelledByCar
+        {
+            get { return m_distanceTravelledByCar; }
+            set { m_distanceTravelledByCar = value; OnPropertyChanged(); }
+        }
+
+        public float DistanceTravelledByBike
+        {
+            get { return m_distanceTravelledByBike; }
+            set { m_distanceTravelledByBike = value; OnPropertyChanged(); }
+        }
+
+        public float DistanceTravelledByBoat
+        {
+            get { return m_distanceTravelledByBoat; }
+            set { m_distanceTravelledByBoat = value; OnPropertyChanged(); }
+        }
+
+        public uint LivesSavedWithAmbulance
+        {
+            get { return m_livesSavedWithAmbulance; }
+            set { m_livesSavedWithAmbulance = value; OnPropertyChanged(); }
+        }
+
+        public uint CriminalsCaught
+        {
+            get { return m_criminalsCaught; }
+            set { m_criminalsCaught = value; OnPropertyChanged(); }
+        }
+
+        public uint FiresExtinguished
+        {
+            get { return m_firesExtinguished; }
+            set { m_firesExtinguished = value; OnPropertyChanged(); }
+        }
+
+        public uint HighestLevelVigilanteMission
+        {
+            get { return m_highestLevelVigilanteMission; }
+            set { m_highestLevelVigilanteMission = value; OnPropertyChanged(); }
+        }
+
+        public uint HighestLevelAmbulanceMission
+        {
+            get { return m_highestLevelAmbulanceMission; }
+            set { m_highestLevelAmbulanceMission = value; OnPropertyChanged(); }
+        }
+
+        public uint HighestLevelFireMission
+        {
+            get { return m_highestLevelFireMission; }
+            set { m_highestLevelFireMission = value; OnPropertyChanged(); }
+        }
+
+        public uint PhotosTaken
+        {
+            get { return m_photosTaken; }
+            set { m_photosTaken = value; OnPropertyChanged(); }
+        }
+
+        public uint NumberKillFrenziesPassed
+        {
+            get { return m_numberKillFrenziesPassed; }
+            set { m_numberKillFrenziesPassed = value; OnPropertyChanged(); }
+        }
+
+        public uint MaxSecondsOnCarnageLeft
+        {
+            get { return m_maxSecondsOnCarnageLeft; }
+            set { m_maxSecondsOnCarnageLeft = value; OnPropertyChanged(); }
+        }
+
+        public uint MaxKillsOnRcTriad
+        {
+            get { return m_maxKillsOnRcTriad; }
+            set { m_maxKillsOnRcTriad = value; OnPropertyChanged(); }
+        }
+
+        public uint TotalNumberKillFrenzies
+        {
+            get { return m_totalNumberKillFrenzies; }
+            set { m_totalNumberKillFrenzies = value; OnPropertyChanged(); }
+        }
+
+        public uint TotalNumberMissions
+        {
+            get { return m_totalNumberMissions; }
+            set { m_totalNumberMissions = value; OnPropertyChanged(); }
+        }
+
+        public uint TimesDrowned
+        {
+            get { return m_timesDrowned; }
+            set { m_timesDrowned = value; OnPropertyChanged(); }
+        }
+
+        public uint SeagullsKilled
+        {
+            get { return m_seagullsKilled; }
+            set { m_seagullsKilled = value; OnPropertyChanged(); }
+        }
+
+        public float WeaponBudget
+        {
+            get { return m_weaponBudget; }
+            set { m_weaponBudget = value; OnPropertyChanged(); }
+        }
+
+        public float PizzasDelivered
+        {
+            get { return m_pizzasDelivered; }
+            set { m_pizzasDelivered = value; OnPropertyChanged(); }
+        }
+
+        public float NoodlesDelivered
+        {
+            get { return m_noodlesDelivered; }
+            set { m_noodlesDelivered = value; OnPropertyChanged(); }
+        }
+
+        public float MoneyMadeFromTourist
+        {
+            get { return m_moneyMadeFromTourist; }
+            set { m_moneyMadeFromTourist = value; OnPropertyChanged(); }
+        }
+
+        public float TouristsTakenToSpots
+        {
+            get { return m_touristsTakenToSpots; }
+            set { m_touristsTakenToSpots = value; OnPropertyChanged(); }
+        }
+
+        public float TopScrapyardChallengeScore
+        {
+            get { return m_topScrapyardChallengeScore; }
+            set { m_topScrapyardChallengeScore = value; OnPropertyChanged(); }
+        }
+
+        public float Top9mmMayhemScore
+        {
+            get { return m_top9mmMayhemScore; }
+            set { m_top9mmMayhemScore = value; OnPropertyChanged(); }
+        }
+
+        public float TopScooterShooterScore
+        {
+            get { return m_topScooterShooterScore; }
+            set { m_topScooterShooterScore = value; OnPropertyChanged(); }
+        }
+
+        public float TopWichitaWipeoutScore
+        {
+            get { return m_topWichitaWipeoutScore; }
+            set { m_topWichitaWipeoutScore = value; OnPropertyChanged(); }
+        }
+
+        public uint LongestWheelie
+        {
+            get { return m_longestWheelie; }
+            set { m_longestWheelie = value; OnPropertyChanged(); }
+        }
+
+        public uint LongestStoppie
+        {
+            get { return m_longestStoppie; }
+            set { m_longestStoppie = value; OnPropertyChanged(); }
+        }
+
+        public uint Longest2Wheel
+        {
+            get { return m_longest2Wheel; }
+            set { m_longest2Wheel = value; OnPropertyChanged(); }
+        }
+
+        public float LongestWheelieDist
+        {
+            get { return m_longestWheelieDist; }
+            set { m_longestWheelieDist = value; OnPropertyChanged(); }
+        }
+
+        public float LongestStoppieDist
+        {
+            get { return m_longestStoppieDist; }
+            set { m_longestStoppieDist = value; OnPropertyChanged(); }
+        }
+
+        public float Longest2WheelDist
+        {
+            get { return m_longest2WheelDist; }
+            set { m_longest2WheelDist = value; OnPropertyChanged(); }
+        }
+
+        public float LongestFacePlantDist
+        {
+            get { return m_longestFacePlantDist; }
+            set { m_longestFacePlantDist = value; OnPropertyChanged(); }
+        }
+
+        public float AutoPaintingBudget
+        {
+            get { return m_autoPaintingBudget; }
+            set { m_autoPaintingBudget = value; OnPropertyChanged(); }
+        }
+
+        public uint PropertyDestroyed
+        {
+            get { return m_propertyDestroyed; }
+            set { m_propertyDestroyed = value; OnPropertyChanged(); }
+        }
+
+        public Costumes UnlockedCostumes
+        {
+            get { return m_unlockedCostumes; }
+            set { m_unlockedCostumes = value; OnPropertyChanged(); }
+        }
+
+        public uint BloodringKills
+        {
+            get { return m_bloodringKills; }
+            set { m_bloodringKills = value; OnPropertyChanged(); }
+        }
+
+        public uint BloodringTime
+        {
+            get { return m_bloodringTime; }
+            set { m_bloodringTime = value; OnPropertyChanged(); }
+        }
+
+        public float HighestChaseValue
+        {
+            get { return m_highestChaseValue; }
+            set { m_highestChaseValue = value; OnPropertyChanged(); }
+        }
+
+        public uint KillsSinceLastCheckpoint
+        {
+            get { return m_killsSinceLastCheckpoint; }
+            set { m_killsSinceLastCheckpoint = value; OnPropertyChanged(); }
+        }
+
+        public uint TotalLegitimateKills
+        {
+            get { return m_totalLegitimateKills; }
+            set { m_totalLegitimateKills = value; OnPropertyChanged(); }
+        }
+
+        public string LastMissionPassedName
+        {
+            get { return m_lastMissionPassedName; }
+            set { m_lastMissionPassedName = value; OnPropertyChanged(); }
+        }
+
+        public uint CheatedCount
+        {
+            get { return m_cheatedCount; }
+            set { m_cheatedCount = value; OnPropertyChanged(); }
+        }
+
+        public uint CarsSold
+        {
+            get { return m_carsSold; }
+            set { m_carsSold = value; OnPropertyChanged(); }
+        }
+
+        public uint MoneyMadeWithCarSales
+        {
+            get { return m_moneyMadeWithCarSales; }
+            set { m_moneyMadeWithCarSales = value; OnPropertyChanged(); }
+        }
+
+        public uint BikesSold
+        {
+            get { return m_bikesSold; }
+            set { m_bikesSold = value; OnPropertyChanged(); }
+        }
+
+        public uint MoneyMadeWithBikeSales
+        {
+            get { return m_moneyMadeWithBikeSales; }
+            set { m_moneyMadeWithBikeSales = value; OnPropertyChanged(); }
+        }
+
+        public uint NumberOfExportedCars
+        {
+            get { return m_numberOfExportedCars; }
+            set { m_numberOfExportedCars = value; OnPropertyChanged(); }
+        }
+
+        public uint TotalNumberOfCarExport
+        {
+            get { return m_totalNumberOfCarExport; }
+            set { m_totalNumberOfCarExport = value; OnPropertyChanged(); }
+        }
+
+        public uint HighestLevelSlashTv
+        {
+            get { return m_highestLevelSlashTv; }
+            set { m_highestLevelSlashTv = value; OnPropertyChanged(); }
+        }
+
+        public uint MoneyMadeWithSlashTv
+        {
+            get { return m_moneyMadeWithSlashTv; }
+            set { m_moneyMadeWithSlashTv = value; OnPropertyChanged(); }
+        }
+
+        public uint TotalKillsOnSlashTv
+        {
+            get { return m_totalKillsOnSlashTv; }
+            set { m_totalKillsOnSlashTv = value; OnPropertyChanged(); }
+        }
+
+        public uint CashMadeCollectingTrash
+        {
+            get { return m_cashMadeCollectingTrash; }
+            set { m_cashMadeCollectingTrash = value; OnPropertyChanged(); }
+        }
+
+        public uint HitmenKilled
+        {
+            get { return m_hitmenKilled; }
+            set { m_hitmenKilled = value; OnPropertyChanged(); }
+        }
+
+        public uint HighestGuarduanAngelJustuceDished
+        {
+            get { return m_highestGuarduanAngelJustuceDished; }
+            set { m_highestGuarduanAngelJustuceDished = value; OnPropertyChanged(); }
+        }
+
+        public uint GuardianAngelMissionsPassed
+        {
+            get { return m_guardianAngelMissionsPassed; }
+            set { m_guardianAngelMissionsPassed = value; OnPropertyChanged(); }
+        }
+
+        public uint GuardianAngelHighestLevelIndustrial
+        {
+            get { return m_guardianAngelHighestLevelIndustrial; }
+            set { m_guardianAngelHighestLevelIndustrial = value; OnPropertyChanged(); }
+        }
+
+        public uint GuardianAngelHighestLevelCommercial
+        {
+            get { return m_guardianAngelHighestLevelCommercial; }
+            set { m_guardianAngelHighestLevelCommercial = value; OnPropertyChanged(); }
+        }
+
+        public uint GuardianAngelHighestLevelSuburban
+        {
+            get { return m_guardianAngelHighestLevelSuburban; }
+            set { m_guardianAngelHighestLevelSuburban = value; OnPropertyChanged(); }
+        }
+
+        public uint MostTimeLeftTrainRace
+        {
+            get { return m_mostTimeLeftTrainRace; }
+            set { m_mostTimeLeftTrainRace = value; OnPropertyChanged(); }
+        }
+
+        public uint BestTimeGoGoFaggio
+        {
+            get { return m_bestTimeGoGoFaggio; }
+            set { m_bestTimeGoGoFaggio = value; OnPropertyChanged(); }
+        }
+
+        public uint DirtBikeMostAir
+        {
+            get { return m_dirtBikeMostAir; }
+            set { m_dirtBikeMostAir = value; OnPropertyChanged(); }
+        }
+
+        public uint NumberOutfitChanges
+        {
+            get { return m_numberOutfitChanges; }
+            set { m_numberOutfitChanges = value; OnPropertyChanged(); }
+        }
+
+        public BanditRaceStat BestBanditLapTimes
+        {
+            get { return m_bestBanditLapTimes; }
+            set { m_bestBanditLapTimes = value; OnPropertyChanged(); }
+        }
+
+        public BanditRaceStat BestBanditPositions
+        {
+            get { return m_bestBanditPositions; }
+            set { m_bestBanditPositions = value; OnPropertyChanged(); }
+        }
+
+        public StreetRaceStat BestStreetRacePositions
+        {
+            get { return m_bestStreetRacePositions; }
+            set { m_bestStreetRacePositions = value; OnPropertyChanged(); }
+        }
+
+        public StreetRaceStat FastestStreetRaceLapTimes
+        {
+            get { return m_fastestStreetRaceLapTimes; }
+            set { m_fastestStreetRaceLapTimes = value; OnPropertyChanged(); }
+        }
+
+        public StreetRaceStat FastestStreetRaceTimes
+        {
+            get { return m_fastestStreetRaceTimes; }
+            set { m_fastestStreetRaceTimes = value; OnPropertyChanged(); }
+        }
+
+        public DirtBikeRaceStat FastestDirtBikeLapTimes
+        {
+            get { return m_fastestDirtBikeLapTimes; }
+            set { m_fastestDirtBikeLapTimes = value; OnPropertyChanged(); }
+        }
+
+        public DirtBikeRaceStat FastestDirtBikeTimes
+        {
+            get { return m_fastestDirtBikeTimes; }
+            set { m_fastestDirtBikeTimes = value; OnPropertyChanged(); }
+        }
+
+        public FavoriteRadioStationList FavoriteRadioStationList
+        {
+            get { return m_favoriteRadioStationList; }
+            set { m_favoriteRadioStationList = value; OnPropertyChanged(); }
+        }
+
     }
 
     public class Stats<T> : Stats
@@ -302,7 +1075,7 @@ namespace LcsSaveEditor.Models
                 m_autoPaintingBudget = r.ReadSingle();
                 m_propertyDestroyed = r.ReadUInt32();
                 _m_numPropertyOwned = r.ReadUInt32();
-                m_unlockedCostumes = r.ReadUInt16();
+                m_unlockedCostumes = (Costumes) r.ReadUInt16();
                 m_bloodringKills = r.ReadUInt32();
                 m_bloodringTime = r.ReadUInt32();
                 for (int i = 0; i < _m_propertyOwned.Length; i++) {
@@ -468,7 +1241,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_autoPaintingBudget);
                 w.Write(m_propertyDestroyed);
                 w.Write(_m_numPropertyOwned);
-                w.Write(m_unlockedCostumes);
+                w.Write((ushort) m_unlockedCostumes);
                 w.Write(m_bloodringKills);
                 w.Write(m_bloodringTime);
                 for (int i = 0; i < _m_propertyOwned.Length; i++) {
