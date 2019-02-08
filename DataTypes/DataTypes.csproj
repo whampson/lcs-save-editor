@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -40,6 +41,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyInfo.cs">
@@ -52,6 +54,9 @@
     <Compile Include="Enums\Vehicle.cs" />
     <Compile Include="Enums\PlayerCameraMode.cs" />
     <Compile Include="Enums\VehicleCameraMode.cs" />
+    <Compile Include="EventArgs\DialogCloseEventArgs.cs" />
+    <Compile Include="EventArgs\FileDialogEventArgs.cs" />
+    <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
     <Compile Include="Interfaces\DataBlock.cs" />
     <Compile Include="Enums\ExportCars.cs" />
     <Compile Include="Enums\GamePlatform.cs" />
@@ -65,6 +70,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Attributes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{003b8084-2efa-453a-b2a1-09189725aed3}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
