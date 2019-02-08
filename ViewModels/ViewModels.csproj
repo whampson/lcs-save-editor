@@ -48,6 +48,7 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commands\MainViewModel.Commands.cs" />
+    <Compile Include="Interfaces\PageViewModelBase.cs" />
     <Compile Include="MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
