@@ -53,6 +53,6 @@ using System.Windows;
     ResourceDictionaryLocation.SourceAssembly   // generic resource dictionary 
 )]
 
-[assembly: AssemblyVersion("0.3.0.572")]
-[assembly: AssemblyFileVersion("0.3.0.572")]
+[assembly: AssemblyVersion("0.3.0.587")]
+[assembly: AssemblyFileVersion("0.3.0.587")]
 [assembly: AssemblyInformationalVersion("0.3.0")]
