@@ -31,19 +31,20 @@ namespace LcsSaveEditor.DataTypes
     public enum RadioStation : byte
     {
         /* TODO: MyMix on Android/iOS shares the same value as RadioOff
-           on PS2/PSP. Figure out how to handle this. */
+           on PS2/PSP. Figure out how to handle this.
+           RadioStationConveter for View? */
 
         [Description("Head Radio")]
         HeadRadio,
 
         [Description("Double Clef FM")]
-        DoubleClefFm,
+        DoubleClefFM,
 
         [Description("K-Jah")]
         KJah,
 
         [Description("Rise FM")]
-        RiseFm,
+        RiseFM,
 
         [Description("Lips 106")]
         Lips106,
@@ -55,7 +56,7 @@ namespace LcsSaveEditor.DataTypes
         Msx98,
 
         [Description("Flashback FM")]
-        FlashbackFm,
+        FlashbackFM,
 
         [Description("The Liberty Jam")]
         TheLibertyJam,
