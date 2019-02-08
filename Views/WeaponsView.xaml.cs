@@ -29,6 +29,7 @@ namespace LcsSaveEditor.Views
     public partial class WeaponsView : PageViewBase
     {
         public WeaponsView()
+            : base()
         {
             InitializeComponent();
         }

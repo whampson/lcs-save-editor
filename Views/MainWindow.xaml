@@ -28,10 +28,11 @@ SOFTWARE.
         xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
         xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
         xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
-        xmlns:local="clr-namespace:LcsSaveEditor.Views"
+        xmlns:v="clr-namespace:LcsSaveEditor.Views"
         mc:Ignorable="d"
-        Closing="Window_Closing"
-        Title="{x:Static r:Strings.AppName}" Height="450" Width="800">
+        Title="{Binding WindowTitle}"
+        Height="450" Width="600"
+        Closing="Window_Closing">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -40,6 +41,9 @@ SOFTWARE.
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <c:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+        <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
+            <v:WeaponsView DataChanged="View_DataChanged"/>
+        </DataTemplate>
     </Window.Resources>
 
     <Window.InputBindings>
@@ -96,8 +100,14 @@ SOFTWARE.
 
             </Menu>
 
-            <TabControl DockPanel.Dock="Top">
-
+            <TabControl DockPanel.Dock="Top"
+                        ItemsSource="{Binding Tabs}"
+                        SelectedIndex="{Binding SelectedTabIndex}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Header}"/>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
             </TabControl>
 
         </DockPanel>

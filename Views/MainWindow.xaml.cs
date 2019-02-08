@@ -69,6 +69,11 @@ namespace LcsSaveEditor.Views
             //w.ShowDialog();
         }
 
+        private void View_DataChanged(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsFileModified = true;
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             // Close current file
