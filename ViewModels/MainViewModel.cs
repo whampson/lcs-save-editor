@@ -26,12 +26,15 @@ using LcsSaveEditor.Helpers;
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        private ObservableCollection<PageViewModelBase> m_tabs;
+        private int m_selectedTabIndex;
         private SaveData m_currentSaveData;
         private bool m_isFileModified;
         private string m_mostRecentFilePath;
@@ -40,8 +43,22 @@ namespace LcsSaveEditor.ViewModels
 
         public MainViewModel()
         {
+            m_tabs = new ObservableCollection<PageViewModelBase>();
+            m_selectedTabIndex = -1;
             m_windowTitle = Strings.AppName;
             m_statusText = Strings.StatusTextWelcome;
+        }
+
+        public ObservableCollection<PageViewModelBase> Tabs
+        {
+            get { return m_tabs; }
+            set { m_tabs = value; OnPropertyChanged(); }
+        }
+
+        public int SelectedTabIndex
+        {
+            get { return m_selectedTabIndex; }
+            set { m_selectedTabIndex = value; OnPropertyChanged(); }
         }
 
         public SaveData CurrentSaveData
