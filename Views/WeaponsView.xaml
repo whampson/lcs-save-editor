@@ -27,6 +27,7 @@ SOFTWARE.
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
+             xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
              xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
              xmlns:v="clr-namespace:LcsSaveEditor.Views"
              mc:Ignorable="d" 
@@ -82,34 +83,44 @@ SOFTWARE.
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <CheckBox Grid.Row="0" Grid.Column="0" Content="Hand"
+            <CheckBox Grid.Row="0" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotHand}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="true" IsEnabled="false"/>
-            <CheckBox Grid.Row="1" Grid.Column="0" Content="Melee"
+            <CheckBox Grid.Row="1" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotMelee}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsMeleeSlotEnabled}"/>
-            <CheckBox Grid.Row="2" Grid.Column="0" Content="Projectile"
+            <CheckBox Grid.Row="2" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotProjectile}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsProjectileSlotEnabled}"/>
-            <CheckBox Grid.Row="3" Grid.Column="0" Content="Pistol"
+            <CheckBox Grid.Row="3" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotPistol}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsPistolSlotEnabled}"/>
-            <CheckBox Grid.Row="4" Grid.Column="0" Content="Shotgun"
+            <CheckBox Grid.Row="4" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotShotgun}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsShotgunSlotEnabled}"/>
-            <CheckBox Grid.Row="5" Grid.Column="0" Content="SMG"
+            <CheckBox Grid.Row="5" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotSmg}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsSmgSlotEnabled}"/>
-            <CheckBox Grid.Row="6" Grid.Column="0" Content="Assault"
+            <CheckBox Grid.Row="6" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotAssault}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsAssaultSlotEnabled}"/>
-            <CheckBox Grid.Row="7" Grid.Column="0" Content="Heavy"
+            <CheckBox Grid.Row="7" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotHeavy}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsHeavySlotEnabled}"/>
-            <CheckBox Grid.Row="8" Grid.Column="0" Content="Sniper"
+            <CheckBox Grid.Row="8" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotSniper}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsSniperSlotEnabled}"/>
-            <CheckBox Grid.Row="9" Grid.Column="0" Content="Special"
+            <CheckBox Grid.Row="9" Grid.Column="0"
+                      Content="{x:Static r:Strings.WeaponSlotSpecial}"
                       Style="{StaticResource CheckBoxStyle}"
                       IsChecked="{Binding IsSpecialSlotEnabled}"/>
 
