@@ -30,6 +30,7 @@ namespace LcsSaveEditor.ViewModels
     {
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequested;
         public event EventHandler<FileDialogEventArgs> FileDialogRequested;
+        public event EventHandler<EventArgs> AboutDialogRequested;
 
         protected void OnMessageBoxRequested(MessageBoxEventArgs e)
         {
@@ -39,6 +40,11 @@ namespace LcsSaveEditor.ViewModels
         protected void OnFileDialogRequested(FileDialogEventArgs e)
         {
             FileDialogRequested?.Invoke(this, e);
+        }
+
+        protected void OnAboutDialogRequested(EventArgs e)
+        {
+            AboutDialogRequested?.Invoke(this, e);
         }
     }
 }

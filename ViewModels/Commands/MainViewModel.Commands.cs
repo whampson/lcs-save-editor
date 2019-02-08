@@ -70,6 +70,11 @@ namespace LcsSaveEditor.ViewModels
             get { return new RelayCommand(ExitApp); }
         }
 
+        public ICommand ShowAboutDialogCommand
+        {
+            get { return new RelayCommand(ShowAboutDialog); }
+        }
+
         private SaveData LoadSaveData(string path)
         {
             SaveData saveData = null;
@@ -175,6 +180,16 @@ namespace LcsSaveEditor.ViewModels
                 message,
                 Strings.DialogTitleError,
                 icon: MessageBoxImage.Error));
+        }
+
+        private void ShowAboutDialog()
+        {
+            // TODO: invoke custom dialog using AboutDialogRequested event
+
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                "(placeholder)",
+                Strings.DialogTitleAbout,
+                icon: MessageBoxImage.Information));
         }
 
         private void ShowCloseFilePrompt()

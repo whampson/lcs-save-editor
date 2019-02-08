@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.ViewModels;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -55,6 +56,17 @@ namespace LcsSaveEditor.Views
         private void ViewModel_FileDialogRequested(object sender, FileDialogEventArgs e)
         {
             e.ShowDialog(this);
+        }
+
+        private void ViewModel_AboutDialogRequested(object sender, EventArgs e)
+        {
+            // TODO: show custom dialog
+
+            //AboutWindow w = new AboutWindow()
+            //{
+            //    Owner = this
+            //};
+            //w.ShowDialog();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

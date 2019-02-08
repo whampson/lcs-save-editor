@@ -148,6 +148,9 @@
     <value>Please contact {0} about this error.</value>
     <comment>{0} = app author email</comment>
   </data>
+  <data name="DialogTitleAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="DialogTitleError" xml:space="preserve">
     <value>Error</value>
   </data>
