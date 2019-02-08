@@ -1,4 +1,5 @@
-﻿using LcsSaveEditor.Resources;
+﻿using LcsSaveEditor.Helpers;
+using LcsSaveEditor.Resources;
 using LcsSaveEditor.Views;
 using System.Diagnostics;
 using System.Windows;
