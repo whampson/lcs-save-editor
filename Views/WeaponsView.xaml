@@ -126,51 +126,51 @@ SOFTWARE.
 
             <ComboBox Grid.Row="0" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding HandWeapons}"
-                      SelectedItem="{Binding HandWeapon}"/>
+                      ItemsSource="{Binding HandList}"
+                      SelectedItem="{Binding Hand}"/>
             <ComboBox Grid.Row="1" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding MeleeWeapons}"
-                      SelectedItem="{Binding MeleeWeapon}"
+                      ItemsSource="{Binding MeleeList}"
+                      SelectedItem="{Binding Melee}"
                       IsEnabled="{Binding IsMeleeSlotEnabled}"/>
             <ComboBox Grid.Row="2" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Projectiles}"
+                      ItemsSource="{Binding ProjectileList}"
                       SelectedItem="{Binding Projectile}"
                       IsEnabled="{Binding IsProjectileSlotEnabled}"/>
             <ComboBox Grid.Row="3" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Pistols}"
+                      ItemsSource="{Binding PistolList}"
                       SelectedItem="{Binding Pistol}"
                       IsEnabled="{Binding IsPistolSlotEnabled}"/>
             <ComboBox Grid.Row="4" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Shotguns}"
+                      ItemsSource="{Binding ShotgunList}"
                       SelectedItem="{Binding Shotgun}"
                       IsEnabled="{Binding IsShotgunSlotEnabled}"/>
             <ComboBox Grid.Row="5" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Smgs}"
+                      ItemsSource="{Binding SmgList}"
                       SelectedItem="{Binding Smg}"
                       IsEnabled="{Binding IsSmgSlotEnabled}"/>
             <ComboBox Grid.Row="6" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Assaults}"
+                      ItemsSource="{Binding AssaultList}"
                       SelectedItem="{Binding Assault}"
                       IsEnabled="{Binding IsAssaultSlotEnabled}"/>
             <ComboBox Grid.Row="7" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Heavys}"
+                      ItemsSource="{Binding HeavyList}"
                       SelectedItem="{Binding Heavy}"
                       IsEnabled="{Binding IsHeavySlotEnabled}"/>
             <ComboBox Grid.Row="8" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Snipers}"
+                      ItemsSource="{Binding SniperList}"
                       SelectedItem="{Binding Sniper}"
                       IsEnabled="{Binding IsSniperSlotEnabled}"/>
             <ComboBox Grid.Row="9" Grid.Column="1"
                       Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding Specials}"
+                      ItemsSource="{Binding SpecialList}"
                       SelectedItem="{Binding Special}"
                       IsEnabled="{Binding IsSpecialSlotEnabled}"/>
 
