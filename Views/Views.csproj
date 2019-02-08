@@ -55,7 +55,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,7 +69,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageBoxEx.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,9 +82,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Converters\Converters.csproj">
+      <Project>{b306386c-4686-4ec3-899b-28f6892f2b8f}</Project>
+      <Name>Converters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
+      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
+      <Name>DataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{008c66e5-d540-4ceb-95f6-5f7bd38e6b10}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
       <Name>Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{d9c14b5b-8efe-4fc7-b486-eef391fed438}</Project>
+      <Name>ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
