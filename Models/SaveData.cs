@@ -145,7 +145,7 @@ namespace LcsSaveEditor.Models
                 // Read block tag and check that it matches the expected tag
                 string tag = r.ReadString(4);
                 if (tag != block.Tag) {
-                    string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
+                    string msg = string.Format(Strings.ExceptionTextInvalidBlockTag,
                         tag, block.Tag);
                     throw new InvalidDataException(msg);
                 }
@@ -153,21 +153,21 @@ namespace LcsSaveEditor.Models
                 // Read block size
                 int blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
-                    throw new InvalidDataException(Strings.ExceptionMessageIncorrectBlockSize);
+                    throw new InvalidDataException(Strings.ExceptionTextIncorrectBlockSize);
                 }
 
                 // Read nested header, if applicable
                 if (block.NestedTag != null) {
                     tag = r.ReadString(4);
                     if (tag != block.NestedTag) {
-                        string msg = string.Format(Strings.ExceptionMessageInvalidBlockTag,
+                        string msg = string.Format(Strings.ExceptionTextInvalidBlockTag,
                             tag, block.Tag);
                         throw new InvalidDataException(msg);
                     }
 
                     blockSize = r.ReadInt32();
                     if (blockSize > stream.Length) {
-                        throw new InvalidDataException(Strings.ExceptionMessageIncorrectBlockSize);
+                        throw new InvalidDataException(Strings.ExceptionTextIncorrectBlockSize);
                     }
                 }
 
@@ -276,7 +276,7 @@ namespace LcsSaveEditor.Models
                 default:
                     // Should never get here...
                     string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionMessageOops, nameof(SaveData));
+                        Strings.ExceptionTextOops, nameof(SaveData));
                     throw new InvalidOperationException(msg);
             }
         }
@@ -314,7 +314,7 @@ namespace LcsSaveEditor.Models
                 return GamePlatform.IOS;
             }
 
-            throw new InvalidDataException(Strings.ExceptionMessageInvalidSaveData);
+            throw new InvalidDataException(Strings.ExceptionTextInvalidSaveData);
         }
 
         /// <summary>

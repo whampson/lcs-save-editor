@@ -106,7 +106,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A graphical tool for editing savegame files for Grand Theft Auto: Liberty City Stories..
+        ///   Looks up a localized string similar to A graphical tool for editing Grand Theft Auto: Liberty City Stories savedata files..
         /// </summary>
         public static string AppDescriptionLong {
             get {
@@ -133,16 +133,25 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to A fatal exception has occurred. The application will be terminated..
         /// </summary>
-        public static string DialogTitleError {
+        public static string DialogTextUnhandledException1 {
             get {
-                return ResourceManager.GetString("DialogTitleError", resourceCulture);
+                return ResourceManager.GetString("DialogTextUnhandledException1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save File?.
+        ///   Looks up a localized string similar to Please contact {0} about this error..
+        /// </summary>
+        public static string DialogTextUnhandledException2 {
+            get {
+                return ResourceManager.GetString("DialogTextUnhandledException2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes?.
         /// </summary>
         public static string DialogTitleFileSavePrompt {
             get {
@@ -151,101 +160,75 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string DialogTitleGeneralError {
+            get {
+                return ResourceManager.GetString("DialogTitleGeneralError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled Exception.
+        /// </summary>
+        public static string DialogTitleUnhandledException {
+            get {
+                return ResourceManager.GetString("DialogTitleUnhandledException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ConvertBack is not supported for this converter..
         /// </summary>
-        public static string ExceptionMessageConvertBackNotSupported {
+        public static string ExceptionTextConvertBackNotSupported {
             get {
-                return ResourceManager.GetString("ExceptionMessageConvertBackNotSupported", resourceCulture);
+                return ResourceManager.GetString("ExceptionTextConvertBackNotSupported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The block size in the header does not match the number of available bytes in the stream..
         /// </summary>
-        public static string ExceptionMessageIncorrectBlockSize {
+        public static string ExceptionTextIncorrectBlockSize {
             get {
-                return ResourceManager.GetString("ExceptionMessageIncorrectBlockSize", resourceCulture);
+                return ResourceManager.GetString("ExceptionTextIncorrectBlockSize", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Incorrect block tag - &apos;{0}&apos;. Expected &apos;{1}&apos;..
         /// </summary>
-        public static string ExceptionMessageInvalidBlockTag {
+        public static string ExceptionTextInvalidBlockTag {
             get {
-                return ResourceManager.GetString("ExceptionMessageInvalidBlockTag", resourceCulture);
+                return ResourceManager.GetString("ExceptionTextInvalidBlockTag", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not a valid GTA:LCS savedata file. If you are trying to load a PSP save, you may have to decrypt it first..
+        ///   Looks up a localized string similar to Invalid GTA:LCS savedata file.
+        ///If you are trying to load a PSP save, you may have to decrypt it first..
         /// </summary>
-        public static string ExceptionMessageInvalidSaveData {
+        public static string ExceptionTextInvalidSaveData {
             get {
-                return ResourceManager.GetString("ExceptionMessageInvalidSaveData", resourceCulture);
+                return ResourceManager.GetString("ExceptionTextInvalidSaveData", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Multiple calls to this function are not supported..
         /// </summary>
-        public static string ExceptionMessageMultipleCallsNotSupported {
+        public static string ExceptionTextMultipleCallsNotSupported {
             get {
-                return ResourceManager.GetString("ExceptionMessageMultipleCallsNotSupported", resourceCulture);
+                return ResourceManager.GetString("ExceptionTextMultipleCallsNotSupported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You weren&apos;t supposed to be able to get here, you know..
         /// </summary>
-        public static string ExceptionMessageOops {
+        public static string ExceptionTextOops {
             get {
-                return ResourceManager.GetString("ExceptionMessageOops", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load file!.
-        /// </summary>
-        public static string MessageFileLoadFailed {
-            get {
-                return ResourceManager.GetString("MessageFileLoadFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File loaded successfully..
-        /// </summary>
-        public static string MessageFileLoadSuccessful {
-            get {
-                return ResourceManager.GetString("MessageFileLoadSuccessful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No file loaded..
-        /// </summary>
-        public static string MessageFileNotLoaded {
-            get {
-                return ResourceManager.GetString("MessageFileNotLoaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to save file!.
-        /// </summary>
-        public static string MessageFileSaveFailed {
-            get {
-                return ResourceManager.GetString("MessageFileSaveFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File saved successfully..
-        /// </summary>
-        public static string MessageFileSaveSuccessful {
-            get {
-                return ResourceManager.GetString("MessageFileSaveSuccessful", resourceCulture);
+                return ResourceManager.GetString("ExceptionTextOops", resourceCulture);
             }
         }
     }

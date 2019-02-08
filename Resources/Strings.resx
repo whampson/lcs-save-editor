@@ -133,7 +133,7 @@
     <value>Grand Theft Auto: Liberty City Stories savegame editor.</value>
   </data>
   <data name="AppDescriptionLong" xml:space="preserve">
-    <value>A graphical tool for editing savegame files for Grand Theft Auto: Liberty City Stories.</value>
+    <value>A graphical tool for editing Grand Theft Auto: Liberty City Stories savedata files.</value>
   </data>
   <data name="AppName" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
@@ -141,44 +141,40 @@
   <data name="DialogTextFileSavePrompt" xml:space="preserve">
     <value>Do you want to save your changes?</value>
   </data>
-  <data name="DialogTitleError" xml:space="preserve">
-    <value>Error</value>
+  <data name="DialogTextUnhandledException1" xml:space="preserve">
+    <value>A fatal exception has occurred. The application will be terminated.</value>
+  </data>
+  <data name="DialogTextUnhandledException2" xml:space="preserve">
+    <value>Please contact {0} about this error.</value>
+    <comment>{0} = app author email</comment>
   </data>
   <data name="DialogTitleFileSavePrompt" xml:space="preserve">
-    <value>Save File?</value>
+    <value>Save Changes?</value>
   </data>
-  <data name="ExceptionMessageConvertBackNotSupported" xml:space="preserve">
+  <data name="DialogTitleGeneralError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DialogTitleUnhandledException" xml:space="preserve">
+    <value>Unhandled Exception</value>
+  </data>
+  <data name="ExceptionTextConvertBackNotSupported" xml:space="preserve">
     <value>ConvertBack is not supported for this converter.</value>
   </data>
-  <data name="ExceptionMessageIncorrectBlockSize" xml:space="preserve">
+  <data name="ExceptionTextIncorrectBlockSize" xml:space="preserve">
     <value>The block size in the header does not match the number of available bytes in the stream.</value>
   </data>
-  <data name="ExceptionMessageInvalidBlockTag" xml:space="preserve">
+  <data name="ExceptionTextInvalidBlockTag" xml:space="preserve">
     <value>Incorrect block tag - '{0}'. Expected '{1}'.</value>
     <comment>{0} = bad tag; {1} = expected tag</comment>
   </data>
-  <data name="ExceptionMessageInvalidSaveData" xml:space="preserve">
-    <value>Not a valid GTA:LCS savedata file. If you are trying to load a PSP save, you may have to decrypt it first.</value>
+  <data name="ExceptionTextInvalidSaveData" xml:space="preserve">
+    <value>Invalid GTA:LCS savedata file.
+If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
-  <data name="ExceptionMessageMultipleCallsNotSupported" xml:space="preserve">
+  <data name="ExceptionTextMultipleCallsNotSupported" xml:space="preserve">
     <value>Multiple calls to this function are not supported.</value>
   </data>
-  <data name="ExceptionMessageOops" xml:space="preserve">
+  <data name="ExceptionTextOops" xml:space="preserve">
     <value>You weren't supposed to be able to get here, you know.</value>
-  </data>
-  <data name="MessageFileLoadFailed" xml:space="preserve">
-    <value>Failed to load file!</value>
-  </data>
-  <data name="MessageFileLoadSuccessful" xml:space="preserve">
-    <value>File loaded successfully.</value>
-  </data>
-  <data name="MessageFileNotLoaded" xml:space="preserve">
-    <value>No file loaded.</value>
-  </data>
-  <data name="MessageFileSaveFailed" xml:space="preserve">
-    <value>Failed to save file!</value>
-  </data>
-  <data name="MessageFileSaveSuccessful" xml:space="preserve">
-    <value>File saved successfully.</value>
   </data>
 </root>

@@ -57,7 +57,7 @@ namespace LcsSaveEditor.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException(Strings.ExceptionMessageConvertBackNotSupported);
+            throw new NotSupportedException(Strings.ExceptionTextConvertBackNotSupported);
         }
     }
 }
