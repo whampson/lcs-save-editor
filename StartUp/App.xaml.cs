@@ -20,6 +20,7 @@ namespace LcsSaveEditor.StartUp
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+#if !DEBUG
             e.Handled = true;
 
             // TODO: crashdump
@@ -37,6 +38,7 @@ namespace LcsSaveEditor.StartUp
 
             // Kill the process to bypass shutdown hooks
             Process.GetCurrentProcess().Kill();
+#endif
         }
     }
 }
