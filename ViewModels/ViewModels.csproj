@@ -50,6 +50,7 @@
     <Compile Include="Commands\MainViewModel.Commands.cs" />
     <Compile Include="Interfaces\PageViewModelBase.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="WeaponsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTypes\DataTypes.csproj">
