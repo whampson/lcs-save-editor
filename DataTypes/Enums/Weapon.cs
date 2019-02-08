@@ -103,7 +103,7 @@ namespace LcsSaveEditor.DataTypes
         MicroSmg,
 
         [Description("SMG")]
-        Mp5k,
+        Smg,
 
         [Description("M4")]
         M4,
