@@ -75,8 +75,8 @@ namespace LcsSaveEditor.DataTypes
         [Description("Tear Gas")]
         TearGas,
 
-        [Description("Molotov Cocktail")]
-        MolotovCocktail,
+        [Description("Molotovs")]
+        Molotovs,
 
         [Description("Pistol")]
         Pistol = 17,
@@ -87,8 +87,8 @@ namespace LcsSaveEditor.DataTypes
         [Description("Shotgun")]
         Shotgun,
 
-        [Description("S.P.A.S. Shotgun")]
-        SpasShotgun,
+        [Description("SPAS 12")]
+        Spas12,
 
         [Description("Stubby Shotgun")]
         StubbyShotgun,
@@ -96,20 +96,20 @@ namespace LcsSaveEditor.DataTypes
         [Description("Tec-9")]
         Tec9,
 
-        [Description("Mac 10")]
+        [Description("Mac-10")]
         Mac10,
 
         [Description("Micro SMG")]
         MicroSmg,
 
-        [Description("SMG")]
-        Smg,
+        [Description("MP5")]
+        Mp5,
 
         [Description("M4")]
         M4,
 
-        [Description("AK-47")]
-        Ak47,
+        [Description("AK")]
+        Ak,
 
         [Description("Sniper Rifle")]
         SniperRifle,
@@ -120,14 +120,14 @@ namespace LcsSaveEditor.DataTypes
         [Description("Rocket Launcher")]
         RocketLauncher,
 
-        [Description("Flamethrower")]
+        [Description("Flame-Thrower")]
         FlameThrower,
 
         [Description("M60")]
         M60,
 
         [Description("Minigun")]
-        MiniGun,
+        Minigun,
 
         [Description("Camera")]
         Camera = 36
