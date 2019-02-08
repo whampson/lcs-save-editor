@@ -34,6 +34,14 @@ namespace LcsSaveEditor.Models
     {
         private uint m_value;
 
+        public ScriptVariable()
+        { }
+
+        public ScriptVariable(uint value)
+        {
+            m_value = value;
+        }
+
         public uint Value
         {
             get { return m_value; }
@@ -62,7 +70,17 @@ namespace LcsSaveEditor.Models
 
         public override string ToString()
         {
-            return Value.ToString();
+            return m_value.ToString();
+        }
+
+        public static implicit operator uint(ScriptVariable var)
+        {
+            return var.m_value;
+        }
+
+        public static implicit operator ScriptVariable(uint ui)
+        {
+            return new ScriptVariable(ui);
         }
     }
 }
