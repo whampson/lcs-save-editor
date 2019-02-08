@@ -62,6 +62,9 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -71,13 +74,17 @@
       <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
       <Name>DataTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{008c66e5-d540-4ceb-95f6-5f7bd38e6b10}</Project>
-      <Name>Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{1c60d446-08b6-4b7a-9b0b-0bb0b3137ff6}</Project>
       <Name>Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Views\Views.csproj">
+      <Project>{a9612f5d-5ca1-476f-96c2-6ff2737c3843}</Project>
+      <Name>Views</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
