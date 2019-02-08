@@ -332,6 +332,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weapons.
+        /// </summary>
+        public static string PageHeaderWeapons {
+            get {
+                return ResourceManager.GetString("PageHeaderWeapons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No file loaded..
         /// </summary>
         public static string StatusTextFileNotLoaded {
@@ -395,20 +404,29 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This file has unsaved changes..
+        /// </summary>
+        public static string ToolTipTextFileModified {
+            get {
+                return ResourceManager.GetString("ToolTipTextFileModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This is a {0}-compatible save..
         /// </summary>
-        public static string TextFileType1 {
+        public static string ToolTipTextFileType1 {
             get {
-                return ResourceManager.GetString("TextFileType1", resourceCulture);
+                return ResourceManager.GetString("ToolTipTextFileType1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This is an {0}-compatible save..
         /// </summary>
-        public static string TextFileType2 {
+        public static string ToolTipTextFileType2 {
             get {
-                return ResourceManager.GetString("TextFileType2", resourceCulture);
+                return ResourceManager.GetString("ToolTipTextFileType2", resourceCulture);
             }
         }
     }

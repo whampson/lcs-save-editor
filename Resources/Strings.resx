@@ -210,6 +210,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="MenuItemHeaderSaveAs" xml:space="preserve">
     <value>Save _As...</value>
   </data>
+  <data name="PageHeaderWeapons" xml:space="preserve">
+    <value>Weapons</value>
+  </data>
   <data name="StatusTextFileNotLoaded" xml:space="preserve">
     <value>No file loaded.</value>
   </data>
@@ -231,11 +234,14 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="TextFileModified" xml:space="preserve">
     <value>Modified</value>
   </data>
-  <data name="TextFileType1" xml:space="preserve">
+  <data name="ToolTipTextFileModified" xml:space="preserve">
+    <value>This file has unsaved changes.</value>
+  </data>
+  <data name="ToolTipTextFileType1" xml:space="preserve">
     <value>This is a {0}-compatible save.</value>
     <comment>{0} = game platform name</comment>
   </data>
-  <data name="TextFileType2" xml:space="preserve">
+  <data name="ToolTipTextFileType2" xml:space="preserve">
     <value>This is an {0}-compatible save.</value>
     <comment>{0} = game platform name</comment>
   </data>
