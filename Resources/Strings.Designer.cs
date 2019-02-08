@@ -269,6 +269,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified.
+        /// </summary>
+        public static string FlagFileModified {
+            get {
+                return ResourceManager.GetString("FlagFileModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _File.
         /// </summary>
         public static string MenuHeaderFile {
@@ -404,15 +413,6 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modified.
-        /// </summary>
-        public static string TextFileModified {
-            get {
-                return ResourceManager.GetString("TextFileModified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This file has unsaved changes..
         /// </summary>
         public static string ToolTipTextFileModified {
@@ -436,6 +436,96 @@ namespace LcsSaveEditor.Resources {
         public static string ToolTipTextFileType2 {
             get {
                 return ResourceManager.GetString("ToolTipTextFileType2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assault.
+        /// </summary>
+        public static string WeaponSlotAssault {
+            get {
+                return ResourceManager.GetString("WeaponSlotAssault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hand.
+        /// </summary>
+        public static string WeaponSlotHand {
+            get {
+                return ResourceManager.GetString("WeaponSlotHand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heavy.
+        /// </summary>
+        public static string WeaponSlotHeavy {
+            get {
+                return ResourceManager.GetString("WeaponSlotHeavy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Melee.
+        /// </summary>
+        public static string WeaponSlotMelee {
+            get {
+                return ResourceManager.GetString("WeaponSlotMelee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pistol.
+        /// </summary>
+        public static string WeaponSlotPistol {
+            get {
+                return ResourceManager.GetString("WeaponSlotPistol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projectile.
+        /// </summary>
+        public static string WeaponSlotProjectile {
+            get {
+                return ResourceManager.GetString("WeaponSlotProjectile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shotgun.
+        /// </summary>
+        public static string WeaponSlotShotgun {
+            get {
+                return ResourceManager.GetString("WeaponSlotShotgun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMG.
+        /// </summary>
+        public static string WeaponSlotSmg {
+            get {
+                return ResourceManager.GetString("WeaponSlotSmg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sniper.
+        /// </summary>
+        public static string WeaponSlotSniper {
+            get {
+                return ResourceManager.GetString("WeaponSlotSniper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special.
+        /// </summary>
+        public static string WeaponSlotSpecial {
+            get {
+                return ResourceManager.GetString("WeaponSlotSpecial", resourceCulture);
             }
         }
     }

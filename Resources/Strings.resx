@@ -189,6 +189,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="FileFilterSaveData" xml:space="preserve">
     <value>GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*</value>
   </data>
+  <data name="FlagFileModified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
   <data name="MenuHeaderFile" xml:space="preserve">
     <value>_File</value>
   </data>
@@ -234,9 +237,6 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="StatusTextWelcome" xml:space="preserve">
     <value>Welcome to the GTA:LCS Save Editor!</value>
   </data>
-  <data name="TextFileModified" xml:space="preserve">
-    <value>Modified</value>
-  </data>
   <data name="ToolTipTextFileModified" xml:space="preserve">
     <value>This file has unsaved changes.</value>
   </data>
@@ -247,5 +247,35 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="ToolTipTextFileType2" xml:space="preserve">
     <value>This is an {0}-compatible save.</value>
     <comment>{0} = game platform name</comment>
+  </data>
+  <data name="WeaponSlotAssault" xml:space="preserve">
+    <value>Assault</value>
+  </data>
+  <data name="WeaponSlotHand" xml:space="preserve">
+    <value>Hand</value>
+  </data>
+  <data name="WeaponSlotHeavy" xml:space="preserve">
+    <value>Heavy</value>
+  </data>
+  <data name="WeaponSlotMelee" xml:space="preserve">
+    <value>Melee</value>
+  </data>
+  <data name="WeaponSlotPistol" xml:space="preserve">
+    <value>Pistol</value>
+  </data>
+  <data name="WeaponSlotProjectile" xml:space="preserve">
+    <value>Projectile</value>
+  </data>
+  <data name="WeaponSlotShotgun" xml:space="preserve">
+    <value>Shotgun</value>
+  </data>
+  <data name="WeaponSlotSmg" xml:space="preserve">
+    <value>SMG</value>
+  </data>
+  <data name="WeaponSlotSniper" xml:space="preserve">
+    <value>Sniper</value>
+  </data>
+  <data name="WeaponSlotSpecial" xml:space="preserve">
+    <value>Special</value>
   </data>
 </root>
