@@ -126,9 +126,9 @@ namespace LcsSaveEditor.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to save your changes?.
         /// </summary>
-        public static string DialogTextFileSavePrompt {
+        public static string DialogTextSaveChangesPrompt {
             get {
-                return ResourceManager.GetString("DialogTextFileSavePrompt", resourceCulture);
+                return ResourceManager.GetString("DialogTextSaveChangesPrompt", resourceCulture);
             }
         }
         
@@ -151,20 +151,38 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save Changes?.
+        ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string DialogTitleFileSavePrompt {
+        public static string DialogTitleError {
             get {
-                return ResourceManager.GetString("DialogTitleFileSavePrompt", resourceCulture);
+                return ResourceManager.GetString("DialogTitleError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Open....
         /// </summary>
-        public static string DialogTitleGeneralError {
+        public static string DialogTitleOpenFile {
             get {
-                return ResourceManager.GetString("DialogTitleGeneralError", resourceCulture);
+                return ResourceManager.GetString("DialogTitleOpenFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes?.
+        /// </summary>
+        public static string DialogTitleSaveChangesPrompt {
+            get {
+                return ResourceManager.GetString("DialogTitleSaveChangesPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save As....
+        /// </summary>
+        public static string DialogTitleSaveFileAs {
+            get {
+                return ResourceManager.GetString("DialogTitleSaveFileAs", resourceCulture);
             }
         }
         
@@ -229,6 +247,168 @@ namespace LcsSaveEditor.Resources {
         public static string ExceptionTextOops {
             get {
                 return ResourceManager.GetString("ExceptionTextOops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*.
+        /// </summary>
+        public static string FileFilterSaveData {
+            get {
+                return ResourceManager.GetString("FileFilterSaveData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _File.
+        /// </summary>
+        public static string MenuHeaderFile {
+            get {
+                return ResourceManager.GetString("MenuHeaderFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Help.
+        /// </summary>
+        public static string MenuHeaderHelp {
+            get {
+                return ResourceManager.GetString("MenuHeaderHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string MenuItemHeaderAbout {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Close.
+        /// </summary>
+        public static string MenuItemHeaderClose {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E_xit.
+        /// </summary>
+        public static string MenuItemHeaderExit {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Open....
+        /// </summary>
+        public static string MenuItemHeaderOpen {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save.
+        /// </summary>
+        public static string MenuItemHeaderSave {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save _As....
+        /// </summary>
+        public static string MenuItemHeaderSaveAs {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderSaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file loaded..
+        /// </summary>
+        public static string StatusTextFileNotLoaded {
+            get {
+                return ResourceManager.GetString("StatusTextFileNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load failed!.
+        /// </summary>
+        public static string StatusTextFileOpenFail {
+            get {
+                return ResourceManager.GetString("StatusTextFileOpenFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load successful..
+        /// </summary>
+        public static string StatusTextFileOpenSuccess {
+            get {
+                return ResourceManager.GetString("StatusTextFileOpenSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save failed!.
+        /// </summary>
+        public static string StatusTextFileSaveFailed {
+            get {
+                return ResourceManager.GetString("StatusTextFileSaveFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save successful..
+        /// </summary>
+        public static string StatusTextFileSaveSuccess {
+            get {
+                return ResourceManager.GetString("StatusTextFileSaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to the GTA:LCS Save Editor!.
+        /// </summary>
+        public static string StatusTextWelcome {
+            get {
+                return ResourceManager.GetString("StatusTextWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified.
+        /// </summary>
+        public static string TextFileModified {
+            get {
+                return ResourceManager.GetString("TextFileModified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is a {0}-compatible save..
+        /// </summary>
+        public static string TextFileType1 {
+            get {
+                return ResourceManager.GetString("TextFileType1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is an {0}-compatible save..
+        /// </summary>
+        public static string TextFileType2 {
+            get {
+                return ResourceManager.GetString("TextFileType2", resourceCulture);
             }
         }
     }

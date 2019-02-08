@@ -138,7 +138,7 @@
   <data name="AppName" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
   </data>
-  <data name="DialogTextFileSavePrompt" xml:space="preserve">
+  <data name="DialogTextSaveChangesPrompt" xml:space="preserve">
     <value>Do you want to save your changes?</value>
   </data>
   <data name="DialogTextUnhandledException1" xml:space="preserve">
@@ -148,11 +148,17 @@
     <value>Please contact {0} about this error.</value>
     <comment>{0} = app author email</comment>
   </data>
-  <data name="DialogTitleFileSavePrompt" xml:space="preserve">
+  <data name="DialogTitleError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DialogTitleOpenFile" xml:space="preserve">
+    <value>Open...</value>
+  </data>
+  <data name="DialogTitleSaveChangesPrompt" xml:space="preserve">
     <value>Save Changes?</value>
   </data>
-  <data name="DialogTitleGeneralError" xml:space="preserve">
-    <value>Error</value>
+  <data name="DialogTitleSaveFileAs" xml:space="preserve">
+    <value>Save As...</value>
   </data>
   <data name="DialogTitleUnhandledException" xml:space="preserve">
     <value>Unhandled Exception</value>
@@ -176,5 +182,61 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
   <data name="ExceptionTextOops" xml:space="preserve">
     <value>You weren't supposed to be able to get here, you know.</value>
+  </data>
+  <data name="FileFilterSaveData" xml:space="preserve">
+    <value>GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*</value>
+  </data>
+  <data name="MenuHeaderFile" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="MenuHeaderHelp" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="MenuItemHeaderAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="MenuItemHeaderClose" xml:space="preserve">
+    <value>_Close</value>
+  </data>
+  <data name="MenuItemHeaderExit" xml:space="preserve">
+    <value>E_xit</value>
+  </data>
+  <data name="MenuItemHeaderOpen" xml:space="preserve">
+    <value>_Open...</value>
+  </data>
+  <data name="MenuItemHeaderSave" xml:space="preserve">
+    <value>_Save</value>
+  </data>
+  <data name="MenuItemHeaderSaveAs" xml:space="preserve">
+    <value>Save _As...</value>
+  </data>
+  <data name="StatusTextFileNotLoaded" xml:space="preserve">
+    <value>No file loaded.</value>
+  </data>
+  <data name="StatusTextFileOpenFail" xml:space="preserve">
+    <value>Load failed!</value>
+  </data>
+  <data name="StatusTextFileOpenSuccess" xml:space="preserve">
+    <value>Load successful.</value>
+  </data>
+  <data name="StatusTextFileSaveFailed" xml:space="preserve">
+    <value>Save failed!</value>
+  </data>
+  <data name="StatusTextFileSaveSuccess" xml:space="preserve">
+    <value>Save successful.</value>
+  </data>
+  <data name="StatusTextWelcome" xml:space="preserve">
+    <value>Welcome to the GTA:LCS Save Editor!</value>
+  </data>
+  <data name="TextFileModified" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="TextFileType1" xml:space="preserve">
+    <value>This is a {0}-compatible save.</value>
+    <comment>{0} = game platform name</comment>
+  </data>
+  <data name="TextFileType2" xml:space="preserve">
+    <value>This is an {0}-compatible save.</value>
+    <comment>{0} = game platform name</comment>
   </data>
 </root>
