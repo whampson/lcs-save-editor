@@ -21,14 +21,13 @@
  */
 #endregion
 
-using LcsSaveEditor.Helpers;
 using System;
 using System.Windows;
 
 namespace LcsSaveEditor.Infrastructure
 {
     /// <summary>
-    /// Parameters for opening a MessageBox from an event.
+    /// Parameters for opening a <see cref="MessageBoxEx"/> from an event.
     /// </summary>
     public class MessageBoxEventArgs : EventArgs
     {
