@@ -25,7 +25,7 @@ using LcsSaveEditor.Helpers;
 using System;
 using System.Windows;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Infrastructure
 {
     /// <summary>
     /// Parameters for opening a MessageBox from an event.

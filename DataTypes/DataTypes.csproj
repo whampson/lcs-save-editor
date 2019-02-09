@@ -54,9 +54,6 @@
     <Compile Include="Enums\Vehicle.cs" />
     <Compile Include="Enums\PlayerCameraMode.cs" />
     <Compile Include="Enums\VehicleCameraMode.cs" />
-    <Compile Include="EventArgs\DialogCloseEventArgs.cs" />
-    <Compile Include="EventArgs\FileDialogEventArgs.cs" />
-    <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
     <Compile Include="Interfaces\DataBlock.cs" />
     <Compile Include="Enums\ExportCars.cs" />
     <Compile Include="Enums\GamePlatform.cs" />

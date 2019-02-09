@@ -23,7 +23,7 @@
 
 using System;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Infrastructure
 {
     /// <summary>
     /// Parameters for closing a dialog window from an event.
