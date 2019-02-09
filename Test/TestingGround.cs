@@ -37,12 +37,16 @@ namespace Test
 
         static void Main(string[] args)
         {
-            string path = GetSaveFilePath(PlatformPSP, 2);
+            string path = GetSaveFilePath(PlatformPS2, 3);
 
-            Console.WriteLine("Loading {0}...", Path.GetFileName(path));
+            Console.WriteLine("Loading {0}...\n", Path.GetFileName(path));
             SaveData save = SaveData.Load(path);
 
-            Console.WriteLine("Format: {0}", save.FileType);
+            PrintInfo(save);
+            PrintSimpleVars(save);
+            PrintScripts(save);
+            PrintGarages(save);
+            PrintPlayerInfo(save);
             PrintStats(save);
 
             save.Store(path + "_out");
@@ -51,8 +55,16 @@ namespace Test
             Console.ReadKey();
         }
 
+        static void PrintInfo(SaveData save)
+        {
+            Console.WriteLine("==================== File Info ====================");
+            Console.WriteLine("Format: {0}", save.FileType);
+            Console.WriteLine();
+        }
+
         static void PrintSimpleVars(SaveData save)
         {
+            Console.WriteLine("==================== Simple Vars ====================");
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.SaveNameGxt), save.SimpleVars.SaveNameGxt);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Language), save.SimpleVars.Language);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.MillisecondsPerGameMinute), save.SimpleVars.MillisecondsPerGameMinute);
@@ -83,10 +95,12 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowWaypoint), save.SimpleVars.ShowWaypoint);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WaypointPosition), save.SimpleVars.WaypointPosition);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Timestamp), save.SimpleVars.Timestamp);
+            Console.WriteLine();
         }
 
         static void PrintScripts(SaveData save)
         {
+            Console.WriteLine("==================== Scripts ====================");
             Console.WriteLine("{0}: {1}", nameof(save.Scripts.GlobalVariablesSize), save.Scripts.GlobalVariablesSize);
             Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.GlobalVariables), save.Scripts.GlobalVariables.Count);
             for (int i = 0; i < save.Scripts.GlobalVariables.Count; i++) {
@@ -94,17 +108,17 @@ namespace Test
             }
             Console.WriteLine("{0}: {1}", nameof(save.Scripts.OnMissionFlag), save.Scripts.OnMissionFlag);
             Console.WriteLine("{0}: {1}", nameof(save.Scripts.LastMissionPassedTime), save.Scripts.LastMissionPassedTime);
-            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.CollectiveArray), save.Scripts.CollectiveArray.Length);
-            for (int i = 0; i < save.Scripts.CollectiveArray.Length; i++) {
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.CollectiveArray), Scripts.CollectiveArrayCount);
+            for (int i = 0; i < Scripts.CollectiveArrayCount; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.CollectiveArray), i, save.Scripts.CollectiveArray[i]);
             }
             Console.WriteLine("{0}: {1}", nameof(save.Scripts.NextFreeCollective), save.Scripts.NextFreeCollective);
-            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.BuildingSwapArray), save.Scripts.BuildingSwapArray.Length);
-            for (int i = 0; i < save.Scripts.BuildingSwapArray.Length; i++) {
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.BuildingSwapArray), Scripts.BuildingSwapArrayCount);
+            for (int i = 0; i < Scripts.BuildingSwapArrayCount; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.BuildingSwapArray), i, save.Scripts.BuildingSwapArray[i]);
             }
-            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.InvisibilitySettingArray), save.Scripts.InvisibilitySettingArray.Length);
-            for (int i = 0; i < save.Scripts.InvisibilitySettingArray.Length; i++) {
+            Console.WriteLine("{0}[{1}]:", nameof(save.Scripts.InvisibilitySettingArray), Scripts.InvisibilitySettingArrayCount);
+            for (int i = 0; i < Scripts.InvisibilitySettingArrayCount; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.InvisibilitySettingArray), i, save.Scripts.InvisibilitySettingArray[i]);
             }
             Console.WriteLine("{0}: {1}", nameof(save.Scripts.UsingAMultiScriptFile), save.Scripts.UsingAMultiScriptFile);
@@ -116,27 +130,31 @@ namespace Test
             for (int i = 0; i < save.Scripts.RunningScripts.Count; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Scripts.RunningScripts), i, save.Scripts.RunningScripts[i]);
             }
+            Console.WriteLine();
         }
 
         static void PrintGarages(SaveData save)
         {
+            Console.WriteLine("==================== Garages ====================");
             Console.WriteLine("{0}: {1}", nameof(save.Garages.NumberOfGarages), save.Garages.NumberOfGarages);
             Console.WriteLine("{0}: {1}", nameof(save.Garages.BombsAreFree), save.Garages.BombsAreFree);
             Console.WriteLine("{0}: {1}", nameof(save.Garages.RespraysAreFree), save.Garages.RespraysAreFree);
             Console.WriteLine("{0}: {1}", nameof(save.Garages.CarTypesCollected), save.Garages.CarTypesCollected);
             Console.WriteLine("{0}: {1}", nameof(save.Garages.LastTimeHelpMessage), save.Garages.LastTimeHelpMessage);
-            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.StoredCars), save.Garages.StoredCars.Length);
-            for (int i = 0; i < save.Garages.StoredCars.Length; i++) {
+            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.StoredCars), Garages.StoredCarsCount);
+            for (int i = 0; i < Garages.StoredCarsCount; i++) {
                 Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.StoredCars), i, save.Garages.StoredCars[i]);
             }
-            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.GarageArray), save.Garages.GarageArray.Length);
-            for (int i = 0; i < save.Garages.GarageArray.Length; i++) {
-                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.GarageArray), i, save.Garages.GarageArray[i]);
+            Console.WriteLine("{0}[{1}]:", nameof(save.Garages.GarageObjects), Garages.GarageObjectsCount);
+            for (int i = 0; i < Garages.GarageObjectsCount; i++) {
+                Console.WriteLine("    {0}[{1}]: {2}", nameof(save.Garages.GarageObjects), i, save.Garages.GarageObjects[i]);
             }
+            Console.WriteLine();
         }
 
         static void PrintPlayerInfo(SaveData save)
         {
+            Console.WriteLine("==================== Player Info ====================");
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.Money), save.PlayerInfo.Money);
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.MoneyOnScreen), save.PlayerInfo.MoneyOnScreen);
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.NumHiddenPackagesFound), save.PlayerInfo.NumHiddenPackagesFound);
@@ -148,10 +166,12 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.HasGetOutOfJailFree), save.PlayerInfo.HasGetOutOfJailFree);
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.HasFreeHealthcare), save.PlayerInfo.HasFreeHealthcare);
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.CanDoDriveBy), save.PlayerInfo.CanDoDriveBy);
+            Console.WriteLine();
         }
 
         static void PrintStats(SaveData save)
         {
+            Console.WriteLine("==================== Stats ====================");
             Console.WriteLine("{0}: {1}", nameof(save.Stats.PeopleKilledByPlayer), save.Stats.PeopleKilledByPlayer);
             Console.WriteLine("{0}: {1}", nameof(save.Stats.PeopleKilledByOthers), save.Stats.PeopleKilledByOthers);
             Console.WriteLine("{0}: {1}", nameof(save.Stats.CarsExploded), save.Stats.CarsExploded);
@@ -281,6 +301,7 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.Stats.FastestDirtBikeLapTimes), save.Stats.FastestDirtBikeLapTimes);
             Console.WriteLine("{0}: {1}", nameof(save.Stats.FastestDirtBikeTimes), save.Stats.FastestDirtBikeTimes);
             Console.WriteLine("{0}: {1}", nameof(save.Stats.FavoriteRadioStationList), save.Stats.FavoriteRadioStationList);
+            Console.WriteLine();
         }
 
         static string GetSaveFilePath(string platform, int num)
