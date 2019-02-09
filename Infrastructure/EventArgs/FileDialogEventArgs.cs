@@ -88,7 +88,9 @@ namespace LcsSaveEditor.Infrastructure
                     dialog = new SaveFileDialog();
                     break;
                 default:
-                    throw new InvalidOperationException(Strings.ExceptionTextOops);
+                    string msg = string.Format("{0} ({1})",
+                        Strings.ExceptionTextOops, nameof(ShowDialog));
+                    throw new InvalidOperationException(msg);
             }
 
             dialog.Title = Title;
