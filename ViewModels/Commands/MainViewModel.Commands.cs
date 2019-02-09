@@ -21,7 +21,6 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
@@ -130,9 +129,11 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
 
-            // Update UI state
             CurrentSaveData = saveData;
+            CurrentSaveData.PropertyChanged += CurrentSaveData_PropertyChanged;
+
             ReloadTabs();
+
             WindowTitle = string.Format("{0} - [{1}]", Strings.AppName, path);
             StatusText = Strings.StatusTextFileOpenSuccess;
         }
@@ -163,9 +164,12 @@ namespace LcsSaveEditor.ViewModels
 
         private void DoCloseFile()
         {
-            IsFileModified = false;
+            CurrentSaveData.PropertyChanged -= CurrentSaveData_PropertyChanged;
             CurrentSaveData = null;
+
             ReloadTabs();
+
+            IsFileModified = false;
             WindowTitle = Strings.AppName;
             StatusText = Strings.StatusTextFileNotLoaded;
         }

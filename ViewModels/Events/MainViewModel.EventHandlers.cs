@@ -21,13 +21,19 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Infrastructure;
+using System.ComponentModel;
 using System.Windows;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class MainViewModel
     {
+        private void CurrentSaveData_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            IsFileModified = true;
+        }
+
         private void FileClosePrompt_ResultAction(MessageBoxResult result)
         {
             // Does the user want to save before closing?
