@@ -84,5 +84,8 @@
   <ItemGroup>
     <Compile Include="Events\MainViewModel.EventHandlers.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\WeaponsViewModel.Commands.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
