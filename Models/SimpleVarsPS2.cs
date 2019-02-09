@@ -95,7 +95,7 @@ namespace LcsSaveEditor.Models
                 m_unknown3E = r.ReadUInt16();
                 m_weatherTypeInList = r.ReadUInt32();
                 _m_interpolationValue = r.ReadSingle();
-                m_cameraPosition = Deserialize<Vector3d>(stream);
+                CameraPosition = Deserialize<Vector3d>(stream);
                 m_prefsVehicleCameraMode = (VehicleCameraMode) r.ReadSingle();
                 m_unknown58 = r.ReadSingle();
                 m_unknown5C = r.ReadUInt32();
@@ -139,9 +139,9 @@ namespace LcsSaveEditor.Models
                 m_hasPlayerCheated = r.ReadBoolean32();
                 m_allTaxisHaveNitro = r.ReadBoolean32();
                 m_targetIsOn = r.ReadBoolean32();
-                m_targetPosition = Deserialize<Vector2d>(stream);
+                WaypointPosition = Deserialize<Vector2d>(stream);
                 m_unknownDC = r.ReadUInt32();
-                m_saveTime = Deserialize<Timestamp>(stream);
+                Timestamp = Deserialize<Timestamp>(stream);
             }
 
             return stream.Position - start;

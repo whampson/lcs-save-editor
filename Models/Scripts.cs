@@ -24,6 +24,7 @@
 using LcsSaveEditor.Infrastructure;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 
@@ -35,30 +36,44 @@ namespace LcsSaveEditor.Models
     /// </summary>
     public abstract class Scripts : SerializableObject
     {
+        public const int CollectiveArrayCount = 32;
+        public const int BuildingSwapArrayCount = 80;
+        public const int InvisibilitySettingArrayCount = 52;
+
         protected uint m_globalVarsSize;
-        protected ObservableCollection<ScriptVariable> m_globalVars;
+        protected ObservableCollection<uint> m_globalVars;
         protected uint m_unknown;
         protected uint m_onMissionFlag;
         protected uint m_lastMissionPassedTime;
-        protected Collective[] m_collectiveArray;
+        protected FullyObservableCollection<Collective> m_collectiveArray;
         protected uint m_nextFreeCollective;
-        protected StaticReplacement[] m_buildingSwapArray;
-        protected InvisibleObject[] m_invisibilitySettingArray;
+        protected FullyObservableCollection<StaticReplacement> m_buildingSwapArray;
+        protected FullyObservableCollection<InvisibleObject> m_invisibilitySettingArray;
         protected bool m_usingAMultiScriptFile;
         protected bool _m_playerHasMetDebbieHarry;
         protected uint m_mainScriptSize;
         protected uint m_largestMissionScriptSize;
         protected ushort m_numberOfMissionScripts;
         protected ushort m_numberOfExclusiveMissionScripts;
-        protected ObservableCollection<RunningScript> m_runningScripts;
+        protected FullyObservableCollection<RunningScript> m_runningScripts;
 
         public Scripts()
         {
-            m_globalVars = new ObservableCollection<ScriptVariable>();
-            m_collectiveArray = new Collective[32];
-            m_buildingSwapArray = new StaticReplacement[80];
-            m_invisibilitySettingArray = new InvisibleObject[52];
-            m_runningScripts = new ObservableCollection<RunningScript>();
+            m_globalVars = new ObservableCollection<uint>();
+            m_collectiveArray = new FullyObservableCollection<Collective>();
+            m_buildingSwapArray = new FullyObservableCollection<StaticReplacement>();
+            m_invisibilitySettingArray = new FullyObservableCollection<InvisibleObject>();
+            m_runningScripts = new FullyObservableCollection<RunningScript>();
+
+            m_globalVars.CollectionChanged += GlobalVars_CollectionChanged;
+            m_collectiveArray.CollectionChanged += CollectiveArray_CollectionChanged;
+            m_collectiveArray.ItemPropertyChanged += CollectiveArray_ItemPropertyChanged;
+            m_buildingSwapArray.CollectionChanged += BuildingSwapArray_CollectionChanged;
+            m_buildingSwapArray.ItemPropertyChanged += BuildingSwapArray_ItemPropertyChanged;
+            m_invisibilitySettingArray.CollectionChanged += InvisibilitySettingArray_CollectionChanged;
+            m_invisibilitySettingArray.ItemPropertyChanged += InvisibilitySettingArray_ItemPropertyChanged;
+            m_runningScripts.CollectionChanged += RunningScripts_CollectionChanged;
+            m_runningScripts.ItemPropertyChanged += RunningScripts_ItemPropertyChanged;
         }
 
         public uint GlobalVariablesSize
@@ -67,10 +82,9 @@ namespace LcsSaveEditor.Models
             set { m_globalVarsSize = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<ScriptVariable> GlobalVariables
+        public ObservableCollection<uint> GlobalVariables
         {
             get { return m_globalVars; }
-            set { m_globalVars = value; OnPropertyChanged(); }
         }
 
         public uint OnMissionFlag
@@ -85,10 +99,9 @@ namespace LcsSaveEditor.Models
             set { m_lastMissionPassedTime = value; OnPropertyChanged(); }
         }
 
-        public Collective[] CollectiveArray
+        public FullyObservableCollection<Collective> CollectiveArray
         {
             get { return m_collectiveArray; }
-            set { m_collectiveArray = value; OnPropertyChanged(); }
         }
 
         public uint NextFreeCollective
@@ -97,16 +110,14 @@ namespace LcsSaveEditor.Models
             set { m_nextFreeCollective = value; OnPropertyChanged(); }
         }
 
-        public StaticReplacement[] BuildingSwapArray
+        public FullyObservableCollection<StaticReplacement> BuildingSwapArray
         {
             get { return m_buildingSwapArray; }
-            set { m_buildingSwapArray = value; OnPropertyChanged(); }
         }
 
-        public InvisibleObject[] InvisibilitySettingArray
+        public FullyObservableCollection<InvisibleObject> InvisibilitySettingArray
         {
             get { return m_invisibilitySettingArray; }
-            set { m_invisibilitySettingArray = value; OnPropertyChanged(); }
         }
 
         public bool UsingAMultiScriptFile
@@ -139,15 +150,59 @@ namespace LcsSaveEditor.Models
             set { m_numberOfExclusiveMissionScripts = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<RunningScript> RunningScripts
+        public FullyObservableCollection<RunningScript> RunningScripts
         {
             get { return m_runningScripts; }
-            set { m_runningScripts = value; OnPropertyChanged(); }
+        }
+
+        private void GlobalVars_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(GlobalVariables));
+        }
+
+        private void CollectiveArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(CollectiveArray));
+        }
+
+        private void CollectiveArray_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(CollectiveArray));
+        }
+
+        private void BuildingSwapArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(BuildingSwapArray));
+        }
+
+        private void BuildingSwapArray_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(BuildingSwapArray));
+        }
+
+        private void InvisibilitySettingArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(InvisibilitySettingArray));
+        }
+
+        private void InvisibilitySettingArray_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(InvisibilitySettingArray));
+        }
+
+        private void RunningScripts_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(RunningScripts));
+        }
+
+        private void RunningScripts_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(RunningScripts));
         }
     }
 
-    public class Scripts<T> : Scripts
-        where T : RunningScript, new()
+    public class Scripts<TRunningScript> : Scripts
+        where TRunningScript : RunningScript, new()
     {
         protected override long DeserializeObject(Stream stream)
         {
@@ -155,20 +210,20 @@ namespace LcsSaveEditor.Models
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_globalVarsSize = r.ReadUInt32();
                 for (int i = 0; i < m_globalVarsSize / 4; i++) {
-                    m_globalVars.Add(Deserialize<ScriptVariable>(stream));
+                    m_globalVars.Add(r.ReadUInt32());
                 }
                 m_unknown = r.ReadUInt32();
                 m_onMissionFlag = r.ReadUInt32();
                 m_lastMissionPassedTime = r.ReadUInt32();
-                for (int i = 0; i < m_collectiveArray.Length; i++) {
-                    m_collectiveArray[i] = Deserialize<Collective>(stream);
+                for (int i = 0; i < CollectiveArrayCount; i++) {
+                    m_collectiveArray.Add(Deserialize<Collective>(stream));
                 }
                 m_nextFreeCollective = r.ReadUInt32();
-                for (int i = 0; i < m_buildingSwapArray.Length; i++) {
-                    m_buildingSwapArray[i] = Deserialize<StaticReplacement>(stream);
+                for (int i = 0; i < BuildingSwapArrayCount; i++) {
+                    m_buildingSwapArray.Add(Deserialize<StaticReplacement>(stream));
                 }
-                for (int i = 0; i < m_invisibilitySettingArray.Length; i++) {
-                    m_invisibilitySettingArray[i] = Deserialize<InvisibleObject>(stream);
+                for (int i = 0; i < InvisibilitySettingArrayCount; i++) {
+                    m_invisibilitySettingArray.Add(Deserialize<InvisibleObject>(stream));
                 }
                 m_usingAMultiScriptFile = r.ReadBoolean();
                 _m_playerHasMetDebbieHarry = r.ReadBoolean();
@@ -180,7 +235,7 @@ namespace LcsSaveEditor.Models
                 m_numberOfExclusiveMissionScripts = r.ReadUInt16();
                 r.ReadBytes(2);     // align bytes
                 for (int i = 0; i < m_numberOfExclusiveMissionScripts; i++) {
-                    m_runningScripts.Add(Deserialize<T>(stream));
+                    m_runningScripts.Add(Deserialize<TRunningScript>(stream));
                 }
             }
 
@@ -193,19 +248,19 @@ namespace LcsSaveEditor.Models
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.Write(m_globalVarsSize);
                 for (int i = 0; i < m_globalVarsSize / 4; i++) {
-                    Serialize(m_globalVars[i], stream);
+                    w.Write(m_globalVars[i]);
                 }
                 w.Write(m_unknown);
                 w.Write(m_onMissionFlag);
                 w.Write(m_lastMissionPassedTime);
-                for (int i = 0; i < m_collectiveArray.Length; i++) {
+                for (int i = 0; i < CollectiveArrayCount; i++) {
                     Serialize(m_collectiveArray[i], stream);
                 }
                 w.Write(m_nextFreeCollective);
-                for (int i = 0; i < m_buildingSwapArray.Length; i++) {
+                for (int i = 0; i < BuildingSwapArrayCount; i++) {
                     Serialize(m_buildingSwapArray[i], stream);
                 }
-                for (int i = 0; i < m_invisibilitySettingArray.Length; i++) {
+                for (int i = 0; i < InvisibilitySettingArrayCount; i++) {
                     Serialize(m_invisibilitySettingArray[i], stream);
                 }
                 w.Write(m_usingAMultiScriptFile);

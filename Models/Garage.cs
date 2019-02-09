@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Infrastructure;
+using System.ComponentModel;
 
 namespace LcsSaveEditor.Models
 {
@@ -90,13 +91,27 @@ namespace LcsSaveEditor.Models
         public Vector3d Location
         {
             get { return m_location; }
-            set { m_location = value; OnPropertyChanged(); }
+            set {
+                if (m_location != null) {
+                    m_location.PropertyChanged -= Location_PropertyChanged;
+                }
+                m_location = value;
+                m_location.PropertyChanged += Location_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public Quaternion Rotation
         {
             get { return m_rotation; }
-            set { m_rotation = value; OnPropertyChanged(); }
+            set {
+                if (m_rotation != null) {
+                    m_rotation.PropertyChanged -= Rotation_PropertyChanged;
+                }
+                m_rotation = value;
+                m_rotation.PropertyChanged += Rotation_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public float CeilingZ
@@ -171,6 +186,16 @@ namespace LcsSaveEditor.Models
                 nameof(Type), Type,
                 nameof(Location), Location,
                 nameof(Timer), Timer);
+        }
+
+        private void Location_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Location));
+        }
+
+        private void Rotation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Rotation));
         }
     }
 }

@@ -94,8 +94,8 @@ namespace LcsSaveEditor.Models
                 m_rotatingDoor = r.ReadBoolean();
                 m_specialCamera = r.ReadBoolean();
                 m_unknown1B = r.ReadByte();
-                m_location = Deserialize<Vector3d>(stream);
-                m_rotation = Deserialize<Quaternion>(stream);
+                Location = Deserialize<Vector3d>(stream);
+                Rotation = Deserialize<Quaternion>(stream);
                 m_ceilingZ = r.ReadSingle();
                 m_unknown3C = r.ReadUInt32();
                 m_unknown40 = r.ReadUInt32();

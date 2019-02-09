@@ -106,8 +106,8 @@ namespace LcsSaveEditor.Models
                 m_unknown58 = r.ReadUInt32();
                 m_unknown5C = r.ReadSingle();
                 m_unknown60 = r.ReadUInt32();
-                m_location = Deserialize<Vector3d>(stream);
-                m_rotation = Deserialize<Quaternion>(stream);
+                Location = Deserialize<Vector3d>(stream);
+                Rotation = Deserialize<Quaternion>(stream);
                 m_ceilingZ = r.ReadSingle();
                 m_unknown84 = r.ReadUInt32();
                 m_doorCurrentHeight = r.ReadSingle();

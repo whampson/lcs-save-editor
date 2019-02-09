@@ -21,6 +21,8 @@
  */
 #endregion
 
+using System;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using LcsSaveEditor.DataTypes;
@@ -918,55 +920,150 @@ namespace LcsSaveEditor.Models
         public BanditRaceStat BestBanditLapTimes
         {
             get { return m_bestBanditLapTimes; }
-            set { m_bestBanditLapTimes = value; OnPropertyChanged(); }
+            set {
+                if (m_bestBanditLapTimes != null) {
+                    m_bestBanditLapTimes.PropertyChanged -= BestBanditLapTimes_PropertyChanged;
+                }
+                m_bestBanditLapTimes = value;
+                m_bestBanditLapTimes.PropertyChanged += BestBanditLapTimes_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public BanditRaceStat BestBanditPositions
         {
             get { return m_bestBanditPositions; }
-            set { m_bestBanditPositions = value; OnPropertyChanged(); }
+            set {
+                if (m_bestBanditPositions != null) {
+                    m_bestBanditPositions.PropertyChanged -= BestBanditPositions_PropertyChanged;
+                }
+                m_bestBanditPositions = value;
+                m_bestBanditPositions.PropertyChanged += BestBanditPositions_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public StreetRaceStat BestStreetRacePositions
         {
             get { return m_bestStreetRacePositions; }
-            set { m_bestStreetRacePositions = value; OnPropertyChanged(); }
+            set {
+                if (m_bestStreetRacePositions != null) {
+                    m_bestStreetRacePositions.PropertyChanged -= BestStreetRacePositions_PropertyChanged;
+                }
+                m_bestStreetRacePositions = value;
+                m_bestStreetRacePositions.PropertyChanged += BestStreetRacePositions_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public StreetRaceStat FastestStreetRaceLapTimes
         {
             get { return m_fastestStreetRaceLapTimes; }
-            set { m_fastestStreetRaceLapTimes = value; OnPropertyChanged(); }
+            set {
+                if (m_fastestStreetRaceLapTimes != null) {
+                    m_fastestStreetRaceLapTimes.PropertyChanged -= FastestStreetRaceLapTimes_PropertyChanged;
+                }
+                m_fastestStreetRaceLapTimes = value;
+                m_fastestStreetRaceLapTimes.PropertyChanged += FastestStreetRaceLapTimes_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public StreetRaceStat FastestStreetRaceTimes
         {
             get { return m_fastestStreetRaceTimes; }
-            set { m_fastestStreetRaceTimes = value; OnPropertyChanged(); }
+            set {
+                if (m_fastestStreetRaceTimes != null) {
+                    m_fastestStreetRaceTimes.PropertyChanged -= FastestStreetRaceTimes_PropertyChanged;
+                }
+                m_fastestStreetRaceTimes = value;
+                m_fastestStreetRaceTimes.PropertyChanged += FastestStreetRaceTimes_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public DirtBikeRaceStat FastestDirtBikeLapTimes
         {
             get { return m_fastestDirtBikeLapTimes; }
-            set { m_fastestDirtBikeLapTimes = value; OnPropertyChanged(); }
+            set {
+                if (m_fastestDirtBikeLapTimes != null) {
+                    m_fastestDirtBikeLapTimes.PropertyChanged -= FastestDirtBikeLapTimes_PropertyChanged;
+                }
+                m_fastestDirtBikeLapTimes = value;
+                m_fastestDirtBikeLapTimes.PropertyChanged += FastestDirtBikeLapTimes_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public DirtBikeRaceStat FastestDirtBikeTimes
         {
             get { return m_fastestDirtBikeTimes; }
-            set { m_fastestDirtBikeTimes = value; OnPropertyChanged(); }
+            set {
+                if (m_fastestDirtBikeTimes != null) {
+                    m_fastestDirtBikeTimes.PropertyChanged -= FastestDirtBikeTimes_PropertyChanged;
+                }
+                m_fastestDirtBikeTimes = value;
+                m_fastestDirtBikeTimes.PropertyChanged += FastestDirtBikeTimes_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public FavoriteRadioStationList FavoriteRadioStationList
         {
             get { return m_favoriteRadioStationList; }
-            set { m_favoriteRadioStationList = value; OnPropertyChanged(); }
+            set {
+                if (m_favoriteRadioStationList != null) {
+                    m_favoriteRadioStationList.PropertyChanged -= FavoriteRadioStationList_PropertyChanged;
+                }
+                m_favoriteRadioStationList = value;
+                m_favoriteRadioStationList.PropertyChanged += FavoriteRadioStationList_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
+        private void BestBanditLapTimes_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(BestBanditLapTimes));
+        }
+
+        private void BestBanditPositions_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(BestBanditPositions));
+        }
+
+        private void BestStreetRacePositions_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(BestStreetRacePositions));
+        }
+
+        private void FastestStreetRaceLapTimes_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(FastestStreetRaceLapTimes));
+        }
+
+        private void FastestStreetRaceTimes_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(FastestStreetRaceTimes));
+        }
+
+        private void FastestDirtBikeLapTimes_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(FastestDirtBikeLapTimes));
+        }
+
+        private void FastestDirtBikeTimes_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(FastestDirtBikeTimes));
+        }
+
+        private void FavoriteRadioStationList_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(FavoriteRadioStationList));
+        }
     }
 
-    public class Stats<T> : Stats
-        where T : FavoriteRadioStationList, new()
+    public class Stats<TFavoriteRadioStationList> : Stats
+        where TFavoriteRadioStationList : FavoriteRadioStationList, new()
     {
 
         protected override long DeserializeObject(Stream stream)
@@ -1122,14 +1219,14 @@ namespace LcsSaveEditor.Models
                 _m_fastestHeliRaceTime = r.ReadUInt32();
                 _m_bestHeliRacePosition = r.ReadUInt32();
                 m_numberOutfitChanges = r.ReadUInt32();
-                m_bestBanditLapTimes = Deserialize<BanditRaceStat>(stream);
-                m_bestBanditPositions = Deserialize<BanditRaceStat>(stream);
-                m_bestStreetRacePositions = Deserialize<StreetRaceStat>(stream);
-                m_fastestStreetRaceLapTimes = Deserialize<StreetRaceStat>(stream);
-                m_fastestStreetRaceTimes = Deserialize<StreetRaceStat>(stream);
-                m_fastestDirtBikeLapTimes = Deserialize<DirtBikeRaceStat>(stream);
-                m_fastestDirtBikeTimes = Deserialize<DirtBikeRaceStat>(stream);
-                m_favoriteRadioStationList = Deserialize<T>(stream);
+                BestBanditLapTimes = Deserialize<BanditRaceStat>(stream);
+                BestBanditPositions = Deserialize<BanditRaceStat>(stream);
+                BestStreetRacePositions = Deserialize<StreetRaceStat>(stream);
+                FastestStreetRaceLapTimes = Deserialize<StreetRaceStat>(stream);
+                FastestStreetRaceTimes = Deserialize<StreetRaceStat>(stream);
+                FastestDirtBikeLapTimes = Deserialize<DirtBikeRaceStat>(stream);
+                FastestDirtBikeTimes = Deserialize<DirtBikeRaceStat>(stream);
+                FavoriteRadioStationList = Deserialize<TFavoriteRadioStationList>(stream);
             }
 
             return stream.Position - start;

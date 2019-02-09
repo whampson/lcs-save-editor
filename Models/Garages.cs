@@ -22,6 +22,9 @@
 #endregion
 
 using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using LcsSaveEditor.DataTypes;
@@ -37,6 +40,9 @@ namespace LcsSaveEditor.Models
     /// </summary>
     public abstract class Garages : SerializableObject
     {
+        public const int StoredCarsCount = 48;
+        public const int GarageObjectsCount = 32;
+
         protected uint m_numGarages;
         protected bool m_bombsAreFree;
         protected bool m_respraysAreFree;
@@ -48,15 +54,20 @@ namespace LcsSaveEditor.Models
         protected uint _m_carTypesCollected3;
         protected uint _m_carTypesCollected4;
         protected uint m_lastTimeHelpMessage;
-        protected StoredCar[] m_storedCars;
-        protected Garage[] m_garageArray;
+        protected FullyObservableCollection<StoredCar> m_storedCars;
+        protected FullyObservableCollection<Garage> m_garageObjects;
         protected byte[] m_unknown;     // padding?
 
         public Garages()
         {
-            m_storedCars = new StoredCar[48];
-            m_garageArray = new Garage[32];
+            m_storedCars = new FullyObservableCollection<StoredCar>();
+            m_garageObjects = new FullyObservableCollection<Garage>();
             m_unknown = new byte[344];
+
+            m_storedCars.CollectionChanged += StoredCars_CollectionChanged;
+            m_storedCars.ItemPropertyChanged += StoredCars_ItemPropertyChanged;
+            m_garageObjects.CollectionChanged += GarageObjects_CollectionChanged;
+            m_garageObjects.ItemPropertyChanged += GarageObjects_ItemPropertyChanged;
         }
 
         public uint NumberOfGarages
@@ -89,21 +100,40 @@ namespace LcsSaveEditor.Models
             set { m_lastTimeHelpMessage = value; OnPropertyChanged(); }
         }
 
-        public StoredCar[] StoredCars
+        public FullyObservableCollection<StoredCar> StoredCars
         {
             get { return m_storedCars; }
             set { m_storedCars = value; OnPropertyChanged(); }
         }
 
-        public Garage[] GarageArray
+        public FullyObservableCollection<Garage> GarageObjects
         {
-            get { return m_garageArray; }
-            set { m_garageArray = value; OnPropertyChanged(); }
+            get { return m_garageObjects; }
+        }
+
+        private void StoredCars_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(StoredCars));
+        }
+
+        private void StoredCars_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(StoredCars));
+        }
+
+        private void GarageObjects_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(GarageObjects));
+        }
+
+        private void GarageObjects_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(GarageObjects));
         }
     }
 
-    public class Garages<T> : Garages
-        where T : Garage, new()
+    public class Garages<TGarage> : Garages
+        where TGarage : Garage, new()
     {
         protected override long DeserializeObject(Stream stream)
         {
@@ -120,11 +150,11 @@ namespace LcsSaveEditor.Models
                 _m_carTypesCollected3 = r.ReadUInt32();
                 _m_carTypesCollected4 = r.ReadUInt32();
                 m_lastTimeHelpMessage = r.ReadUInt32();
-                for (int i = 0; i < m_storedCars.Length; i++) {
-                    m_storedCars[i] = Deserialize<StoredCar>(stream);
+                for (int i = 0; i < StoredCarsCount; i++) {
+                    m_storedCars.Add(Deserialize<StoredCar>(stream));
                 }
-                for (int i = 0; i < m_garageArray.Length; i++) {
-                    m_garageArray[i] = Deserialize<T>(stream);
+                for (int i = 0; i < GarageObjectsCount; i++) {
+                    m_garageObjects.Add(Deserialize<TGarage>(stream));
                 }
                 for (int i = 0; i < m_unknown.Length; i++) {
                     m_unknown[i] = r.ReadByte();
@@ -149,11 +179,11 @@ namespace LcsSaveEditor.Models
                 w.Write(_m_carTypesCollected3);
                 w.Write(_m_carTypesCollected4);
                 w.Write(m_lastTimeHelpMessage);
-                for (int i = 0; i < m_storedCars.Length; i++) {
+                for (int i = 0; i < StoredCarsCount; i++) {
                     Serialize(m_storedCars[i], stream);
                 }
-                for (int i = 0; i < m_garageArray.Length; i++) {
-                    Serialize(m_garageArray[i], stream);
+                for (int i = 0; i < GarageObjectsCount; i++) {
+                    Serialize(m_garageObjects[i], stream);
                 }
                 w.Write(m_unknown);
             }

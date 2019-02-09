@@ -21,6 +21,8 @@
  */
 #endregion
 
+using System;
+using System.ComponentModel;
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Infrastructure;
 
@@ -32,12 +34,6 @@ namespace LcsSaveEditor.Models
     /// </summary>
     public abstract class SimpleVars : SerializableObject
     {
-        /* Disable "unused variable" warning.
-         * Unused variables are denoted with a preceding '_'
-         * and are included for reference only.
-         */
-        #pragma warning disable 0169
-
         protected string m_saveNameGxt;
         protected uint _m_currLevel;
         protected uint _m_currArea;
@@ -81,8 +77,6 @@ namespace LcsSaveEditor.Models
         protected bool m_targetIsOn;
         protected Vector2d m_targetPosition;
         protected Timestamp m_saveTime;
-
-        #pragma warning restore 0169
 
         public SimpleVars()
         {
@@ -158,7 +152,14 @@ namespace LcsSaveEditor.Models
         public Vector3d CameraPosition
         {
             get { return m_cameraPosition; }
-            set { m_cameraPosition = value; OnPropertyChanged(); }
+            set {
+                if (m_cameraPosition != null) {
+                    m_cameraPosition.PropertyChanged -= CameraPosition_PropertyChanged;
+                }
+                m_cameraPosition = value;
+                m_cameraPosition.PropertyChanged += CameraPosition_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public VehicleCameraMode VehicleCamera
@@ -270,13 +271,42 @@ namespace LcsSaveEditor.Models
         public Vector2d WaypointPosition
         {
             get { return m_targetPosition; }
-            set { m_targetPosition = value; OnPropertyChanged(); }
+            set {
+                if (m_targetPosition != null) {
+                    m_targetPosition.PropertyChanged -= WaypointPosition_PropertyChanged;
+                }
+                m_targetPosition = value;
+                m_targetPosition.PropertyChanged += WaypointPosition_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public Timestamp Timestamp
         {
             get { return m_saveTime; }
-            set { m_saveTime = value; OnPropertyChanged(); }
+            set {
+                if (m_saveTime != null) {
+                    m_saveTime.PropertyChanged -= Timestamp_PropertyChanged;
+                }
+                m_saveTime = value;
+                m_saveTime.PropertyChanged += Timestamp_PropertyChanged;
+                OnPropertyChanged();
+            }
+        }
+
+        private void CameraPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(CameraPosition));
+        }
+
+        private void WaypointPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(WaypointPosition));
+        }
+
+        private void Timestamp_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Timestamp));
         }
     }
 }

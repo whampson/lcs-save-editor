@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Infrastructure;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 
@@ -54,13 +55,27 @@ namespace LcsSaveEditor.Models
         public Vector3d Location
         {
             get { return m_location; }
-            set { m_location = value; OnPropertyChanged(); }
+            set {
+                if (m_location != null) {
+                    m_location.PropertyChanged -= Location_PropertyChanged;
+                }
+                m_location = value;
+                m_location.PropertyChanged += Location_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public Vector2d Rotation
         {
             get { return m_rotation; }
-            set { m_rotation = value; OnPropertyChanged(); }
+            set {
+                if (m_rotation != null) {
+                    m_rotation.PropertyChanged -= Rotation_PropertyChanged;
+                }
+                m_rotation = value;
+                m_rotation.PropertyChanged += Rotation_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public float Pitch
@@ -69,7 +84,7 @@ namespace LcsSaveEditor.Models
             set { m_pitch = value; OnPropertyChanged(); }
         }
 
-        public float HandlingMultplier
+        public float HandlingMultiplier
         {
             get { return m_handlingMultiplier; }
             set { m_handlingMultiplier = value; OnPropertyChanged(); }
@@ -115,17 +130,17 @@ namespace LcsSaveEditor.Models
         {
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
-                m_vehicle = (Vehicle) r.ReadUInt32();
-                m_location = Deserialize<Vector3d>(stream);
-                m_rotation = Deserialize<Vector2d>(stream);
-                m_pitch = r.ReadSingle();
-                m_handlingMultiplier = r.ReadSingle();
-                m_perks = (StoredCarPerks) r.ReadUInt32();
-                m_color1 = r.ReadByte();
-                m_color2 = r.ReadByte();
-                m_radioStation = (RadioStation) r.ReadByte();
-                m_extra1 = r.ReadSByte();
-                m_extra2 = r.ReadSByte();
+                Vehicle = (Vehicle) r.ReadUInt32();
+                Location = Deserialize<Vector3d>(stream);
+                Rotation = Deserialize<Vector2d>(stream);
+                Pitch = r.ReadSingle();
+                HandlingMultiplier = r.ReadSingle();
+                Perks = (StoredCarPerks) r.ReadUInt32();
+                Color1 = r.ReadByte();
+                Color2 = r.ReadByte();
+                RadioStation = (RadioStation) r.ReadByte();
+                Extra1 = r.ReadSByte();
+                Extra2 = r.ReadSByte();
                 r.ReadBytes(3);     // align bytes
             }
 
@@ -158,6 +173,16 @@ namespace LcsSaveEditor.Models
             return string.Format("{0} = {1}, {2} = {3}",
                 nameof(Vehicle), Vehicle,
                 nameof(Perks), Perks);
+        }
+
+        private void Location_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Location));
+        }
+
+        private void Rotation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Rotation));
         }
     }
 }

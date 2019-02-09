@@ -23,7 +23,6 @@
 
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Extensions;
-using LcsSaveEditor.Helpers;
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Resources;
 using System;
@@ -48,80 +47,155 @@ namespace LcsSaveEditor.Models
         private const string StatsTag = "STAT";
         
         // Raw block data
-        protected DataBlock m_simpleVars;
-        protected DataBlock m_scripts;
-        protected DataBlock m_garages;
-        protected DataBlock m_playerInfo;
-        protected DataBlock m_stats;
+        protected DataBlock m_block0;
+        protected DataBlock m_block1;
+        protected DataBlock m_block2;
+        protected DataBlock m_block3;
+        protected DataBlock m_block4;
+
+        // Deserialized data
+        private SimpleVars m_simpleVars;
+        private Scripts m_scripts;
+        private Garages m_garages;
+        private PlayerInfo m_playerInfo;
+        private Stats m_stats;
 
         protected SaveData(GamePlatform fileType)
         {
             FileType = fileType;
 
-            m_simpleVars = new DataBlock(SimpleVarsTag);
-            m_scripts = new DataBlock(ScriptsTag, ScriptsTag2);
-            m_garages = new DataBlock(GaragesTag);
-            m_playerInfo = new DataBlock(PlayerInfoTag);
-            m_stats = new DataBlock(StatsTag);
+            m_block0 = new DataBlock(SimpleVarsTag);
+            m_block1 = new DataBlock(ScriptsTag, ScriptsTag2);
+            m_block2 = new DataBlock(GaragesTag);
+            m_block3 = new DataBlock(PlayerInfoTag);
+            m_block4 = new DataBlock(StatsTag);
         }
 
-        /// <summary>
-        /// Gets the file format type, represented as the <see cref="GamePlatform"/>
-        /// that created this save data.
-        /// </summary>
         public GamePlatform FileType
         {
             get;
         }
 
-        /// <summary>
-        /// Gets or sets the collection of miscellaneous game variables.
-        /// </summary>
         public SimpleVars SimpleVars
         {
-            get;
-            set;
+            get { return m_simpleVars; }
+            set {
+                if (m_simpleVars != null) {
+                    m_simpleVars.PropertyChanged -= SimpleVars_PropertyChanged;
+                }
+                m_simpleVars = value;
+                m_simpleVars.PropertyChanged += SimpleVars_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public Scripts Scripts
         {
-            get;
-            set;
+            get { return m_scripts; }
+            set {
+                if (m_scripts != null) {
+                    m_scripts.PropertyChanged -= Scripts_PropertyChanged;
+                }
+                m_scripts = value;
+                m_scripts.PropertyChanged += Scripts_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public Garages Garages
         {
-            get;
-            set;
+            get { return m_garages; }
+            set {
+                if (m_garages != null) {
+                    m_garages.PropertyChanged -= Garages_PropertyChanged;
+                }
+                m_garages = value;
+                m_garages.PropertyChanged += Garages_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public PlayerInfo PlayerInfo
         {
-            get;
-            set;
+            get { return m_playerInfo; }
+            set {
+                if (m_playerInfo != null) {
+                    m_playerInfo.PropertyChanged -= PlayerInfo_PropertyChanged;
+                }
+                m_playerInfo = value;
+                m_playerInfo.PropertyChanged += PlayerInfo_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
         public Stats Stats
         {
-            get;
-            set;
+            get { return m_stats; }
+            set {
+                if (m_stats != null) {
+                    m_stats.PropertyChanged -= Stats_PropertyChanged;
+                }
+                m_stats = value;
+                m_stats.PropertyChanged += Stats_PropertyChanged;
+                OnPropertyChanged();
+            }
         }
 
-        /// <summary>
-        /// Writes this saved game data to a file.
-        /// </summary>
-        /// <param name="path">The file to write.</param>
         public void Store(string path)
         {
             byte[] data = Serialize(this);
             File.WriteAllBytes(path, data);
         }
 
-        /// <summary>
-        /// Computes the checksum that goes in the footer of a PS2-formatted file.
-        /// </summary>
-        /// <param name="stream">The stream containing the serialized save data.</param>
-        /// <returns>The serialized data checksum.</returns>
+        protected void DeserializeDataBlocks()
+        {
+            switch (FileType) {
+                case GamePlatform.Android:
+                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
+                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
+                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
+                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
+                    break;
+                case GamePlatform.IOS:
+                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
+                    m_scripts = Deserialize<Scripts<RunningScriptIOS>>(m_block1.Data);
+                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
+                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_simpleVars = Deserialize<SimpleVarsPS2>(m_block0.Data);
+                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
+                    m_garages = Deserialize<Garages<GaragePS2>>(m_block2.Data);
+                    m_playerInfo = Deserialize<PlayerInfoPS2>(m_block3.Data);
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_simpleVars = Deserialize<SimpleVarsPSP>(m_block0.Data);
+                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
+                    m_garages = Deserialize<Garages<GaragePSP>>(m_block2.Data);
+                    m_playerInfo = Deserialize<PlayerInfoPSP>(m_block3.Data);
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
+                    break;
+            }
+
+            m_simpleVars.PropertyChanged += SimpleVars_PropertyChanged;
+            m_scripts.PropertyChanged += Scripts_PropertyChanged;
+            m_garages.PropertyChanged += Garages_PropertyChanged;
+            m_playerInfo.PropertyChanged += PlayerInfo_PropertyChanged;
+            m_stats.PropertyChanged += Stats_PropertyChanged;
+        }
+
+        protected void SerializeDataBlocks()
+        {
+            m_block0.Data = Serialize(m_simpleVars);
+            m_block1.Data = Serialize(m_scripts);
+            m_block2.Data = Serialize(m_garages);
+            m_block3.Data = Serialize(m_playerInfo);
+            m_block4.Data = Serialize(m_stats);
+        }
+
         protected int GetPS2Checksum(Stream stream)
         {
             using (MemoryStream m = new MemoryStream()) {
@@ -131,18 +205,10 @@ namespace LcsSaveEditor.Models
             }
         }
 
-        /// <summary>
-        /// Reads raw block data from a stream into the Data field of a
-        /// <see cref="DataBlock"/> object.
-        /// </summary>
-        /// <param name="stream">The stream to read.</param>
-        /// <param name="block">The block to populate.</param>
-        /// <returns>The number of bytes read.</returns>
         protected int ReadDataBlock(Stream stream, DataBlock block)
         {
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
-                // Read block tag and check that it matches the expected tag
                 string tag = r.ReadString(4);
                 if (tag != block.Tag) {
                     string msg = string.Format(Strings.ExceptionTextInvalidBlockTag,
@@ -150,13 +216,11 @@ namespace LcsSaveEditor.Models
                     throw new InvalidDataException(msg);
                 }
 
-                // Read block size
                 int blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
                     throw new InvalidDataException(Strings.ExceptionTextIncorrectBlockSize);
                 }
 
-                // Read nested header, if applicable
                 if (block.NestedTag != null) {
                     tag = r.ReadString(4);
                     if (tag != block.NestedTag) {
@@ -171,19 +235,12 @@ namespace LcsSaveEditor.Models
                     }
                 }
 
-                // Read block data
                 block.Data = r.ReadBytes(blockSize);
             }
 
             return (int) (stream.Position - start);
         }
 
-        /// <summary>
-        /// Writes raw block data to a stream.
-        /// </summary>
-        /// <param name="stream">The stream to write.</param>
-        /// <param name="block">The block to write.</param>
-        /// <returns>The number of bytes written.</returns>
         protected int WriteBlockData(Stream stream, DataBlock block)
         {
             long start = stream.Position;
@@ -200,47 +257,29 @@ namespace LcsSaveEditor.Models
             return (int) (stream.Position - start);
         }
 
-        protected void DeserializeDataBlocks()
+        private void SimpleVars_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (FileType) {
-                case GamePlatform.Android:
-                    SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
-                    Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
-                    Garages = Deserialize<Garages<GarageAndroidIOS>>(m_garages.Data);
-                    PlayerInfo = Deserialize<PlayerInfoAndroidIOS>(m_playerInfo.Data);
-                    Stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_stats.Data);
-                    break;
-                case GamePlatform.IOS:
-                    SimpleVars = Deserialize<SimpleVarsAndroidIOS>(m_simpleVars.Data);
-                    Scripts = Deserialize<Scripts<RunningScriptIOS>>(m_scripts.Data);
-                    Garages = Deserialize<Garages<GarageAndroidIOS>>(m_garages.Data);
-                    PlayerInfo = Deserialize<PlayerInfoAndroidIOS>(m_playerInfo.Data);
-                    Stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_stats.Data);
-                    break;
-                case GamePlatform.PS2:
-                    SimpleVars = Deserialize<SimpleVarsPS2>(m_simpleVars.Data);
-                    Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
-                    Garages = Deserialize<Garages<GaragePS2>>(m_garages.Data);
-                    PlayerInfo = Deserialize<PlayerInfoPS2>(m_playerInfo.Data);
-                    Stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_stats.Data);
-                    break;
-                case GamePlatform.PSP:
-                    SimpleVars = Deserialize<SimpleVarsPSP>(m_simpleVars.Data);
-                    Scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_scripts.Data);
-                    Garages = Deserialize<Garages<GaragePSP>>(m_garages.Data);
-                    PlayerInfo = Deserialize<PlayerInfoPSP>(m_playerInfo.Data);
-                    Stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_stats.Data);
-                    break;
-            }
+            OnPropertyChanged(nameof(SimpleVars));
         }
-        
-        protected void SerializeDataBlocks()
+
+        private void Scripts_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            m_simpleVars.Data = Serialize(SimpleVars);
-            m_scripts.Data = Serialize(Scripts);
-            m_garages.Data = Serialize(Garages);
-            m_playerInfo.Data = Serialize(PlayerInfo);
-            m_stats.Data = Serialize(Stats);
+            OnPropertyChanged(nameof(Scripts));
+        }
+
+        private void Garages_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Garages));
+        }
+
+        private void PlayerInfo_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(PlayerInfo));
+        }
+
+        private void Stats_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Stats));
         }
 
         /// <summary>
@@ -249,44 +288,51 @@ namespace LcsSaveEditor.Models
         /// </summary>
         /// <param name="path">The path to the file to load.</param>
         /// <returns>The newly-created <see cref="SaveData"/>.</returns>
-        /// <exception cref="PlatformNotSupportedException">
-        /// Thrown if the file is a valid save data file, but is of
-        /// a format that is not yet supported.
-        /// </exception>
         /// <exception cref="InvalidDataException">
         /// Thrown if the file is not a valid save data file.
         /// </exception>
+        /// <exception cref="IOException">
+        /// Thrown if an I/O error occurs.
+        /// </exception>
         public static SaveData Load(string path)
         {
+            SaveData saveData;
+            GamePlatform fileType;
+            byte[] rawData;
+
             // TODO: decrypt PSP saves (?)
 
-            byte[] data = File.ReadAllBytes(path);
-            GamePlatform fileType = DetectFileType(data);
+            rawData = File.ReadAllBytes(path);
+            fileType = DetectFileType(rawData);
 
-            // Deserialize the data
             switch (fileType) {
                 case GamePlatform.Android:
-                    return Deserialize<SaveDataAndroid>(data);
+                    saveData = Deserialize<SaveDataAndroid>(rawData);
+                    break;
                 case GamePlatform.IOS:
-                    return Deserialize<SaveDataIOS>(data);
+                    saveData = Deserialize<SaveDataIOS>(rawData);
+                    break;
                 case GamePlatform.PS2:
-                    return Deserialize<SaveDataPS2>(data);
+                    saveData = Deserialize<SaveDataPS2>(rawData);
+                    break;
                 case GamePlatform.PSP:
-                    return Deserialize<SaveDataPSP>(data);
+                    saveData = Deserialize<SaveDataPSP>(rawData);
+                    break;
                 default:
-                    // Should never get here...
                     string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionTextOops, nameof(SaveData));
+                        Strings.ExceptionTextOops, nameof(Load));
                     throw new InvalidOperationException(msg);
             }
+
+            return saveData;
         }
         
         private static GamePlatform DetectFileType(byte[] data)
         {
             const int SimpSizePS2 = 0x0F8;
             const int SimpSizePSP = 0x0BC;
-            const int MissionScriptSizeAndroid = 0x21C;
-            const int MissionScriptSizeIOS = 0x228;
+            const int RunningScriptSizeAndroid = 0x21C;
+            const int RunningScriptSizeIOS = 0x228;
 
             // Determine if PS2 or PSP by size of SIMP block.
             int sizeOfSimp = ReadInt(data, 0x04);
@@ -297,29 +343,25 @@ namespace LcsSaveEditor.Models
                 return GamePlatform.PSP;
             }
 
-            // Distinguish iOS and Android by size of MissionScript.
+            // Distinguish iOS and Android by size of RunningScript.
             int sizeOfSrpt = ReadInt(data, sizeOfSimp + 0x0C);
             int srptDataOffset = sizeOfSimp + 0x10;
             int scriptVarSpaceSize = ReadInt(data, srptDataOffset + 0x08);
             int scriptVarOffset = srptDataOffset + 0x0C;
             int numRunningScripts = ReadInt(data, scriptVarOffset + scriptVarSpaceSize + 0x7C0);
             int runningScriptsOffset = scriptVarOffset + scriptVarSpaceSize + 0x7C4;
-
             int sizeOfRunningScript = (sizeOfSrpt + srptDataOffset - runningScriptsOffset) / numRunningScripts;
-
-            if (sizeOfRunningScript == MissionScriptSizeAndroid) {
+            if (sizeOfRunningScript == RunningScriptSizeAndroid) {
                 return GamePlatform.Android;
             }
-            else if (sizeOfRunningScript == MissionScriptSizeIOS) {
+            else if (sizeOfRunningScript == RunningScriptSizeIOS) {
                 return GamePlatform.IOS;
             }
 
+            // Not valid!
             throw new InvalidDataException(Strings.ExceptionTextInvalidSaveData);
         }
 
-        /// <summary>
-        /// Reads a 32-bit integer from an arbitrary index in an array.
-        /// </summary>
         private static int ReadInt(byte[] data, int index)
         {
             return BitConverter.ToInt32(data, index);

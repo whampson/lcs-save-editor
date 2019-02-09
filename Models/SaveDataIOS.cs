@@ -42,11 +42,11 @@ namespace LcsSaveEditor.Models
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 // Read data
-                ReadDataBlock(stream, m_simpleVars);
-                ReadDataBlock(stream, m_scripts);
-                ReadDataBlock(stream, m_garages);
-                ReadDataBlock(stream, m_playerInfo);
-                ReadDataBlock(stream, m_stats);
+                ReadDataBlock(stream, m_block0);
+                ReadDataBlock(stream, m_block1);
+                ReadDataBlock(stream, m_block2);
+                ReadDataBlock(stream, m_block3);
+                ReadDataBlock(stream, m_block4);
 
                 // Read trailing bytes (ignored)
                 r.ReadBytes(3);
@@ -64,11 +64,11 @@ namespace LcsSaveEditor.Models
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 // Data
-                WriteBlockData(stream, m_simpleVars);
-                WriteBlockData(stream, m_scripts);
-                WriteBlockData(stream, m_garages);
-                WriteBlockData(stream, m_playerInfo);
-                WriteBlockData(stream, m_stats);
+                WriteBlockData(stream, m_block0);
+                WriteBlockData(stream, m_block1);
+                WriteBlockData(stream, m_block2);
+                WriteBlockData(stream, m_block3);
+                WriteBlockData(stream, m_block4);
 
                 // Trailing bytes
                 w.Write((byte) 0);

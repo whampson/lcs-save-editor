@@ -22,7 +22,9 @@
 #endregion
 
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Resources;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -75,13 +77,18 @@ namespace LcsSaveEditor.Models
 
         public DateTime ToDateTime()
         {
-            return new DateTime(
+            string dateStr = string.Format("{0:D4}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}",
                 (int) m_year,
                 (int) m_month,
                 (int) m_day,
                 (int) m_hour,
                 (int) m_minute,
                 (int) m_second);
+
+            DateTime.TryParseExact(dateStr, "yyyy-MM-dd HH:mm:ss",
+                CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dt);
+
+            return dt;
         }
 
         protected override long DeserializeObject(Stream stream)
@@ -116,7 +123,7 @@ namespace LcsSaveEditor.Models
 
         public override string ToString()
         {
-            return ToDateTime().ToString("dddd, dd MMMM yyyy HH:mm:ss");
+            return ToDateTime().ToString("dd MMM yyyy HH:mm:ss");
         }
     }
 }

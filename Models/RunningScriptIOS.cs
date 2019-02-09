@@ -53,13 +53,13 @@ namespace LcsSaveEditor.Models
                 m_unknown14 = r.ReadUInt32();
                 m_name = r.ReadString(8);
                 m_instructionPointer = r.ReadUInt32();
-                for (int i = 0; i < m_returnStack.Length; i++) {
-                    m_returnStack[i] = r.ReadUInt32();
+                for (int i = 0; i < ReturnStackCount; i++) {
+                    m_returnStack.Add(r.ReadUInt32());
                 }
-                m_returnStackCount = r.ReadUInt16();
+                m_returnStackTop = r.ReadUInt16();
                 r.ReadBytes(2);     // align bytes
-                for (int i = 0; i < m_localVariables.Length; i++) {
-                    m_localVariables[i] = Deserialize<ScriptVariable>(stream);
+                for (int i = 0; i < LocalVariablesCount; i++) {
+                    m_localVariables.Add(r.ReadUInt32());
                 }
                 m_timer1 = r.ReadUInt32();
                 m_timer2 = r.ReadUInt32();
@@ -93,13 +93,13 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown14);
                 w.WriteString(m_name, 8);
                 w.Write(m_instructionPointer);
-                for (int i = 0; i < m_returnStack.Length; i++) {
+                for (int i = 0; i < ReturnStackCount; i++) {
                     w.Write(m_returnStack[i]);
                 }
-                w.Write(m_returnStackCount);
+                w.Write(m_returnStackTop);
                 w.Write(new byte[2]);       // align bytes
-                for (int i = 0; i < m_localVariables.Length; i++) {
-                    Serialize(m_localVariables[i], stream);
+                for (int i = 0; i < LocalVariablesCount; i++) {
+                    w.Write(m_localVariables[i]);
                 }
                 w.Write(m_timer1);
                 w.Write(m_timer2);
