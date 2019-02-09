@@ -42,7 +42,7 @@ SOFTWARE.
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <c:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
-            <v:WeaponsView DataChanged="View_DataChanged"/>
+            <v:WeaponsView/>
         </DataTemplate>
     </Window.Resources>
 

@@ -33,59 +33,8 @@ namespace LcsSaveEditor.Views
     /// </summary>
     public abstract class PageViewBase : UserControl
     {
-        public PageViewBase()
-        {
-            IsPageLoaded = false;
-            Loaded += View_Loaded;
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the page has finished loading.
-        /// </summary>
-        protected bool IsPageLoaded
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// 'Loaded' event handler.
-        /// </summary>
-        private void View_Loaded(object sender, RoutedEventArgs e)
-        {
-            IsPageLoaded = true;
-        }
-
-        /// <summary>
-        /// Identifies the <see cref="DataChanged"/> routed event.
-        /// </summary>
-        public static readonly RoutedEvent DataChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(DataChangedEvent),
-            RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler),
-            typeof(PageViewBase));
-
-        /// <summary>
-        /// Occurs when the model data has been changed in some way.
-        /// </summary>
-        public event RoutedEventHandler DataChanged
-        {
-            add { AddHandler(DataChangedEvent, value); }
-            remove { RemoveHandler(DataChangedEvent, value); }
-        }
-
-        /// <summary>
-        /// Notifies all listeners that the 'DataChanged' event occurred.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void OnDataChanged(object sender, RoutedEventArgs e)
-        {
-            if (!IsPageLoaded) {
-                return;
-            }
-
-            RaiseEvent(new RoutedEventArgs(DataChangedEvent, sender));
-        }
+        protected PageViewBase()
+            : base()
+        { }
     }
 }

@@ -21,7 +21,7 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.ViewModels;
 using System;
 using System.ComponentModel;
@@ -67,11 +67,6 @@ namespace LcsSaveEditor.Views
             //    Owner = this
             //};
             //w.ShowDialog();
-        }
-
-        private void View_DataChanged(object sender, RoutedEventArgs e)
-        {
-            ViewModel.IsFileModified = true;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
