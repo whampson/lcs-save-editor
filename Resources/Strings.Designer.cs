@@ -242,6 +242,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Received PropertyChanged notification from item not in collection..
+        /// </summary>
+        public static string ExceptionTextItemPropertyChanged {
+            get {
+                return ResourceManager.GetString("ExceptionTextItemPropertyChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple calls to this function are not supported..
         /// </summary>
         public static string ExceptionTextMultipleCallsNotSupported {
