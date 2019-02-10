@@ -30,11 +30,19 @@ namespace LcsSaveEditor.ViewModels
     public partial class GlobalVariablesViewModel : PageViewModelBase
     {
         private FullyObservableCollection<GlobalVariable> m_namedVariables;
+        private bool m_isShowingColumnInt32;
+        private bool m_isShowingColumnUInt32;
+        private bool m_isShowingColumnFloat;
+        private bool m_isShowingColumnBoolean;
 
         public GlobalVariablesViewModel()
             : base(Strings.PageHeaderGlobalVariables)
         {
             m_namedVariables = new FullyObservableCollection<GlobalVariable>();
+            m_isShowingColumnInt32 = true;
+            m_isShowingColumnUInt32 = false;
+            m_isShowingColumnFloat = true;
+            m_isShowingColumnBoolean = true;
         }
 
         public GlobalVariablesViewModel(SaveData saveData)
@@ -50,6 +58,30 @@ namespace LcsSaveEditor.ViewModels
         {
             get { return m_namedVariables; }
             set { m_namedVariables = value; OnPropertyChanged(); }
+        }
+
+        public bool IsShowingColumnInt32
+        {
+            get { return m_isShowingColumnInt32; }
+            set { m_isShowingColumnInt32 = value; OnPropertyChanged(); }
+        }
+
+        public bool IsShowingColumnUInt32
+        {
+            get { return m_isShowingColumnUInt32; }
+            set { m_isShowingColumnUInt32 = value; OnPropertyChanged(); }
+        }
+
+        public bool IsShowingColumnFloat
+        {
+            get { return m_isShowingColumnFloat; }
+            set { m_isShowingColumnFloat = value; OnPropertyChanged(); }
+        }
+
+        public bool IsShowingColumnBoolean
+        {
+            get { return m_isShowingColumnBoolean; }
+            set { m_isShowingColumnBoolean = value; OnPropertyChanged(); }
         }
     }
 }
