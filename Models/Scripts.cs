@@ -41,7 +41,7 @@ namespace LcsSaveEditor.Models
         public const int InvisibilitySettingArrayCount = 52;
 
         protected uint m_globalVarsSize;
-        protected ObservableCollection<uint> m_globalVars;
+        protected FullyObservableCollection<ScriptVariable> m_globalVars;
         protected uint m_unknown;
         protected uint m_onMissionFlag;
         protected uint m_lastMissionPassedTime;
@@ -59,13 +59,14 @@ namespace LcsSaveEditor.Models
 
         public Scripts()
         {
-            m_globalVars = new ObservableCollection<uint>();
+            m_globalVars = new FullyObservableCollection<ScriptVariable>();
             m_collectiveArray = new FullyObservableCollection<Collective>();
             m_buildingSwapArray = new FullyObservableCollection<StaticReplacement>();
             m_invisibilitySettingArray = new FullyObservableCollection<InvisibleObject>();
             m_runningScripts = new FullyObservableCollection<RunningScript>();
 
             m_globalVars.CollectionChanged += GlobalVars_CollectionChanged;
+            m_globalVars.ItemPropertyChanged += GlobalVars_ItemPropertyChanged;
             m_collectiveArray.CollectionChanged += CollectiveArray_CollectionChanged;
             m_collectiveArray.ItemPropertyChanged += CollectiveArray_ItemPropertyChanged;
             m_buildingSwapArray.CollectionChanged += BuildingSwapArray_CollectionChanged;
@@ -82,7 +83,7 @@ namespace LcsSaveEditor.Models
             set { m_globalVarsSize = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<uint> GlobalVariables
+        public FullyObservableCollection<ScriptVariable> GlobalVariables
         {
             get { return m_globalVars; }
         }
@@ -160,6 +161,11 @@ namespace LcsSaveEditor.Models
             OnPropertyChanged(nameof(GlobalVariables));
         }
 
+        private void GlobalVars_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(GlobalVariables));
+        }
+
         private void CollectiveArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             OnPropertyChanged(nameof(CollectiveArray));
@@ -210,7 +216,7 @@ namespace LcsSaveEditor.Models
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_globalVarsSize = r.ReadUInt32();
                 for (int i = 0; i < m_globalVarsSize / 4; i++) {
-                    m_globalVars.Add(r.ReadUInt32());
+                    m_globalVars.Add(Deserialize<ScriptVariable>(stream));
                 }
                 m_unknown = r.ReadUInt32();
                 m_onMissionFlag = r.ReadUInt32();
@@ -248,7 +254,7 @@ namespace LcsSaveEditor.Models
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.Write(m_globalVarsSize);
                 for (int i = 0; i < m_globalVarsSize / 4; i++) {
-                    w.Write(m_globalVars[i]);
+                    Serialize(m_globalVars[i], stream);
                 }
                 w.Write(m_unknown);
                 w.Write(m_onMissionFlag);
