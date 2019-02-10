@@ -138,6 +138,12 @@
   <data name="AppName" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
   </data>
+  <data name="ButtonTextLoadSymbols" xml:space="preserve">
+    <value>Load Symbols...</value>
+  </data>
+  <data name="ButtonTextSaveSymbols" xml:space="preserve">
+    <value>Save Symbols...</value>
+  </data>
   <data name="DialogTextSaveChangesPrompt" xml:space="preserve">
     <value>Do you want to save your changes?</value>
   </data>
@@ -166,28 +172,43 @@
   <data name="DialogTitleUnhandledException" xml:space="preserve">
     <value>Unhandled Exception</value>
   </data>
-  <data name="ExceptionTextConvertBackNotSupported" xml:space="preserve">
+  <data name="ExceptionConvertBackNotSupported" xml:space="preserve">
     <value>ConvertBack is not supported for this converter.</value>
   </data>
-  <data name="ExceptionTextIncorrectBlockSize" xml:space="preserve">
+  <data name="ExceptionIncorrectBlockSize" xml:space="preserve">
     <value>The block size in the header does not match the number of available bytes in the stream.</value>
   </data>
-  <data name="ExceptionTextInvalidBlockTag" xml:space="preserve">
+  <data name="ExceptionInvalidBlockTag" xml:space="preserve">
     <value>Incorrect block tag - '{0}'. Expected '{1}'.</value>
     <comment>{0} = bad tag; {1} = expected tag</comment>
   </data>
-  <data name="ExceptionTextInvalidSaveData" xml:space="preserve">
+  <data name="ExceptionInvalidItemPropertyChanged" xml:space="preserve">
+    <value>Received PropertyChanged notification from item not in collection.</value>
+  </data>
+  <data name="ExceptionInvalidSaveData" xml:space="preserve">
     <value>Invalid GTA:LCS savedata file.
 If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
-  <data name="ExceptionTextItemPropertyChanged" xml:space="preserve">
-    <value>Received PropertyChanged notification from item not in collection.</value>
-  </data>
-  <data name="ExceptionTextMultipleCallsNotSupported" xml:space="preserve">
+  <data name="ExceptionMultipleCallsNotSupported" xml:space="preserve">
     <value>Multiple calls to this function are not supported.</value>
   </data>
-  <data name="ExceptionTextOops" xml:space="preserve">
+  <data name="ExceptionOops" xml:space="preserve">
     <value>You weren't supposed to be able to get here, you know.</value>
+  </data>
+  <data name="FieldName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="FieldValueBoolean" xml:space="preserve">
+    <value>True/False</value>
+  </data>
+  <data name="FieldValueFloat" xml:space="preserve">
+    <value>Float</value>
+  </data>
+  <data name="FieldValueInt32" xml:space="preserve">
+    <value>Int32</value>
+  </data>
+  <data name="FieldValueUInt32" xml:space="preserve">
+    <value>UInt32</value>
   </data>
   <data name="FileFilterSaveData" xml:space="preserve">
     <value>GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*</value>

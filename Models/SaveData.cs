@@ -211,27 +211,27 @@ namespace LcsSaveEditor.Models
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 string tag = r.ReadString(4);
                 if (tag != block.Tag) {
-                    string msg = string.Format(Strings.ExceptionTextInvalidBlockTag,
+                    string msg = string.Format(Strings.ExceptionInvalidBlockTag,
                         tag, block.Tag);
                     throw new InvalidDataException(msg);
                 }
 
                 int blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
-                    throw new InvalidDataException(Strings.ExceptionTextIncorrectBlockSize);
+                    throw new InvalidDataException(Strings.ExceptionIncorrectBlockSize);
                 }
 
                 if (block.NestedTag != null) {
                     tag = r.ReadString(4);
                     if (tag != block.NestedTag) {
-                        string msg = string.Format(Strings.ExceptionTextInvalidBlockTag,
+                        string msg = string.Format(Strings.ExceptionInvalidBlockTag,
                             tag, block.Tag);
                         throw new InvalidDataException(msg);
                     }
 
                     blockSize = r.ReadInt32();
                     if (blockSize > stream.Length) {
-                        throw new InvalidDataException(Strings.ExceptionTextIncorrectBlockSize);
+                        throw new InvalidDataException(Strings.ExceptionIncorrectBlockSize);
                     }
                 }
 
@@ -320,7 +320,7 @@ namespace LcsSaveEditor.Models
                     break;
                 default:
                     string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionTextOops, nameof(Load));
+                        Strings.ExceptionOops, nameof(Load));
                     throw new InvalidOperationException(msg);
             }
 
@@ -359,7 +359,7 @@ namespace LcsSaveEditor.Models
             }
 
             // Not valid!
-            throw new InvalidDataException(Strings.ExceptionTextInvalidSaveData);
+            throw new InvalidDataException(Strings.ExceptionInvalidSaveData);
         }
 
         private static int ReadInt(byte[] data, int index)

@@ -89,7 +89,7 @@ namespace LcsSaveEditor.Infrastructure
                     break;
                 default:
                     string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionTextOops, nameof(ShowDialog));
+                        Strings.ExceptionOops, nameof(ShowDialog));
                     throw new InvalidOperationException(msg);
             }
 

@@ -162,7 +162,7 @@ namespace LcsSaveEditor.Infrastructure
         {
             if (_hHook != IntPtr.Zero) {
                 string msg = string.Format("{0} ({1}.{2}())",
-                    Strings.ExceptionTextMultipleCallsNotSupported, 
+                    Strings.ExceptionMultipleCallsNotSupported,
                     nameof(MessageBoxEx), nameof(Initialize));
                 throw new NotSupportedException();
             }

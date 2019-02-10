@@ -124,6 +124,24 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load Symbols....
+        /// </summary>
+        public static string ButtonTextLoadSymbols {
+            get {
+                return ResourceManager.GetString("ButtonTextLoadSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Symbols....
+        /// </summary>
+        public static string ButtonTextSaveSymbols {
+            get {
+                return ResourceManager.GetString("ButtonTextSaveSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save your changes?.
         /// </summary>
         public static string DialogTextSaveChangesPrompt {
@@ -207,27 +225,36 @@ namespace LcsSaveEditor.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ConvertBack is not supported for this converter..
         /// </summary>
-        public static string ExceptionTextConvertBackNotSupported {
+        public static string ExceptionConvertBackNotSupported {
             get {
-                return ResourceManager.GetString("ExceptionTextConvertBackNotSupported", resourceCulture);
+                return ResourceManager.GetString("ExceptionConvertBackNotSupported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The block size in the header does not match the number of available bytes in the stream..
         /// </summary>
-        public static string ExceptionTextIncorrectBlockSize {
+        public static string ExceptionIncorrectBlockSize {
             get {
-                return ResourceManager.GetString("ExceptionTextIncorrectBlockSize", resourceCulture);
+                return ResourceManager.GetString("ExceptionIncorrectBlockSize", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Incorrect block tag - &apos;{0}&apos;. Expected &apos;{1}&apos;..
         /// </summary>
-        public static string ExceptionTextInvalidBlockTag {
+        public static string ExceptionInvalidBlockTag {
             get {
-                return ResourceManager.GetString("ExceptionTextInvalidBlockTag", resourceCulture);
+                return ResourceManager.GetString("ExceptionInvalidBlockTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received PropertyChanged notification from item not in collection..
+        /// </summary>
+        public static string ExceptionInvalidItemPropertyChanged {
+            get {
+                return ResourceManager.GetString("ExceptionInvalidItemPropertyChanged", resourceCulture);
             }
         }
         
@@ -235,36 +262,72 @@ namespace LcsSaveEditor.Resources {
         ///   Looks up a localized string similar to Invalid GTA:LCS savedata file.
         ///If you are trying to load a PSP save, you may have to decrypt it first..
         /// </summary>
-        public static string ExceptionTextInvalidSaveData {
+        public static string ExceptionInvalidSaveData {
             get {
-                return ResourceManager.GetString("ExceptionTextInvalidSaveData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Received PropertyChanged notification from item not in collection..
-        /// </summary>
-        public static string ExceptionTextItemPropertyChanged {
-            get {
-                return ResourceManager.GetString("ExceptionTextItemPropertyChanged", resourceCulture);
+                return ResourceManager.GetString("ExceptionInvalidSaveData", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Multiple calls to this function are not supported..
         /// </summary>
-        public static string ExceptionTextMultipleCallsNotSupported {
+        public static string ExceptionMultipleCallsNotSupported {
             get {
-                return ResourceManager.GetString("ExceptionTextMultipleCallsNotSupported", resourceCulture);
+                return ResourceManager.GetString("ExceptionMultipleCallsNotSupported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You weren&apos;t supposed to be able to get here, you know..
         /// </summary>
-        public static string ExceptionTextOops {
+        public static string ExceptionOops {
             get {
-                return ResourceManager.GetString("ExceptionTextOops", resourceCulture);
+                return ResourceManager.GetString("ExceptionOops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string FieldName {
+            get {
+                return ResourceManager.GetString("FieldName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to True/False.
+        /// </summary>
+        public static string FieldValueBoolean {
+            get {
+                return ResourceManager.GetString("FieldValueBoolean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Float.
+        /// </summary>
+        public static string FieldValueFloat {
+            get {
+                return ResourceManager.GetString("FieldValueFloat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Int32.
+        /// </summary>
+        public static string FieldValueInt32 {
+            get {
+                return ResourceManager.GetString("FieldValueInt32", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UInt32.
+        /// </summary>
+        public static string FieldValueUInt32 {
+            get {
+                return ResourceManager.GetString("FieldValueUInt32", resourceCulture);
             }
         }
         
