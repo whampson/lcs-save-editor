@@ -59,14 +59,14 @@ SOFTWARE.
     <ScrollViewer
         ScrollViewer.HorizontalScrollBarVisibility="Auto"
         ScrollViewer.VerticalScrollBarVisibility="Auto">
-        
+
         <Grid
             MinWidth="500"
             MaxWidth="500"
             MinHeight="325"
             MaxHeight="325"
             Background="White">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="125"/>
                 <ColumnDefinition Width="50*"/>
