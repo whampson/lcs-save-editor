@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.DataTypes;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Data;
 
 namespace LcsSaveEditor.ViewModels
@@ -345,16 +346,19 @@ namespace LcsSaveEditor.ViewModels
 
         private void WriteHandSlot()
         {
+            m_suppressRefresh = true;
             if (m_hand == Weapon.BrassKnuckles) {
                 m_globals[m_ammoIndexMap[Weapon.BrassKnuckles]] = 1;
             }
             else {
                 m_globals[m_ammoIndexMap[Weapon.BrassKnuckles]] = 0;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteMeleeSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_meleeList) {
                 uint ammo = 0;
                 if (w == m_melee) {
@@ -362,10 +366,12 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteProjectileSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_projectileList) {
                 uint ammo = 0;
                 if (w == m_projectile) {
@@ -373,10 +379,12 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WritePistolSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_pistolList) {
                 uint ammo = 0;
                 if (w == m_pistol) {
@@ -388,6 +396,7 @@ namespace LcsSaveEditor.ViewModels
 
         private void WriteShotgunSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_shotgunList) {
                 uint ammo = 0;
                 if (w == m_shotgun) {
@@ -395,10 +404,12 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteSmgSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_smgList) {
                 uint ammo = 0;
                 if (w == m_smg) {
@@ -406,10 +417,12 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteAssaultSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_assaultList) {
                 uint ammo = 0;
                 if (w == m_assault) {
@@ -417,10 +430,12 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteHeavySlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_heavyList) {
                 uint ammo = 0;
                 if (w == m_heavy) {
@@ -428,10 +443,12 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteSniperSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_sniperList) {
                 uint ammo = 0;
                 if (w == m_sniper) {
@@ -439,16 +456,83 @@ namespace LcsSaveEditor.ViewModels
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
             }
+            m_suppressRefresh = false;
         }
 
         private void WriteSpecialSlot()
         {
+            m_suppressRefresh = true;
             foreach (Weapon w in m_specialList) {
                 uint ammo = 0;
                 if (w == m_special) {
                     ammo = m_specialAmmo;
                 }
                 m_globals[m_ammoIndexMap[w]] = ammo;
+            }
+            m_suppressRefresh = false;
+        }
+
+        private void RefreshWeaponSlot(int globalVarIndex)
+        {
+            if (m_suppressRefresh) {
+                return;
+            }
+
+            Weapon? changedWeapon = m_ammoIndexMap.FirstOrDefault(x => x.Value == globalVarIndex).Key;
+            switch (changedWeapon) {
+                case Weapon.BrassKnuckles:
+                    ReadHandSlot();
+                    break;
+                case Weapon.Chisel:
+                case Weapon.Axe:
+                case Weapon.HockeyStick:
+                case Weapon.NightStick:
+                case Weapon.BaseballBat:
+                case Weapon.Cleaver:
+                case Weapon.Katana:
+                case Weapon.Knife:
+                case Weapon.Machete:
+                case Weapon.Chainsaw:
+                    ReadMeleeSlot();
+                    break;
+                case Weapon.Molotovs:
+                case Weapon.Grenades:
+                case Weapon.RemoteGrenades:
+                case Weapon.TearGas:
+                    ReadProjectileSlot();
+                    break;
+                case Weapon.Pistol:
+                case Weapon.Python:
+                    ReadPistolSlot();
+                    break;
+                case Weapon.Shotgun:
+                case Weapon.StubbyShotgun:
+                case Weapon.Spas12:
+                    ReadShotgunSlot();
+                    break;
+                case Weapon.Tec9:
+                case Weapon.Mac10:
+                case Weapon.Mp5:
+                case Weapon.MicroSmg:
+                    ReadSmgSlot();
+                    break;
+                case Weapon.Ak:
+                case Weapon.M4:
+                    ReadAssaultSlot();
+                    break;
+                case Weapon.FlameThrower:
+                case Weapon.RocketLauncher:
+                case Weapon.Minigun:
+                case Weapon.M60:
+                    ReadHeavySlot();
+                    break;
+                case Weapon.SniperRifle:
+                case Weapon.LaserSightedSniperRifle:
+                    ReadSniperSlot();
+                    break;
+                case Weapon.Camera:
+                    ReadSpecialSlot();
+                    break;
             }
         }
     }

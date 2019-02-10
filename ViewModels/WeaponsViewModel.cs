@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
 using System.Collections.Generic;
@@ -75,13 +76,15 @@ namespace LcsSaveEditor.ViewModels
         private ListCollectionView m_specialList;
 
         private readonly Dictionary<Weapon?, int> m_ammoIndexMap;
-        private readonly ObservableCollection<uint> m_globals;
-        private SaveData m_saveData;
+        private readonly FullyObservableCollection<ScriptVariable> m_globals;
+        private bool m_suppressRefresh;
 
         public WeaponsViewModel()
             : base(Strings.PageHeaderWeapons)
         {
             m_ammoIndexMap = new Dictionary<Weapon?, int>();
+            m_globals = new FullyObservableCollection<ScriptVariable>();
+            m_suppressRefresh = false;
 
             InitWeaponLists();
         }
@@ -89,8 +92,9 @@ namespace LcsSaveEditor.ViewModels
         public WeaponsViewModel(SaveData saveData)
             : this()
         {
-            m_saveData = saveData;
             m_globals = saveData.Scripts.GlobalVariables;
+            m_globals.CollectionChanged += GlobalVariables_CollectionChanged;
+            m_globals.ItemPropertyChanged += GlobalVariables_ItemPropertyChanged;
 
             switch (saveData.FileType) {
                 case GamePlatform.Android:
