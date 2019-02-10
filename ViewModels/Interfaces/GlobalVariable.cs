@@ -11,6 +11,10 @@ namespace LcsSaveEditor.ViewModels
         private string m_name;
         private ScriptVariable m_value;
 
+        public GlobalVariable()
+            : this(string.Empty, new ScriptVariable())
+        { }
+
         public GlobalVariable(ScriptVariable value)
             : this(string.Empty, value)
         { }
