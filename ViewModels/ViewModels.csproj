@@ -48,6 +48,8 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commands\MainViewModel.Commands.cs" />
+    <Compile Include="GlobalVariablesViewModel.cs" />
+    <Compile Include="Interfaces\GlobalVariable.cs" />
     <Compile Include="Interfaces\PageViewModelBase.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="WeaponsViewModel.cs" />
@@ -86,6 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\WeaponsViewModel.Commands.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events\WeaponsViewModel.EventHandlers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events\GlobalVariablesViewModel.EventHandlers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
