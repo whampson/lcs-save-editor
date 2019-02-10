@@ -69,10 +69,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalVariablesView.xaml.cs">
+      <DependentUpon>GlobalVariablesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\PageViewBase.cs" />
     <Compile Include="WeaponsView.xaml.cs">
       <DependentUpon>WeaponsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="GlobalVariablesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
