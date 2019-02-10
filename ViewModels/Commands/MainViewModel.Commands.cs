@@ -186,6 +186,7 @@ namespace LcsSaveEditor.ViewModels
 
             if (IsFileOpen) {
                 Tabs.Add(new WeaponsViewModel(CurrentSaveData));
+                Tabs.Add(new GlobalVariablesViewModel(CurrentSaveData));
                 SelectedTabIndex = 0;
             }
         }
