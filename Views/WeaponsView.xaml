@@ -20,18 +20,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<v:PageViewBase x:Class="LcsSaveEditor.Views.WeaponsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
-             xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
-             xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
-             xmlns:v="clr-namespace:LcsSaveEditor.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="325" d:DesignWidth="500">
+<v:PageViewBase
+    x:Class="LcsSaveEditor.Views.WeaponsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
+    xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
+    xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
+    xmlns:v="clr-namespace:LcsSaveEditor.Views"
+    mc:Ignorable="d" 
+    d:DesignHeight="325" d:DesignWidth="500">
 
     <UserControl.Resources>
         <c:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
@@ -55,13 +56,17 @@ SOFTWARE.
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  ScrollViewer.VerticalScrollBarVisibility="Auto">
-        <Grid MinWidth="500"
-              MaxWidth="500"
-              MinHeight="325"
-              MaxHeight="325"
-              Background="White">
+    <ScrollViewer
+        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+        ScrollViewer.VerticalScrollBarVisibility="Auto">
+        
+        <Grid
+            MinWidth="500"
+            MaxWidth="500"
+            MinHeight="325"
+            MaxHeight="325"
+            Background="White">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="125"/>
                 <ColumnDefinition Width="50*"/>
@@ -80,129 +85,157 @@ SOFTWARE.
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <CheckBox Grid.Row="0" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotHand}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="true" IsEnabled="false"/>
-            <CheckBox Grid.Row="1" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotMelee}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasMelee}"/>
-            <CheckBox Grid.Row="2" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotProjectile}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasProjectile}"/>
-            <CheckBox Grid.Row="3" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotPistol}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasPistol}"/>
-            <CheckBox Grid.Row="4" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotShotgun}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasShotgun}"/>
-            <CheckBox Grid.Row="5" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotSmg}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasSmg}"/>
-            <CheckBox Grid.Row="6" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotAssault}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasAssault}"/>
-            <CheckBox Grid.Row="7" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotHeavy}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasHeavy}"/>
-            <CheckBox Grid.Row="8" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotSniper}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasSniper}"/>
-            <CheckBox Grid.Row="9" Grid.Column="0"
-                      Content="{x:Static r:Strings.WeaponSlotSpecial}"
-                      Style="{StaticResource CheckBoxStyle}"
-                      IsChecked="{Binding HasSpecial}"/>
+            <CheckBox
+                Grid.Row="0" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotHand}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="true" IsEnabled="false"/>
+            <CheckBox
+                Grid.Row="1" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotMelee}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasMelee}"/>
+            <CheckBox
+                Grid.Row="2" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotProjectile}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasProjectile}"/>
+            <CheckBox
+                Grid.Row="3" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotPistol}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasPistol}"/>
+            <CheckBox
+                Grid.Row="4" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotShotgun}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasShotgun}"/>
+            <CheckBox
+                Grid.Row="5" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotSmg}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasSmg}"/>
+            <CheckBox
+                Grid.Row="6" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotAssault}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasAssault}"/>
+            <CheckBox
+                Grid.Row="7" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotHeavy}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasHeavy}"/>
+            <CheckBox
+                Grid.Row="8" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotSniper}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasSniper}"/>
+            <CheckBox
+                Grid.Row="9" Grid.Column="0"
+                Content="{x:Static r:Strings.WeaponSlotSpecial}"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding HasSpecial}"/>
 
-            <ComboBox Grid.Row="0" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding HandList}"
-                      SelectedItem="{Binding Hand}"/>
-            <ComboBox Grid.Row="1" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding MeleeList}"
-                      SelectedItem="{Binding Melee}"
-                      IsEnabled="{Binding HasMelee}"/>
-            <ComboBox Grid.Row="2" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding ProjectileList}"
-                      SelectedItem="{Binding Projectile}"
-                      IsEnabled="{Binding HasProjectile}"/>
-            <ComboBox Grid.Row="3" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding PistolList}"
-                      SelectedItem="{Binding Pistol}"
-                      IsEnabled="{Binding HasPistol}"/>
-            <ComboBox Grid.Row="4" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding ShotgunList}"
-                      SelectedItem="{Binding Shotgun}"
-                      IsEnabled="{Binding HasShotgun}"/>
-            <ComboBox Grid.Row="5" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding SmgList}"
-                      SelectedItem="{Binding Smg}"
-                      IsEnabled="{Binding HasSmg}"/>
-            <ComboBox Grid.Row="6" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding AssaultList}"
-                      SelectedItem="{Binding Assault}"
-                      IsEnabled="{Binding HasAssault}"/>
-            <ComboBox Grid.Row="7" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding HeavyList}"
-                      SelectedItem="{Binding Heavy}"
-                      IsEnabled="{Binding HasHeavy}"/>
-            <ComboBox Grid.Row="8" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding SniperList}"
-                      SelectedItem="{Binding Sniper}"
-                      IsEnabled="{Binding HasSniper}"/>
-            <ComboBox Grid.Row="9" Grid.Column="1"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding SpecialList}"
-                      SelectedItem="{Binding Special}"
-                      IsEnabled="{Binding HasSpecial}"/>
+            <ComboBox
+                Grid.Row="0" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding HandList}"
+                SelectedItem="{Binding Hand}"/>
+            <ComboBox
+                Grid.Row="1" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding MeleeList}"
+                SelectedItem="{Binding Melee}"
+                IsEnabled="{Binding HasMelee}"/>
+            <ComboBox
+                Grid.Row="2" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding ProjectileList}"
+                SelectedItem="{Binding Projectile}"
+                IsEnabled="{Binding HasProjectile}"/>
+            <ComboBox
+                Grid.Row="3" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding PistolList}"
+                SelectedItem="{Binding Pistol}"
+                IsEnabled="{Binding HasPistol}"/>
+            <ComboBox
+                Grid.Row="4" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding ShotgunList}"
+                SelectedItem="{Binding Shotgun}"
+                IsEnabled="{Binding HasShotgun}"/>
+            <ComboBox
+                Grid.Row="5" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding SmgList}"
+                SelectedItem="{Binding Smg}"
+                IsEnabled="{Binding HasSmg}"/>
+            <ComboBox
+                Grid.Row="6" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding AssaultList}"
+                SelectedItem="{Binding Assault}"
+                IsEnabled="{Binding HasAssault}"/>
+            <ComboBox
+                Grid.Row="7" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding HeavyList}"
+                SelectedItem="{Binding Heavy}"
+                IsEnabled="{Binding HasHeavy}"/>
+            <ComboBox
+                Grid.Row="8" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding SniperList}"
+                SelectedItem="{Binding Sniper}"
+                IsEnabled="{Binding HasSniper}"/>
+            <ComboBox
+                Grid.Row="9" Grid.Column="1"
+                Style="{StaticResource ComboBoxStyle}"
+                ItemsSource="{Binding SpecialList}"
+                SelectedItem="{Binding Special}"
+                IsEnabled="{Binding HasSpecial}"/>
 
-            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding ProjectileAmmo}"
-                                IsEnabled="{Binding HasProjectile}"/>
-            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding PistolAmmo}"
-                                IsEnabled="{Binding HasPistol}"/>
-            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding ShotgunAmmo}"
-                                IsEnabled="{Binding HasShotgun}"/>
-            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding SmgAmmo}"
-                                IsEnabled="{Binding HasSmg}"/>
-            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding AssaultAmmo}"
-                                IsEnabled="{Binding HasAssault}"/>
-            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding HeavyAmmo}"
-                                IsEnabled="{Binding HasHeavy}"/>
-            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding SniperAmmo}"
-                                IsEnabled="{Binding HasSniper}"/>
-            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="2"
-                                Style="{StaticResource IntegerUpDownStyle}"
-                                Value="{Binding SpecialAmmo}"
-                                IsEnabled="{Binding HasSpecial}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="2" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding ProjectileAmmo}"
+                IsEnabled="{Binding HasProjectile}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="3" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding PistolAmmo}"
+                IsEnabled="{Binding HasPistol}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="4" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding ShotgunAmmo}"
+                IsEnabled="{Binding HasShotgun}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="5" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding SmgAmmo}"
+                IsEnabled="{Binding HasSmg}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="6" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding AssaultAmmo}"
+                IsEnabled="{Binding HasAssault}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="7" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding HeavyAmmo}"
+                IsEnabled="{Binding HasHeavy}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="8" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding SniperAmmo}"
+                IsEnabled="{Binding HasSniper}"/>
+            <xctk:IntegerUpDown
+                Grid.Row="9" Grid.Column="2"
+                Style="{StaticResource IntegerUpDownStyle}"
+                Value="{Binding SpecialAmmo}"
+                IsEnabled="{Binding HasSpecial}"/>
         </Grid>
 
     </ScrollViewer>
