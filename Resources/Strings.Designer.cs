@@ -359,6 +359,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Global Variables.
+        /// </summary>
+        public static string PageHeaderGlobalVariables {
+            get {
+                return ResourceManager.GetString("PageHeaderGlobalVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weapons.
         /// </summary>
         public static string PageHeaderWeapons {

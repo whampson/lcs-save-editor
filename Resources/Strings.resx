@@ -219,6 +219,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="MenuItemHeaderSaveAs" xml:space="preserve">
     <value>Save _As...</value>
   </data>
+  <data name="PageHeaderGlobalVariables" xml:space="preserve">
+    <value>Global Variables</value>
+  </data>
   <data name="PageHeaderWeapons" xml:space="preserve">
     <value>Weapons</value>
   </data>
