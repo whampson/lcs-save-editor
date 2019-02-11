@@ -279,7 +279,7 @@ namespace LcsSaveEditor.Models
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_globalVarsSize = r.ReadUInt32();
                 for (int i = 0; i < m_globalVarsSize / 4; i++) {
-                    m_globalVars.Add(Deserialize<ScriptVariable>(stream));
+                    m_globalVars.Add(r.ReadUInt32());
                 }
                 m_unknown = r.ReadUInt32();
                 m_onMissionFlag = r.ReadUInt32();
@@ -320,7 +320,7 @@ namespace LcsSaveEditor.Models
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.Write(m_globalVarsSize);
                 for (int i = 0; i < m_globalVarsSize / 4; i++) {
-                    Serialize(m_globalVars[i], stream);
+                    w.Write(m_globalVars[i]);
                 }
                 w.Write(m_unknown);
                 w.Write(m_onMissionFlag);
