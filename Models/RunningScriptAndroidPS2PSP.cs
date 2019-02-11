@@ -40,6 +40,8 @@ namespace LcsSaveEditor.Models
 
         protected override long DeserializeObject(Stream stream)
         {
+            m_isSerializing = true;
+
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_nextScript = r.ReadUInt32();
@@ -72,11 +74,14 @@ namespace LcsSaveEditor.Models
                 m_unknown21A = r.ReadUInt16();
             }
 
+            m_isSerializing = false;
             return stream.Position - start;
         }
 
         protected override long SerializeObject(Stream stream)
         {
+            m_isSerializing = true;
+
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.Write(m_nextScript);
@@ -109,6 +114,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown21A);
             }
 
+            m_isSerializing = false;
             return stream.Position - start;
         }
     }

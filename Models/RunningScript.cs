@@ -21,11 +21,10 @@
  */
 #endregion
 
-using System.Collections.ObjectModel;
+using System;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using System.IO;
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Resources;
 
 namespace LcsSaveEditor.Models
 {
@@ -37,14 +36,16 @@ namespace LcsSaveEditor.Models
         public const int ReturnStackCount = 16;
         public const int LocalVariablesCount = 104;
 
+        protected bool m_isSerializing;
+
         protected uint m_nextScript;
         protected uint m_prevScript;
         protected uint m_threadId;
         protected string m_name;
-        protected uint m_instructionPointer;
-        protected ObservableCollection<uint> m_returnStack;
+        protected ScriptAddress m_instructionPointer;
+        protected FullyObservableCollection<ScriptAddress> m_returnStack;
         protected ushort m_returnStackTop;
-        protected ObservableCollection<uint> m_localVariables;
+        protected FullyObservableCollection<ScriptVariable> m_localVariables;
         protected uint m_timer1;
         protected uint m_timer2;
         protected bool m_ifResult;
@@ -59,11 +60,13 @@ namespace LcsSaveEditor.Models
 
         public RunningScript()
         {
-            m_returnStack = new ObservableCollection<uint>();
-            m_localVariables = new ObservableCollection<uint>();
+            m_returnStack = new FullyObservableCollection<ScriptAddress>();
+            m_localVariables = new FullyObservableCollection<ScriptVariable>();
 
             m_returnStack.CollectionChanged += ReturnStack_CollectionChanged;
+            m_returnStack.ItemPropertyChanged += ReturnStack_ItemPropertyChanged;
             m_localVariables.CollectionChanged += LocalVariables_CollectionChanged;
+            m_localVariables.ItemPropertyChanged += LocalVariables_ItemPropertyChanged;
         }
 
         public uint NextScriptPointer
@@ -90,13 +93,13 @@ namespace LcsSaveEditor.Models
             set { m_name = value; OnPropertyChanged(); }
         }
 
-        public uint InstructionPointer
+        public ScriptAddress InstructionPointer
         {
             get { return m_instructionPointer; }
             set { m_instructionPointer = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<uint> ReturnStack
+        public FullyObservableCollection<ScriptAddress> ReturnStack
         {
             get { return m_returnStack; }
         }
@@ -107,7 +110,7 @@ namespace LcsSaveEditor.Models
             set { m_returnStackTop = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<uint> LocalVariables
+        public FullyObservableCollection<ScriptVariable> LocalVariables
         {
             get { return m_localVariables; }
         }
@@ -185,14 +188,48 @@ namespace LcsSaveEditor.Models
                 nameof(ThreadId), ThreadId);
         }
 
-        private void LocalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnPropertyChanged(nameof(LocalVariables));
-        }
-
         private void ReturnStack_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(ReturnStack));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(ReturnStack));
+                    throw new NotSupportedException(msg);
+            }
+        }
+
+        private void ReturnStack_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
             OnPropertyChanged(nameof(ReturnStack));
+        }
+
+        private void LocalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(LocalVariables));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(LocalVariables));
+                    throw new NotSupportedException(msg);
+            }
+        }
+
+        private void LocalVariables_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(LocalVariables));
         }
     }
 }
