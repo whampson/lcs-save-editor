@@ -30,21 +30,52 @@ namespace LcsSaveEditor.ViewModels
     {
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (m_suppressGlobalVariablesChanged) {
+                return;
+            }
+
+            m_suppressNamedGlobalVariablesChanged = true;
             switch (e.Action) {
                 case NotifyCollectionChangedAction.Add:
                     for (int i = 0; i < e.NewItems.Count; i++) {
-                        m_namedVariables.Insert(e.NewStartingIndex + i, new GlobalVariable((ScriptVariable) e.NewItems[i]));
+                        m_namedGlobalVariables.Insert(e.NewStartingIndex + i, new NamedScriptVariable((ScriptVariable) e.NewItems[i]));
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     for (int i = 0; i < e.OldItems.Count; i++) {
-                        m_namedVariables.RemoveAt(e.OldStartingIndex);
+                        m_namedGlobalVariables.RemoveAt(e.OldStartingIndex);
                     }
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    m_namedVariables[e.NewStartingIndex].Value = (ScriptVariable) e.NewItems[0];
+                    m_namedGlobalVariables[e.NewStartingIndex].Value = (ScriptVariable) e.NewItems[0];
                     break;
             }
+            m_suppressNamedGlobalVariablesChanged = false;
+        }
+
+        private void NamedGlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (m_suppressNamedGlobalVariablesChanged) {
+                return;
+            }
+
+            m_suppressGlobalVariablesChanged = true;
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Add:
+                    for (int i = 0; i < e.NewItems.Count; i++) {
+                        m_globalVariables.Insert(e.NewStartingIndex + i, ((NamedScriptVariable) e.NewItems[i]).Value);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    for (int i = 0; i < e.OldItems.Count; i++) {
+                        m_globalVariables.RemoveAt(e.OldStartingIndex);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    m_globalVariables[e.NewStartingIndex] = ((NamedScriptVariable) e.NewItems[0]).Value;
+                    break;
+            }
+            m_suppressGlobalVariablesChanged = false;
         }
     }
 }
