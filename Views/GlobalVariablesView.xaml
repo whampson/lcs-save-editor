@@ -51,26 +51,55 @@ SOFTWARE.
             <RowDefinition Height="65"/>
         </Grid.RowDefinitions>
 
-        <!-- Allow DataGrid columns to be hidden -->
+        <!-- Needed to allow DataGrid columns to be hidden via CheckBox -->
         <FrameworkElement x:Name="ProxyElement" Visibility="Collapsed"/>
 
         <DataGrid
             Grid.Row="0"
-            ItemsSource="{Binding GlobalVariables}"
+            Name="dg"
+            ItemsSource="{Binding NamedGlobalVariables}"
+            SelectedIndex="{Binding SelectedRow}"
             HorizontalAlignment="Center"
             ScrollViewer.CanContentScroll="True"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             AutoGenerateColumns="False"
             CanUserSortColumns="False"
-            CanUserResizeRows="False"
+            CanUserReorderColumns="True"
+            CanUserResizeColumns="True"
             CanUserAddRows="True"
+            CanUserDeleteRows="True"
+            CanUserResizeRows="False"
+            Loaded="DataGrid_Loaded"
             LoadingRow="DataGrid_LoadingRow">
+
+            <DataGrid.Resources>
+                <ContextMenu
+                    x:Key="RowContextMenu"
+                    DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                    <MenuItem
+                        Command="{Binding Path=DataContext.InsertRowAboveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                        Header="Insert Above"/>
+                    <MenuItem
+                        Command="{Binding Path=DataContext.InsertRowBelowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                        Header="Insert Below"/>
+                    <MenuItem
+                        Command="{Binding Path=DataContext.DeleteRowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
+                        Header="Delete"/>
+                </ContextMenu>
+            </DataGrid.Resources>
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}"/>
+                </Style>
+            </DataGrid.RowStyle>
 
             <DataGrid.RowHeaderTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Header, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
                 </DataTemplate>
             </DataGrid.RowHeaderTemplate>
+
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="40*"
@@ -94,7 +123,7 @@ SOFTWARE.
                 <DataGridTemplateColumn
                     Width="25*"
                     Header="{x:Static r:Strings.FieldValueBoolean}"
-                    Visibility="{Binding DataContext.IsShowingColumnBoolean, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}">
+                    Visibility="{Binding Path=DataContext.IsShowingColumnBoolean, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox
