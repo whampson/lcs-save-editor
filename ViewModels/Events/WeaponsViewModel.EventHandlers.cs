@@ -31,13 +31,26 @@ namespace LcsSaveEditor.ViewModels
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             // Detect external changes made to global variables list
-			//for ()
-   //         RefreshWeaponSlot();
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Replace:
+                    for (int i = 0; i < e.NewItems.Count; i++) {
+                        RefreshWeaponSlot(e.NewStartingIndex + i);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    for (int i = 0; i < e.OldItems.Count; i++) {
+                        RefreshWeaponSlot(e.OldStartingIndex + i);
+                    }
+                    break;
+            }
         }
 
         private void GlobalVariables_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
         {
             // Detect external changes made to individual global variables
+
             RefreshWeaponSlot(e.CollectionIndex);
         }
     }
