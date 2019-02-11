@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Resources;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -39,6 +40,8 @@ namespace LcsSaveEditor.Models
         public const int CollectiveArrayCount = 32;
         public const int BuildingSwapArrayCount = 80;
         public const int InvisibilitySettingArrayCount = 52;
+
+        protected bool m_isSerializing;
 
         protected uint m_globalVarsSize;
         protected FullyObservableCollection<ScriptVariable> m_globalVars;
@@ -158,6 +161,17 @@ namespace LcsSaveEditor.Models
 
         private void GlobalVars_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Remove:
+                case NotifyCollectionChangedAction.Reset:
+                    m_globalVarsSize = (uint) (m_globalVars.Count * 4);
+                    break;
+            }
             OnPropertyChanged(nameof(GlobalVariables));
         }
 
@@ -168,7 +182,19 @@ namespace LcsSaveEditor.Models
 
         private void CollectiveArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(CollectiveArray));
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(CollectiveArray));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(CollectiveArray));
+                    throw new NotSupportedException(msg);
+            }
         }
 
         private void CollectiveArray_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
@@ -178,7 +204,19 @@ namespace LcsSaveEditor.Models
 
         private void BuildingSwapArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(BuildingSwapArray));
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(BuildingSwapArray));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(BuildingSwapArray));
+                    throw new NotSupportedException(msg);
+            }
         }
 
         private void BuildingSwapArray_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
@@ -188,7 +226,19 @@ namespace LcsSaveEditor.Models
 
         private void InvisibilitySettingArray_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(InvisibilitySettingArray));
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(InvisibilitySettingArray));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(InvisibilitySettingArray));
+                    throw new NotSupportedException(msg);
+            }
         }
 
         private void InvisibilitySettingArray_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
@@ -198,6 +248,17 @@ namespace LcsSaveEditor.Models
 
         private void RunningScripts_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Remove:
+                case NotifyCollectionChangedAction.Reset:
+                    m_numberOfExclusiveMissionScripts = (ushort) m_runningScripts.Count;
+                    break;
+            }
             OnPropertyChanged(nameof(RunningScripts));
         }
 
@@ -212,6 +273,8 @@ namespace LcsSaveEditor.Models
     {
         protected override long DeserializeObject(Stream stream)
         {
+            m_isSerializing = true;
+
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_globalVarsSize = r.ReadUInt32();
@@ -245,11 +308,14 @@ namespace LcsSaveEditor.Models
                 }
             }
 
+            m_isSerializing = false;
             return stream.Position - start;
         }
 
         protected override long SerializeObject(Stream stream)
         {
+            m_isSerializing = true;
+
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.Write(m_globalVarsSize);
@@ -283,6 +349,7 @@ namespace LcsSaveEditor.Models
                 }
             }
 
+            m_isSerializing = false;
             return stream.Position - start;
         }
     }
