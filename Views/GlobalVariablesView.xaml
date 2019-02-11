@@ -66,11 +66,23 @@ SOFTWARE.
             CanUserSortColumns="False"
             CanUserReorderColumns="True"
             CanUserResizeColumns="True"
-            CanUserAddRows="True"
-            CanUserDeleteRows="True"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
             CanUserResizeRows="False"
             Loaded="DataGrid_Loaded"
             LoadingRow="DataGrid_LoadingRow">
+
+            <DataGrid.InputBindings>
+                <KeyBinding
+                    Command="{Binding InsertRowAboveCommand}"
+                    Key="Insert"/>
+                <KeyBinding
+                    Command="{Binding InsertRowBelowCommand}"
+                    Key="Insert" Modifiers="Shift"/>
+                <KeyBinding
+                    Command="{Binding DeleteRowCommand}"
+                    Key="Delete"/>
+            </DataGrid.InputBindings>
 
             <DataGrid.Resources>
                 <ContextMenu
@@ -78,13 +90,16 @@ SOFTWARE.
                     DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                     <MenuItem
                         Command="{Binding Path=DataContext.InsertRowAboveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Header="Insert Above"/>
+                        Header="{x:Static r:Strings.MenuItemHeaderInsertAbove}"
+                        InputGestureText="Ins"/>
                     <MenuItem
                         Command="{Binding Path=DataContext.InsertRowBelowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Header="Insert Below"/>
+                        Header="{x:Static r:Strings.MenuItemHeaderInsertBelow}"
+                        InputGestureText="Shift+Ins"/>
                     <MenuItem
                         Command="{Binding Path=DataContext.DeleteRowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Header="Delete"/>
+                        Header="{x:Static r:Strings.MenuItemHeaderDelete}"
+                        InputGestureText="Del"/>
                 </ContextMenu>
             </DataGrid.Resources>
 
