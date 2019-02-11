@@ -31,6 +31,7 @@ namespace LcsSaveEditor.ViewModels
     {
         private FullyObservableCollection<ScriptVariable> m_globalVariables;
         private FullyObservableCollection<NamedScriptVariable> m_namedGlobalVariables;
+        private int m_selectedRow;
         private bool m_isShowingColumnInt32;
         private bool m_isShowingColumnUInt32;
         private bool m_isShowingColumnFloat;
@@ -42,6 +43,7 @@ namespace LcsSaveEditor.ViewModels
             : base(Strings.PageHeaderGlobalVariables)
         {
             m_namedGlobalVariables = new FullyObservableCollection<NamedScriptVariable>();
+            m_selectedRow = -1;
             m_isShowingColumnInt32 = true;
             m_isShowingColumnUInt32 = false;
             m_isShowingColumnFloat = true;
@@ -64,6 +66,12 @@ namespace LcsSaveEditor.ViewModels
         {
             get { return m_namedGlobalVariables; }
             set { m_namedGlobalVariables = value; OnPropertyChanged(); }
+        }
+
+        public int SelectedRow
+        {
+            get { return m_selectedRow; }
+            set { m_selectedRow = value; OnPropertyChanged(); }
         }
 
         public bool IsShowingColumnInt32
