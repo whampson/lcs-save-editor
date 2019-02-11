@@ -56,12 +56,13 @@ SOFTWARE.
 
         <DataGrid
             Grid.Row="0"
-            Name="dg"
+            Name="m_dataGrid"
             ItemsSource="{Binding NamedGlobalVariables}"
             SelectedIndex="{Binding SelectedRow}"
             HorizontalAlignment="Center"
             ScrollViewer.CanContentScroll="True"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
+            SelectionMode="Single"
             AutoGenerateColumns="False"
             CanUserSortColumns="False"
             CanUserReorderColumns="True"
@@ -70,6 +71,7 @@ SOFTWARE.
             CanUserDeleteRows="False"
             CanUserResizeRows="False"
             Loaded="DataGrid_Loaded"
+            Unloaded="DataGrid_Unloaded"
             LoadingRow="DataGrid_LoadingRow">
 
             <DataGrid.InputBindings>
@@ -123,17 +125,17 @@ SOFTWARE.
                 <DataGridTextColumn
                     Width="25*"
                     Header="{x:Static r:Strings.FieldValueInt32}"
-                    Binding="{Binding Path=Value.ValueInt32, UpdateSourceTrigger=PropertyChanged}"
+                    Binding="{Binding Path=ValueInt32, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding DataContext.IsShowingColumnInt32,Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}"/>
                 <DataGridTextColumn
                     Width="25*"
                     Header="{x:Static r:Strings.FieldValueUInt32}"
-                    Binding="{Binding Path=Value.ValueUInt32, UpdateSourceTrigger=PropertyChanged}"
+                    Binding="{Binding Path=ValueUInt32, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding DataContext.IsShowingColumnUInt32, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}"/>
                 <DataGridTextColumn
                     Width="25*"
                     Header="{x:Static r:Strings.FieldValueFloat}"
-                    Binding="{Binding Path=Value.ValueSingle, UpdateSourceTrigger=PropertyChanged}"
+                    Binding="{Binding Path=ValueSingle, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding DataContext.IsShowingColumnFloat, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}"/>
                 <DataGridTemplateColumn
                     Width="25*"
@@ -144,7 +146,7 @@ SOFTWARE.
                             <CheckBox
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                IsChecked="{Binding Path=Value.ValueBoolean, UpdateSourceTrigger=PropertyChanged}"/>
+                                IsChecked="{Binding Path=ValueBoolean, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
