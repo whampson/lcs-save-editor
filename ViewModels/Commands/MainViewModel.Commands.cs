@@ -59,7 +59,7 @@ namespace LcsSaveEditor.ViewModels
         {
             get {
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
-                    (x) => ShowOpenFileDialog(FileDialog_ResultAction),
+                    (x) => ShowSaveFileDialog(FileDialog_ResultAction),
                     (x) => IsFileOpen);
             }
         }
@@ -224,7 +224,7 @@ namespace LcsSaveEditor.ViewModels
         {
             OnFileDialogRequested(new FileDialogEventArgs(
                 FileDialogType.OpenDialog,
-                filter: Strings.FileFilterSaveData,
+                //filter: Strings.FileFilterSaveData,
                 title: Strings.DialogTitleOpenFile,
                 resultAction: resultAction));
         }
@@ -234,7 +234,7 @@ namespace LcsSaveEditor.ViewModels
             OnFileDialogRequested(new FileDialogEventArgs(
                 FileDialogType.SaveDialog,
                 fileName: Path.GetFileName(MostRecentFilePath),
-                filter: Strings.FileFilterSaveData,
+                //filter: Strings.FileFilterSaveData,
                 title: Strings.DialogTitleSaveFileAs,
                 resultAction: resultAction));
         }
