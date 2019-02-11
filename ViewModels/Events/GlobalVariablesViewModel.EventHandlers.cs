@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.Models;
+using System;
 using System.Collections.Specialized;
 
 namespace LcsSaveEditor.ViewModels
@@ -47,7 +48,9 @@ namespace LcsSaveEditor.ViewModels
                     }
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    m_namedGlobalVariables[e.NewStartingIndex].Value = (ScriptVariable) e.NewItems[0];
+                    for (int i = 0; i < e.NewItems.Count; i++) {
+                        m_namedGlobalVariables[e.NewStartingIndex + i].Value = (ScriptVariable) e.NewItems[i];
+                    }
                     break;
             }
             m_suppressNamedGlobalVariablesChanged = false;
@@ -72,7 +75,9 @@ namespace LcsSaveEditor.ViewModels
                     }
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    m_globalVariables[e.NewStartingIndex] = ((NamedScriptVariable) e.NewItems[0]).Value;
+                    for (int i = 0; i < e.NewItems.Count; i++) {
+                        m_globalVariables[e.NewStartingIndex + i] = ((NamedScriptVariable) e.NewItems[i]).Value;
+                    }
                     break;
             }
             m_suppressGlobalVariablesChanged = false;
