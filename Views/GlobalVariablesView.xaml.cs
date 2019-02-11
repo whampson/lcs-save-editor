@@ -44,10 +44,22 @@ namespace LcsSaveEditor.Views
         {
             // Register items source CollectionChanged listener
 
-            if (!(dg.ItemsSource is ObservableCollection<NamedScriptVariable> itemsSource)) {
+            if (!(m_dataGrid.ItemsSource is ObservableCollection<NamedScriptVariable> itemsSource)) {
                 return;
             }
+
             itemsSource.CollectionChanged += ItemsSource_CollectionChanged;
+        }
+
+        private void DataGrid_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // Unregister items source CollectionChanged listener
+
+            if (!(m_dataGrid.ItemsSource is ObservableCollection<NamedScriptVariable> itemsSource)) {
+                return;
+            }
+
+            itemsSource.CollectionChanged -= ItemsSource_CollectionChanged;
         }
 
         private void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -66,7 +78,7 @@ namespace LcsSaveEditor.Views
             switch (e.Action) {
                 case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Remove:
-                    dg.Items.Refresh();
+                    m_dataGrid.Items.Refresh();
                     break;
             }
         }
