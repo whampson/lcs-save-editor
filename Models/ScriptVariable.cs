@@ -122,6 +122,16 @@ namespace LcsSaveEditor.Models
             return new ScriptVariable { ValueUInt32 = v };
         }
 
+        public static implicit operator int(ScriptVariable v)
+        {
+            return v.ValueInt32;
+        }
+
+        public static implicit operator ScriptVariable(int v)
+        {
+            return new ScriptVariable { ValueInt32 = v };
+        }
+
         public static explicit operator float(ScriptVariable v)
         {
             return v.ValueSingle;
