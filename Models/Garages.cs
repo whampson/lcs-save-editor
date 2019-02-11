@@ -30,6 +30,7 @@ using System.Text;
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Extensions;
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Resources;
 
 namespace LcsSaveEditor.Models
 {
@@ -42,6 +43,8 @@ namespace LcsSaveEditor.Models
     {
         public const int StoredCarsCount = 48;
         public const int GarageObjectsCount = 32;
+
+        protected bool m_isSerializing;
 
         protected uint m_numGarages;
         protected bool m_bombsAreFree;
@@ -113,7 +116,19 @@ namespace LcsSaveEditor.Models
 
         private void StoredCars_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(StoredCars));
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(StoredCars));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(StoredCars));
+                    throw new NotSupportedException(msg);
+            }
         }
 
         private void StoredCars_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
@@ -123,7 +138,19 @@ namespace LcsSaveEditor.Models
 
         private void GarageObjects_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(nameof(GarageObjects));
+            if (m_isSerializing) {
+                return;
+            }
+
+            switch (e.Action) {
+                case NotifyCollectionChangedAction.Move:
+                case NotifyCollectionChangedAction.Replace:
+                    OnPropertyChanged(nameof(GarageObjects));
+                    break;
+                default:
+                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(GarageObjects));
+                    throw new NotSupportedException(msg);
+            }
         }
 
         private void GarageObjects_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
@@ -137,6 +164,8 @@ namespace LcsSaveEditor.Models
     {
         protected override long DeserializeObject(Stream stream)
         {
+            m_isSerializing = true;
+
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 m_numGarages = r.ReadUInt32();
@@ -161,11 +190,14 @@ namespace LcsSaveEditor.Models
                 }
             }
 
+            m_isSerializing = false;
             return stream.Position - start;
         }
 
         protected override long SerializeObject(Stream stream)
         {
+            m_isSerializing = true;
+
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.Write(m_numGarages);
@@ -188,6 +220,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown);
             }
 
+            m_isSerializing = false;
             return stream.Position - start;
         }
     }
