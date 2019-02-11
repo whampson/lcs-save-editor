@@ -6,20 +6,20 @@ namespace LcsSaveEditor.ViewModels
     /// <summary>
     /// Represents a named <see cref="ScriptVariable"/>.
     /// </summary>
-    public class GlobalVariable : ObservableObject
+    public class NamedScriptVariable : ObservableObject
     {
         private string m_name;
         private ScriptVariable m_value;
 
-        public GlobalVariable()
+        public NamedScriptVariable()
             : this(string.Empty, new ScriptVariable())
         { }
 
-        public GlobalVariable(ScriptVariable value)
+        public NamedScriptVariable(ScriptVariable value)
             : this(string.Empty, value)
         { }
 
-        public GlobalVariable(string name, ScriptVariable value)
+        public NamedScriptVariable(string name, ScriptVariable value)
         {
             m_name = name;
             m_value = value;

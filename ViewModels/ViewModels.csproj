@@ -49,7 +49,7 @@
     </Compile>
     <Compile Include="Commands\MainViewModel.Commands.cs" />
     <Compile Include="GlobalVariablesViewModel.cs" />
-    <Compile Include="Interfaces\GlobalVariable.cs" />
+    <Compile Include="Interfaces\NamedScriptVariable.cs" />
     <Compile Include="Interfaces\PageViewModelBase.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="WeaponsViewModel.cs" />
