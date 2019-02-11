@@ -51,6 +51,55 @@ SOFTWARE.
         <DataTemplate DataType="{x:Type vm:GlobalVariablesViewModel}">
             <v:GlobalVariablesView/>
         </DataTemplate>
+
+        <!-- Component styles -->
+        <Style x:Key="TabControlStyle" TargetType="{x:Type v:TabControlEx}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <!-- Template code to render TabControlEx. Adapted from http://stackoverflow.com/a/9802346. -->
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid
+                            Background="{TemplateBinding Background}"
+                            ClipToBounds="True"
+                            KeyboardNavigation.TabNavigation="Local"
+                            SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="0"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <DockPanel Margin="2,2,0,0" LastChildFill="False">
+                                <TabPanel
+                                    x:Name="HeaderPanel"
+                                    Margin="0,0,0,-1"
+                                    VerticalAlignment="Bottom"
+                                    Panel.ZIndex="1"
+                                    DockPanel.Dock="Left"
+                                    IsItemsHost="True"
+                                    KeyboardNavigation.TabIndex="1"/>
+                            </DockPanel>
+                            <Border
+                                x:Name="ContentPanel"
+                                Grid.Row="1" Grid.Column="0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                KeyboardNavigation.DirectionalNavigation="Contained"
+                                KeyboardNavigation.TabIndex="2"
+                                KeyboardNavigation.TabNavigation="Local">
+                                <Grid
+                                    x:Name="PART_ItemsHolder"
+                                    Margin="{TemplateBinding Padding}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Window.InputBindings>
@@ -119,9 +168,11 @@ SOFTWARE.
 
             </Menu>
 
-            <TabControl
+            <v:TabControlEx
                 DockPanel.Dock="Top"
+                Style="{StaticResource TabControlStyle}"
                 ItemsSource="{Binding Tabs}"
+                IsSynchronizedWithCurrentItem="True"
                 SelectedIndex="{Binding SelectedTabIndex}">
 
                 <TabControl.ItemTemplate>
@@ -129,7 +180,7 @@ SOFTWARE.
                         <TextBlock Text="{Binding Header}"/>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
-            </TabControl>
+            </v:TabControlEx>
         </DockPanel>
 
         <StatusBar Grid.Row="1" Background="White">
