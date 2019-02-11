@@ -195,6 +195,10 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="ExceptionOops" xml:space="preserve">
     <value>You weren't supposed to be able to get here, you know.</value>
   </data>
+  <data name="ExceptionStaticArray" xml:space="preserve">
+    <value>'{0}' is a static array; it cannot be resized.</value>
+    <comment>{0} = array name</comment>
+  </data>
   <data name="FieldName" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -228,8 +232,17 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="MenuItemHeaderClose" xml:space="preserve">
     <value>_Close</value>
   </data>
+  <data name="MenuItemHeaderDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="MenuItemHeaderExit" xml:space="preserve">
     <value>E_xit</value>
+  </data>
+  <data name="MenuItemHeaderInsertAbove" xml:space="preserve">
+    <value>Insert Above</value>
+  </data>
+  <data name="MenuItemHeaderInsertBelow" xml:space="preserve">
+    <value>Insert Below</value>
   </data>
   <data name="MenuItemHeaderOpen" xml:space="preserve">
     <value>_Open...</value>

@@ -287,6 +287,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is a static array; it cannot be resized..
+        /// </summary>
+        public static string ExceptionStaticArray {
+            get {
+                return ResourceManager.GetString("ExceptionStaticArray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string FieldName {
@@ -386,11 +395,38 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string MenuItemHeaderDelete {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E_xit.
         /// </summary>
         public static string MenuItemHeaderExit {
             get {
                 return ResourceManager.GetString("MenuItemHeaderExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Above.
+        /// </summary>
+        public static string MenuItemHeaderInsertAbove {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderInsertAbove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Below.
+        /// </summary>
+        public static string MenuItemHeaderInsertBelow {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderInsertBelow", resourceCulture);
             }
         }
         
