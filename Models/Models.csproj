@@ -64,6 +64,7 @@
     <Compile Include="RunningScriptIOS.cs" />
     <Compile Include="RunningScriptAndroidPS2PSP.cs" />
     <Compile Include="SaveDataPSP.cs" />
+    <Compile Include="ScriptAddress.cs" />
     <Compile Include="ScriptVariable.cs" />
     <Compile Include="SimpleVarsPSP.cs" />
     <Compile Include="StaticReplacement.cs" />
