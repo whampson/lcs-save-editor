@@ -31,7 +31,7 @@ using System.Windows.Input;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class MainViewModel
+    public partial class MainViewModel : ObservableObject
     {
         public ICommand OpenFileCommand
         {

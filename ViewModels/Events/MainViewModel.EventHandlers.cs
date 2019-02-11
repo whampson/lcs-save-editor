@@ -27,7 +27,7 @@ using System.Windows;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class MainViewModel
+    public partial class MainViewModel : ObservableObject
     {
         private void CurrentSaveData_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {

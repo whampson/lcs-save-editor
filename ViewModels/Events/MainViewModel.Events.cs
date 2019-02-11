@@ -26,23 +26,23 @@ using System;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class MainViewModel
+    public partial class MainViewModel : ObservableObject
     {
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequested;
         public event EventHandler<FileDialogEventArgs> FileDialogRequested;
         public event EventHandler<EventArgs> AboutDialogRequested;
 
-        protected void OnMessageBoxRequested(MessageBoxEventArgs e)
+        private void OnMessageBoxRequested(MessageBoxEventArgs e)
         {
             MessageBoxRequested?.Invoke(this, e);
         }
 
-        protected void OnFileDialogRequested(FileDialogEventArgs e)
+        private void OnFileDialogRequested(FileDialogEventArgs e)
         {
             FileDialogRequested?.Invoke(this, e);
         }
 
-        protected void OnAboutDialogRequested(EventArgs e)
+        private void OnAboutDialogRequested(EventArgs e)
         {
             AboutDialogRequested?.Invoke(this, e);
         }

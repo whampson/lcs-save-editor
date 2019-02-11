@@ -28,7 +28,7 @@ using System.Windows.Data;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class WeaponsViewModel
+    public partial class WeaponsViewModel : PageViewModelBase
     {
         private void InitWeaponLists()
         {

@@ -26,7 +26,7 @@ using System.Collections.Specialized;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class WeaponsViewModel
+    public partial class WeaponsViewModel : PageViewModelBase
     {
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
