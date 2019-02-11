@@ -29,16 +29,19 @@ namespace LcsSaveEditor.ViewModels
 {
     public partial class GlobalVariablesViewModel : PageViewModelBase
     {
-        private FullyObservableCollection<GlobalVariable> m_namedVariables;
+        private FullyObservableCollection<ScriptVariable> m_globalVariables;
+        private FullyObservableCollection<NamedScriptVariable> m_namedGlobalVariables;
         private bool m_isShowingColumnInt32;
         private bool m_isShowingColumnUInt32;
         private bool m_isShowingColumnFloat;
         private bool m_isShowingColumnBoolean;
+        private bool m_suppressGlobalVariablesChanged;
+        private bool m_suppressNamedGlobalVariablesChanged;
 
         public GlobalVariablesViewModel()
             : base(Strings.PageHeaderGlobalVariables)
         {
-            m_namedVariables = new FullyObservableCollection<GlobalVariable>();
+            m_namedGlobalVariables = new FullyObservableCollection<NamedScriptVariable>();
             m_isShowingColumnInt32 = true;
             m_isShowingColumnUInt32 = false;
             m_isShowingColumnFloat = true;
@@ -48,16 +51,19 @@ namespace LcsSaveEditor.ViewModels
         public GlobalVariablesViewModel(SaveData saveData)
             : this()
         {
-            foreach (ScriptVariable v in saveData.Scripts.GlobalVariables) {
-                m_namedVariables.Add(new GlobalVariable(v));
+            m_globalVariables = saveData.Scripts.GlobalVariables;
+            foreach (ScriptVariable v in m_globalVariables) {
+                m_namedGlobalVariables.Add(new NamedScriptVariable(v));
             }
-            saveData.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+
+            m_globalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+            m_namedGlobalVariables.CollectionChanged += NamedGlobalVariables_CollectionChanged;
         }
 
-        public FullyObservableCollection<GlobalVariable> GlobalVariables
+        public FullyObservableCollection<NamedScriptVariable> NamedGlobalVariables
         {
-            get { return m_namedVariables; }
-            set { m_namedVariables = value; OnPropertyChanged(); }
+            get { return m_namedGlobalVariables; }
+            set { m_namedGlobalVariables = value; OnPropertyChanged(); }
         }
 
         public bool IsShowingColumnInt32
