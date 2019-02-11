@@ -22,7 +22,6 @@
 #endregion
 
 using LcsSaveEditor.Infrastructure;
-using System;
 using System.IO;
 using System.Text;
 
@@ -35,56 +34,10 @@ namespace LcsSaveEditor.Models
     {
         private uint m_value;
 
-        public uint ValueUInt32
+        public uint Value
         {
             get { return m_value; }
-            set {
-                m_value = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public int ValueInt32
-        {
-            get { return (int) m_value; }
-            set {
-                unchecked {
-                    m_value = (uint) value;
-                }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public float ValueSingle
-        {
-            get {
-                return BitConverter.ToSingle(BitConverter.GetBytes(m_value), 0);
-            }
-            set {
-                m_value = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public bool ValueBoolean
-        {
-            get { return m_value != 0; }
-            set {
-                m_value = value ? 1U : 0U;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-            }
+            set { m_value = value; OnPropertyChanged(); }
         }
 
         protected override long DeserializeObject(Stream stream)
@@ -109,47 +62,17 @@ namespace LcsSaveEditor.Models
 
         public override string ToString()
         {
-            return ValueUInt32.ToString();
+            return Value.ToString();
         }
 
         public static implicit operator uint(ScriptVariable v)
         {
-            return v.ValueUInt32;
+            return v.Value;
         }
 
         public static implicit operator ScriptVariable(uint v)
         {
-            return new ScriptVariable { ValueUInt32 = v };
-        }
-
-        public static implicit operator int(ScriptVariable v)
-        {
-            return v.ValueInt32;
-        }
-
-        public static implicit operator ScriptVariable(int v)
-        {
-            return new ScriptVariable { ValueInt32 = v };
-        }
-
-        public static explicit operator float(ScriptVariable v)
-        {
-            return v.ValueSingle;
-        }
-
-        public static explicit operator ScriptVariable(float v)
-        {
-            return new ScriptVariable { ValueSingle = v };
-        }
-
-        public static explicit operator bool(ScriptVariable v)
-        {
-            return v.ValueBoolean;
-        }
-
-        public static explicit operator ScriptVariable(bool v)
-        {
-            return new ScriptVariable { ValueBoolean = v };
+            return new ScriptVariable { Value = v };
         }
     }
 }
