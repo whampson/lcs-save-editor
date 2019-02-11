@@ -73,6 +73,7 @@
       <DependentUpon>GlobalVariablesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\PageViewBase.cs" />
+    <Compile Include="Interfaces\TabControlEx.cs" />
     <Compile Include="WeaponsView.xaml.cs">
       <DependentUpon>WeaponsView.xaml</DependentUpon>
     </Compile>
