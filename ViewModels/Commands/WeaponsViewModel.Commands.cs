@@ -482,6 +482,7 @@ namespace LcsSaveEditor.ViewModels
             switch (changedWeapon) {
                 case Weapon.BrassKnuckles:
                     ReadHandSlot();
+                    OnPropertyChanged(nameof(Hand));
                     break;
                 case Weapon.Chisel:
                 case Weapon.Axe:
@@ -494,44 +495,70 @@ namespace LcsSaveEditor.ViewModels
                 case Weapon.Machete:
                 case Weapon.Chainsaw:
                     ReadMeleeSlot();
+                    OnPropertyChanged(nameof(HasMelee));
+                    OnPropertyChanged(nameof(Melee));
                     break;
                 case Weapon.Molotovs:
                 case Weapon.Grenades:
                 case Weapon.RemoteGrenades:
                 case Weapon.TearGas:
                     ReadProjectileSlot();
+                    OnPropertyChanged(nameof(HasProjectile));
+                    OnPropertyChanged(nameof(Projectile));
+                    OnPropertyChanged(nameof(ProjectileAmmo));
                     break;
                 case Weapon.Pistol:
                 case Weapon.Python:
                     ReadPistolSlot();
+                    OnPropertyChanged(nameof(HasPistol));
+                    OnPropertyChanged(nameof(Pistol));
+                    OnPropertyChanged(nameof(PistolAmmo));
                     break;
                 case Weapon.Shotgun:
                 case Weapon.StubbyShotgun:
                 case Weapon.Spas12:
                     ReadShotgunSlot();
+                    OnPropertyChanged(nameof(HasShotgun));
+                    OnPropertyChanged(nameof(Shotgun));
+                    OnPropertyChanged(nameof(ShotgunAmmo));
                     break;
                 case Weapon.Tec9:
                 case Weapon.Mac10:
                 case Weapon.Mp5:
                 case Weapon.MicroSmg:
                     ReadSmgSlot();
+                    OnPropertyChanged(nameof(HasSmg));
+                    OnPropertyChanged(nameof(Smg));
+                    OnPropertyChanged(nameof(SmgAmmo));
                     break;
                 case Weapon.Ak:
                 case Weapon.M4:
                     ReadAssaultSlot();
+                    OnPropertyChanged(nameof(HasAssault));
+                    OnPropertyChanged(nameof(Assault));
+                    OnPropertyChanged(nameof(AssaultAmmo));
                     break;
                 case Weapon.FlameThrower:
                 case Weapon.RocketLauncher:
                 case Weapon.Minigun:
                 case Weapon.M60:
                     ReadHeavySlot();
+                    OnPropertyChanged(nameof(HasHeavy));
+                    OnPropertyChanged(nameof(Heavy));
+                    OnPropertyChanged(nameof(HeavyAmmo));
                     break;
                 case Weapon.SniperRifle:
                 case Weapon.LaserSightedSniperRifle:
                     ReadSniperSlot();
+                    OnPropertyChanged(nameof(HasSniper));
+                    OnPropertyChanged(nameof(Sniper));
+                    OnPropertyChanged(nameof(SniperAmmo));
                     break;
                 case Weapon.Camera:
                     ReadSpecialSlot();
+                    OnPropertyChanged(nameof(HasSpecial));
+                    OnPropertyChanged(nameof(Special));
+                    OnPropertyChanged(nameof(SpecialAmmo));
                     break;
             }
         }
