@@ -54,13 +54,7 @@ namespace LcsSaveEditor.Views
         {
             // Put row number in row header
 
-            int idx = e.Row.GetIndex();
-            if (idx == dg.Items.Count - 1) {
-                e.Row.Header = "*";
-            }
-            else {
-                e.Row.Header = idx.ToString();
-            }
+            e.Row.Header = e.Row.GetIndex().ToString();
         }
 
         private void ItemsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
