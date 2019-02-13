@@ -178,7 +178,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please contact {0} about this error..
+        ///   Looks up a localized string similar to Please report this error to {0} and attach the crash dump located at {1}..
         /// </summary>
         public static string DialogTextUnhandledException2 {
             get {

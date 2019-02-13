@@ -158,8 +158,8 @@
     <value>A fatal exception has occurred. The application will be terminated.</value>
   </data>
   <data name="DialogTextUnhandledException2" xml:space="preserve">
-    <value>Please contact {0} about this error.</value>
-    <comment>{0} = app author email</comment>
+    <value>Please report this error to {0} and attach the crash dump located at {1}.</value>
+    <comment>{0} = app author email; {1} = crash dump path</comment>
   </data>
   <data name="DialogTitleAbout" xml:space="preserve">
     <value>About</value>
