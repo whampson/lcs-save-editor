@@ -38,6 +38,8 @@ namespace LcsSaveEditor.ViewModels
             get {
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
                     (x) => ShowOpenFileDialog(FileDialog_ResultAction));
+                // TODO: initialDirectory from settings
+                // TODO: filter
             }
         }
 
@@ -72,6 +74,63 @@ namespace LcsSaveEditor.ViewModels
         public ICommand ShowAboutDialogCommand
         {
             get { return new RelayCommand(ShowAboutDialog); }
+        }
+
+        public void ShowErrorDialog(string message)
+        {
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                message,
+                Strings.DialogTitleError,
+                icon: MessageBoxImage.Error));
+        }
+
+        public void ShowOpenFileDialog(Action<bool?, FileDialogEventArgs> resultAction,
+            string fileName = null,
+            string filter = null,
+            string initialDirectory = null)
+        {
+            OnFileDialogRequested(new FileDialogEventArgs(
+                FileDialogType.OpenDialog,
+                fileName: fileName,
+                filter: filter,
+                initialDirectory: initialDirectory,
+                title: Strings.DialogTitleOpenFile,
+                resultAction: resultAction));
+        }
+
+        public void ShowSaveFileDialog(Action<bool?, FileDialogEventArgs> resultAction,
+            string fileName = null,
+            string filter = null,
+            string initialDirectory = null)
+        {
+            OnFileDialogRequested(new FileDialogEventArgs(
+                FileDialogType.SaveDialog,
+                fileName: fileName,
+                filter: filter,
+                initialDirectory: initialDirectory,
+                title: Strings.DialogTitleSaveFileAs,
+                resultAction: resultAction));
+        }
+
+        private void ShowAboutDialog()
+        {
+            // TODO: invoke custom dialog using AboutDialogRequested event
+
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                "(placeholder)",
+                Strings.DialogTitleAbout,
+                icon: MessageBoxImage.Information));
+        }
+
+        private void ShowCloseFilePrompt()
+        {
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                Strings.DialogTextSaveChangesPrompt,
+                Strings.DialogTitleSaveChangesPrompt,
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question,
+                MessageBoxResult.Yes,
+                resultAction: FileClosePrompt_ResultAction));
         }
 
         private SaveData LoadSaveData(string path)
@@ -125,7 +184,7 @@ namespace LcsSaveEditor.ViewModels
             // Load new file
             SaveData saveData = LoadSaveData(path);
             if (saveData == null) {
-                StatusText = Strings.StatusTextFileOpenFail;
+                StatusText = Strings.StatusTextFileLoadFail;
                 return;
             }
 
@@ -135,7 +194,7 @@ namespace LcsSaveEditor.ViewModels
             ReloadTabs();
 
             WindowTitle = string.Format("{0} - [{1}]", Strings.AppName, path);
-            StatusText = Strings.StatusTextFileOpenSuccess;
+            StatusText = Strings.StatusTextFileLoadSuccess;
         }
 
         private void SaveFile(string path)
@@ -144,7 +203,7 @@ namespace LcsSaveEditor.ViewModels
 
             bool result = WriteSaveData(CurrentSaveData, path);
             if (!result) {
-                StatusText = Strings.StatusTextFileSaveFailed;
+                StatusText = Strings.StatusTextFileSaveFail;
                 return;
             }
 
@@ -185,58 +244,29 @@ namespace LcsSaveEditor.ViewModels
             SelectedTabIndex = -1;
 
             if (IsFileOpen) {
-                Tabs.Add(new WeaponsViewModel(CurrentSaveData));
-                Tabs.Add(new GlobalVariablesViewModel(CurrentSaveData));
+                Tabs.Add(new WeaponsViewModel(this, CurrentSaveData));
+                Tabs.Add(new GlobalVariablesViewModel(this, CurrentSaveData));
                 SelectedTabIndex = 0;
             }
         }
 
-        private void ShowErrorDialog(string message)
-        {
-            OnMessageBoxRequested(new MessageBoxEventArgs(
-                message,
-                Strings.DialogTitleError,
-                icon: MessageBoxImage.Error));
-        }
+        //private void ShowOpenFileDialog(Action<bool?, FileDialogEventArgs> resultAction)
+        //{
+        //    OnFileDialogRequested(new FileDialogEventArgs(
+        //        FileDialogType.OpenDialog,
+        //        //filter: Strings.FileFilterSaveData,
+        //        title: Strings.DialogTitleOpenFile,
+        //        resultAction: resultAction));
+        //}
 
-        private void ShowAboutDialog()
-        {
-            // TODO: invoke custom dialog using AboutDialogRequested event
-
-            OnMessageBoxRequested(new MessageBoxEventArgs(
-                "(placeholder)",
-                Strings.DialogTitleAbout,
-                icon: MessageBoxImage.Information));
-        }
-
-        private void ShowCloseFilePrompt()
-        {
-            OnMessageBoxRequested(new MessageBoxEventArgs(
-                Strings.DialogTextSaveChangesPrompt,
-                Strings.DialogTitleSaveChangesPrompt,
-                MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Question,
-                MessageBoxResult.Yes,
-                resultAction: FileClosePrompt_ResultAction));
-        }
-
-        private void ShowOpenFileDialog(Action<bool?, FileDialogEventArgs> resultAction)
-        {
-            OnFileDialogRequested(new FileDialogEventArgs(
-                FileDialogType.OpenDialog,
-                //filter: Strings.FileFilterSaveData,
-                title: Strings.DialogTitleOpenFile,
-                resultAction: resultAction));
-        }
-
-        private void ShowSaveFileDialog(Action<bool?, FileDialogEventArgs> resultAction)
-        {
-            OnFileDialogRequested(new FileDialogEventArgs(
-                FileDialogType.SaveDialog,
-                fileName: Path.GetFileName(MostRecentFilePath),
-                //filter: Strings.FileFilterSaveData,
-                title: Strings.DialogTitleSaveFileAs,
-                resultAction: resultAction));
-        }
+        //private void ShowSaveFileDialog(Action<bool?, FileDialogEventArgs> resultAction)
+        //{
+        //    OnFileDialogRequested(new FileDialogEventArgs(
+        //        FileDialogType.SaveDialog,
+        //        fileName: Path.GetFileName(MostRecentFilePath),
+        //        //filter: Strings.FileFilterSaveData,
+        //        title: Strings.DialogTitleSaveFileAs,
+        //        resultAction: resultAction));
+        //}
     }
 }
