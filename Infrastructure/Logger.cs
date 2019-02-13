@@ -106,12 +106,32 @@ namespace LcsSaveEditor.Infrastructure
         }
 
         /// <summary>
+        /// Adds an entry to the log with the 'Debug' importance level.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static void Debug(string format, params object[] args)
+        {
+            Log(LogLevel.Debug, string.Format(format, args));
+        }
+
+        /// <summary>
         /// Adds an entry to the log with the 'Info' importance level.
         /// </summary>
         /// <param name="item">The item to add log.</param>
         public static void Info(object item)
         {
             Log(LogLevel.Info, item);
+        }
+
+        /// <summary>
+        /// Adds an entry to the log with the 'Info' importance level.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static void Info(string format, params object[] args)
+        {
+            Log(LogLevel.Info, string.Format(format, args));
         }
 
         /// <summary>
@@ -124,6 +144,16 @@ namespace LcsSaveEditor.Infrastructure
         }
 
         /// <summary>
+        /// Adds an entry to the log with the 'Warn' importance level.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static void Warn(string format, params object[] args)
+        {
+            Log(LogLevel.Warn, string.Format(format, args));
+        }
+
+        /// <summary>
         /// Adds an entry to the log with the 'Error' importance level.
         /// </summary>
         /// <param name="item">The item to add log.</param>
@@ -133,12 +163,32 @@ namespace LcsSaveEditor.Infrastructure
         }
 
         /// <summary>
+        /// Adds an entry to the log with the 'Error' importance level.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static void Error(string format, params object[] args)
+        {
+            Log(LogLevel.Error, string.Format(format, args));
+        }
+
+        /// <summary>
         /// Adds an entry to the log with the 'Fatal' importance level.
         /// </summary>
         /// <param name="item">The item to add log.</param>
         public static void Fatal(object item)
         {
             Log(LogLevel.Fatal, item);
+        }
+
+        /// <summary>
+        /// Adds an entry to the log with the 'Fatal' importance level.
+        /// </summary>
+        /// <param name="format">A composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static void Fatal(string format, params object[] args)
+        {
+            Log(LogLevel.Fatal, string.Format(format, args));
         }
 
         /// <summary>
