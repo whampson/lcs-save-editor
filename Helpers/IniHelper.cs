@@ -58,7 +58,8 @@ namespace LcsSaveEditor.Helpers
 
         /// <summary>
         /// Writes all key-value pars from the specified dictionary to the
-        /// specified .ini file. If the .ini file exists, it will be overwritten.
+        /// specified .ini file. If the .ini file exists, its contents will
+        /// be overwritten.
         /// </summary>
         /// <param name="iniPath">The .ini file to write.</param>
         /// <param name="keys">The key-value pairs to write.</param>
@@ -92,6 +93,24 @@ namespace LcsSaveEditor.Helpers
 
             File.AppendAllLines(iniPath, keys
                 .Select(pair => string.Format("{0}{1}{2}", pair.Key, SeparatorChar, pair.Value)));
+        }
+
+        /// <summary>
+        /// Writes a comment to the specified .ini file. If the
+        /// .ini file exists, its contents will be overwritten.
+        /// </summary>
+        /// <param name="iniPath">The .ini file to append.</param>
+        /// <param name="comment">The comment to write.</param>
+        public static void WriteComment(string iniPath, string comment)
+        {
+            if (iniPath == null) {
+                throw new ArgumentNullException(nameof(iniPath));
+            }
+            if (comment == null) {
+                throw new ArgumentNullException(nameof(comment));
+            }
+
+            File.WriteAllText(iniPath, string.Format("{0} {1}\n", CommentChar, comment));
         }
 
         /// <summary>
