@@ -21,13 +21,20 @@
  */
 #endregion
 
+using LcsSaveEditor.Helpers;
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Resources;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class GlobalVariablesViewModel : PageViewModelBase
     {
+        private const string DefaultSymbolsFileName = "CustomVariables.ini";
+
         public ICommand InsertRowAboveCommand
         {
             get { return new RelayCommand(InsertRowAbove, () => SelectedRow != -1); }
@@ -41,6 +48,63 @@ namespace LcsSaveEditor.ViewModels
         public ICommand DeleteRowCommand
         {
             get { return new RelayCommand(DeleteRow, () => SelectedRow != -1); }
+        }
+
+        public ICommand LoadSymbolsCommand
+        {
+            get {
+                return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
+                    (x) => MainViewModel.ShowOpenFileDialog(
+                        FileDialog_ResultAction,
+                        fileName: DefaultSymbolsFileName,
+                        filter: Strings.FileFilterIni));
+                // TODO: initialDirectory from settings
+            }
+        }
+
+        public ICommand SaveSymbolsCommand
+        {
+            get {
+                return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
+                    (x) => MainViewModel.ShowSaveFileDialog(
+                        FileDialog_ResultAction,
+                        fileName: DefaultSymbolsFileName,
+                        filter: Strings.FileFilterIni));
+                // TODO: initialDirectory from settings
+            }
+        }
+
+        private void LoadCustomVariables(string path)
+        {
+            // TODO: exception handling
+
+            Dictionary<string, string> dict = IniHelper.ReadAllKeys(path);
+            for (int i = 0; i < m_namedGlobalVariables.Count; i++) {
+                if (dict.TryGetValue(i.ToString(), out string sym)) {
+                    m_namedGlobalVariables[i].Name = sym;
+                }
+            }
+
+            MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsLoaded, path);
+        }
+
+        private void SaveCustomVariables(string path)
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            for (int i = 0; i < m_namedGlobalVariables.Count; i++) {
+                string sym = m_namedGlobalVariables[i].Name;
+                if (!string.IsNullOrWhiteSpace(sym)) {
+                    dict[i.ToString()] = sym;
+                }
+            }
+
+            string platformName = GamePlatformHelper.GetPlatformName(MainViewModel.CurrentSaveData.FileType);
+
+            IniHelper.WriteComment(path, string.Format(Strings.CustomVariablesCompatibilityText, platformName));
+            IniHelper.AppendComment(path, Strings.CustomVariablesGeneratedByText + "\n");
+            IniHelper.AppendAllKeys(path, dict);
+
+            MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsSaved, path);
         }
 
         private void InsertRowAbove()

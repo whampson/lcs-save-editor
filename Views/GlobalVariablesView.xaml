@@ -186,11 +186,13 @@ SOFTWARE.
             <Button
                 Grid.Row="0" Grid.Column="2"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextLoadSymbols}"/>
+                Content="{x:Static r:Strings.ButtonTextLoadSymbols}"
+                Command="{Binding LoadSymbolsCommand}"/>
             <Button
                 Grid.Row="1" Grid.Column="2"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextSaveSymbols}"/>
+                Content="{x:Static r:Strings.ButtonTextSaveSymbols}"
+                Command="{Binding SaveSymbolsCommand}"/>
         </Grid>
     </Grid>
 </v:PageViewBase>
