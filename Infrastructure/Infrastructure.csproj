@@ -53,6 +53,9 @@
     <Compile Include="EventArgs\ItemPropertyChangedEventArgs.cs" />
     <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
     <Compile Include="FullyObservableCollection.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogItem.cs" />
+    <Compile Include="LogLevel.cs" />
     <Compile Include="MessageBoxEx.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RelayCommand.cs" />
