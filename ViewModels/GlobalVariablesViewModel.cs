@@ -39,8 +39,8 @@ namespace LcsSaveEditor.ViewModels
         private bool m_suppressGlobalVariablesChanged;
         private bool m_suppressNamedGlobalVariablesChanged;
 
-        public GlobalVariablesViewModel()
-            : base(Strings.PageHeaderGlobalVariables)
+        public GlobalVariablesViewModel(MainViewModel mainViewModel)
+            : base(mainViewModel, Strings.PageHeaderGlobalVariables)
         {
             m_namedGlobalVariables = new FullyObservableCollection<NamedScriptVariable>();
             m_selectedRow = -1;
@@ -50,8 +50,8 @@ namespace LcsSaveEditor.ViewModels
             m_isShowingColumnBoolean = true;
         }
 
-        public GlobalVariablesViewModel(SaveData saveData)
-            : this()
+        public GlobalVariablesViewModel(MainViewModel mainViewModel, SaveData saveData)
+            : this(mainViewModel)
         {
             m_globalVariables = saveData.Scripts.GlobalVariables;
             foreach (ScriptVariable v in m_globalVariables) {

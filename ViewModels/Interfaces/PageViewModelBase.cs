@@ -30,15 +30,23 @@ namespace LcsSaveEditor.ViewModels
     /// </summary>
     public abstract class PageViewModelBase : ObservableObject
     {
+        private MainViewModel m_mainViewModel;
         private string m_header;
 
         /// <summary>
         /// Creates a new Page view model with the specified page title.
         /// </summary>
         /// <param name="header">The title of the Page.</param>
-        public PageViewModelBase(string header)
+        public PageViewModelBase(MainViewModel mainViewModel, string header)
         {
+            m_mainViewModel = mainViewModel;
             m_header = header;
+        }
+
+        public MainViewModel MainViewModel
+        {
+            get { return m_mainViewModel; }
+            set { m_mainViewModel = value; OnPropertyChanged(); }
         }
 
         /// <summary>

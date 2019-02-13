@@ -79,8 +79,8 @@ namespace LcsSaveEditor.ViewModels
         private readonly FullyObservableCollection<ScriptVariable> m_globals;
         private bool m_suppressRefresh;
 
-        public WeaponsViewModel()
-            : base(Strings.PageHeaderWeapons)
+        public WeaponsViewModel(MainViewModel mainViewModel)
+            : base(mainViewModel, Strings.PageHeaderWeapons)
         {
             m_ammoIndexMap = new Dictionary<Weapon?, int>();
             m_globals = new FullyObservableCollection<ScriptVariable>();
@@ -89,8 +89,8 @@ namespace LcsSaveEditor.ViewModels
             InitWeaponLists();
         }
 
-        public WeaponsViewModel(SaveData saveData)
-            : this()
+        public WeaponsViewModel(MainViewModel mainViewModel, SaveData saveData)
+            : this(mainViewModel)
         {
             m_globals = saveData.Scripts.GlobalVariables;
             m_globals.CollectionChanged += GlobalVariables_CollectionChanged;
