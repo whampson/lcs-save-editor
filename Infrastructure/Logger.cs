@@ -37,7 +37,7 @@ namespace LcsSaveEditor.Infrastructure
         /// Default <see cref="LogLevel"/> when the standard output stream
         /// is redirected to the logger.
         /// </summary>
-        public static readonly LogLevel DefaultStandardOutLevel = LogLevel.Debug;
+        public static readonly LogLevel DefaultStandardOutLevel = LogLevel.Info;
 
         /// <summary>
         /// Default <see cref="LogLevel"/> when the standard error stream
