@@ -117,13 +117,9 @@ namespace LcsSaveEditor.ViewModels
                 if (CurrentSaveData == null) {
                     return string.Empty;
                 }
-                GamePlatform plat = CurrentSaveData.FileType;
-                string platName = EnumHelper.GetAttribute<DescriptionAttribute>(plat).Description;
-                string fmt = (plat == GamePlatform.Android || plat == GamePlatform.IOS)
-                    ? Strings.ToolTipTextFileType2
-                    : Strings.ToolTipTextFileType1;
 
-                return string.Format(fmt, platName);
+                string platName = GamePlatformHelper.GetPlatformName(CurrentSaveData.FileType);
+                return string.Format(Strings.ToolTipTextFileCompatibility, platName);
             }
         }
     }
