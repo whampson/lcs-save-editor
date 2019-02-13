@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
+      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
+      <Name>DataTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
       <Name>Resources</Name>
@@ -53,6 +57,7 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="EnumHelper.cs" />
+    <Compile Include="GamePlatformHelper.cs" />
     <Compile Include="IniHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
