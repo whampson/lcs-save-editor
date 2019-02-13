@@ -28,41 +28,16 @@ using System.IO;
 
 namespace Test
 {
-    static class TestingGround
+    public static class SaveInfo
     {
-        const string PlatformPS2 = "PS2";
-        const string PlatformPSP = "PSP";
-        const string PlatformIOS = "iOS";
-        const string PlatformAndroid = "Android";
-
-        static void Main(string[] args)
-        {
-            string path = GetSaveFilePath(PlatformPS2, 3);
-
-            Console.WriteLine("Loading {0}...\n", Path.GetFileName(path));
-            SaveData save = SaveData.Load(path);
-
-            PrintInfo(save);
-            PrintSimpleVars(save);
-            PrintScripts(save);
-            PrintGarages(save);
-            PrintPlayerInfo(save);
-            PrintStats(save);
-
-            save.Store(path + "_out");
-
-            Console.Write("\nPress any key to exit...");
-            Console.ReadKey();
-        }
-
-        static void PrintInfo(SaveData save)
+        public static void PrintInfo(SaveData save)
         {
             Console.WriteLine("==================== File Info ====================");
             Console.WriteLine("Format: {0}", save.FileType);
             Console.WriteLine();
         }
 
-        static void PrintSimpleVars(SaveData save)
+        public static void PrintSimpleVars(SaveData save)
         {
             Console.WriteLine("==================== Simple Vars ====================");
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.SaveNameGxt), save.SimpleVars.SaveNameGxt);
@@ -98,7 +73,7 @@ namespace Test
             Console.WriteLine();
         }
 
-        static void PrintScripts(SaveData save)
+        public static void PrintScripts(SaveData save)
         {
             Console.WriteLine("==================== Scripts ====================");
             Console.WriteLine("{0}: {1}", nameof(save.Scripts.GlobalVariablesSize), save.Scripts.GlobalVariablesSize);
@@ -133,7 +108,7 @@ namespace Test
             Console.WriteLine();
         }
 
-        static void PrintGarages(SaveData save)
+        public static void PrintGarages(SaveData save)
         {
             Console.WriteLine("==================== Garages ====================");
             Console.WriteLine("{0}: {1}", nameof(save.Garages.NumberOfGarages), save.Garages.NumberOfGarages);
@@ -152,7 +127,7 @@ namespace Test
             Console.WriteLine();
         }
 
-        static void PrintPlayerInfo(SaveData save)
+        public static void PrintPlayerInfo(SaveData save)
         {
             Console.WriteLine("==================== Player Info ====================");
             Console.WriteLine("{0}: {1}", nameof(save.PlayerInfo.Money), save.PlayerInfo.Money);
@@ -169,7 +144,7 @@ namespace Test
             Console.WriteLine();
         }
 
-        static void PrintStats(SaveData save)
+        public static void PrintStats(SaveData save)
         {
             Console.WriteLine("==================== Stats ====================");
             Console.WriteLine("{0}: {1}", nameof(save.Stats.PeopleKilledByPlayer), save.Stats.PeopleKilledByPlayer);
@@ -302,16 +277,6 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.Stats.FastestDirtBikeTimes), save.Stats.FastestDirtBikeTimes);
             Console.WriteLine("{0}: {1}", nameof(save.Stats.FavoriteRadioStationList), save.Stats.FavoriteRadioStationList);
             Console.WriteLine();
-        }
-
-        static string GetSaveFilePath(string platform, int num)
-        {
-            string appPath = AppContext.BaseDirectory;
-            string saveData = appPath + @"..\..\SaveData";
-            string filePath = string.Format(@"{0}\{1}\lcs_{2}_save{3:00}",
-                saveData, platform, platform.ToLower(), num);
-
-            return filePath;
         }
     }
 }

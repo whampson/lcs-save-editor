@@ -47,7 +47,8 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="TestingGround.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="SaveInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
