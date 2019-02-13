@@ -144,6 +144,13 @@
   <data name="ButtonTextSaveSymbols" xml:space="preserve">
     <value>Save Symbols...</value>
   </data>
+  <data name="CustomVariablesCompatibilityText" xml:space="preserve">
+    <value>Compatible with the {0} version of GTA:LCS.</value>
+    <comment>{0} = game platform name</comment>
+  </data>
+  <data name="CustomVariablesGeneratedByText" xml:space="preserve">
+    <value>Generated automatically by the GTA:LCS Save Editor.</value>
+  </data>
   <data name="DialogTextSaveChangesPrompt" xml:space="preserve">
     <value>Do you want to save your changes?</value>
   </data>
@@ -214,6 +221,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="FieldValueUInt32" xml:space="preserve">
     <value>UInt32</value>
   </data>
+  <data name="FileFilterIni" xml:space="preserve">
+    <value>INI File (*.ini)|*.ini</value>
+  </data>
   <data name="FileFilterSaveData" xml:space="preserve">
     <value>GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*</value>
   </data>
@@ -259,34 +269,38 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="PageHeaderWeapons" xml:space="preserve">
     <value>Weapons</value>
   </data>
+  <data name="StatusTextFileLoadFail" xml:space="preserve">
+    <value>Load failed!</value>
+  </data>
+  <data name="StatusTextFileLoadSuccess" xml:space="preserve">
+    <value>Load successful.</value>
+  </data>
   <data name="StatusTextFileNotLoaded" xml:space="preserve">
     <value>No file loaded.</value>
   </data>
-  <data name="StatusTextFileOpenFail" xml:space="preserve">
-    <value>Load failed!</value>
-  </data>
-  <data name="StatusTextFileOpenSuccess" xml:space="preserve">
-    <value>Load successful.</value>
-  </data>
-  <data name="StatusTextFileSaveFailed" xml:space="preserve">
+  <data name="StatusTextFileSaveFail" xml:space="preserve">
     <value>Save failed!</value>
   </data>
   <data name="StatusTextFileSaveSuccess" xml:space="preserve">
     <value>Save successful.</value>
   </data>
+  <data name="StatusTextSymbolsLoaded" xml:space="preserve">
+    <value>Loaded symbols from {0}.</value>
+    <comment>{0} = symbols file path</comment>
+  </data>
+  <data name="StatusTextSymbolsSaved" xml:space="preserve">
+    <value>Saved symbols to {0}.</value>
+    <comment>{0} = symbols file path</comment>
+  </data>
   <data name="StatusTextWelcome" xml:space="preserve">
     <value>Welcome to the GTA:LCS Save Editor!</value>
   </data>
+  <data name="ToolTipTextFileCompatibility" xml:space="preserve">
+    <value>This file is compatible with {0}.</value>
+    <comment>{0} = game platform name</comment>
+  </data>
   <data name="ToolTipTextFileModified" xml:space="preserve">
     <value>This file has unsaved changes.</value>
-  </data>
-  <data name="ToolTipTextFileType1" xml:space="preserve">
-    <value>This is a {0}-compatible save.</value>
-    <comment>{0} = game platform name</comment>
-  </data>
-  <data name="ToolTipTextFileType2" xml:space="preserve">
-    <value>This is an {0}-compatible save.</value>
-    <comment>{0} = game platform name</comment>
   </data>
   <data name="WeaponSlotAssault" xml:space="preserve">
     <value>Assault</value>

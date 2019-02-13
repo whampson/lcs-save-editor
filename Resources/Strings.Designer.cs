@@ -142,6 +142,24 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compatible with the {0} version of GTA:LCS..
+        /// </summary>
+        public static string CustomVariablesCompatibilityText {
+            get {
+                return ResourceManager.GetString("CustomVariablesCompatibilityText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated automatically by the GTA:LCS Save Editor..
+        /// </summary>
+        public static string CustomVariablesGeneratedByText {
+            get {
+                return ResourceManager.GetString("CustomVariablesGeneratedByText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save your changes?.
         /// </summary>
         public static string DialogTextSaveChangesPrompt {
@@ -341,6 +359,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to INI File (*.ini)|*.ini.
+        /// </summary>
+        public static string FileFilterIni {
+            get {
+                return ResourceManager.GetString("FileFilterIni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*.
         /// </summary>
         public static string FileFilterSaveData {
@@ -476,6 +503,24 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load failed!.
+        /// </summary>
+        public static string StatusTextFileLoadFail {
+            get {
+                return ResourceManager.GetString("StatusTextFileLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load successful..
+        /// </summary>
+        public static string StatusTextFileLoadSuccess {
+            get {
+                return ResourceManager.GetString("StatusTextFileLoadSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No file loaded..
         /// </summary>
         public static string StatusTextFileNotLoaded {
@@ -485,29 +530,11 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load failed!.
-        /// </summary>
-        public static string StatusTextFileOpenFail {
-            get {
-                return ResourceManager.GetString("StatusTextFileOpenFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load successful..
-        /// </summary>
-        public static string StatusTextFileOpenSuccess {
-            get {
-                return ResourceManager.GetString("StatusTextFileOpenSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save failed!.
         /// </summary>
-        public static string StatusTextFileSaveFailed {
+        public static string StatusTextFileSaveFail {
             get {
-                return ResourceManager.GetString("StatusTextFileSaveFailed", resourceCulture);
+                return ResourceManager.GetString("StatusTextFileSaveFail", resourceCulture);
             }
         }
         
@@ -521,6 +548,24 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loaded symbols from {0}..
+        /// </summary>
+        public static string StatusTextSymbolsLoaded {
+            get {
+                return ResourceManager.GetString("StatusTextSymbolsLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved symbols to {0}..
+        /// </summary>
+        public static string StatusTextSymbolsSaved {
+            get {
+                return ResourceManager.GetString("StatusTextSymbolsSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to the GTA:LCS Save Editor!.
         /// </summary>
         public static string StatusTextWelcome {
@@ -530,29 +575,20 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This file is compatible with {0}..
+        /// </summary>
+        public static string ToolTipTextFileCompatibility {
+            get {
+                return ResourceManager.GetString("ToolTipTextFileCompatibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This file has unsaved changes..
         /// </summary>
         public static string ToolTipTextFileModified {
             get {
                 return ResourceManager.GetString("ToolTipTextFileModified", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This is a {0}-compatible save..
-        /// </summary>
-        public static string ToolTipTextFileType1 {
-            get {
-                return ResourceManager.GetString("ToolTipTextFileType1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This is an {0}-compatible save..
-        /// </summary>
-        public static string ToolTipTextFileType2 {
-            get {
-                return ResourceManager.GetString("ToolTipTextFileType2", resourceCulture);
             }
         }
         
