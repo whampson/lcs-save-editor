@@ -190,16 +190,16 @@ SOFTWARE.
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="65"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="120"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
             <StatusBarItem Grid.Column="0" HorizontalAlignment="Left">
-                <TextBlock Text="{Binding StatusText}"/>
+                <TextBlock Text="{Binding StatusText}" TextTrimming="CharacterEllipsis"/>
             </StatusBarItem>
 
             <Separator Grid.Column="1"/>
