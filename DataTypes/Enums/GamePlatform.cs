@@ -36,10 +36,10 @@ namespace LcsSaveEditor.DataTypes
         [Description("iOS")]
         IOS,
 
-        [Description("PS2")]
+        [Description("PlayStation 2")]
         PS2,
 
-        [Description("PSP")]
+        [Description("PlayStation Portable")]
         PSP
     };
 }
