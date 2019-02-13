@@ -21,6 +21,7 @@
  */
 #endregion
 
+using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using System;
 using System.IO;
@@ -36,10 +37,25 @@ namespace Test
 
         public static void Main(string[] args)
         {
-            LoadPrintStore(PlatformPS2, 3);
+            LoggerTest();
+        }
 
-            Console.Write("\nPress any key to exit...");
-            Console.ReadKey();
+        static void LoggerTest()
+        {
+            Console.WriteLine("Console output not in log");
+            Logger.Info("Logger started.");
+            Logger.ConsumeStandardOut();
+            Console.Write("Console output with LF\n");
+            Console.Write("Console output with CRLF\r\n");
+            Console.WriteLine("Console output with native line terminator");
+            Console.WriteLine("Another\r\nTest\nwith\r\nlinebreaks");
+            Console.Error.WriteLine("Some error occurred");
+            Logger.Info("Switching StdOut to Info level...");
+            Logger.StandardOutLogLevel = LogLevel.Info;
+            Logger.Info("StdOut level switched!");
+            Console.WriteLine("Hello, world!");
+            Logger.Info("Logger ended.");
+            Logger.WriteLogFile("test.log");
         }
 
         static void LoadPrintStore(string platform, int num)
