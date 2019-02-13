@@ -21,8 +21,8 @@
  */
 #endregion
 
+using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
-using System;
 using System.Collections.Specialized;
 
 namespace LcsSaveEditor.ViewModels
@@ -81,6 +81,22 @@ namespace LcsSaveEditor.ViewModels
                     break;
             }
             m_suppressGlobalVariablesChanged = false;
+        }
+
+        private void FileDialog_ResultAction(bool? dialogResult, FileDialogEventArgs e)
+        {
+            if (dialogResult != true) {
+                return;
+            }
+
+            switch (e.DialogType) {
+                case FileDialogType.OpenDialog:
+                    LoadCustomVariables(e.FileName);
+                    break;
+                case FileDialogType.SaveDialog:
+                    SaveCustomVariables(e.FileName);
+                    break;
+            }
         }
     }
 }
