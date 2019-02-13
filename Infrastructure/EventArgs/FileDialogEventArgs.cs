@@ -37,12 +37,14 @@ namespace LcsSaveEditor.Infrastructure
             string title = null,
             string filter = null,
             string fileName = null,
+            string initialDirectory = null,
             Action<bool?, FileDialogEventArgs> resultAction = null)
         {
             DialogType = dialogType;
             Title = title;
             Filter = filter;
             FileName = fileName;
+            InitialDirectory = initialDirectory;
             ResultAction = resultAction;
         }
 
@@ -64,7 +66,12 @@ namespace LcsSaveEditor.Infrastructure
         public string FileName
         {
             get;
-            set;
+            private set;
+        }
+
+        public string InitialDirectory
+        {
+            get;
         }
 
         public Action<bool?, FileDialogEventArgs> ResultAction
@@ -96,6 +103,7 @@ namespace LcsSaveEditor.Infrastructure
             dialog.Title = Title;
             dialog.Filter = Filter;
             dialog.FileName = FileName;
+            dialog.InitialDirectory = InitialDirectory;
 
             bool? result;
             if (owner == null) {
