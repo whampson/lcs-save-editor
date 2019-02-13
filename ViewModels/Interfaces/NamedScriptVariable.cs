@@ -45,21 +45,24 @@ namespace LcsSaveEditor.ViewModels
 
         public NamedScriptVariable(string name, ScriptVariable value)
         {
-            m_name = name;
-            m_value = value;
+            m_name = (name != null) ? name.Trim() : string.Empty;
+            m_value = value ?? new ScriptVariable();
         }
 
         public string Name
         {
             get { return m_name; }
-            set { m_name = value; OnPropertyChanged(); }
+            set {
+                m_name = (value != null) ? value.Trim() : string.Empty;
+                OnPropertyChanged();
+            }
         }
 
         public ScriptVariable Value
         {
             get { return m_value; }
             set {
-                m_value = value;
+                m_value = value ?? new ScriptVariable();
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ValueUInt32));
                 OnPropertyChanged(nameof(ValueInt32));
