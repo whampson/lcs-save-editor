@@ -143,42 +143,103 @@ namespace LcsSaveEditor.Models
 
         public void Store(string path)
         {
+            Logger.Info("Writing savedata to {0}...", path);
+
             byte[] data = Serialize(this);
             File.WriteAllBytes(path, data);
+
+            Logger.Info("File format: {0}", FileType);
+            Logger.Info("File size: {0} bytes", data.Length);
+        }
+
+        private void DeserializeSimpleVars()
+        {
+            Logger.Info("{0} size: {1}", SimpleVarsTag, m_block0.Data.Length);
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_simpleVars = Deserialize<SimpleVarsPS2>(m_block0.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_simpleVars = Deserialize<SimpleVarsPSP>(m_block0.Data);
+                    break;
+            }
+        }
+
+        private void DeserializeScripts()
+        {
+            Logger.Info("{0} size: {1}", ScriptsTag, m_block1.Data.Length);
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.PS2:
+                case GamePlatform.PSP:
+                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
+                    break;
+                case GamePlatform.IOS:
+                    m_scripts = Deserialize<Scripts<RunningScriptIOS>>(m_block1.Data);
+                    break;
+            }
+        }
+
+        private void DeserializeGarages()
+        {
+            Logger.Info("{0} size: {1}", GaragesTag, m_block2.Data.Length);
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_garages = Deserialize<Garages<GaragePS2>>(m_block2.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_garages = Deserialize<Garages<GaragePSP>>(m_block2.Data);
+                    break;
+            }
+        }
+
+        private void DeserializePlayerInfo()
+        {
+            Logger.Info("{0} size: {1}", PlayerInfoTag, m_block3.Data.Length);
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_playerInfo = Deserialize<PlayerInfoPS2>(m_block3.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_playerInfo = Deserialize<PlayerInfoPSP>(m_block3.Data);
+                    break;
+            }
+        }
+
+        private void DeserializeStats()
+        {
+            Logger.Info("{0} size: {1}", StatsTag, m_block4.Data.Length);
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
+                    break;
+                case GamePlatform.PS2:
+                case GamePlatform.PSP:
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
+                    break;
+            }
         }
 
         protected void DeserializeDataBlocks()
         {
-            switch (FileType) {
-                case GamePlatform.Android:
-                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
-                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
-                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
-                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
-                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
-                    break;
-                case GamePlatform.IOS:
-                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
-                    m_scripts = Deserialize<Scripts<RunningScriptIOS>>(m_block1.Data);
-                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
-                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
-                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
-                    break;
-                case GamePlatform.PS2:
-                    m_simpleVars = Deserialize<SimpleVarsPS2>(m_block0.Data);
-                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
-                    m_garages = Deserialize<Garages<GaragePS2>>(m_block2.Data);
-                    m_playerInfo = Deserialize<PlayerInfoPS2>(m_block3.Data);
-                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
-                    break;
-                case GamePlatform.PSP:
-                    m_simpleVars = Deserialize<SimpleVarsPSP>(m_block0.Data);
-                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
-                    m_garages = Deserialize<Garages<GaragePSP>>(m_block2.Data);
-                    m_playerInfo = Deserialize<PlayerInfoPSP>(m_block3.Data);
-                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
-                    break;
-            }
+            DeserializeSimpleVars();
+            DeserializeScripts();
+            DeserializeGarages();
+            DeserializePlayerInfo();
+            DeserializeStats();
 
             m_simpleVars.PropertyChanged += SimpleVars_PropertyChanged;
             m_scripts.PropertyChanged += Scripts_PropertyChanged;
@@ -190,10 +251,19 @@ namespace LcsSaveEditor.Models
         protected void SerializeDataBlocks()
         {
             m_block0.Data = Serialize(m_simpleVars);
+            Logger.Info("{0} size: {1}", SimpleVarsTag, m_block0.Data.Length);
+
             m_block1.Data = Serialize(m_scripts);
+            Logger.Info("{0} size: {1}", ScriptsTag, m_block1.Data.Length);
+
             m_block2.Data = Serialize(m_garages);
+            Logger.Info("{0} size: {1}", GaragesTag, m_block2.Data.Length);
+
             m_block3.Data = Serialize(m_playerInfo);
+            Logger.Info("{0} size: {1}", PlayerInfoTag, m_block3.Data.Length);
+
             m_block4.Data = Serialize(m_stats);
+            Logger.Info("{0} size: {1}", StatsTag, m_block4.Data.Length);
         }
 
         protected int GetPS2Checksum(Stream stream)
@@ -302,8 +372,13 @@ namespace LcsSaveEditor.Models
 
             // TODO: decrypt PSP saves (?)
 
+            Logger.Info("Loading savedata from {0}...", path);
+
             rawData = File.ReadAllBytes(path);
             fileType = DetectFileType(rawData);
+
+            Logger.Info("File format: {0}", fileType);
+            Logger.Info("File size: {0} bytes", rawData.Length);
 
             switch (fileType) {
                 case GamePlatform.Android:

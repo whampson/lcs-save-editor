@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Infrastructure;
 using System.IO;
 using System.Text;
 
@@ -80,6 +81,7 @@ namespace LcsSaveEditor.Models
 
                 // Padding
                 int numPadding = FileSize - (int) stream.Position - 4;
+                Logger.Info("Padding size: {0}", numPadding);
                 for (int i = 0; i < numPadding; i++) {
                     w.Write((byte) 0);
                 }
