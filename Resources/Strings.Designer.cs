@@ -124,11 +124,38 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string ButtonTextClear {
+            get {
+                return ResourceManager.GetString("ButtonTextClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string ButtonTextClose {
+            get {
+                return ResourceManager.GetString("ButtonTextClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load Symbols....
         /// </summary>
         public static string ButtonTextLoadSymbols {
             get {
                 return ResourceManager.GetString("ButtonTextLoadSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save....
+        /// </summary>
+        public static string ButtonTextSave {
+            get {
+                return ResourceManager.GetString("ButtonTextSave", resourceCulture);
             }
         }
         
@@ -359,7 +386,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INI File (*.ini)|*.ini.
+        ///   Looks up a localized string similar to Ini Files (*.ini)|*.ini.
         /// </summary>
         public static string FileFilterIni {
             get {
@@ -368,7 +395,16 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*.
+        ///   Looks up a localized string similar to Log Files (*.log)|*.log|All Files (*.*)|*.*.
+        /// </summary>
+        public static string FileFilterLog {
+            get {
+                return ResourceManager.GetString("FileFilterLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GTA Save Data Files (*.b)|*.b|All Files (*.*)|*.*.
         /// </summary>
         public static string FileFilterSaveData {
             get {
@@ -679,6 +715,15 @@ namespace LcsSaveEditor.Resources {
         public static string WeaponSlotSpecial {
             get {
                 return ResourceManager.GetString("WeaponSlotSpecial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log.
+        /// </summary>
+        public static string WindowTitleLog {
+            get {
+                return ResourceManager.GetString("WindowTitleLog", resourceCulture);
             }
         }
     }

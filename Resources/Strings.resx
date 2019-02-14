@@ -138,8 +138,17 @@
   <data name="AppName" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
   </data>
+  <data name="ButtonTextClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ButtonTextClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="ButtonTextLoadSymbols" xml:space="preserve">
     <value>Load Symbols...</value>
+  </data>
+  <data name="ButtonTextSave" xml:space="preserve">
+    <value>Save...</value>
   </data>
   <data name="ButtonTextSaveSymbols" xml:space="preserve">
     <value>Save Symbols...</value>
@@ -222,10 +231,13 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
     <value>UInt32</value>
   </data>
   <data name="FileFilterIni" xml:space="preserve">
-    <value>INI File (*.ini)|*.ini</value>
+    <value>Ini Files (*.ini)|*.ini</value>
+  </data>
+  <data name="FileFilterLog" xml:space="preserve">
+    <value>Log Files (*.log)|*.log|All Files (*.*)|*.*</value>
   </data>
   <data name="FileFilterSaveData" xml:space="preserve">
-    <value>GTA:LCS Save Data (*.b)|*.b|All Files (*.*)|*.*</value>
+    <value>GTA Save Data Files (*.b)|*.b|All Files (*.*)|*.*</value>
   </data>
   <data name="FlagFileModified" xml:space="preserve">
     <value>Modified</value>
@@ -331,5 +343,8 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
   <data name="WeaponSlotSpecial" xml:space="preserve">
     <value>Special</value>
+  </data>
+  <data name="WindowTitleLog" xml:space="preserve">
+    <value>Log</value>
   </data>
 </root>
