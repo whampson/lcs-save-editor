@@ -71,6 +71,11 @@ namespace LcsSaveEditor.ViewModels
             get { return new RelayCommand(ExitApp); }
         }
 
+        public ICommand ShowLogWindowCommand
+        {
+            get { return new RelayCommand(ShowLogWindow); }
+        }
+
         public ICommand ShowAboutDialogCommand
         {
             get { return new RelayCommand(ShowAboutDialog); }
@@ -110,6 +115,11 @@ namespace LcsSaveEditor.ViewModels
                 initialDirectory: initialDirectory,
                 title: Strings.DialogTitleSaveFileAs,
                 resultAction: resultAction));
+        }
+
+        private void ShowLogWindow()
+        {
+            OnLogWindowRequested();
         }
 
         private void ShowAboutDialog()
