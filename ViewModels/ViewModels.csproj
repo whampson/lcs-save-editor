@@ -48,10 +48,14 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commands\GlobalVariablesViewModel.Commands.cs" />
+    <Compile Include="Commands\LogViewModel.Commands.cs" />
     <Compile Include="Commands\MainViewModel.Commands.cs" />
+    <Compile Include="Events\LogViewModel.EventHandlers.cs" />
+    <Compile Include="Events\LogViewModel.Events.cs" />
     <Compile Include="GlobalVariablesViewModel.cs" />
     <Compile Include="Interfaces\NamedScriptVariable.cs" />
     <Compile Include="Interfaces\PageViewModelBase.cs" />
+    <Compile Include="LogViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="WeaponsViewModel.cs" />
   </ItemGroup>
