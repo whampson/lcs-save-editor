@@ -64,9 +64,9 @@ namespace LcsSaveEditor.Infrastructure
         /// <returns>This item as a string.</returns>
         public override string ToString()
         {
-            return string.Format("[{0}] ({1}) {2}",
-                Level.ToString().PadLeft(5),
-                Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+            return string.Format("{0}  {1}  {2}",
+                Timestamp.ToString("HH:mm:ss.fff"),
+                Level.ToString().PadRight(5),
                 Message);
         }
     }
