@@ -48,6 +48,7 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Behaviors\ScrollOnNewItem.cs" />
     <Compile Include="EventArgs\DialogCloseEventArgs.cs" />
     <Compile Include="EventArgs\FileDialogEventArgs.cs" />
     <Compile Include="EventArgs\ItemPropertyChangedEventArgs.cs" />
@@ -70,6 +71,11 @@
       <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
       <Name>Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Expression.Blend.Sdk.WPF">
+      <Version>1.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
