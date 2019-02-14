@@ -25,6 +25,8 @@ SOFTWARE.
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:infr="clr-namespace:LcsSaveEditor.Infrastructure;assembly=LcsSaveEditor.Infrastructure"
         xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
         xmlns:v="clr-namespace:LcsSaveEditor.Views"
         xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
@@ -53,11 +55,18 @@ SOFTWARE.
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
 
-        <ListBox
-            ItemsSource="{Binding LogItems, Mode=OneWay}"
-            FontFamily="Consolas"
-            FontSize="11">
-        </ListBox>
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Auto">
+            <ItemsControl
+                ItemsSource="{Binding LogItems, Mode=OneWay}"
+                FontFamily="Consolas"
+                FontSize="12">
+                <i:Interaction.Behaviors>
+                    <infr:ScrollOnNewItem/>
+                </i:Interaction.Behaviors>
+            </ItemsControl>
+        </ScrollViewer>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
