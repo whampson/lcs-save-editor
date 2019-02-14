@@ -33,6 +33,7 @@ SOFTWARE.
     mc:Ignorable="d"
     Title="{Binding WindowTitle}"
     Height="450" Width="600"
+    Loaded="Window_Loaded"
     Closing="Window_Closing">
 
     <Window.DataContext>
@@ -156,6 +157,13 @@ SOFTWARE.
                         Command="{Binding ExitAppCommand}"
                         Header="{x:Static r:Strings.MenuItemHeaderExit}"
                         InputGestureText="Alt+F4"/>
+                </MenuItem>
+
+                <!-- View Menu -->
+                <MenuItem Header="View">
+                    <MenuItem
+                        Command="{Binding ShowLogWindowCommand}"
+                        Header="Show Log..."/>
                 </MenuItem>
 
                 <!-- Help Menu -->

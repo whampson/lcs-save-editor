@@ -34,12 +34,17 @@ namespace LcsSaveEditor.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Window m_logWindow;
+
         public MainWindow()
         {
             InitializeComponent();
 
+            m_logWindow = new LogWindow();
+
             ViewModel.MessageBoxRequested += ViewModel_MessageBoxRequested;
             ViewModel.FileDialogRequested += ViewModel_FileDialogRequested;
+            ViewModel.LogWindowRequested += ViewModel_LogWindowRequested;
         }
 
         public MainViewModel ViewModel
@@ -58,6 +63,16 @@ namespace LcsSaveEditor.Views
             e.ShowDialog(this);
         }
 
+        private void ViewModel_LogWindowRequested(object sender, EventArgs e)
+        {
+            if (!m_logWindow.IsVisible) {
+                m_logWindow.Show();
+            }
+            else {
+                m_logWindow.Activate();
+            }
+        }
+
         private void ViewModel_AboutDialogRequested(object sender, EventArgs e)
         {
             // TODO: show custom dialog
@@ -67,6 +82,11 @@ namespace LcsSaveEditor.Views
             //    Owner = this
             //};
             //w.ShowDialog();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            m_logWindow.Owner = this;
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
