@@ -23,6 +23,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -45,13 +47,13 @@ namespace LcsSaveEditor.Infrastructure
         /// </summary>
         public static readonly LogLevel DefaultStandardErrorLevel = LogLevel.Error;
 
-        private static List<LogItem> m_logItems;
+        private static ObservableCollection<LogItem> m_logItems;
         private static LogWriter m_stdout;
         private static LogWriter m_stderr;
 
         static Logger()
         {
-            m_logItems = new List<LogItem>();
+            m_logItems = new ObservableCollection<LogItem>();
             m_stdout = new LogWriter();
             m_stderr = new LogWriter();
 
@@ -100,6 +102,7 @@ namespace LcsSaveEditor.Infrastructure
         /// Adds an entry to the log with the 'Debug' importance level.
         /// </summary>
         /// <param name="item">The item to add log.</param>
+        [Conditional("DEBUG")]
         public static void Debug(object item)
         {
             Log(LogLevel.Debug, item);
@@ -110,6 +113,7 @@ namespace LcsSaveEditor.Infrastructure
         /// </summary>
         /// <param name="format">A composite format string.</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
+        [Conditional("DEBUG")]
         public static void Debug(string format, params object[] args)
         {
             Log(LogLevel.Debug, string.Format(format, args));
@@ -212,12 +216,12 @@ namespace LcsSaveEditor.Infrastructure
         }
 
         /// <summary>
-        /// Gets all items in the log as a read-only collection
+        /// Gets all items in the log as an observable collection
         /// </summary>
         /// <returns>All log entires as a read-only collection.</returns>
-        public static IReadOnlyCollection<LogItem> GetLogItems()
+        public static ObservableCollection<LogItem> GetLogItems()
         {
-            return m_logItems.AsReadOnly();
+            return m_logItems;
         }
 
         /// <summary>
