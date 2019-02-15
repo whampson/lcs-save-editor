@@ -25,15 +25,25 @@ using LcsSaveEditor.Infrastructure;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class LogViewModel
+    public partial class LogViewModel : ObservableObject
     {
-        private void FileDialog_ResultAction(bool? dialogResult, FileDialogEventArgs e)
+        private void SaveLog_ResultAction(bool? dialogResult, FileDialogEventArgs e)
         {
             if (dialogResult != true) {
                 return;
             }
 
             Logger.WriteLogFile(e.FileName);
+        }
+
+        private void SaveOnExit_ResultAction(bool? dialogResult, FileDialogEventArgs e)
+        {
+            if (dialogResult != true) {
+                SaveOnExit = false;
+                return;
+            }
+
+            Logger.SaveOnExitFilename = e.FileName;
         }
     }
 }

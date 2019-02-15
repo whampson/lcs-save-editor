@@ -44,6 +44,9 @@ SOFTWARE.
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="Margin" Value="5,5,5,5"/>
         </Style>
+        <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
         <Style TargetType="TextBlock" x:Key="LogEntryFieldStyle">
             <Setter Property="Margin" Value="5,0,5,0"/>
         </Style>
@@ -78,14 +81,26 @@ SOFTWARE.
 
             <Button
                 Grid.Column="0"
-                Command="{Binding SaveLogCommand}"
-                Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextSave}"/>
-            <Button
-                Grid.Column="1"
                 Command="{Binding ClearLogCommand}"
                 Style="{StaticResource ButtonStyle}"
                 Content="{x:Static r:Strings.ButtonTextClear}"/>
+            <Button
+                Grid.Column="1"
+                Command="{Binding SaveLogCommand}"
+                Style="{StaticResource ButtonStyle}"
+                Content="{x:Static r:Strings.ButtonTextSave}"/>
+            <CheckBox
+                Grid.Column="2"
+                IsChecked="{Binding SaveOnExit}"
+                Style="{StaticResource CheckBoxStyle}"
+                Content="{x:Static r:Strings.SaveOnExit}"
+                ToolTip="{x:Static r:Strings.ToolTipSaveOnExit}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Checked">
+                        <i:InvokeCommandAction Command="{Binding SaveOnExitCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </CheckBox>
             <Button
                 Grid.Column="3"
                 Command="{Binding CloseWindowCommand}"

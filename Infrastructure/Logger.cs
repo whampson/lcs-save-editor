@@ -65,6 +65,26 @@ namespace LcsSaveEditor.Infrastructure
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to save the log file
+        /// when the application exits.
+        /// </summary>
+        public static bool SaveOnExit
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the filename to use if the log is saved
+        /// when the application exits.
+        /// </summary>
+        public static string SaveOnExitFilename
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the current <see cref="LogLevel"/> for the standard output stream.
         /// </summary>
         public static LogLevel StandardOutLogLevel

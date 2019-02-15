@@ -26,7 +26,7 @@ using System.Collections.ObjectModel;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class LogViewModel
+    public partial class LogViewModel : ObservableObject
     {
         public LogViewModel()
         { }
@@ -34,6 +34,12 @@ namespace LcsSaveEditor.ViewModels
         public ObservableCollection<LogItem> LogItems
         {
             get { return Logger.GetLogItems(); }
+        }
+
+        public bool SaveOnExit
+        {
+            get { return Logger.SaveOnExit; }
+            set { Logger.SaveOnExit = value; OnPropertyChanged(); }
         }
     }
 }

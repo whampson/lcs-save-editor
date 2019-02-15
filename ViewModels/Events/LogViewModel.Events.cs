@@ -26,7 +26,7 @@ using System;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class LogViewModel
+    public partial class LogViewModel : ObservableObject
     {
         public event EventHandler<DialogCloseEventArgs> DialogCloseRequested;
         public event EventHandler<FileDialogEventArgs> FileDialogRequested;

@@ -28,8 +28,13 @@ using System.Windows.Input;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class LogViewModel
+    public partial class LogViewModel : ObservableObject
     {
+        public ICommand ClearLogCommand
+        {
+            get { return new RelayCommand(() => LogItems.Clear()); }
+        }
+
         public ICommand SaveLogCommand
         {
             get {
@@ -38,13 +43,20 @@ namespace LcsSaveEditor.ViewModels
                         FileDialogType.SaveDialog,
                         title: Strings.DialogTitleSaveFileAs,
                         filter: Strings.FileFilterLog,
-                        resultAction: FileDialog_ResultAction)));
+                        resultAction: SaveLog_ResultAction)));
             }
         }
 
-        public ICommand ClearLogCommand
+        public ICommand SaveOnExitCommand
         {
-            get { return new RelayCommand(() => LogItems.Clear()); }
+            get {
+                return new RelayCommand<Action<bool?, DialogCloseEventArgs>>(
+                    (x) => OnFileDialogRequested(new FileDialogEventArgs(
+                        FileDialogType.SaveDialog,
+                        title: Strings.DialogTitleSaveFileAs,
+                        filter: Strings.FileFilterLog,
+                        resultAction: SaveOnExit_ResultAction)));
+            }
         }
 
         public ICommand CloseWindowCommand
