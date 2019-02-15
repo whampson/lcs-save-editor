@@ -23,9 +23,11 @@
 
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Resources;
+using LcsSaveEditor.ViewModels;
 using LcsSaveEditor.Views;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Threading;
@@ -37,6 +39,45 @@ namespace LcsSaveEditor.StartUp
     /// </summary>
     public partial class App : Application
     {
+        private void LoadSettings()
+        {
+            string path = Settings.DefaultSettingsPath;
+            if (!File.Exists(path)) {
+                return;
+            }
+
+            Logger.Info("Loading settings...");
+
+            try {
+                Settings.Current = Settings.Load(path);
+            }
+            catch (InvalidOperationException ex) {
+                Logger.Error("Failed to load settings! {0}", ex.InnerException.Message);
+            }
+        }
+
+        private void SaveSettings()
+        {
+            string path = Settings.DefaultSettingsPath;
+
+            Logger.Info("Saving settings...");
+
+            try {
+                Settings.Current.Store(path);
+            }
+            catch (InvalidOperationException ex) {
+                Logger.Error("Failed to save settings! {0}", ex.InnerException.Message);
+            }
+        }
+
+        private void LoadUI()
+        {
+            Logger.Info("Loading UI...");
+
+            MainWindow = new MainWindow();
+            MainWindow.Show();
+        }
+
         private string GetAppVersionString()
         {
             Assembly asm = Assembly.GetExecutingAssembly();
@@ -55,15 +96,19 @@ namespace LcsSaveEditor.StartUp
             Logger.Info("Version: {0}", GetAppVersionString());
             Logger.Info("Host OS: {0}", Environment.OSVersion);
             Logger.Info("==========={0}===========", new string('=', Strings.AppName.Length));
-            Logger.Info("Loading UI...");
 
-            MainWindow = new MainWindow();
-            MainWindow.Show();
+            LoadSettings();
+            LoadUI();
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             Logger.Info("Exiting...");
+            SaveSettings();
+
+            if (Logger.SaveOnExit) {
+                Logger.WriteLogFile(Logger.SaveOnExitFilename);
+            }
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

@@ -87,6 +87,8 @@ namespace LcsSaveEditor.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             m_logWindow.Owner = this;
+
+            Logger.Info("Ready.");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
