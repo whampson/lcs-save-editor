@@ -64,6 +64,10 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
+      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
+      <Name>DataTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{003b8084-2efa-453a-b2a1-09189725aed3}</Project>
       <Name>Helpers</Name>
