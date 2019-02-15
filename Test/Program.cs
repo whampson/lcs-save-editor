@@ -28,6 +28,9 @@ using System.IO;
 
 namespace Test
 {
+    /// <summary>
+    /// Playground for testing code.
+    /// </summary>
     public class Program
     {
         const string PlatformPS2 = "PS2";
