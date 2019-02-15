@@ -42,7 +42,7 @@ namespace LcsSaveEditor.ViewModels
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
                     (x) => ShowOpenFileDialog(
                         FileDialog_ResultAction,
-                        filter: Strings.FileFilterSaveData,
+                        filter: FrontendResources.FileFilter_Gta,
                         initialDirectory: Settings.Current.SaveDataFileDialogDirectory));
             }
         }
@@ -67,7 +67,7 @@ namespace LcsSaveEditor.ViewModels
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
                     (x) => ShowSaveFileDialog(
                         FileDialog_ResultAction,
-                        filter: Strings.FileFilterSaveData,
+                        filter: FrontendResources.FileFilter_Gta,
                         initialDirectory: Settings.Current.SaveDataFileDialogDirectory),
                     (x) => IsFileOpen);
             }
@@ -92,7 +92,7 @@ namespace LcsSaveEditor.ViewModels
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
                 message,
-                Strings.DialogTitleError,
+                FrontendResources.Common_Error,
                 icon: MessageBoxImage.Error));
         }
 
@@ -101,7 +101,7 @@ namespace LcsSaveEditor.ViewModels
             OnMessageBoxRequested(new MessageBoxEventArgs(
                 string.Format("{0}\n\n{1}: {2}",
                     message, ex.GetType().Name, ex.Message),
-                Strings.DialogTitleError,
+                FrontendResources.Common_Error,
                 icon: MessageBoxImage.Error));
         }
 
@@ -115,7 +115,7 @@ namespace LcsSaveEditor.ViewModels
                 fileName: fileName,
                 filter: filter,
                 initialDirectory: initialDirectory,
-                title: Strings.DialogTitleOpenFile,
+                title: FrontendResources.Common_Open,
                 resultAction: resultAction));
         }
 
@@ -129,7 +129,7 @@ namespace LcsSaveEditor.ViewModels
                 fileName: fileName,
                 filter: filter,
                 initialDirectory: initialDirectory,
-                title: Strings.DialogTitleSaveFileAs,
+                title: FrontendResources.Common_SaveAs,
                 resultAction: resultAction));
         }
 
@@ -144,38 +144,42 @@ namespace LcsSaveEditor.ViewModels
 
             OnMessageBoxRequested(new MessageBoxEventArgs(
                 "(placeholder)",
-                Strings.DialogTitleAbout,
+                title: FrontendResources.Dialog_Title_About,
                 icon: MessageBoxImage.Information));
         }
 
         private void ShowCloseFilePrompt()
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
-                Strings.DialogTextSaveChangesPrompt,
-                Strings.DialogTitleSaveChangesPrompt,
-                MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Question,
-                MessageBoxResult.Yes,
+                FrontendResources.Dialog_Text_SaveChanges,
+                title: FrontendResources.Dialog_Title_SaveChanges,
+                buttons: MessageBoxButton.YesNoCancel,
+                icon: MessageBoxImage.Question,
+                defaultResult: MessageBoxResult.Yes,
                 resultAction: FileClosePrompt_ResultAction));
         }
 
         private SaveData LoadSaveData(string path)
         {
+            Action<Exception> errorHandler = (ex) =>
+            {
+                Logger.Error(CommonResources.Error_LoadFail);
+                Logger.Error("({0})", ex.Message);
+                ShowErrorDialog(FrontendResources.Dialog_Text_GtaDataLoadFail, ex);
+            };
+
             SaveData saveData = null;
             try {
                 saveData = SaveData.Load(path);
             }
             catch (IOException ex) {
-                Logger.Error("Failed to load file! {0}", ex.Message);
-                ShowErrorDialog("Failed to load file!", ex);
+                errorHandler(ex);
             }
             catch (InvalidDataException ex) {
-                Logger.Error("Failed to load file! {0}", ex.Message);
-                ShowErrorDialog("Failed to load file!", ex);
+                errorHandler(ex);
             }
             catch(UnauthorizedAccessException ex) {
-                Logger.Error("Failed to load file! {0}", ex.Message);
-                ShowErrorDialog("Failed to load file!", ex);
+                errorHandler(ex);
             }
 
             return saveData;
@@ -183,6 +187,13 @@ namespace LcsSaveEditor.ViewModels
 
         private bool WriteSaveData(SaveData saveData, string path)
         {
+            Action<Exception> errorHandler = (ex) =>
+            {
+                Logger.Error(CommonResources.Error_SaveFail);
+                Logger.Error("({0})", ex.Message);
+                ShowErrorDialog(FrontendResources.Dialog_Text_GtaDataSaveFail, ex);
+            };
+
             bool result = false;
 
             try {
@@ -190,16 +201,13 @@ namespace LcsSaveEditor.ViewModels
                 result = true;
             }
             catch (IOException ex) {
-                Logger.Error("Failed to save file! {0}", ex.Message);
-                ShowErrorDialog("Failed to save file!", ex);
+                errorHandler(ex);
             }
             catch (InvalidDataException ex) {
-                Logger.Error("Failed to save file! {0}", ex.Message);
-                ShowErrorDialog("Failed to save file!", ex);
+                errorHandler(ex);
             }
             catch (UnauthorizedAccessException ex) {
-                Logger.Error("Failed to save file! {0}", ex.Message);
-                ShowErrorDialog("Failed to save file!", ex);
+                errorHandler(ex);
             }
 
             return result;
@@ -222,9 +230,10 @@ namespace LcsSaveEditor.ViewModels
             // Load new file
             SaveData saveData = LoadSaveData(path);
             if (saveData == null) {
-                StatusText = Strings.StatusTextFileLoadFail;
+                StatusText = CommonResources.Error_LoadFail;
                 return;
             }
+            StatusText = CommonResources.Info_LoadSuccess;
 
             CurrentSaveData = saveData;
             CurrentSaveData.PropertyChanged += CurrentSaveData_PropertyChanged;
@@ -232,9 +241,7 @@ namespace LcsSaveEditor.ViewModels
             AddRecentFile(path);
             ReloadTabs();
 
-            Logger.Info(Strings.StatusTextFileLoadSuccess);
-            StatusText = Strings.StatusTextFileLoadSuccess;
-            WindowTitle = string.Format("{0} - [{1}]", Strings.AppName, path);
+            WindowTitle = string.Format("{0} - [{1}]", FrontendResources.Main_Window_Title, path);
         }
 
         private void SaveFile(string path)
@@ -243,13 +250,12 @@ namespace LcsSaveEditor.ViewModels
 
             bool result = WriteSaveData(CurrentSaveData, path);
             if (!result) {
-                StatusText = Strings.StatusTextFileSaveFail;
+                StatusText = CommonResources.Error_SaveFail;
                 return;
             }
+            StatusText = CommonResources.Info_SaveSuccess;
 
             IsFileModified = false;
-            Logger.Info(Strings.StatusTextFileSaveSuccess);
-            StatusText = Strings.StatusTextFileSaveSuccess;
         }
 
         private void CloseFile()
@@ -266,13 +272,13 @@ namespace LcsSaveEditor.ViewModels
         {
             CurrentSaveData.PropertyChanged -= CurrentSaveData_PropertyChanged;
             CurrentSaveData = null;
+            Logger.Info(CommonResources.Info_FileClosed);
 
             ReloadTabs();
 
             IsFileModified = false;
-            Logger.Info("File closed.");
-            StatusText = Strings.StatusTextFileNotLoaded;
-            WindowTitle = Strings.AppName;
+            StatusText = FrontendResources.Main_StatusText_NoFileLoaded;
+            WindowTitle = FrontendResources.Main_Window_Title;
         }
 
         private void ExitApp()

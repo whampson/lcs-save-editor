@@ -45,8 +45,8 @@ namespace LcsSaveEditor.ViewModels
             m_recentFiles = new RecentFilesList(10);
             m_tabs = new ObservableCollection<PageViewModelBase>();
             m_selectedTabIndex = -1;
-            m_windowTitle = Strings.AppName;
-            m_statusText = Strings.StatusTextWelcome;
+            m_windowTitle = FrontendResources.Main_Window_Title;
+            m_statusText = FrontendResources.Main_StatusText_Welcome;
         }
 
         public ObservableCollection<PageViewModelBase> Tabs
@@ -113,7 +113,7 @@ namespace LcsSaveEditor.ViewModels
                 if (CurrentSaveData == null) {
                     return string.Empty;
                 }
-                return Strings.ToolTipTextFileModified;
+                return FrontendResources.Main_ToolTip_UnsavedChanges;
             }
         }
 
@@ -125,7 +125,7 @@ namespace LcsSaveEditor.ViewModels
                 }
 
                 string platName = GamePlatformHelper.GetPlatformName(CurrentSaveData.FileType);
-                return string.Format(Strings.ToolTipTextFileCompatibility, platName);
+                return string.Format(FrontendResources.Main_ToolTip_Compatibility, platName);
             }
         }
     }

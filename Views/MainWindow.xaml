@@ -134,13 +134,13 @@ SOFTWARE.
             <Menu DockPanel.Dock="Top">
 
                 <!-- File Menu -->
-                <MenuItem Header="{x:Static r:Strings.MenuHeaderFile}">
+                <MenuItem Header="{x:Static r:FrontendResources.Main_MenuFile}">
                     <MenuItem
                         Command="{Binding OpenFileCommand}"
-                        Header="{x:Static r:Strings.MenuItemHeaderOpen}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_Open}"
                         InputGestureText="Ctrl+O"/>
                     <MenuItem ItemsSource="{Binding RecentFiles.Items}"
-                        Header="{x:Static r:Strings.MenuItemHeaderOpenRecent}">
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_OpenRecent}">
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}">
                                 <Setter Property="Command" Value="{Binding Command}"/>
@@ -156,36 +156,36 @@ SOFTWARE.
                     </MenuItem>
                     <MenuItem
                         Command="{Binding CloseFileCommand}"
-                        Header="{x:Static r:Strings.MenuItemHeaderClose}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_Close}"
                         InputGestureText="Ctrl+W"/>
                     <Separator/>
                     <MenuItem
                         Command="{Binding SaveFileCommand}"
-                        Header="{x:Static r:Strings.MenuItemHeaderSave}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_Save}"
                         InputGestureText="Ctrl+S"/>
                     <MenuItem
                         Command="{Binding SaveFileAsCommand}"
-                        Header="{x:Static r:Strings.MenuItemHeaderSaveAs}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_SaveAs}"
                         InputGestureText="Ctrl+Shift+S"/>
                     <Separator/>
                     <MenuItem
                         Command="{Binding ExitAppCommand}"
-                        Header="{x:Static r:Strings.MenuItemHeaderExit}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_Exit}"
                         InputGestureText="Alt+F4"/>
                 </MenuItem>
 
                 <!-- View Menu -->
-                <MenuItem Header="View">
+                <MenuItem Header="{x:Static r:FrontendResources.Main_MenuView}">
                     <MenuItem
                         Command="{Binding ShowLogWindowCommand}"
-                        Header="Show Log..."/>
+                        Header="{x:Static r:FrontendResources.Main_MenuView_Log}"/>
                 </MenuItem>
 
                 <!-- Help Menu -->
-                <MenuItem Header="{x:Static r:Strings.MenuHeaderHelp}">
+                <MenuItem Header="{x:Static r:FrontendResources.Main_MenuHelp}">
                     <MenuItem
                         Command="{Binding ShowAboutDialogCommand}"
-                        Header="{x:Static r:Strings.MenuItemHeaderAbout}"
+                        Header="{x:Static r:FrontendResources.Main_MenuHelp_About}"
                         InputGestureText="F1"/>
                 </MenuItem>
 
@@ -229,7 +229,7 @@ SOFTWARE.
 
             <StatusBarItem Grid.Column="2" HorizontalAlignment="Center">
                 <TextBlock
-                    Text="{x:Static r:Strings.FlagFileModified}"
+                    Text="{x:Static r:FrontendResources.Main_StatusBar_FileModifiedFlag}"
                     Visibility="{Binding IsFileModified, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                     <TextBlock.ToolTip>

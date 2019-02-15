@@ -162,40 +162,47 @@ namespace LcsSaveEditor.Models
 
             // TODO: decrypt PSP saves (?)
 
-            Logger.Info(CommonResources.Info_LoadingGtaData, path);
+            Logger.Info(CommonResources.Info_LoadingGtaData);
 
             // TODO: use stream
 
             rawData = File.ReadAllBytes(path);
             fileType = DetectFileType(rawData);
 
+            SaveData data;
+            switch (fileType) {
+                case GamePlatform.Android:
+                    data = Deserialize<SaveDataAndroid>(rawData);
+                    break;
+                case GamePlatform.IOS:
+                    data = Deserialize<SaveDataIOS>(rawData);
+                    break;
+                case GamePlatform.PS2:
+                    data = Deserialize<SaveDataPS2>(rawData);
+                    break;
+                case GamePlatform.PSP:
+                    data = Deserialize<SaveDataPSP>(rawData);
+                    break;
+                default:
+                    string msg = string.Format(CommonResources.Error_Oops, nameof(Load));
+                    throw new InvalidOperationException(msg);
+            }
+
+            Logger.Info(CommonResources.Info_LoadSuccess);
             Logger.Info(CommonResources.Info_FileFormat, fileType);
             Logger.Info(CommonResources.Info_FileSize, rawData.Length);
 
-            switch (fileType) {
-                case GamePlatform.Android:
-                    return Deserialize<SaveDataAndroid>(rawData);
-                case GamePlatform.IOS:
-                    return Deserialize<SaveDataIOS>(rawData);
-                case GamePlatform.PS2:
-                    return Deserialize<SaveDataPS2>(rawData);
-                case GamePlatform.PSP:
-                    return Deserialize<SaveDataPSP>(rawData);
-            }
-
-            string msg = string.Format(CommonResources.Error_Oops, nameof(Load));
-            throw new InvalidOperationException(msg);
+            return data;
         }
 
         public void Store(string path)
         {
-            Logger.Info(CommonResources.Info_SavingGtaData, path);
+            Logger.Info(CommonResources.Info_SavingGtaData);
 
             byte[] data = Serialize(this);
             File.WriteAllBytes(path, data);
 
-            Logger.Info(CommonResources.Info_FileFormat, FileType);
-            Logger.Info(CommonResources.Info_FileSize, data.Length);
+            Logger.Info(CommonResources.Info_SaveSuccess);
         }
 
         protected void DeserializeDataBlocks()
@@ -346,7 +353,7 @@ namespace LcsSaveEditor.Models
                 block.Data = r.ReadBytes(blockSize);
 
                 if (block.Data.Length != blockSize) {
-                    Logger.Warn(CommonResources.Warn_IncorrectBlockSize, blockSize, block.Data.Length);
+                    Logger.Warn(CommonResources.Error_IncorrectBlockSize, blockSize, block.Data.Length);
                 }
             }
 

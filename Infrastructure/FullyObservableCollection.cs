@@ -112,7 +112,7 @@ namespace LcsSaveEditor.Infrastructure
             int i = Items.IndexOf(typedSender);
 
             if (i < 0) {
-                throw new ArgumentException(Strings.ExceptionInvalidItemPropertyChanged);
+                throw new ArgumentException(CommonResources.Error_InvalidPropertyChanged);
             }
 
             OnItemPropertyChanged(i, e);

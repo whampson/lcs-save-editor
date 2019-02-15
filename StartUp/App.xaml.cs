@@ -43,16 +43,17 @@ namespace LcsSaveEditor.StartUp
         {
             string path = Settings.DefaultSettingsPath;
             if (!File.Exists(path)) {
+                Logger.Warn(CommonResources.Warn_SettingsNotFoundUseDefault);
                 return;
             }
 
-            Logger.Info("Loading settings...");
-
             try {
+                Logger.Info(CommonResources.Info_LoadingSettings);
                 Settings.Current = Settings.Load(path);
             }
             catch (InvalidOperationException ex) {
-                Logger.Error("Failed to load settings! {0}", ex.InnerException.Message);
+                Logger.Error(CommonResources.Error_SettingsLoadFailUseDefault);
+                Logger.Error("({0})", ex.InnerException.Message);
             }
         }
 
@@ -60,19 +61,19 @@ namespace LcsSaveEditor.StartUp
         {
             string path = Settings.DefaultSettingsPath;
 
-            Logger.Info("Saving settings...");
-
             try {
+                Logger.Info(CommonResources.info_SavingSettings);
                 Settings.Current.Store(path);
             }
             catch (InvalidOperationException ex) {
-                Logger.Error("Failed to save settings! {0}", ex.InnerException.Message);
+                Logger.Error(CommonResources.Error_SettingsSaveFail);
+                Logger.Error("({0})", ex.InnerException.Message);
             }
         }
 
         private void LoadUI()
         {
-            Logger.Info("Loading UI...");
+            Logger.Info(CommonResources.Info_LoadingUI);
 
             MainWindow = new MainWindow();
             MainWindow.Show();
@@ -83,8 +84,7 @@ namespace LcsSaveEditor.StartUp
             Assembly asm = Assembly.GetExecutingAssembly();
             FileVersionInfo vInfo = FileVersionInfo.GetVersionInfo(asm.Location);
 
-            return string.Format("{0} (build {1})",
-                vInfo.ProductVersion, vInfo.FilePrivatePart);
+            return string.Format(FrontendResources.App_Version, vInfo.ProductVersion, vInfo.FilePrivatePart);
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
@@ -92,10 +92,10 @@ namespace LcsSaveEditor.StartUp
             Logger.ConsumeStandardOut();
             Logger.ConsumeStandardError();
 
-            Logger.Info("========== {0} ==========", Strings.AppName);
-            Logger.Info("Version: {0}", GetAppVersionString());
-            Logger.Info("Host OS: {0}", Environment.OSVersion);
-            Logger.Info("==========={0}===========", new string('=', Strings.AppName.Length));
+            Logger.Info("========== {0} ==========", FrontendResources.App_Title);
+            Logger.Info(GetAppVersionString());
+            Logger.Info(FrontendResources.App_HostOS, Environment.OSVersion);
+            Logger.Info("==========={0}===========", new string('=', FrontendResources.App_Title.Length));
 
             LoadSettings();
             LoadUI();
@@ -103,7 +103,7 @@ namespace LcsSaveEditor.StartUp
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            Logger.Info("Exiting...");
+            Logger.Info(CommonResources.Info_AppExit);
             SaveSettings();
 
             if (Logger.SaveOnExit) {

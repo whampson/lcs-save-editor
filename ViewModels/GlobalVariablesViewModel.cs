@@ -40,7 +40,7 @@ namespace LcsSaveEditor.ViewModels
         private bool m_suppressNamedGlobalVariablesChanged;
 
         public GlobalVariablesViewModel(MainViewModel mainViewModel)
-            : base(mainViewModel, Strings.PageHeaderGlobalVariables)
+            : base(mainViewModel, FrontendResources.Main_Page_GlobalVariables)
         {
             m_namedGlobalVariables = new FullyObservableCollection<NamedScriptVariable>();
             m_selectedRow = -1;

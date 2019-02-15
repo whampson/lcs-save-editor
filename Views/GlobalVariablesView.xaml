@@ -91,15 +91,15 @@ SOFTWARE.
                     DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                     <MenuItem
                         Command="{Binding Path=DataContext.InsertRowAboveCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Header="{x:Static r:Strings.MenuItemHeaderInsertAbove}"
+                        Header="{x:Static r:FrontendResources.GlobalVariables_ContextMenu_InsertAbove}"
                         InputGestureText="Ins"/>
                     <MenuItem
                         Command="{Binding Path=DataContext.InsertRowBelowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Header="{x:Static r:Strings.MenuItemHeaderInsertBelow}"
+                        Header="{x:Static r:FrontendResources.GlobalVariables_ContextMenu_InsertBelow}"
                         InputGestureText="Shift+Ins"/>
                     <MenuItem
                         Command="{Binding Path=DataContext.DeleteRowCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}"
-                        Header="{x:Static r:Strings.MenuItemHeaderDelete}"
+                        Header="{x:Static r:FrontendResources.GlobalVariables_ContextMenu_Delete}"
                         InputGestureText="Del"/>
                 </ContextMenu>
             </DataGrid.Resources>
@@ -119,26 +119,26 @@ SOFTWARE.
             <DataGrid.Columns>
                 <DataGridTextColumn
                     Width="40*"
-                    Header="{x:Static r:Strings.FieldName}"
+                    Header="{x:Static r:FrontendResources.GlobalVariables_DataType_Name}"
                     Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn
                     Width="25*"
-                    Header="{x:Static r:Strings.FieldValueInt32}"
+                    Header="{x:Static r:FrontendResources.GlobalVariables_DataType_Int32}"
                     Binding="{Binding Path=ValueInt32, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding DataContext.IsShowingColumnInt32,Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}"/>
                 <DataGridTextColumn
                     Width="25*"
-                    Header="{x:Static r:Strings.FieldValueUInt32}"
+                    Header="{x:Static r:FrontendResources.GlobalVariables_DataType_UInt32}"
                     Binding="{Binding Path=ValueUInt32, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding DataContext.IsShowingColumnUInt32, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}"/>
                 <DataGridTextColumn
                     Width="25*"
-                    Header="{x:Static r:Strings.FieldValueFloat}"
+                    Header="{x:Static r:FrontendResources.GlobalVariables_DataType_Float}"
                     Binding="{Binding Path=ValueSingle, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding DataContext.IsShowingColumnFloat, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}"/>
                 <DataGridTemplateColumn
                     Width="25*"
-                    Header="{x:Static r:Strings.FieldValueBoolean}"
+                    Header="{x:Static r:FrontendResources.GlobalVariables_DataType_Bool}"
                     Visibility="{Binding Path=DataContext.IsShowingColumnBoolean, Converter={StaticResource BooleanToVisibilityConverter}, Source={x:Reference ProxyElement}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -165,32 +165,32 @@ SOFTWARE.
             <CheckBox
                 Grid.Row="0" Grid.Column="0"
                 Style="{StaticResource CheckBoxStyle}"
-                Content="{x:Static r:Strings.FieldValueInt32}"
+                Content="{x:Static r:FrontendResources.GlobalVariables_DataType_Int32}"
                 IsChecked="{Binding IsShowingColumnInt32}"/>
             <CheckBox
                 Grid.Row="1" Grid.Column="0"
                 Style="{StaticResource CheckBoxStyle}"
-                Content="{x:Static r:Strings.FieldValueUInt32}"
+                Content="{x:Static r:FrontendResources.GlobalVariables_DataType_UInt32}"
                 IsChecked="{Binding IsShowingColumnUInt32}"/>
             <CheckBox
                 Grid.Row="0" Grid.Column="1"
                 Style="{StaticResource CheckBoxStyle}"
-                Content="{x:Static r:Strings.FieldValueFloat}"
+                Content="{x:Static r:FrontendResources.GlobalVariables_DataType_Float}"
                 IsChecked="{Binding IsShowingColumnFloat}"/>
             <CheckBox
                 Grid.Row="1" Grid.Column="1"
                 Style="{StaticResource CheckBoxStyle}"
-                Content="{x:Static r:Strings.FieldValueBoolean}"
+                Content="{x:Static r:FrontendResources.GlobalVariables_DataType_Bool}"
                 IsChecked="{Binding IsShowingColumnBoolean}"/>
             <Button
                 Grid.Row="0" Grid.Column="2"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextLoadSymbols}"
+                Content="{x:Static r:FrontendResources.GlobalVariables_Options_LoadSymbols}"
                 Command="{Binding LoadSymbolsCommand}"/>
             <Button
                 Grid.Row="1" Grid.Column="2"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextSaveSymbols}"
+                Content="{x:Static r:FrontendResources.GlobalVariables_Options_SaveSymbols}"
                 Command="{Binding SaveSymbolsCommand}"/>
         </Grid>
     </Grid>

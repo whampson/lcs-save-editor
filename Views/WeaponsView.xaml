@@ -87,52 +87,52 @@ SOFTWARE.
 
             <CheckBox
                 Grid.Row="0" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotHand}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Hand}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="true" IsEnabled="false"/>
             <CheckBox
                 Grid.Row="1" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotMelee}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Melee}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasMelee}"/>
             <CheckBox
                 Grid.Row="2" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotProjectile}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Projectile}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasProjectile}"/>
             <CheckBox
                 Grid.Row="3" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotPistol}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Pistol}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasPistol}"/>
             <CheckBox
                 Grid.Row="4" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotShotgun}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Shotgun}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasShotgun}"/>
             <CheckBox
                 Grid.Row="5" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotSmg}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Smg}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasSmg}"/>
             <CheckBox
                 Grid.Row="6" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotAssault}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Assault}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasAssault}"/>
             <CheckBox
                 Grid.Row="7" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotHeavy}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Heavy}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasHeavy}"/>
             <CheckBox
                 Grid.Row="8" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotSniper}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Sniper}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasSniper}"/>
             <CheckBox
                 Grid.Row="9" Grid.Column="0"
-                Content="{x:Static r:Strings.WeaponSlotSpecial}"
+                Content="{x:Static r:FrontendResources.Weapons_Slot_Special}"
                 Style="{StaticResource CheckBoxStyle}"
                 IsChecked="{Binding HasSpecial}"/>
 

@@ -31,7 +31,7 @@ SOFTWARE.
         xmlns:v="clr-namespace:LcsSaveEditor.Views"
         xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
         mc:Ignorable="d"
-        Title="{x:Static r:Strings.WindowTitleLog}"
+        Title="{x:Static r:FrontendResources.Log_Window_Title}"
         Height="300" Width="450"
         WindowStartupLocation="CenterOwner"
         Closing="Window_Closing">
@@ -83,18 +83,18 @@ SOFTWARE.
                 Grid.Column="0"
                 Command="{Binding ClearLogCommand}"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextClear}"/>
+                Content="{x:Static r:FrontendResources.Common_Clear}"/>
             <Button
                 Grid.Column="1"
                 Command="{Binding SaveLogCommand}"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextSave}"/>
+                Content="{x:Static r:FrontendResources.Common_SaveEllipses}"/>
             <CheckBox
                 Grid.Column="2"
                 IsChecked="{Binding SaveOnExit}"
                 Style="{StaticResource CheckBoxStyle}"
-                Content="{x:Static r:Strings.SaveOnExit}"
-                ToolTip="{x:Static r:Strings.ToolTipSaveOnExit}">
+                Content="{x:Static r:FrontendResources.Log_Options_SaveOnExit}"
+                ToolTip="{x:Static r:FrontendResources.Log_ToolTip_SaveOnExit}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Checked">
                         <i:InvokeCommandAction Command="{Binding SaveOnExitCommand}"/>
@@ -105,7 +105,7 @@ SOFTWARE.
                 Grid.Column="3"
                 Command="{Binding CloseWindowCommand}"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:Strings.ButtonTextClose}"/>
+                Content="{x:Static r:FrontendResources.Common_Close}"/>
         </Grid>
 
     </Grid>

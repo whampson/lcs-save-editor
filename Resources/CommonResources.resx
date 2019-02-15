@@ -143,21 +143,8 @@
     <value>'{0}' is a static array; it cannot be resized.</value>
     <comment>{0} = array name</comment>
   </data>
-  <data name="FileFilter_Gta" xml:space="preserve">
-    <value>GTA Save Data Files (*.b)|*.b|All Files (*.*)|*.*</value>
-  </data>
-  <data name="FileFilter_Ini" xml:space="preserve">
-    <value>Ini Files (*.ini)|*.ini</value>
-  </data>
-  <data name="File_Filter_Log" xml:space="preserve">
-    <value>Log Files (*.log)|*.log|All Files (*.*)|*.*</value>
-  </data>
   <data name="Info_AppExit" xml:space="preserve">
     <value>Exiting...</value>
-  </data>
-  <data name="Info_BlockSize" xml:space="preserve">
-    <value>Block '{0}' size: {1} bytes</value>
-    <comment>{0} = block tag; {1} = block size</comment>
   </data>
   <data name="Info_FileFormat" xml:space="preserve">
     <value>File format: {0}</value>
@@ -167,12 +154,11 @@
     <value>File size: {0} bytes</value>
     <comment>{0} = file size</comment>
   </data>
-  <data name="Info_LoadFail" xml:space="preserve">
+  <data name="Error_LoadFail" xml:space="preserve">
     <value>Load failed.</value>
   </data>
   <data name="Info_LoadingGtaData" xml:space="preserve">
-    <value>Loading GTA:LCS save data from {0}...</value>
-    <comment>{0} = file path</comment>
+    <value>Loading GTA:LCS save data...</value>
   </data>
   <data name="Info_LoadSuccess" xml:space="preserve">
     <value>Load successful.</value>
@@ -184,23 +170,22 @@
   <data name="Info_Ready" xml:space="preserve">
     <value>Ready.</value>
   </data>
-  <data name="Info_SaveFail" xml:space="preserve">
+  <data name="Error_SaveFail" xml:space="preserve">
     <value>Save failed.</value>
   </data>
   <data name="Info_SaveSuccess" xml:space="preserve">
     <value>Save successful.</value>
   </data>
   <data name="Info_SavingGtaData" xml:space="preserve">
-    <value>Saving GTA:LCS save data to {0}...</value>
-    <comment>{0} = file path</comment>
+    <value>Saving GTA:LCS save data...</value>
   </data>
-  <data name="Info_SymbolsLoadFail" xml:space="preserve">
+  <data name="Error_SymbolsLoadFail" xml:space="preserve">
     <value>Failed to load symbols.</value>
   </data>
   <data name="Info_SymbolsLoadSuccess" xml:space="preserve">
     <value>Symbols loaded.</value>
   </data>
-  <data name="Info_SymbolsSaveFail" xml:space="preserve">
+  <data name="Error_SymbolsSaveFail" xml:space="preserve">
     <value>Failed to save symbols.</value>
   </data>
   <data name="Info_SymbolsSaveSuccess" xml:space="preserve">
@@ -210,11 +195,35 @@
     <value>Writing '{0}' block...</value>
     <comment>{0} = block tag</comment>
   </data>
-  <data name="Warn_IncorrectBlockSize" xml:space="preserve">
+  <data name="Error_IncorrectBlockSize" xml:space="preserve">
     <value>The 'block size' field in the block header does not match the number of bytes read. BlockSize = {0}, BytesRead = {1}.</value>
     <comment>{0} = block size read; {1} = number of bytes read</comment>
   </data>
   <data name="Info_WritingPadding" xml:space="preserve">
     <value>Writing padding,,,</value>
+  </data>
+  <data name="Error_InvalidPropertyChanged" xml:space="preserve">
+    <value>Received a PropertyChanged notification from an item not in the collection.</value>
+  </data>
+  <data name="Error_SettingsLoadFailUseDefault" xml:space="preserve">
+    <value>Failed to load settings. Using default settings.</value>
+  </data>
+  <data name="Error_SettingsSaveFail" xml:space="preserve">
+    <value>Failed to save settings.</value>
+  </data>
+  <data name="Info_LoadingSettings" xml:space="preserve">
+    <value>Loading settings...</value>
+  </data>
+  <data name="Info_LoadingUI" xml:space="preserve">
+    <value>Loading UI...</value>
+  </data>
+  <data name="info_SavingSettings" xml:space="preserve">
+    <value>Saving settings...</value>
+  </data>
+  <data name="Warn_SettingsNotFoundUseDefault" xml:space="preserve">
+    <value>Settings not found! Using default settings.</value>
+  </data>
+  <data name="Info_FileClosed" xml:space="preserve">
+    <value>File closed.</value>
   </data>
 </root>

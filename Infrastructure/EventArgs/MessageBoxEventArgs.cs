@@ -32,7 +32,7 @@ namespace LcsSaveEditor.Infrastructure
     public class MessageBoxEventArgs : EventArgs
     {
         public MessageBoxEventArgs(string text,
-            string caption = "",
+            string title = "",
             MessageBoxButton buttons = MessageBoxButton.OK,
             MessageBoxImage icon = MessageBoxImage.None,
             MessageBoxResult defaultResult = MessageBoxResult.None,
@@ -40,7 +40,7 @@ namespace LcsSaveEditor.Infrastructure
             Action<MessageBoxResult> resultAction = null)
         {
             Text = text;
-            Caption = caption;
+            Title = title;
             Buttons = buttons;
             Icon = icon;
             DefaultResult = defaultResult;
@@ -53,7 +53,7 @@ namespace LcsSaveEditor.Infrastructure
             get;
         }
 
-        public string Caption
+        public string Title
         {
             get;
         }
@@ -92,10 +92,10 @@ namespace LcsSaveEditor.Infrastructure
         {
             MessageBoxResult result;
             if (w == null) {
-                result = MessageBoxEx.Show(Text, Caption, Buttons, Icon, DefaultResult, Options);
+                result = MessageBoxEx.Show(Text, Title, Buttons, Icon, DefaultResult, Options);
             }
             else {
-                result = MessageBoxEx.Show(w, Text, Caption, Buttons, Icon, DefaultResult, Options);
+                result = MessageBoxEx.Show(w, Text, Title, Buttons, Icon, DefaultResult, Options);
             }
 
             ResultAction?.Invoke(result);

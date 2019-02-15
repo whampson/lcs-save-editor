@@ -97,6 +97,33 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The &apos;block size&apos; field in the block header does not match the number of bytes read. BlockSize = {0}, BytesRead = {1}..
+        /// </summary>
+        public static string Error_IncorrectBlockSize {
+            get {
+                return ResourceManager.GetString("Error_IncorrectBlockSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received a PropertyChanged notification from an item not in the collection..
+        /// </summary>
+        public static string Error_InvalidPropertyChanged {
+            get {
+                return ResourceManager.GetString("Error_InvalidPropertyChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load failed..
+        /// </summary>
+        public static string Error_LoadFail {
+            get {
+                return ResourceManager.GetString("Error_LoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple calls to this function are not supported. ({0}()).
         /// </summary>
         public static string Error_MultipleCallsNotSupported {
@@ -115,6 +142,33 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save failed..
+        /// </summary>
+        public static string Error_SaveFail {
+            get {
+                return ResourceManager.GetString("Error_SaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load settings. Using default settings..
+        /// </summary>
+        public static string Error_SettingsLoadFailUseDefault {
+            get {
+                return ResourceManager.GetString("Error_SettingsLoadFailUseDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save settings..
+        /// </summary>
+        public static string Error_SettingsSaveFail {
+            get {
+                return ResourceManager.GetString("Error_SettingsSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; is a static array; it cannot be resized..
         /// </summary>
         public static string Error_StaticArrayResize {
@@ -124,29 +178,20 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Files (*.log)|*.log|All Files (*.*)|*.*.
+        ///   Looks up a localized string similar to Failed to load symbols..
         /// </summary>
-        public static string File_Filter_Log {
+        public static string Error_SymbolsLoadFail {
             get {
-                return ResourceManager.GetString("File_Filter_Log", resourceCulture);
+                return ResourceManager.GetString("Error_SymbolsLoadFail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GTA Save Data Files (*.b)|*.b|All Files (*.*)|*.*.
+        ///   Looks up a localized string similar to Failed to save symbols..
         /// </summary>
-        public static string FileFilter_Gta {
+        public static string Error_SymbolsSaveFail {
             get {
-                return ResourceManager.GetString("FileFilter_Gta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ini Files (*.ini)|*.ini.
-        /// </summary>
-        public static string FileFilter_Ini {
-            get {
-                return ResourceManager.GetString("FileFilter_Ini", resourceCulture);
+                return ResourceManager.GetString("Error_SymbolsSaveFail", resourceCulture);
             }
         }
         
@@ -160,11 +205,11 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Block &apos;{0}&apos; size: {1} bytes.
+        ///   Looks up a localized string similar to File closed..
         /// </summary>
-        public static string Info_BlockSize {
+        public static string Info_FileClosed {
             get {
-                return ResourceManager.GetString("Info_BlockSize", resourceCulture);
+                return ResourceManager.GetString("Info_FileClosed", resourceCulture);
             }
         }
         
@@ -187,20 +232,29 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load failed..
-        /// </summary>
-        public static string Info_LoadFail {
-            get {
-                return ResourceManager.GetString("Info_LoadFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading GTA:LCS save data from {0}....
+        ///   Looks up a localized string similar to Loading GTA:LCS save data....
         /// </summary>
         public static string Info_LoadingGtaData {
             get {
                 return ResourceManager.GetString("Info_LoadingGtaData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading settings....
+        /// </summary>
+        public static string Info_LoadingSettings {
+            get {
+                return ResourceManager.GetString("Info_LoadingSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading UI....
+        /// </summary>
+        public static string Info_LoadingUI {
+            get {
+                return ResourceManager.GetString("Info_LoadingUI", resourceCulture);
             }
         }
         
@@ -232,15 +286,6 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save failed..
-        /// </summary>
-        public static string Info_SaveFail {
-            get {
-                return ResourceManager.GetString("Info_SaveFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save successful..
         /// </summary>
         public static string Info_SaveSuccess {
@@ -250,7 +295,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving GTA:LCS save data to {0}....
+        ///   Looks up a localized string similar to Saving GTA:LCS save data....
         /// </summary>
         public static string Info_SavingGtaData {
             get {
@@ -259,11 +304,11 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to load symbols..
+        ///   Looks up a localized string similar to Saving settings....
         /// </summary>
-        public static string Info_SymbolsLoadFail {
+        public static string info_SavingSettings {
             get {
-                return ResourceManager.GetString("Info_SymbolsLoadFail", resourceCulture);
+                return ResourceManager.GetString("info_SavingSettings", resourceCulture);
             }
         }
         
@@ -273,15 +318,6 @@ namespace LcsSaveEditor.Resources {
         public static string Info_SymbolsLoadSuccess {
             get {
                 return ResourceManager.GetString("Info_SymbolsLoadSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to save symbols..
-        /// </summary>
-        public static string Info_SymbolsSaveFail {
-            get {
-                return ResourceManager.GetString("Info_SymbolsSaveFail", resourceCulture);
             }
         }
         
@@ -313,11 +349,11 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The &apos;block size&apos; field in the block header does not match the number of bytes read. BlockSize = {0}, BytesRead = {1}..
+        ///   Looks up a localized string similar to Settings not found! Using default settings..
         /// </summary>
-        public static string Warn_IncorrectBlockSize {
+        public static string Warn_SettingsNotFoundUseDefault {
             get {
-                return ResourceManager.GetString("Warn_IncorrectBlockSize", resourceCulture);
+                return ResourceManager.GetString("Warn_SettingsNotFoundUseDefault", resourceCulture);
             }
         }
     }

@@ -80,7 +80,7 @@ namespace LcsSaveEditor.ViewModels
         private bool m_suppressRefresh;
 
         public WeaponsViewModel(MainViewModel mainViewModel)
-            : base(mainViewModel, Strings.PageHeaderWeapons)
+            : base(mainViewModel, FrontendResources.Main_Page_Weapons)
         {
             m_ammoIndexMap = new Dictionary<Weapon?, int>();
             m_globals = new FullyObservableCollection<ScriptVariable>();

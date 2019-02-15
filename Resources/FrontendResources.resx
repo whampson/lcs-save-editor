@@ -117,243 +117,242 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppAuthor" xml:space="preserve">
+  <data name="App_Author" xml:space="preserve">
     <value>thehambone</value>
   </data>
-  <data name="AppAuthorAlternate" xml:space="preserve">
+  <data name="App_AuthorAlternate" xml:space="preserve">
     <value>Wes Hampson</value>
   </data>
-  <data name="AppAuthorContact" xml:space="preserve">
+  <data name="App_AuthorContact" xml:space="preserve">
     <value>thehambone93@gmail.com</value>
   </data>
-  <data name="AppCopyright" xml:space="preserve">
+  <data name="App_Copyright" xml:space="preserve">
     <value>Copyright (C) 2016-2019 Wes Hampson. All Rights Reserved.</value>
   </data>
-  <data name="AppDescription" xml:space="preserve">
+  <data name="App_Description" xml:space="preserve">
     <value>Grand Theft Auto: Liberty City Stories savegame editor.</value>
   </data>
-  <data name="AppDescriptionLong" xml:space="preserve">
-    <value>A graphical tool for editing Grand Theft Auto: Liberty City Stories savedata files.</value>
-  </data>
-  <data name="AppName" xml:space="preserve">
+  <data name="App_Title" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
   </data>
-  <data name="ButtonTextClear" xml:space="preserve">
+  <data name="Common_Clear" xml:space="preserve">
     <value>Clear</value>
   </data>
-  <data name="ButtonTextClose" xml:space="preserve">
+  <data name="Common_Close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="ButtonTextLoadSymbols" xml:space="preserve">
-    <value>Load Symbols...</value>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Error</value>
   </data>
-  <data name="ButtonTextSave" xml:space="preserve">
+  <data name="GlobalVariables_DataType_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Common_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Common_OpenEllipses" xml:space="preserve">
+    <value>Open...</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_SaveAsEllipses" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="Common_SaveEllipses" xml:space="preserve">
     <value>Save...</value>
   </data>
-  <data name="ButtonTextSaveSymbols" xml:space="preserve">
+  <data name="GlobalVariables_Options_LoadSymbols" xml:space="preserve">
+    <value>Load Symbols...</value>
+  </data>
+  <data name="GlobalVariables_Options_SaveSymbols" xml:space="preserve">
     <value>Save Symbols...</value>
   </data>
-  <data name="CustomVariablesCompatibilityText" xml:space="preserve">
+  <data name="Main_MenuFile" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="Main_MenuFile_Close" xml:space="preserve">
+    <value>_Close</value>
+  </data>
+  <data name="Main_MenuFile_Exit" xml:space="preserve">
+    <value>E_xit</value>
+  </data>
+  <data name="Main_MenuFile_Open" xml:space="preserve">
+    <value>_Open</value>
+  </data>
+  <data name="Main_MenuFile_OpenRecent" xml:space="preserve">
+    <value>Open Recent</value>
+  </data>
+  <data name="Main_MenuFile_Reload" xml:space="preserve">
+    <value>_Reload</value>
+  </data>
+  <data name="Main_MenuFile_Save" xml:space="preserve">
+    <value>_Save</value>
+  </data>
+  <data name="Main_MenuFile_SaveAs" xml:space="preserve">
+    <value>Save _As...</value>
+  </data>
+  <data name="Main_MenuFile_Settings" xml:space="preserve">
+    <value>Se_ttings...</value>
+  </data>
+  <data name="Main_MenuHelp" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="Main_MenuHelp_About" xml:space="preserve">
+    <value>_About</value>
+  </data>
+  <data name="Main_MenuHelp_Update" xml:space="preserve">
+    <value>Check for _Updates</value>
+  </data>
+  <data name="Main_StatusBar_FileModifiedFlag" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="Main_MenuView" xml:space="preserve">
+    <value>_View</value>
+  </data>
+  <data name="Main_MenuView_Advanced" xml:space="preserve">
+    <value>_Advanced Options</value>
+  </data>
+  <data name="Main_MenuView_Log" xml:space="preserve">
+    <value>Show _Log</value>
+  </data>
+  <data name="App_HostOS" xml:space="preserve">
+    <value>Host OS: {0}</value>
+    <comment>{0} = host OS name</comment>
+  </data>
+  <data name="App_Version" xml:space="preserve">
+    <value>Version: {0} (build {1})</value>
+    <comment>{0} = version number (major.minor.revision); {1} = build number</comment>
+  </data>
+  <data name="Dialog_Text_SaveChanges" xml:space="preserve">
+    <value>Do you want to save your changes?</value>
+  </data>
+  <data name="Dialog_Text_UnhandledException1" xml:space="preserve">
+    <value>A fatal exception has occurred. The application will be terminated.</value>
+  </data>
+  <data name="Dialog_Text_UnhandledException2" xml:space="preserve">
+    <value>Please report this error to {0} and attach the crash dump located at {1}.</value>
+  </data>
+  <data name="Dialog_Title_SaveChanges" xml:space="preserve">
+    <value>Save Changes?</value>
+  </data>
+  <data name="Dialog_Title_UnhandledException" xml:space="preserve">
+    <value>Unhandled Exception</value>
+  </data>
+  <data name="FileFilter_Gta" xml:space="preserve">
+    <value>GTA Save Data Files (*.b)|*.b|All Files (*.*)|*.*</value>
+  </data>
+  <data name="FileFilter_Ini" xml:space="preserve">
+    <value>Ini Files (*.ini)|*.ini</value>
+  </data>
+  <data name="FileFilter_Log" xml:space="preserve">
+    <value>Log Files (*.log)|*.log|All Files (*.*)|*.*</value>
+  </data>
+  <data name="GlobalVariables_ContextMenu_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="GlobalVariables_ContextMenu_InsertAbove" xml:space="preserve">
+    <value>Insert Above</value>
+  </data>
+  <data name="GlobalVariables_ContextMenu_InsertBelow" xml:space="preserve">
+    <value>Insert Below</value>
+  </data>
+  <data name="GlobalVariables_Ini_Compatibility" xml:space="preserve">
     <value>Compatible with the {0} version of GTA:LCS.</value>
     <comment>{0} = game platform name</comment>
   </data>
-  <data name="CustomVariablesGeneratedByText" xml:space="preserve">
+  <data name="GlobalVariables_Ini_GeneratedBy" xml:space="preserve">
     <value>Generated automatically by the GTA:LCS Save Editor.</value>
   </data>
-  <data name="DialogTextSaveChangesPrompt" xml:space="preserve">
-    <value>Do you want to save your changes?</value>
-  </data>
-  <data name="DialogTextUnhandledException1" xml:space="preserve">
-    <value>A fatal exception has occurred. The application will be terminated.</value>
-  </data>
-  <data name="DialogTextUnhandledException2" xml:space="preserve">
-    <value>Please report this error to {0} and attach the crash dump located at {1}.</value>
-    <comment>{0} = app author email; {1} = crash dump path</comment>
-  </data>
-  <data name="DialogTitleAbout" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="DialogTitleError" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="DialogTitleOpenFile" xml:space="preserve">
-    <value>Open...</value>
-  </data>
-  <data name="DialogTitleSaveChangesPrompt" xml:space="preserve">
-    <value>Save Changes?</value>
-  </data>
-  <data name="DialogTitleSaveFileAs" xml:space="preserve">
-    <value>Save As...</value>
-  </data>
-  <data name="DialogTitleUnhandledException" xml:space="preserve">
-    <value>Unhandled Exception</value>
-  </data>
-  <data name="ExceptionConvertBackNotSupported" xml:space="preserve">
-    <value>ConvertBack is not supported for this converter.</value>
-  </data>
-  <data name="ExceptionIncorrectBlockSize" xml:space="preserve">
-    <value>The block size in the header does not match the number of available bytes in the stream.</value>
-  </data>
-  <data name="ExceptionInvalidBlockTag" xml:space="preserve">
-    <value>Incorrect block tag - '{0}'. Expected '{1}'.</value>
-    <comment>{0} = bad tag; {1} = expected tag</comment>
-  </data>
-  <data name="ExceptionInvalidItemPropertyChanged" xml:space="preserve">
-    <value>Received PropertyChanged notification from item not in collection.</value>
-  </data>
-  <data name="ExceptionInvalidSaveData" xml:space="preserve">
-    <value>Invalid GTA:LCS savedata file.
-If you are trying to load a PSP save, you may have to decrypt it first.</value>
-  </data>
-  <data name="ExceptionMultipleCallsNotSupported" xml:space="preserve">
-    <value>Multiple calls to this function are not supported.</value>
-  </data>
-  <data name="ExceptionOops" xml:space="preserve">
-    <value>You weren't supposed to be able to get here, you know.</value>
-  </data>
-  <data name="ExceptionStaticArray" xml:space="preserve">
-    <value>'{0}' is a static array; it cannot be resized.</value>
-    <comment>{0} = array name</comment>
-  </data>
-  <data name="FieldName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="FieldValueBoolean" xml:space="preserve">
+  <data name="GlobalVariables_DataType_Bool" xml:space="preserve">
     <value>True/False</value>
   </data>
-  <data name="FieldValueFloat" xml:space="preserve">
+  <data name="GlobalVariables_DataType_Float" xml:space="preserve">
     <value>Float</value>
   </data>
-  <data name="FieldValueInt32" xml:space="preserve">
+  <data name="GlobalVariables_DataType_Int32" xml:space="preserve">
     <value>Int32</value>
   </data>
-  <data name="FieldValueUInt32" xml:space="preserve">
+  <data name="GlobalVariables_DataType_UInt32" xml:space="preserve">
     <value>UInt32</value>
   </data>
-  <data name="FileFilterIni" xml:space="preserve">
-    <value>Ini Files (*.ini)|*.ini</value>
-  </data>
-  <data name="FileFilterLog" xml:space="preserve">
-    <value>Log Files (*.log)|*.log|All Files (*.*)|*.*</value>
-  </data>
-  <data name="FileFilterSaveData" xml:space="preserve">
-    <value>GTA Save Data Files (*.b)|*.b|All Files (*.*)|*.*</value>
-  </data>
-  <data name="FlagFileModified" xml:space="preserve">
-    <value>Modified</value>
-  </data>
-  <data name="MenuHeaderFile" xml:space="preserve">
-    <value>_File</value>
-  </data>
-  <data name="MenuHeaderHelp" xml:space="preserve">
-    <value>_Help</value>
-  </data>
-  <data name="MenuItemHeaderAbout" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="MenuItemHeaderClose" xml:space="preserve">
-    <value>_Close</value>
-  </data>
-  <data name="MenuItemHeaderDelete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="MenuItemHeaderExit" xml:space="preserve">
-    <value>E_xit</value>
-  </data>
-  <data name="MenuItemHeaderInsertAbove" xml:space="preserve">
-    <value>Insert Above</value>
-  </data>
-  <data name="MenuItemHeaderInsertBelow" xml:space="preserve">
-    <value>Insert Below</value>
-  </data>
-  <data name="MenuItemHeaderOpen" xml:space="preserve">
-    <value>_Open...</value>
-  </data>
-  <data name="MenuItemHeaderOpenRecent" xml:space="preserve">
-    <value>O_pen Recent</value>
-  </data>
-  <data name="MenuItemHeaderSave" xml:space="preserve">
-    <value>_Save</value>
-  </data>
-  <data name="MenuItemHeaderSaveAs" xml:space="preserve">
-    <value>Save _As...</value>
-  </data>
-  <data name="PageHeaderGlobalVariables" xml:space="preserve">
-    <value>Global Variables</value>
-  </data>
-  <data name="PageHeaderWeapons" xml:space="preserve">
-    <value>Weapons</value>
-  </data>
-  <data name="SaveOnExit" xml:space="preserve">
+  <data name="Log_Options_SaveOnExit" xml:space="preserve">
     <value>Save on exit</value>
   </data>
-  <data name="StatusTextFileLoadFail" xml:space="preserve">
-    <value>Load failed!</value>
-  </data>
-  <data name="StatusTextFileLoadSuccess" xml:space="preserve">
-    <value>Load successful.</value>
-  </data>
-  <data name="StatusTextFileNotLoaded" xml:space="preserve">
-    <value>No file loaded.</value>
-  </data>
-  <data name="StatusTextFileSaveFail" xml:space="preserve">
-    <value>Save failed!</value>
-  </data>
-  <data name="StatusTextFileSaveSuccess" xml:space="preserve">
-    <value>Save successful.</value>
-  </data>
-  <data name="StatusTextSymbolsLoaded" xml:space="preserve">
-    <value>Loaded symbols from {0}.</value>
-    <comment>{0} = symbols file path</comment>
-  </data>
-  <data name="StatusTextSymbolsSaved" xml:space="preserve">
-    <value>Saved symbols to {0}.</value>
-    <comment>{0} = symbols file path</comment>
-  </data>
-  <data name="StatusTextWelcome" xml:space="preserve">
-    <value>Welcome to the GTA:LCS Save Editor!</value>
-  </data>
-  <data name="ToolTipSaveOnExit" xml:space="preserve">
+  <data name="Log_ToolTip_SaveOnExit" xml:space="preserve">
     <value>Save the log when the application exits.</value>
   </data>
-  <data name="ToolTipTextFileCompatibility" xml:space="preserve">
+  <data name="Log_Window_Title" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="Main_Page_GlobalVariables" xml:space="preserve">
+    <value>GlobalVariables</value>
+  </data>
+  <data name="Main_Page_Weapons" xml:space="preserve">
+    <value>Weapons</value>
+  </data>
+  <data name="Main_StatusText_NoFileLoaded" xml:space="preserve">
+    <value>No file loaded.</value>
+  </data>
+  <data name="Main_StatusText_Welcome" xml:space="preserve">
+    <value>Welcome to the GTA:LCS Save Editor!</value>
+  </data>
+  <data name="Main_ToolTip_Compatibility" xml:space="preserve">
     <value>This file is compatible with {0}.</value>
     <comment>{0} = game platform name</comment>
   </data>
-  <data name="ToolTipTextFileModified" xml:space="preserve">
+  <data name="Main_ToolTip_UnsavedChanges" xml:space="preserve">
     <value>This file has unsaved changes.</value>
   </data>
-  <data name="WeaponSlotAssault" xml:space="preserve">
+  <data name="Main_Window_Title" xml:space="preserve">
+    <value>GTA:LCS Save Editor</value>
+  </data>
+  <data name="Weapons_Slot_Assault" xml:space="preserve">
     <value>Assault</value>
   </data>
-  <data name="WeaponSlotHand" xml:space="preserve">
+  <data name="Weapons_Slot_Hand" xml:space="preserve">
     <value>Hand</value>
   </data>
-  <data name="WeaponSlotHeavy" xml:space="preserve">
+  <data name="Weapons_Slot_Heavy" xml:space="preserve">
     <value>Heavy</value>
   </data>
-  <data name="WeaponSlotMelee" xml:space="preserve">
+  <data name="Weapons_Slot_Melee" xml:space="preserve">
     <value>Melee</value>
   </data>
-  <data name="WeaponSlotPistol" xml:space="preserve">
+  <data name="Weapons_Slot_Pistol" xml:space="preserve">
     <value>Pistol</value>
   </data>
-  <data name="WeaponSlotProjectile" xml:space="preserve">
+  <data name="Weapons_Slot_Projectile" xml:space="preserve">
     <value>Projectile</value>
   </data>
-  <data name="WeaponSlotShotgun" xml:space="preserve">
+  <data name="Weapons_Slot_Shotgun" xml:space="preserve">
     <value>Shotgun</value>
   </data>
-  <data name="WeaponSlotSmg" xml:space="preserve">
+  <data name="Weapons_Slot_Smg" xml:space="preserve">
     <value>SMG</value>
   </data>
-  <data name="WeaponSlotSniper" xml:space="preserve">
+  <data name="Weapons_Slot_Sniper" xml:space="preserve">
     <value>Sniper</value>
   </data>
-  <data name="WeaponSlotSpecial" xml:space="preserve">
+  <data name="Weapons_Slot_Special" xml:space="preserve">
     <value>Special</value>
   </data>
-  <data name="WindowTitleLog" xml:space="preserve">
-    <value>Log</value>
+  <data name="Common_SaveAs" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="Dialog_Text_GtaDataLoadFail" xml:space="preserve">
+    <value>Failed to load file!</value>
+  </data>
+  <data name="Dialog_Text_GtaDataSaveFail" xml:space="preserve">
+    <value>Failed to save file!</value>
+  </data>
+  <data name="Dialog_Title_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Dialog_Text_SymbolsLoadFail" xml:space="preserve">
+    <value>Failed to load symbols!</value>
+  </data>
+  <data name="Dialog_Text_SymbolsSaveFail" xml:space="preserve">
+    <value>Failed to save symbols!</value>
   </data>
 </root>

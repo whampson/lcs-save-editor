@@ -39,12 +39,7 @@ namespace LcsSaveEditor.ViewModels
         {
             get {
                 return new RelayCommand<Action<bool?, DialogCloseEventArgs>>(
-                    (x) => OnFileDialogRequested(new FileDialogEventArgs(
-                        FileDialogType.SaveDialog,
-                        title: Strings.DialogTitleSaveFileAs,
-                        initialDirectory: Settings.Current.OtherFileDialogDirectory,
-                        filter: Strings.FileFilterLog,
-                        resultAction: SaveLog_ResultAction)));
+                    (x) => ShowSaveDialog(SaveLog_ResultAction));
             }
         }
 
@@ -52,18 +47,23 @@ namespace LcsSaveEditor.ViewModels
         {
             get {
                 return new RelayCommand<Action<bool?, DialogCloseEventArgs>>(
-                    (x) => OnFileDialogRequested(new FileDialogEventArgs(
-                        FileDialogType.SaveDialog,
-                        title: Strings.DialogTitleSaveFileAs,
-                        initialDirectory: Settings.Current.OtherFileDialogDirectory,
-                        filter: Strings.FileFilterLog,
-                        resultAction: SaveOnExit_ResultAction)));
+                    (x) => ShowSaveDialog(SaveOnExit_ResultAction));
             }
         }
 
         public ICommand CloseWindowCommand
         {
             get { return new RelayCommand(() => OnDialogCloseRequested(new DialogCloseEventArgs(false))); }
+        }
+
+        private void ShowSaveDialog(Action<bool?, FileDialogEventArgs> resultAction)
+        {
+            OnFileDialogRequested(new FileDialogEventArgs(
+                FileDialogType.SaveDialog,
+                title: FrontendResources.Common_SaveAs,
+                initialDirectory: Settings.Current.OtherFileDialogDirectory,
+                filter: FrontendResources.FileFilter_Log,
+                resultAction: resultAction));
         }
     }
 }
