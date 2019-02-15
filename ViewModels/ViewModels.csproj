@@ -55,6 +55,8 @@
     <Compile Include="GlobalVariablesViewModel.cs" />
     <Compile Include="Interfaces\NamedScriptVariable.cs" />
     <Compile Include="Interfaces\PageViewModelBase.cs" />
+    <Compile Include="Interfaces\RecentFilesList.cs" />
+    <Compile Include="Interfaces\RecentlyAccessedFile.cs" />
     <Compile Include="LogViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="WeaponsViewModel.cs" />
