@@ -26,12 +26,11 @@ SOFTWARE.
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
-    xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
     mc:Ignorable="d" 
-    d:DesignHeight="325" d:DesignWidth="500">
+    d:DesignHeight="325" d:DesignWidth="500"
+    Loaded="View_Loaded">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>

@@ -40,6 +40,12 @@ namespace LcsSaveEditor.Views
             InitializeComponent();
         }
 
+        public GlobalVariablesViewModel ViewModel
+        {
+            get { return (GlobalVariablesViewModel) DataContext; }
+            set { DataContext = value; }
+        }
+
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
         {
             // Register items source CollectionChanged listener
@@ -81,6 +87,11 @@ namespace LcsSaveEditor.Views
                     m_dataGrid.Items.Refresh();
                     break;
             }
+        }
+
+        private void View_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.AutoLoadCustomVariables();
         }
     }
 }

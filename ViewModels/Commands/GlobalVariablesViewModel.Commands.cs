@@ -21,6 +21,7 @@
  */
 #endregion
 
+using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Helpers;
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Resources;
@@ -74,8 +75,20 @@ namespace LcsSaveEditor.ViewModels
             }
         }
 
+        public void AutoLoadCustomVariables()
+        {
+            GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
+            string path = Settings.Current.GetCustomVariablesFile(fileType);
+            
+            if (path != null) {
+                LoadCustomVariables(path);
+            }
+        }
+
         private void LoadCustomVariables(string path)
         {
+            GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
+
             try {
                 Dictionary<string, string> dict = IniHelper.ReadAllKeys(path);
                 for (int i = 0; i < m_namedGlobalVariables.Count; i++) {
@@ -85,21 +98,25 @@ namespace LcsSaveEditor.ViewModels
                 }
                 Logger.Info(Strings.StatusTextSymbolsLoaded, path);
                 MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsLoaded, path);
+                Settings.Current.SetCustomVariablesFile(fileType, path);
             }
             catch (IOException ex) {
                 Logger.Error("Failed to load symbols! {0}", ex.Message);
                 MainViewModel.ShowErrorDialog("Failed to load symbols!", ex);
                 MainViewModel.StatusText = "Failed to load symbols!";
+                Settings.Current.SetCustomVariablesFile(fileType, null);
             }
             catch (SecurityException ex) {
                 Logger.Error("Failed to load symbols! {0}", ex.Message);
                 MainViewModel.ShowErrorDialog("Failed to load symbols!", ex);
                 MainViewModel.StatusText = "Failed to load symbols!";
+                Settings.Current.SetCustomVariablesFile(fileType, null);
             }
             catch (UnauthorizedAccessException ex) {
                 Logger.Error("Failed to load symbols! {0}", ex.Message);
                 MainViewModel.ShowErrorDialog("Failed to load symbols!", ex);
                 MainViewModel.StatusText = "Failed to load symbols!";
+                Settings.Current.SetCustomVariablesFile(fileType, null);
             }
         }
 
@@ -113,7 +130,8 @@ namespace LcsSaveEditor.ViewModels
                 }
             }
 
-            string platformName = GamePlatformHelper.GetPlatformName(MainViewModel.CurrentSaveData.FileType);
+            GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
+            string platformName = GamePlatformHelper.GetPlatformName(fileType);
 
             try {
                 IniHelper.WriteComment(path, string.Format(Strings.CustomVariablesCompatibilityText, platformName));
@@ -121,21 +139,25 @@ namespace LcsSaveEditor.ViewModels
                 IniHelper.AppendAllKeys(path, dict);
                 Logger.Info(Strings.StatusTextSymbolsSaved, path);
                 MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsSaved, path);
+                Settings.Current.SetCustomVariablesFile(fileType, path);
             }
             catch (IOException ex) {
                 Logger.Error("Failed to save symbols! {0}", ex.Message);
                 MainViewModel.ShowErrorDialog("Failed to save symbols!", ex);
                 MainViewModel.StatusText = "Failed to save symbols!";
+                Settings.Current.SetCustomVariablesFile(fileType, null);
             }
             catch (SecurityException ex) {
                 Logger.Error("Failed to save symbols! {0}", ex.Message);
                 MainViewModel.ShowErrorDialog("Failed to save symbols!", ex);
                 MainViewModel.StatusText = "Failed to save symbols!";
+                Settings.Current.SetCustomVariablesFile(fileType, null);
             }
             catch (UnauthorizedAccessException ex) {
                 Logger.Error("Failed to save symbols! {0}", ex.Message);
                 MainViewModel.ShowErrorDialog("Failed to save symbols!", ex);
                 MainViewModel.StatusText = "Failed to save symbols!";
+                Settings.Current.SetCustomVariablesFile(fileType, null);
             }
         }
 

@@ -21,6 +21,7 @@
  */
 #endregion
 
+using LcsSaveEditor.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -94,6 +95,40 @@ namespace LcsSaveEditor.Infrastructure
 
         [XmlArrayItem("RecentFile")]
         public List<string> RecentFiles { get; set; }
+
+        public string GetCustomVariablesFile(GamePlatform fileType)
+        {
+            switch (fileType) {
+                case GamePlatform.Android:
+                    return CustomVariablesAndroid;
+                case GamePlatform.IOS:
+                    return CustomVariablesIOS;
+                case GamePlatform.PS2:
+                    return CustomVariablesPS2;
+                case GamePlatform.PSP:
+                    return CustomVariablesPSP;
+            }
+
+            return null;
+        }
+
+        public void SetCustomVariablesFile(GamePlatform fileType, string path)
+        {
+            switch (fileType) {
+                case GamePlatform.Android:
+                    CustomVariablesAndroid = path;
+                    break;
+                case GamePlatform.IOS:
+                    CustomVariablesIOS = path;
+                    break;
+                case GamePlatform.PS2:
+                    CustomVariablesPS2 = path;
+                    break;
+                case GamePlatform.PSP:
+                    CustomVariablesPSP = path;
+                    break;
+            }
+        }
 
         /// <summary>
         /// Writes the settings to the specified XML file.
