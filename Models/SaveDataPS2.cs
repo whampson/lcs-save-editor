@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Resources;
 using System.IO;
 using System.Text;
 
@@ -81,13 +82,13 @@ namespace LcsSaveEditor.Models
 
                 // Padding
                 int numPadding = FileSize - (int) stream.Position - 4;
-                Logger.Info("Padding size: {0}", numPadding);
+                Logger.Info(CommonResources.Info_WritingPadding, numPadding);
                 for (int i = 0; i < numPadding; i++) {
                     w.Write((byte) 0);
                 }
 
                 // Checksum
-                w.Write(GetPS2Checksum(stream));
+                w.Write(ComputeChecksum(stream));
             }
 
             return stream.Position - start;

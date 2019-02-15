@@ -21,7 +21,6 @@
  */
 #endregion
 
-using LcsSaveEditor.Resources;
 using Microsoft.Win32;
 using System;
 using System.Windows;
@@ -86,7 +85,7 @@ namespace LcsSaveEditor.Infrastructure
 
         public void ShowDialog(Window owner)
         {
-            FileDialog dialog;
+            FileDialog dialog = null;
             switch (DialogType) {
                 case FileDialogType.OpenDialog:
                     dialog = new OpenFileDialog();
@@ -94,10 +93,6 @@ namespace LcsSaveEditor.Infrastructure
                 case FileDialogType.SaveDialog:
                     dialog = new SaveFileDialog();
                     break;
-                default:
-                    string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionOops, nameof(ShowDialog));
-                    throw new InvalidOperationException(msg);
             }
 
             dialog.Title = Title;

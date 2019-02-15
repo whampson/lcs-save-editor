@@ -192,7 +192,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(CollectiveArray));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(CollectiveArray));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(CollectiveArray));
                     throw new NotSupportedException(msg);
             }
         }
@@ -214,7 +214,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(BuildingSwapArray));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(BuildingSwapArray));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(BuildingSwapArray));
                     throw new NotSupportedException(msg);
             }
         }
@@ -236,7 +236,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(InvisibilitySettingArray));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(InvisibilitySettingArray));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(InvisibilitySettingArray));
                     throw new NotSupportedException(msg);
             }
         }

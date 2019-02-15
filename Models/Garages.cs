@@ -22,9 +22,7 @@
 #endregion
 
 using System;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 using LcsSaveEditor.DataTypes;
@@ -126,7 +124,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(StoredCars));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(StoredCars));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(StoredCars));
                     throw new NotSupportedException(msg);
             }
         }
@@ -148,7 +146,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(GarageObjects));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(GarageObjects));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(GarageObjects));
                     throw new NotSupportedException(msg);
             }
         }

@@ -161,10 +161,8 @@ namespace LcsSaveEditor.Infrastructure
         private static void Initialize()
         {
             if (_hHook != IntPtr.Zero) {
-                string msg = string.Format("{0} ({1}.{2}())",
-                    Strings.ExceptionMultipleCallsNotSupported,
-                    nameof(MessageBoxEx), nameof(Initialize));
-                throw new NotSupportedException();
+                string msg = string.Format(CommonResources.Error_MultipleCallsNotSupported, nameof(Initialize));
+                throw new NotSupportedException(msg);
             }
 
 #pragma warning disable 0618    // GetCurrentThreadId() is marked obsolete, but it still works for what we need it to do.

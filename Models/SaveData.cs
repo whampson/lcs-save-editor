@@ -60,9 +60,11 @@ namespace LcsSaveEditor.Models
         private PlayerInfo m_playerInfo;
         private Stats m_stats;
 
+        private GamePlatform m_fileType;
+
         protected SaveData(GamePlatform fileType)
         {
-            FileType = fileType;
+            m_fileType = fileType;
 
             m_block0 = new DataBlock(SimpleVarsTag);
             m_block1 = new DataBlock(ScriptsTag, ScriptsTag2);
@@ -73,7 +75,7 @@ namespace LcsSaveEditor.Models
 
         public GamePlatform FileType
         {
-            get;
+            get { return m_fileType; }
         }
 
         public SimpleVars SimpleVars
@@ -141,96 +143,59 @@ namespace LcsSaveEditor.Models
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="SaveData"/> object by parsing bytes
+        /// from the specified file.
+        /// </summary>
+        /// <param name="path">The path to the file to load.</param>
+        /// <returns>The newly-created <see cref="SaveData"/>.</returns>
+        /// <exception cref="InvalidDataException">
+        /// Thrown if the file is not a valid save data file.
+        /// </exception>
+        /// <exception cref="IOException">
+        /// Thrown if an I/O error occurs.
+        /// </exception>
+        public static SaveData Load(string path)
+        {
+            GamePlatform fileType;
+            byte[] rawData;
+
+            // TODO: decrypt PSP saves (?)
+
+            Logger.Info(CommonResources.Info_LoadingGtaData, path);
+
+            // TODO: use stream
+
+            rawData = File.ReadAllBytes(path);
+            fileType = DetectFileType(rawData);
+
+            Logger.Info(CommonResources.Info_FileFormat, fileType);
+            Logger.Info(CommonResources.Info_FileSize, rawData.Length);
+
+            switch (fileType) {
+                case GamePlatform.Android:
+                    return Deserialize<SaveDataAndroid>(rawData);
+                case GamePlatform.IOS:
+                    return Deserialize<SaveDataIOS>(rawData);
+                case GamePlatform.PS2:
+                    return Deserialize<SaveDataPS2>(rawData);
+                case GamePlatform.PSP:
+                    return Deserialize<SaveDataPSP>(rawData);
+            }
+
+            string msg = string.Format(CommonResources.Error_Oops, nameof(Load));
+            throw new InvalidOperationException(msg);
+        }
+
         public void Store(string path)
         {
-            Logger.Info("Writing savedata to {0}...", path);
+            Logger.Info(CommonResources.Info_SavingGtaData, path);
 
             byte[] data = Serialize(this);
             File.WriteAllBytes(path, data);
 
-            Logger.Info("File format: {0}", FileType);
-            Logger.Info("File size: {0}", data.Length);
-        }
-
-        private void DeserializeSimpleVars()
-        {
-            Logger.Info("{0} size: {1}", SimpleVarsTag, m_block0.Data.Length);
-            switch (FileType) {
-                case GamePlatform.Android:
-                case GamePlatform.IOS:
-                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
-                    break;
-                case GamePlatform.PS2:
-                    m_simpleVars = Deserialize<SimpleVarsPS2>(m_block0.Data);
-                    break;
-                case GamePlatform.PSP:
-                    m_simpleVars = Deserialize<SimpleVarsPSP>(m_block0.Data);
-                    break;
-            }
-        }
-
-        private void DeserializeScripts()
-        {
-            Logger.Info("{0} size: {1}", ScriptsTag, m_block1.Data.Length);
-            switch (FileType) {
-                case GamePlatform.Android:
-                case GamePlatform.PS2:
-                case GamePlatform.PSP:
-                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
-                    break;
-                case GamePlatform.IOS:
-                    m_scripts = Deserialize<Scripts<RunningScriptIOS>>(m_block1.Data);
-                    break;
-            }
-        }
-
-        private void DeserializeGarages()
-        {
-            Logger.Info("{0} size: {1}", GaragesTag, m_block2.Data.Length);
-            switch (FileType) {
-                case GamePlatform.Android:
-                case GamePlatform.IOS:
-                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
-                    break;
-                case GamePlatform.PS2:
-                    m_garages = Deserialize<Garages<GaragePS2>>(m_block2.Data);
-                    break;
-                case GamePlatform.PSP:
-                    m_garages = Deserialize<Garages<GaragePSP>>(m_block2.Data);
-                    break;
-            }
-        }
-
-        private void DeserializePlayerInfo()
-        {
-            Logger.Info("{0} size: {1}", PlayerInfoTag, m_block3.Data.Length);
-            switch (FileType) {
-                case GamePlatform.Android:
-                case GamePlatform.IOS:
-                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
-                    break;
-                case GamePlatform.PS2:
-                    m_playerInfo = Deserialize<PlayerInfoPS2>(m_block3.Data);
-                    break;
-                case GamePlatform.PSP:
-                    m_playerInfo = Deserialize<PlayerInfoPSP>(m_block3.Data);
-                    break;
-            }
-        }
-
-        private void DeserializeStats()
-        {
-            Logger.Info("{0} size: {1}", StatsTag, m_block4.Data.Length);
-            switch (FileType) {
-                case GamePlatform.Android:
-                case GamePlatform.IOS:
-                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
-                    break;
-                case GamePlatform.PS2:
-                case GamePlatform.PSP:
-                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
-                    break;
-            }
+            Logger.Info(CommonResources.Info_FileFormat, FileType);
+            Logger.Info(CommonResources.Info_FileSize, data.Length);
         }
 
         protected void DeserializeDataBlocks()
@@ -248,25 +213,92 @@ namespace LcsSaveEditor.Models
             m_stats.PropertyChanged += Stats_PropertyChanged;
         }
 
+        private void DeserializeSimpleVars()
+        {
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_simpleVars = Deserialize<SimpleVarsAndroidIOS>(m_block0.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_simpleVars = Deserialize<SimpleVarsPS2>(m_block0.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_simpleVars = Deserialize<SimpleVarsPSP>(m_block0.Data);
+                    break;
+            }
+        }
+
+        private void DeserializeScripts()
+        {
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.PS2:
+                case GamePlatform.PSP:
+                    m_scripts = Deserialize<Scripts<RunningScriptAndroidPS2PSP>>(m_block1.Data);
+                    break;
+                case GamePlatform.IOS:
+                    m_scripts = Deserialize<Scripts<RunningScriptIOS>>(m_block1.Data);
+                    break;
+            }
+        }
+
+        private void DeserializeGarages()
+        {
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_garages = Deserialize<Garages<GarageAndroidIOS>>(m_block2.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_garages = Deserialize<Garages<GaragePS2>>(m_block2.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_garages = Deserialize<Garages<GaragePSP>>(m_block2.Data);
+                    break;
+            }
+        }
+
+        private void DeserializePlayerInfo()
+        {
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_playerInfo = Deserialize<PlayerInfoAndroidIOS>(m_block3.Data);
+                    break;
+                case GamePlatform.PS2:
+                    m_playerInfo = Deserialize<PlayerInfoPS2>(m_block3.Data);
+                    break;
+                case GamePlatform.PSP:
+                    m_playerInfo = Deserialize<PlayerInfoPSP>(m_block3.Data);
+                    break;
+            }
+        }
+
+        private void DeserializeStats()
+        {
+            switch (FileType) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListAndroidIOS>>(m_block4.Data);
+                    break;
+                case GamePlatform.PS2:
+                case GamePlatform.PSP:
+                    m_stats = Deserialize<Stats<FavoriteRadioStationListPS2PSP>>(m_block4.Data);
+                    break;
+            }
+        }
+
         protected void SerializeDataBlocks()
         {
             m_block0.Data = Serialize(m_simpleVars);
-            Logger.Info("{0} size: {1}", SimpleVarsTag, m_block0.Data.Length);
-
             m_block1.Data = Serialize(m_scripts);
-            Logger.Info("{0} size: {1}", ScriptsTag, m_block1.Data.Length);
-
             m_block2.Data = Serialize(m_garages);
-            Logger.Info("{0} size: {1}", GaragesTag, m_block2.Data.Length);
-
             m_block3.Data = Serialize(m_playerInfo);
-            Logger.Info("{0} size: {1}", PlayerInfoTag, m_block3.Data.Length);
-
             m_block4.Data = Serialize(m_stats);
-            Logger.Info("{0} size: {1}", StatsTag, m_block4.Data.Length);
         }
 
-        protected int GetPS2Checksum(Stream stream)
+        protected int ComputeChecksum(Stream stream)
         {
             using (MemoryStream m = new MemoryStream()) {
                 stream.Position = 0;
@@ -277,35 +309,45 @@ namespace LcsSaveEditor.Models
 
         protected int ReadDataBlock(Stream stream, DataBlock block)
         {
+            Logger.Info(CommonResources.Info_ReadingBlock, block.Tag);
+
             long start = stream.Position;
             using (BinaryReader r = new BinaryReader(stream, Encoding.Default, true)) {
                 string tag = r.ReadString(4);
                 if (tag != block.Tag) {
-                    string msg = string.Format(Strings.ExceptionInvalidBlockTag,
+                    string msg = string.Format(CommonResources.Error_BadBlockTag,
                         tag, block.Tag);
                     throw new InvalidDataException(msg);
                 }
 
                 int blockSize = r.ReadInt32();
                 if (blockSize > stream.Length) {
-                    throw new InvalidDataException(Strings.ExceptionIncorrectBlockSize);
+                    string msg = string.Format(CommonResources.Error_BadBlockSize,
+                        blockSize, stream.Length);
+                    throw new InvalidDataException(msg);
                 }
 
                 if (block.NestedTag != null) {
                     tag = r.ReadString(4);
                     if (tag != block.NestedTag) {
-                        string msg = string.Format(Strings.ExceptionInvalidBlockTag,
+                        string msg = string.Format(CommonResources.Error_BadBlockTag,
                             tag, block.Tag);
                         throw new InvalidDataException(msg);
                     }
 
                     blockSize = r.ReadInt32();
                     if (blockSize > stream.Length) {
-                        throw new InvalidDataException(Strings.ExceptionIncorrectBlockSize);
+                        string msg = string.Format(CommonResources.Error_BadBlockSize,
+                            blockSize, stream.Length);
+                        throw new InvalidDataException(msg);
                     }
                 }
 
                 block.Data = r.ReadBytes(blockSize);
+
+                if (block.Data.Length != blockSize) {
+                    Logger.Warn(CommonResources.Warn_IncorrectBlockSize, blockSize, block.Data.Length);
+                }
             }
 
             return (int) (stream.Position - start);
@@ -313,6 +355,8 @@ namespace LcsSaveEditor.Models
 
         protected int WriteBlockData(Stream stream, DataBlock block)
         {
+            Logger.Info(CommonResources.Info_WritingBlock, block.Tag);
+
             long start = stream.Position;
             using (BinaryWriter w = new BinaryWriter(stream, Encoding.Default, true)) {
                 w.WriteString(block.Tag, 4);
@@ -351,59 +395,10 @@ namespace LcsSaveEditor.Models
         {
             OnPropertyChanged(nameof(Stats));
         }
-
-        /// <summary>
-        /// Creates a new <see cref="SaveData"/> object by parsing bytes
-        /// from the specified file.
-        /// </summary>
-        /// <param name="path">The path to the file to load.</param>
-        /// <returns>The newly-created <see cref="SaveData"/>.</returns>
-        /// <exception cref="InvalidDataException">
-        /// Thrown if the file is not a valid save data file.
-        /// </exception>
-        /// <exception cref="IOException">
-        /// Thrown if an I/O error occurs.
-        /// </exception>
-        public static SaveData Load(string path)
-        {
-            SaveData saveData;
-            GamePlatform fileType;
-            byte[] rawData;
-
-            // TODO: decrypt PSP saves (?)
-
-            Logger.Info("Loading savedata from {0}...", path);
-
-            rawData = File.ReadAllBytes(path);
-            fileType = DetectFileType(rawData);
-
-            Logger.Info("File format: {0}", fileType);
-            Logger.Info("File size: {0} bytes", rawData.Length);
-
-            switch (fileType) {
-                case GamePlatform.Android:
-                    saveData = Deserialize<SaveDataAndroid>(rawData);
-                    break;
-                case GamePlatform.IOS:
-                    saveData = Deserialize<SaveDataIOS>(rawData);
-                    break;
-                case GamePlatform.PS2:
-                    saveData = Deserialize<SaveDataPS2>(rawData);
-                    break;
-                case GamePlatform.PSP:
-                    saveData = Deserialize<SaveDataPSP>(rawData);
-                    break;
-                default:
-                    string msg = string.Format("{0} ({1})",
-                        Strings.ExceptionOops, nameof(Load));
-                    throw new InvalidOperationException(msg);
-            }
-
-            return saveData;
-        }
         
         private static GamePlatform DetectFileType(byte[] data)
         {
+            // TODO: rewrite using stream
             const int SimpSizePS2 = 0x0F8;
             const int SimpSizePSP = 0x0BC;
             const int RunningScriptSizeAndroid = 0x21C;
@@ -434,7 +429,7 @@ namespace LcsSaveEditor.Models
             }
 
             // Not valid!
-            throw new InvalidDataException(Strings.ExceptionInvalidSaveData);
+            throw new InvalidDataException(CommonResources.Error_BadSaveData);
         }
 
         private static int ReadInt(byte[] data, int index)

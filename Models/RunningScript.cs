@@ -200,7 +200,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(ReturnStack));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(ReturnStack));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(ReturnStack));
                     throw new NotSupportedException(msg);
             }
         }
@@ -222,7 +222,7 @@ namespace LcsSaveEditor.Models
                     OnPropertyChanged(nameof(LocalVariables));
                     break;
                 default:
-                    string msg = string.Format(Strings.ExceptionStaticArray, nameof(LocalVariables));
+                    string msg = string.Format(CommonResources.Error_StaticArrayResize, nameof(LocalVariables));
                     throw new NotSupportedException(msg);
             }
         }
