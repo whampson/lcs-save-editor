@@ -37,9 +37,10 @@ namespace LcsSaveEditor.ViewModels
         {
             get {
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
-                    (x) => ShowOpenFileDialog(FileDialog_ResultAction));
-                // TODO: initialDirectory from settings
-                // TODO: filter
+                    (x) => ShowOpenFileDialog(
+                        FileDialog_ResultAction,
+                        filter: Strings.FileFilterSaveData,
+                        initialDirectory: Settings.Current.SaveDataFileDialogDirectory));
             }
         }
 
@@ -61,7 +62,10 @@ namespace LcsSaveEditor.ViewModels
         {
             get {
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
-                    (x) => ShowSaveFileDialog(FileDialog_ResultAction),
+                    (x) => ShowSaveFileDialog(
+                        FileDialog_ResultAction,
+                        filter: Strings.FileFilterSaveData,
+                        initialDirectory: Settings.Current.SaveDataFileDialogDirectory),
                     (x) => IsFileOpen);
             }
         }
@@ -85,6 +89,15 @@ namespace LcsSaveEditor.ViewModels
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
                 message,
+                Strings.DialogTitleError,
+                icon: MessageBoxImage.Error));
+        }
+
+        public void ShowErrorDialog(string message, Exception ex)
+        {
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                string.Format("{0}\n\n{1}: {2}",
+                    message, ex.GetType().Name, ex.Message),
                 Strings.DialogTitleError,
                 icon: MessageBoxImage.Error));
         }
@@ -150,10 +163,16 @@ namespace LcsSaveEditor.ViewModels
                 saveData = SaveData.Load(path);
             }
             catch (IOException ex) {
-                ShowErrorDialog(ex.Message);
+                Logger.Error("Failed to load file! {0}", ex.Message);
+                ShowErrorDialog("Failed to load file!", ex);
             }
             catch (InvalidDataException ex) {
-                ShowErrorDialog(ex.Message);
+                Logger.Error("Failed to load file! {0}", ex.Message);
+                ShowErrorDialog("Failed to load file!", ex);
+            }
+            catch(UnauthorizedAccessException ex) {
+                Logger.Error("Failed to load file! {0}", ex.Message);
+                ShowErrorDialog("Failed to load file!", ex);
             }
 
             return saveData;
@@ -168,10 +187,16 @@ namespace LcsSaveEditor.ViewModels
                 result = true;
             }
             catch (IOException ex) {
-                ShowErrorDialog(ex.Message);
+                Logger.Error("Failed to save file! {0}", ex.Message);
+                ShowErrorDialog("Failed to save file!", ex);
             }
             catch (InvalidDataException ex) {
-                ShowErrorDialog(ex.Message);
+                Logger.Error("Failed to save file! {0}", ex.Message);
+                ShowErrorDialog("Failed to save file!", ex);
+            }
+            catch (UnauthorizedAccessException ex) {
+                Logger.Error("Failed to save file! {0}", ex.Message);
+                ShowErrorDialog("Failed to save file!", ex);
             }
 
             return result;
@@ -198,13 +223,16 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
 
+            Settings.Current.RecentFiles.Enqueue(path);
+
             CurrentSaveData = saveData;
             CurrentSaveData.PropertyChanged += CurrentSaveData_PropertyChanged;
 
             ReloadTabs();
 
-            WindowTitle = string.Format("{0} - [{1}]", Strings.AppName, path);
+            Logger.Info(Strings.StatusTextFileLoadSuccess);
             StatusText = Strings.StatusTextFileLoadSuccess;
+            WindowTitle = string.Format("{0} - [{1}]", Strings.AppName, path);
         }
 
         private void SaveFile(string path)
@@ -218,6 +246,7 @@ namespace LcsSaveEditor.ViewModels
             }
 
             IsFileModified = false;
+            Logger.Info(Strings.StatusTextFileSaveSuccess);
             StatusText = Strings.StatusTextFileSaveSuccess;
         }
 
@@ -239,8 +268,9 @@ namespace LcsSaveEditor.ViewModels
             ReloadTabs();
 
             IsFileModified = false;
-            WindowTitle = Strings.AppName;
+            Logger.Info("File closed.");
             StatusText = Strings.StatusTextFileNotLoaded;
+            WindowTitle = Strings.AppName;
         }
 
         private void ExitApp()
@@ -259,24 +289,5 @@ namespace LcsSaveEditor.ViewModels
                 SelectedTabIndex = 0;
             }
         }
-
-        //private void ShowOpenFileDialog(Action<bool?, FileDialogEventArgs> resultAction)
-        //{
-        //    OnFileDialogRequested(new FileDialogEventArgs(
-        //        FileDialogType.OpenDialog,
-        //        //filter: Strings.FileFilterSaveData,
-        //        title: Strings.DialogTitleOpenFile,
-        //        resultAction: resultAction));
-        //}
-
-        //private void ShowSaveFileDialog(Action<bool?, FileDialogEventArgs> resultAction)
-        //{
-        //    OnFileDialogRequested(new FileDialogEventArgs(
-        //        FileDialogType.SaveDialog,
-        //        fileName: Path.GetFileName(MostRecentFilePath),
-        //        //filter: Strings.FileFilterSaveData,
-        //        title: Strings.DialogTitleSaveFileAs,
-        //        resultAction: resultAction));
-        //}
     }
 }

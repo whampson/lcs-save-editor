@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.Infrastructure;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 
 namespace LcsSaveEditor.ViewModels
@@ -54,6 +55,8 @@ namespace LcsSaveEditor.ViewModels
             if (dialogResult != true) {
                 return;
             }
+
+            Settings.Current.SaveDataFileDialogDirectory = Path.GetDirectoryName(e.FileName);
 
             // Open or Save based on dialog type
             switch (e.DialogType) {

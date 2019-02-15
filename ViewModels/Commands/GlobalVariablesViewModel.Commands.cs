@@ -26,7 +26,8 @@ using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Resources;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
+using System.Security;
 using System.Windows.Input;
 
 namespace LcsSaveEditor.ViewModels
@@ -56,9 +57,8 @@ namespace LcsSaveEditor.ViewModels
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
                     (x) => MainViewModel.ShowOpenFileDialog(
                         FileDialog_ResultAction,
-                        fileName: DefaultSymbolsFileName,
-                        filter: Strings.FileFilterIni));
-                // TODO: initialDirectory from settings
+                        filter: Strings.FileFilterIni,
+                        initialDirectory: Settings.Current.CustomVariablesFileDialogDirectory));
             }
         }
 
@@ -69,23 +69,38 @@ namespace LcsSaveEditor.ViewModels
                     (x) => MainViewModel.ShowSaveFileDialog(
                         FileDialog_ResultAction,
                         fileName: DefaultSymbolsFileName,
-                        filter: Strings.FileFilterIni));
-                // TODO: initialDirectory from settings
+                        filter: Strings.FileFilterIni,
+                        initialDirectory: Settings.Current.CustomVariablesFileDialogDirectory));
             }
         }
 
         private void LoadCustomVariables(string path)
         {
-            // TODO: exception handling
-
-            Dictionary<string, string> dict = IniHelper.ReadAllKeys(path);
-            for (int i = 0; i < m_namedGlobalVariables.Count; i++) {
-                if (dict.TryGetValue(i.ToString(), out string sym)) {
-                    m_namedGlobalVariables[i].Name = sym;
+            try {
+                Dictionary<string, string> dict = IniHelper.ReadAllKeys(path);
+                for (int i = 0; i < m_namedGlobalVariables.Count; i++) {
+                    if (dict.TryGetValue(i.ToString(), out string sym)) {
+                        m_namedGlobalVariables[i].Name = sym;
+                    }
                 }
+                Logger.Info(Strings.StatusTextSymbolsLoaded, path);
+                MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsLoaded, path);
             }
-
-            MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsLoaded, path);
+            catch (IOException ex) {
+                Logger.Error("Failed to load symbols! {0}", ex.Message);
+                MainViewModel.ShowErrorDialog("Failed to load symbols!", ex);
+                MainViewModel.StatusText = "Failed to load symbols!";
+            }
+            catch (SecurityException ex) {
+                Logger.Error("Failed to load symbols! {0}", ex.Message);
+                MainViewModel.ShowErrorDialog("Failed to load symbols!", ex);
+                MainViewModel.StatusText = "Failed to load symbols!";
+            }
+            catch (UnauthorizedAccessException ex) {
+                Logger.Error("Failed to load symbols! {0}", ex.Message);
+                MainViewModel.ShowErrorDialog("Failed to load symbols!", ex);
+                MainViewModel.StatusText = "Failed to load symbols!";
+            }
         }
 
         private void SaveCustomVariables(string path)
@@ -100,11 +115,28 @@ namespace LcsSaveEditor.ViewModels
 
             string platformName = GamePlatformHelper.GetPlatformName(MainViewModel.CurrentSaveData.FileType);
 
-            IniHelper.WriteComment(path, string.Format(Strings.CustomVariablesCompatibilityText, platformName));
-            IniHelper.AppendComment(path, Strings.CustomVariablesGeneratedByText + "\n");
-            IniHelper.AppendAllKeys(path, dict);
-
-            MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsSaved, path);
+            try {
+                IniHelper.WriteComment(path, string.Format(Strings.CustomVariablesCompatibilityText, platformName));
+                IniHelper.AppendComment(path, Strings.CustomVariablesGeneratedByText + "\n");
+                IniHelper.AppendAllKeys(path, dict);
+                Logger.Info(Strings.StatusTextSymbolsSaved, path);
+                MainViewModel.StatusText = string.Format(Strings.StatusTextSymbolsSaved, path);
+            }
+            catch (IOException ex) {
+                Logger.Error("Failed to save symbols! {0}", ex.Message);
+                MainViewModel.ShowErrorDialog("Failed to save symbols!", ex);
+                MainViewModel.StatusText = "Failed to save symbols!";
+            }
+            catch (SecurityException ex) {
+                Logger.Error("Failed to save symbols! {0}", ex.Message);
+                MainViewModel.ShowErrorDialog("Failed to save symbols!", ex);
+                MainViewModel.StatusText = "Failed to save symbols!";
+            }
+            catch (UnauthorizedAccessException ex) {
+                Logger.Error("Failed to save symbols! {0}", ex.Message);
+                MainViewModel.ShowErrorDialog("Failed to save symbols!", ex);
+                MainViewModel.StatusText = "Failed to save symbols!";
+            }
         }
 
         private void InsertRowAbove()
