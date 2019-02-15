@@ -75,10 +75,10 @@ namespace LcsSaveEditor.Infrastructure
         }
 
         /// <summary>
-        /// Gets or sets the filename to use if the log is saved
+        /// Gets or sets the file name to use if the log is saved
         /// when the application exits.
         /// </summary>
-        public static string SaveOnExitFilename
+        public static string SaveOnExitFileName
         {
             get;
             set;
