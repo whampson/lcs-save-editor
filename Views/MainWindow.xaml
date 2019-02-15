@@ -139,6 +139,21 @@ SOFTWARE.
                         Command="{Binding OpenFileCommand}"
                         Header="{x:Static r:Strings.MenuItemHeaderOpen}"
                         InputGestureText="Ctrl+O"/>
+                    <MenuItem ItemsSource="{Binding RecentFiles.Items}"
+                        Header="{x:Static r:Strings.MenuItemHeaderOpenRecent}">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Command" Value="{Binding Command}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                        <MenuItem.ItemTemplate>
+                            <HierarchicalDataTemplate
+                                DataType="{x:Type vm:RecentlyAccessedFile}"
+                                ItemsSource="{Binding RecentFiles}">
+                                <TextBlock Text="{Binding Path}"/>
+                            </HierarchicalDataTemplate>
+                        </MenuItem.ItemTemplate>
+                    </MenuItem>
                     <MenuItem
                         Command="{Binding CloseFileCommand}"
                         Header="{x:Static r:Strings.MenuItemHeaderClose}"

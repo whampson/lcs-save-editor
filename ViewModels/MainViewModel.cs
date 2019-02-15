@@ -21,18 +21,17 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Helpers;
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        private RecentFilesList m_recentFiles;
         private ObservableCollection<PageViewModelBase> m_tabs;
         private int m_selectedTabIndex;
         private SaveData m_currentSaveData;
@@ -43,6 +42,7 @@ namespace LcsSaveEditor.ViewModels
 
         public MainViewModel()
         {
+            m_recentFiles = new RecentFilesList(10);
             m_tabs = new ObservableCollection<PageViewModelBase>();
             m_selectedTabIndex = -1;
             m_windowTitle = Strings.AppName;
@@ -87,6 +87,12 @@ namespace LcsSaveEditor.ViewModels
         {
             get { return m_mostRecentFilePath; }
             set { m_mostRecentFilePath = value; OnPropertyChanged(); }
+        }
+
+        public RecentFilesList RecentFiles
+        {
+            get { return m_recentFiles; }
+            set { m_recentFiles = value; OnPropertyChanged(); }
         }
 
         public string WindowTitle

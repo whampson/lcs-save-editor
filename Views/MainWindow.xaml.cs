@@ -88,6 +88,8 @@ namespace LcsSaveEditor.Views
         {
             m_logWindow.Owner = this;
 
+            ViewModel.LoadRecentFiles();
+
             Logger.Info("Ready.");
         }
 
@@ -102,6 +104,8 @@ namespace LcsSaveEditor.Views
             if (ViewModel.IsFileOpen) {
                 e.Cancel = true;
             }
+
+            ViewModel.SaveRecentFiles();
         }
     }
 }

@@ -25,7 +25,10 @@ using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -223,11 +226,10 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
 
-            Settings.Current.RecentFiles.Enqueue(path);
-
             CurrentSaveData = saveData;
             CurrentSaveData.PropertyChanged += CurrentSaveData_PropertyChanged;
 
+            AddRecentFile(path);
             ReloadTabs();
 
             Logger.Info(Strings.StatusTextFileLoadSuccess);
@@ -288,6 +290,32 @@ namespace LcsSaveEditor.ViewModels
                 Tabs.Add(new GlobalVariablesViewModel(this, CurrentSaveData));
                 SelectedTabIndex = 0;
             }
+        }
+
+        private void AddRecentFile(string path)
+        {
+            // Add a new item to the head of the list
+            m_recentFiles.Add(new RecentlyAccessedFile
+            {
+                Path = path,
+                Command = new RelayCommand<string>(dummy => OpenFile(path))
+            });
+        }
+
+        public void LoadRecentFiles()
+        {
+            // Not using AddRecentFile() so we can preserve the order!
+            m_recentFiles.Items = new ObservableCollection<RecentlyAccessedFile>(
+                Settings.Current.RecentFiles.Select(x => new RecentlyAccessedFile
+                {
+                    Path = x,
+                    Command = new RelayCommand<string>(dummy => OpenFile(x))
+                }).Take(m_recentFiles.Capacity).ToList());
+        }
+
+        public void SaveRecentFiles()
+        {
+            Settings.Current.RecentFiles = m_recentFiles.Items.Select(x => x.Path).ToList();
         }
     }
 }
