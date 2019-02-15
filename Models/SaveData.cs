@@ -149,7 +149,7 @@ namespace LcsSaveEditor.Models
             File.WriteAllBytes(path, data);
 
             Logger.Info("File format: {0}", FileType);
-            Logger.Info("File size: {0} bytes", data.Length);
+            Logger.Info("File size: {0}", data.Length);
         }
 
         private void DeserializeSimpleVars()
