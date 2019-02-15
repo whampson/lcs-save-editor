@@ -52,32 +52,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="SaveData\Android\lcs_android_save00" />
-    <None Include="SaveData\Android\lcs_android_save01" />
-    <None Include="SaveData\Android\lcs_android_save02" />
-    <None Include="SaveData\iOS\lcs_ios_save00" />
-    <None Include="SaveData\iOS\lcs_ios_save01" />
-    <None Include="SaveData\iOS\lcs_ios_save02" />
-    <None Include="SaveData\PS2\lcs_ps2_save00" />
-    <None Include="SaveData\PS2\lcs_ps2_save01" />
-    <None Include="SaveData\PS2\lcs_ps2_save02" />
-    <None Include="SaveData\PS2\lcs_ps2_save03" />
-    <None Include="SaveData\PS2\lcs_ps2_save04" />
-    <None Include="SaveData\PS2\lcs_ps2_save05" />
-    <None Include="SaveData\PS2\lcs_ps2_save06" />
-    <None Include="SaveData\PS2\lcs_ps2_save07" />
-    <None Include="SaveData\PS2\lcs_ps2_save08" />
-    <None Include="SaveData\PS2\lcs_ps2_save09" />
-    <None Include="SaveData\PSP\lcs_psp_save00" />
-    <None Include="SaveData\PSP\lcs_psp_save01" />
-    <None Include="SaveData\PSP\lcs_psp_save02" />
-    <None Include="SaveData\PSP\lcs_psp_save03" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SaveData\Android\saveinfo.txt" />
-    <Content Include="SaveData\iOS\saveinfo.txt" />
-    <Content Include="SaveData\PS2\saveinfo.txt" />
-    <Content Include="SaveData\PSP\saveinfo.txt" />
+    <None Include="SaveData\lcs_android_save00.b" />
+    <None Include="SaveData\lcs_android_save01.b" />
+    <None Include="SaveData\lcs_android_save02.b" />
+    <None Include="SaveData\lcs_ios_save00.b" />
+    <None Include="SaveData\lcs_ios_save01.b" />
+    <None Include="SaveData\lcs_ios_save02.b" />
+    <None Include="SaveData\lcs_ps2_save00.b" />
+    <None Include="SaveData\lcs_ps2_save01.b" />
+    <None Include="SaveData\lcs_ps2_save02.b" />
+    <None Include="SaveData\lcs_ps2_save03.b" />
+    <None Include="SaveData\lcs_ps2_save04.b" />
+    <None Include="SaveData\lcs_ps2_save05.b" />
+    <None Include="SaveData\lcs_ps2_save06.b" />
+    <None Include="SaveData\lcs_ps2_save07.b" />
+    <None Include="SaveData\lcs_ps2_save08.b" />
+    <None Include="SaveData\lcs_ps2_save09.b" />
+    <None Include="SaveData\lcs_psp_save00.b" />
+    <None Include="SaveData\lcs_psp_save01.b" />
+    <None Include="SaveData\lcs_psp_save02.b" />
+    <None Include="SaveData\lcs_psp_save03.b" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTypes\DataTypes.csproj">
@@ -101,6 +95,11 @@
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SaveData\saveinfo_android.txt" />
+    <Content Include="SaveData\saveinfo_ios.txt" />
+    <Content Include="SaveData\saveinfo_ps2.txt" />
+    <Content Include="SaveData\saveinfo_psp.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
