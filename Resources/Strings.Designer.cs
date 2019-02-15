@@ -503,6 +503,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O_pen Recent.
+        /// </summary>
+        public static string MenuItemHeaderOpenRecent {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderOpenRecent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Save.
         /// </summary>
         public static string MenuItemHeaderSave {
@@ -535,6 +544,15 @@ namespace LcsSaveEditor.Resources {
         public static string PageHeaderWeapons {
             get {
                 return ResourceManager.GetString("PageHeaderWeapons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save on exit.
+        /// </summary>
+        public static string SaveOnExit {
+            get {
+                return ResourceManager.GetString("SaveOnExit", resourceCulture);
             }
         }
         
@@ -607,6 +625,15 @@ namespace LcsSaveEditor.Resources {
         public static string StatusTextWelcome {
             get {
                 return ResourceManager.GetString("StatusTextWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save the log when the application exits..
+        /// </summary>
+        public static string ToolTipSaveOnExit {
+            get {
+                return ResourceManager.GetString("ToolTipSaveOnExit", resourceCulture);
             }
         }
         

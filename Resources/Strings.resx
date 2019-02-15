@@ -269,6 +269,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   <data name="MenuItemHeaderOpen" xml:space="preserve">
     <value>_Open...</value>
   </data>
+  <data name="MenuItemHeaderOpenRecent" xml:space="preserve">
+    <value>O_pen Recent</value>
+  </data>
   <data name="MenuItemHeaderSave" xml:space="preserve">
     <value>_Save</value>
   </data>
@@ -280,6 +283,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
   <data name="PageHeaderWeapons" xml:space="preserve">
     <value>Weapons</value>
+  </data>
+  <data name="SaveOnExit" xml:space="preserve">
+    <value>Save on exit</value>
   </data>
   <data name="StatusTextFileLoadFail" xml:space="preserve">
     <value>Load failed!</value>
@@ -306,6 +312,9 @@ If you are trying to load a PSP save, you may have to decrypt it first.</value>
   </data>
   <data name="StatusTextWelcome" xml:space="preserve">
     <value>Welcome to the GTA:LCS Save Editor!</value>
+  </data>
+  <data name="ToolTipSaveOnExit" xml:space="preserve">
+    <value>Save the log when the application exits.</value>
   </data>
   <data name="ToolTipTextFileCompatibility" xml:space="preserve">
     <value>This file is compatible with {0}.</value>
