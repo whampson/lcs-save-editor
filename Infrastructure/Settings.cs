@@ -77,9 +77,11 @@ namespace LcsSaveEditor.Infrastructure
             RecentFiles = new FixedLengthUniqueQueue<string>(10);
         }
 
-        public string SaveFileDirectory { get; set; }
+        public string SaveDataFileDialogDirectory { get; set; }
 
-        public string CustomVariablesDirectory { get; set; }
+        public string CustomVariablesFileDialogDirectory { get; set; }
+
+        public string OtherFileDialogDirectory { get; set; }
 
         public string CustomVariablesAndroid { get; set; }
 
