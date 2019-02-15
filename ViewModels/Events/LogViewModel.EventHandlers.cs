@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.Infrastructure;
+using System.IO;
 
 namespace LcsSaveEditor.ViewModels
 {
@@ -33,6 +34,8 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
 
+            Settings.Current.OtherFileDialogDirectory = Path.GetDirectoryName(e.FileName);
+
             Logger.WriteLogFile(e.FileName);
         }
 
@@ -43,7 +46,9 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
 
-            Logger.SaveOnExitFilename = e.FileName;
+            Settings.Current.OtherFileDialogDirectory = Path.GetDirectoryName(e.FileName);
+
+            Logger.SaveOnExitFileName = e.FileName;
         }
     }
 }

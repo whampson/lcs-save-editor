@@ -107,7 +107,7 @@ namespace LcsSaveEditor.StartUp
             SaveSettings();
 
             if (Logger.SaveOnExit) {
-                Logger.WriteLogFile(Logger.SaveOnExitFilename);
+                Logger.WriteLogFile(Logger.SaveOnExitFileName);
             }
         }
 

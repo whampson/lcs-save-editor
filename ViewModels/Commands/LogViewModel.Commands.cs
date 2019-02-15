@@ -42,6 +42,7 @@ namespace LcsSaveEditor.ViewModels
                     (x) => OnFileDialogRequested(new FileDialogEventArgs(
                         FileDialogType.SaveDialog,
                         title: Strings.DialogTitleSaveFileAs,
+                        initialDirectory: Settings.Current.OtherFileDialogDirectory,
                         filter: Strings.FileFilterLog,
                         resultAction: SaveLog_ResultAction)));
             }
@@ -54,6 +55,7 @@ namespace LcsSaveEditor.ViewModels
                     (x) => OnFileDialogRequested(new FileDialogEventArgs(
                         FileDialogType.SaveDialog,
                         title: Strings.DialogTitleSaveFileAs,
+                        initialDirectory: Settings.Current.OtherFileDialogDirectory,
                         filter: Strings.FileFilterLog,
                         resultAction: SaveOnExit_ResultAction)));
             }
