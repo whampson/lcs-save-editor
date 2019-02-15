@@ -125,7 +125,7 @@
     <value>Incorrect block tag - '{0}'. Expected '{1}'.</value>
     <comment>{0} = bad tag; {1} = expected tag</comment>
   </data>
-  <data name="Error_BadSaveData" xml:space="preserve">
+  <data name="Error_InvalidGtaSaveData" xml:space="preserve">
     <value>Invalid GTA:LCS save data fle.</value>
   </data>
   <data name="Error_ConvertBackNotSupported" xml:space="preserve">
@@ -225,5 +225,8 @@
   </data>
   <data name="Info_FileClosed" xml:space="preserve">
     <value>File closed.</value>
+  </data>
+  <data name="Info_FileTypeUnknown" xml:space="preserve">
+    <value>File type unknown.</value>
   </data>
 </root>

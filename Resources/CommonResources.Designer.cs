@@ -79,15 +79,6 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid GTA:LCS save data fle..
-        /// </summary>
-        public static string Error_BadSaveData {
-            get {
-                return ResourceManager.GetString("Error_BadSaveData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ConvertBack is not supported for this converter..
         /// </summary>
         public static string Error_ConvertBackNotSupported {
@@ -102,6 +93,15 @@ namespace LcsSaveEditor.Resources {
         public static string Error_IncorrectBlockSize {
             get {
                 return ResourceManager.GetString("Error_IncorrectBlockSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid GTA:LCS save data fle..
+        /// </summary>
+        public static string Error_InvalidGtaSaveData {
+            get {
+                return ResourceManager.GetString("Error_InvalidGtaSaveData", resourceCulture);
             }
         }
         
@@ -228,6 +228,15 @@ namespace LcsSaveEditor.Resources {
         public static string Info_FileSize {
             get {
                 return ResourceManager.GetString("Info_FileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File type unknown..
+        /// </summary>
+        public static string Info_FileTypeUnknown {
+            get {
+                return ResourceManager.GetString("Info_FileTypeUnknown", resourceCulture);
             }
         }
         
