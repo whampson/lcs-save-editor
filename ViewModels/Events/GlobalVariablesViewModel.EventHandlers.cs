@@ -24,6 +24,7 @@
 using LcsSaveEditor.Infrastructure;
 using LcsSaveEditor.Models;
 using System.Collections.Specialized;
+using System.IO;
 
 namespace LcsSaveEditor.ViewModels
 {
@@ -88,6 +89,8 @@ namespace LcsSaveEditor.ViewModels
             if (dialogResult != true) {
                 return;
             }
+
+            Settings.Current.CustomVariablesFileDialogDirectory = Path.GetDirectoryName(e.FileName);
 
             switch (e.DialogType) {
                 case FileDialogType.OpenDialog:
