@@ -22,6 +22,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -74,7 +75,7 @@ namespace LcsSaveEditor.Infrastructure
         /// </summary>
         public Settings()
         {
-            RecentFiles = new FixedLengthUniqueQueue<string>(10);
+            RecentFiles = new List<string>();
         }
 
         public string SaveDataFileDialogDirectory { get; set; }
@@ -92,7 +93,7 @@ namespace LcsSaveEditor.Infrastructure
         public string CustomVariablesPSP { get; set; }
 
         [XmlArrayItem("RecentFile")]
-        public FixedLengthUniqueQueue<string> RecentFiles { get; }
+        public List<string> RecentFiles { get; set; }
 
         /// <summary>
         /// Writes the settings to the specified XML file.
