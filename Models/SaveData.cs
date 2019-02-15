@@ -73,11 +73,18 @@ namespace LcsSaveEditor.Models
             m_block4 = new DataBlock(StatsTag);
         }
 
+        /// <summary>
+        /// Gets the <see cref="GamePlatform"/> indicating which
+        /// version of the game this save is compatible with.
+        /// </summary>
         public GamePlatform FileType
         {
             get { return m_fileType; }
         }
 
+        /// <summary>
+        /// Gets or sets a data structure containing miscellaneous game variables.
+        /// </summary>
         public SimpleVars SimpleVars
         {
             get { return m_simpleVars; }
@@ -91,6 +98,9 @@ namespace LcsSaveEditor.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets a data structure containing the game's mission script states.
+        /// </summary>
         public Scripts Scripts
         {
             get { return m_scripts; }
@@ -104,6 +114,10 @@ namespace LcsSaveEditor.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets a data structure containing information regarding the
+        /// game's garages.
+        /// </summary>
         public Garages Garages
         {
             get { return m_garages; }
@@ -117,6 +131,9 @@ namespace LcsSaveEditor.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets a data structure containing player attributes.
+        /// </summary>
         public PlayerInfo PlayerInfo
         {
             get { return m_playerInfo; }
@@ -130,6 +147,9 @@ namespace LcsSaveEditor.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets a data structure containing game statistics.
+        /// </summary>
         public Stats Stats
         {
             get { return m_stats; }
@@ -144,32 +164,168 @@ namespace LcsSaveEditor.Models
         }
 
         /// <summary>
-        /// Creates a new <see cref="SaveData"/> object by parsing bytes
-        /// from the specified file.
+        /// Checks whether a file is a valid GTA:LCS save data file.
         /// </summary>
-        /// <param name="path">The path to the file to load.</param>
+        /// <param name="fs">An open file stream.</param>
+        /// <returns>True if the file is valid, false otherwise.</returns>
+        private static bool IsFileValid(FileStream fs)
+        {
+            fs.Position = 0;
+
+            try {
+                using (BinaryReader r = new BinaryReader(fs, Encoding.Default, true)) {
+                    string tag;
+                    int size;
+
+                    // SIMP
+                    tag = r.ReadString(4);
+                    if (tag != SimpleVarsTag) {
+                        return false;
+                    }
+                    size = r.ReadInt32();
+                    r.ReadBytes(size);
+
+                    // SRPT
+                    tag = r.ReadString(4);
+                    if (tag != ScriptsTag) {
+                        return false;
+                    }
+                    size = r.ReadInt32();
+                    r.ReadBytes(size);
+
+                    // GRGE
+                    tag = r.ReadString(4);
+                    if (tag != GaragesTag) {
+                        return false;
+                    }
+                    size = r.ReadInt32();
+                    r.ReadBytes(size);
+
+                    // PLYR
+                    tag = r.ReadString(4);
+                    if (tag != PlayerInfoTag) {
+                        return false;
+                    }
+                    size = r.ReadInt32();
+                    r.ReadBytes(size);
+
+                    // STAT
+                    tag = r.ReadString(4);
+                    if (tag != StatsTag) {
+                        return false;
+                    }
+                    size = r.ReadInt32();
+                    r.ReadBytes(size);
+                }
+            }
+            catch (EndOfStreamException) {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="GamePlatform"/> value indicating which
+        /// game system a GTA:LCS save data file is compatible with.
+        /// </summary>
+        /// <param name="fs">An open file stream.</param>
+        /// <returns>
+        /// A <see cref="GamePlatform"/> value indicating which game
+        /// system the file is compatible with, null if the type
+        /// cannot be determined.
+        /// </returns>
+        private static GamePlatform? GetFileType(FileStream fs)
+        {
+            const int SimpSizePS2 = 0xF8;
+            const int SimpSizePSP = 0xBC;
+            const int RunningScriptSizeAndroid = 0x21C;
+            const int RunningScriptSizeIOS = 0x228;
+
+            fs.Position = 0;
+            using (BinaryReader r = new BinaryReader(fs, Encoding.Default, true)) {
+                int size;
+                int count;
+                int srptSize;
+                long srptOffset;
+
+                /* == Distinguish PS2 and PSP by size of SIMP block == */
+
+                r.ReadString(4);        // "SIMP"
+                size = r.ReadInt32();
+                if (size == SimpSizePS2) {
+                    return GamePlatform.PS2;
+                }
+                else if (size == SimpSizePSP) {
+                    return GamePlatform.PSP;
+                }
+
+                /* == Distinguish Android and iOS by size of RunningScript structure == */
+
+                // Read past simple vars
+                r.ReadBytes(size);
+
+                // Read past global variables
+                r.ReadString(4);        // "SRPT"
+                srptSize = r.ReadInt32();
+                srptOffset = fs.Position;
+                r.ReadString(4);        // "SCR\0"
+                r.ReadInt32();
+                size = r.ReadInt32();
+                r.ReadBytes(size);
+
+                // Read past other script info
+                r.ReadBytes(0x7C0);
+
+                // Get size of RunningScript
+                count = r.ReadInt16();
+                size = (int) ((srptOffset + srptSize - fs.Position) / count);
+                if (size == RunningScriptSizeAndroid) {
+                    return GamePlatform.Android;
+                }
+                else if (size == RunningScriptSizeIOS) {
+                    return GamePlatform.IOS;
+                }
+            }
+
+            Logger.Warn(CommonResources.Info_FileTypeUnknown);
+            return null;
+        }
+
+        /// <summary>
+        /// Loads a GTA:LCS save data file from disk and creates a new
+        /// <see cref="SaveData"/> using the data in the file.
+        /// </summary>
+        /// <param name="path">The file to load.</param>
         /// <returns>The newly-created <see cref="SaveData"/>.</returns>
-        /// <exception cref="InvalidDataException">
-        /// Thrown if the file is not a valid save data file.
+        /// <exception cref="System.IO.InvalidDataException">
+        /// Thrown if the file is not a valid GTA:LCS save data file.
         /// </exception>
-        /// <exception cref="IOException">
-        /// Thrown if an I/O error occurs.
-        /// </exception>
+        /// <exception cref="System.IO.FileNotFoundException"/>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public static SaveData Load(string path)
         {
-            GamePlatform fileType;
-            byte[] rawData;
+            // TODO: decrypt PSP saves?
 
-            // TODO: decrypt PSP saves (?)
+            SaveData data;
+            GamePlatform? fileType;
 
             Logger.Info(CommonResources.Info_LoadingGtaData);
 
-            // TODO: use stream
+            using (FileStream fs = new FileStream(path, FileMode.Open)) {
+                if (!IsFileValid(fs)) {
+                    throw new InvalidDataException(CommonResources.Error_InvalidGtaSaveData);
+                }
 
-            rawData = File.ReadAllBytes(path);
-            fileType = DetectFileType(rawData);
+                fileType = GetFileType(fs);
+                if (fileType == null) {
+                    throw new InvalidDataException(CommonResources.Info_FileTypeUnknown);
+                }
+            }
 
-            SaveData data;
+            byte[] rawData = File.ReadAllBytes(path);
+
             switch (fileType) {
                 case GamePlatform.Android:
                     data = Deserialize<SaveDataAndroid>(rawData);
@@ -195,13 +351,16 @@ namespace LcsSaveEditor.Models
             return data;
         }
 
+        /// <summary>
+        /// Writes this <see cref="SaveData"/> to a file on disk.
+        /// </summary>
+        /// <param name="path">The file to write.</param>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public void Store(string path)
         {
             Logger.Info(CommonResources.Info_SavingGtaData);
-
-            byte[] data = Serialize(this);
-            File.WriteAllBytes(path, data);
-
+            File.WriteAllBytes(path, Serialize(this));
             Logger.Info(CommonResources.Info_SaveSuccess);
         }
 
@@ -401,47 +560,6 @@ namespace LcsSaveEditor.Models
         private void Stats_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(nameof(Stats));
-        }
-        
-        private static GamePlatform DetectFileType(byte[] data)
-        {
-            // TODO: rewrite using stream
-            const int SimpSizePS2 = 0x0F8;
-            const int SimpSizePSP = 0x0BC;
-            const int RunningScriptSizeAndroid = 0x21C;
-            const int RunningScriptSizeIOS = 0x228;
-
-            // Determine if PS2 or PSP by size of SIMP block.
-            int sizeOfSimp = ReadInt(data, 0x04);
-            if (sizeOfSimp == SimpSizePS2) {
-                return GamePlatform.PS2;
-            }
-            else if (sizeOfSimp == SimpSizePSP) {
-                return GamePlatform.PSP;
-            }
-
-            // Distinguish iOS and Android by size of RunningScript.
-            int sizeOfSrpt = ReadInt(data, sizeOfSimp + 0x0C);
-            int srptDataOffset = sizeOfSimp + 0x10;
-            int scriptVarSpaceSize = ReadInt(data, srptDataOffset + 0x08);
-            int scriptVarOffset = srptDataOffset + 0x0C;
-            int numRunningScripts = ReadInt(data, scriptVarOffset + scriptVarSpaceSize + 0x7C0);
-            int runningScriptsOffset = scriptVarOffset + scriptVarSpaceSize + 0x7C4;
-            int sizeOfRunningScript = (sizeOfSrpt + srptDataOffset - runningScriptsOffset) / numRunningScripts;
-            if (sizeOfRunningScript == RunningScriptSizeAndroid) {
-                return GamePlatform.Android;
-            }
-            else if (sizeOfRunningScript == RunningScriptSizeIOS) {
-                return GamePlatform.IOS;
-            }
-
-            // Not valid!
-            throw new InvalidDataException(CommonResources.Error_BadSaveData);
-        }
-
-        private static int ReadInt(byte[] data, int index)
-        {
-            return BitConverter.ToInt32(data, index);
         }
     }
 }
