@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Windows;
 using System.Windows.Input;
 
@@ -88,20 +89,19 @@ namespace LcsSaveEditor.ViewModels
             get { return new RelayCommand(ShowAboutDialog); }
         }
 
-        public void ShowErrorDialog(string message)
+        public void ShowErrorDialog(string message, string title = null, Exception exception = null)
         {
-            OnMessageBoxRequested(new MessageBoxEventArgs(
-                message,
-                FrontendResources.Common_Error,
-                icon: MessageBoxImage.Error));
-        }
+            string msg;
+            if (exception != null) {
+                msg = string.Format("{0}\n\n{1}: {2}", message, exception.GetType().Name, exception.Message);
+            }
+            else {
+                msg = message;
+            }
 
-        public void ShowErrorDialog(string message, Exception ex)
-        {
             OnMessageBoxRequested(new MessageBoxEventArgs(
-                string.Format("{0}\n\n{1}: {2}",
-                    message, ex.GetType().Name, ex.Message),
-                FrontendResources.Common_Error,
+                msg,
+                title: title ?? FrontendResources.Common_Error,
                 icon: MessageBoxImage.Error));
         }
 
@@ -165,20 +165,23 @@ namespace LcsSaveEditor.ViewModels
             {
                 Logger.Error(CommonResources.Error_LoadFail);
                 Logger.Error("({0})", ex.Message);
-                ShowErrorDialog(FrontendResources.Dialog_Text_GtaDataLoadFail, ex);
+                ShowErrorDialog(FrontendResources.Dialog_Text_FileLoadFail, exception: ex);
             };
 
             SaveData saveData = null;
             try {
                 saveData = SaveData.Load(path);
             }
+            catch (InvalidDataException ex) {
+                Logger.Error(CommonResources.Error_LoadFail);
+                Logger.Error("({0})", ex.Message);
+                ShowErrorDialog(FrontendResources.Dialog_Text_InvalidGtaData,
+                    title: FrontendResources.Dialog_Title_InvalidGtaData);
+            }
             catch (IOException ex) {
                 errorHandler(ex);
             }
-            catch (InvalidDataException ex) {
-                errorHandler(ex);
-            }
-            catch(UnauthorizedAccessException ex) {
+            catch(SecurityException ex) {
                 errorHandler(ex);
             }
 
@@ -191,7 +194,7 @@ namespace LcsSaveEditor.ViewModels
             {
                 Logger.Error(CommonResources.Error_SaveFail);
                 Logger.Error("({0})", ex.Message);
-                ShowErrorDialog(FrontendResources.Dialog_Text_GtaDataSaveFail, ex);
+                ShowErrorDialog(FrontendResources.Dialog_Text_FileSaveFail, exception: ex);
             };
 
             bool result = false;
@@ -203,10 +206,7 @@ namespace LcsSaveEditor.ViewModels
             catch (IOException ex) {
                 errorHandler(ex);
             }
-            catch (InvalidDataException ex) {
-                errorHandler(ex);
-            }
-            catch (UnauthorizedAccessException ex) {
+            catch (SecurityException ex) {
                 errorHandler(ex);
             }
 
