@@ -43,12 +43,12 @@ namespace LcsSaveEditor.Helpers
         /// </summary>
         /// <param name="iniPath">The .ini file to read.</param>
         /// <returns>A dictionary of strings containing all the key-value pairs.</returns>
+        /// <exception cref="System.UnauthorizedAccessException"/>
+        /// <exception cref="System.IO.FileNotFoundException"/>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public static Dictionary<string, string> ReadAllKeys(string iniPath)
         {
-            if (iniPath == null) {
-                throw new ArgumentNullException(nameof(iniPath));
-            }
-
             return File.ReadLines(iniPath)
                 .Where(line => !string.IsNullOrWhiteSpace(line))
                 .Where(line => !line.Trim().StartsWith(CommentChar.ToString()))
@@ -63,15 +63,12 @@ namespace LcsSaveEditor.Helpers
         /// </summary>
         /// <param name="iniPath">The .ini file to write.</param>
         /// <param name="keys">The key-value pairs to write.</param>
+        /// <exception cref="System.UnauthorizedAccessException"/>
+        /// <exception cref="System.IO.FileNotFoundException"/>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public static void WriteAllKeys(string iniPath, Dictionary<string, string> keys)
         { 
-            if (iniPath == null) {
-                throw new ArgumentNullException(nameof(iniPath));
-            }
-            if (keys == null) {
-                throw new ArgumentNullException(nameof(keys));
-            }
-
             File.WriteAllLines(iniPath, keys
                 .Select(pair => string.Format("{0}{1}{2}", pair.Key, SeparatorChar, pair.Value)));
         }
@@ -82,15 +79,12 @@ namespace LcsSaveEditor.Helpers
         /// </summary>
         /// <param name="iniPath">The .ini file to append.</param>
         /// <param name="keys">The key-value pairs to write.</param>
+        /// <exception cref="System.UnauthorizedAccessException"/>
+        /// <exception cref="System.IO.FileNotFoundException"/>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public static void AppendAllKeys(string iniPath, Dictionary<string, string> keys)
         {
-            if (iniPath == null) {
-                throw new ArgumentNullException(nameof(iniPath));
-            }
-            if (keys == null) {
-                throw new ArgumentNullException(nameof(keys));
-            }
-
             File.AppendAllLines(iniPath, keys
                 .Select(pair => string.Format("{0}{1}{2}", pair.Key, SeparatorChar, pair.Value)));
         }
@@ -101,15 +95,12 @@ namespace LcsSaveEditor.Helpers
         /// </summary>
         /// <param name="iniPath">The .ini file to append.</param>
         /// <param name="comment">The comment to write.</param>
+        /// <exception cref="System.UnauthorizedAccessException"/>
+        /// <exception cref="System.IO.FileNotFoundException"/>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public static void WriteComment(string iniPath, string comment)
         {
-            if (iniPath == null) {
-                throw new ArgumentNullException(nameof(iniPath));
-            }
-            if (comment == null) {
-                throw new ArgumentNullException(nameof(comment));
-            }
-
             File.WriteAllText(iniPath, string.Format("{0} {1}\n", CommentChar, comment));
         }
 
@@ -118,15 +109,12 @@ namespace LcsSaveEditor.Helpers
         /// </summary>
         /// <param name="iniPath">The .ini file to append.</param>
         /// <param name="comment">The comment to write.</param>
+        /// <exception cref="System.UnauthorizedAccessException"/>
+        /// <exception cref="System.IO.FileNotFoundException"/>
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Security.SecurityException"/>
         public static void AppendComment(string iniPath, string comment)
         {
-            if (iniPath == null) {
-                throw new ArgumentNullException(nameof(iniPath));
-            }
-            if (comment == null) {
-                throw new ArgumentNullException(nameof(comment));
-            }
-
             File.AppendAllText(iniPath, string.Format("{0} {1}\n", CommentChar, comment));
         }
     }
