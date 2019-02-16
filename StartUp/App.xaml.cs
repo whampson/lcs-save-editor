@@ -123,12 +123,12 @@ namespace LcsSaveEditor.StartUp
             MessageBoxEx.Show(
                 MainWindow,
                 string.Format("{0}\n\n{1}: {2}\n\n{3}",
-                    Strings.DialogTextUnhandledException1,
+                    FrontendResources.Dialog_Text_UnhandledException1,
                     e.Exception.GetType().Name,
                     e.Exception.Message,
-                    string.Format(Strings.DialogTextUnhandledException2,
-                        Strings.AppAuthorContact, logFile)),
-                Strings.DialogTitleUnhandledException,
+                    string.Format(FrontendResources.Dialog_Text_UnhandledException2,
+                        FrontendResources.App_AuthorContact, logFile)),
+                FrontendResources.Dialog_Title_UnhandledException,
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
 
