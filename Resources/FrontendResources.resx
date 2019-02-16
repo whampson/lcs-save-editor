@@ -178,7 +178,7 @@
     <value>E_xit</value>
   </data>
   <data name="Main_MenuFile_Open" xml:space="preserve">
-    <value>_Open</value>
+    <value>_Open...</value>
   </data>
   <data name="Main_MenuFile_OpenRecent" xml:space="preserve">
     <value>Open Recent</value>
@@ -340,19 +340,20 @@
   <data name="Common_SaveAs" xml:space="preserve">
     <value>Save As</value>
   </data>
-  <data name="Dialog_Text_GtaDataLoadFail" xml:space="preserve">
+  <data name="Dialog_Text_FileLoadFail" xml:space="preserve">
     <value>Failed to load file!</value>
   </data>
-  <data name="Dialog_Text_GtaDataSaveFail" xml:space="preserve">
+  <data name="Dialog_Text_FileSaveFail" xml:space="preserve">
     <value>Failed to save file!</value>
   </data>
   <data name="Dialog_Title_About" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="Dialog_Text_SymbolsLoadFail" xml:space="preserve">
-    <value>Failed to load symbols!</value>
+  <data name="Dialog_Text_InvalidGtaData" xml:space="preserve">
+    <value>Invalid GTA:LCS save data file.
+If you are trying to load a PSP save, make sure it is decrypted first.</value>
   </data>
-  <data name="Dialog_Text_SymbolsSaveFail" xml:space="preserve">
-    <value>Failed to save symbols!</value>
+  <data name="Dialog_Title_InvalidGtaData" xml:space="preserve">
+    <value>Invalid Save Data</value>
   </data>
 </root>

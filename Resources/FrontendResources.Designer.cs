@@ -216,18 +216,28 @@ namespace LcsSaveEditor.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Failed to load file!.
         /// </summary>
-        public static string Dialog_Text_GtaDataLoadFail {
+        public static string Dialog_Text_FileLoadFail {
             get {
-                return ResourceManager.GetString("Dialog_Text_GtaDataLoadFail", resourceCulture);
+                return ResourceManager.GetString("Dialog_Text_FileLoadFail", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Failed to save file!.
         /// </summary>
-        public static string Dialog_Text_GtaDataSaveFail {
+        public static string Dialog_Text_FileSaveFail {
             get {
-                return ResourceManager.GetString("Dialog_Text_GtaDataSaveFail", resourceCulture);
+                return ResourceManager.GetString("Dialog_Text_FileSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid GTA:LCS save data file.
+        ///If you are trying to load a PSP save, make sure it is decrypted first..
+        /// </summary>
+        public static string Dialog_Text_InvalidGtaData {
+            get {
+                return ResourceManager.GetString("Dialog_Text_InvalidGtaData", resourceCulture);
             }
         }
         
@@ -237,24 +247,6 @@ namespace LcsSaveEditor.Resources {
         public static string Dialog_Text_SaveChanges {
             get {
                 return ResourceManager.GetString("Dialog_Text_SaveChanges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load symbols!.
-        /// </summary>
-        public static string Dialog_Text_SymbolsLoadFail {
-            get {
-                return ResourceManager.GetString("Dialog_Text_SymbolsLoadFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to save symbols!.
-        /// </summary>
-        public static string Dialog_Text_SymbolsSaveFail {
-            get {
-                return ResourceManager.GetString("Dialog_Text_SymbolsSaveFail", resourceCulture);
             }
         }
         
@@ -282,6 +274,15 @@ namespace LcsSaveEditor.Resources {
         public static string Dialog_Title_About {
             get {
                 return ResourceManager.GetString("Dialog_Title_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Save Data.
+        /// </summary>
+        public static string Dialog_Title_InvalidGtaData {
+            get {
+                return ResourceManager.GetString("Dialog_Title_InvalidGtaData", resourceCulture);
             }
         }
         
@@ -493,7 +494,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Open.
+        ///   Looks up a localized string similar to _Open....
         /// </summary>
         public static string Main_MenuFile_Open {
             get {

@@ -93,7 +93,7 @@ namespace LcsSaveEditor.ViewModels
                 Settings.Current.SetCustomVariablesFile(fileType, null);
                 Logger.Error(CommonResources.Error_SymbolsLoadFail);
                 Logger.Error("({0})", ex.Message);
-                MainViewModel.ShowErrorDialog(FrontendResources.Dialog_Text_SymbolsLoadFail);
+                MainViewModel.ShowErrorDialog(FrontendResources.Dialog_Text_FileLoadFail, exception: ex);
                 MainViewModel.StatusText = CommonResources.Error_SymbolsLoadFail;
             };
 
@@ -130,7 +130,7 @@ namespace LcsSaveEditor.ViewModels
                 Settings.Current.SetCustomVariablesFile(fileType, null);
                 Logger.Error(CommonResources.Error_SymbolsSaveFail);
                 Logger.Error("({0})", ex.Message);
-                MainViewModel.ShowErrorDialog(FrontendResources.Dialog_Text_SymbolsSaveFail);
+                MainViewModel.ShowErrorDialog(FrontendResources.Dialog_Text_FileSaveFail, exception: ex);
                 MainViewModel.StatusText = CommonResources.Error_SymbolsSaveFail;
             };
 
