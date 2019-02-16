@@ -74,6 +74,15 @@ namespace LcsSaveEditor.ViewModels
             }
         }
 
+        public ICommand ReloadCommand
+        {
+            get {
+                return new RelayCommand<Action<string>>(
+                    (x) => ReloadFile(),
+                    (x) => IsFileOpen);
+            }
+        }
+
         public ICommand ExitAppCommand
         {
             get { return new RelayCommand(ExitApp); }
@@ -89,7 +98,9 @@ namespace LcsSaveEditor.ViewModels
             get { return new RelayCommand(ShowAboutDialog); }
         }
 
-        public void ShowErrorDialog(string message, string title = null, Exception exception = null)
+        public void ShowErrorDialog(string message,
+            string title = null,
+            Exception exception = null)
         {
             string msg;
             if (exception != null) {
@@ -106,6 +117,7 @@ namespace LcsSaveEditor.ViewModels
         }
 
         public void ShowOpenFileDialog(Action<bool?, FileDialogEventArgs> resultAction,
+            string title = null,
             string fileName = null,
             string filter = null,
             string initialDirectory = null)
@@ -115,11 +127,12 @@ namespace LcsSaveEditor.ViewModels
                 fileName: fileName,
                 filter: filter,
                 initialDirectory: initialDirectory,
-                title: FrontendResources.Common_Open,
+                title: title ?? FrontendResources.Common_Open,
                 resultAction: resultAction));
         }
 
         public void ShowSaveFileDialog(Action<bool?, FileDialogEventArgs> resultAction,
+            string title = null,
             string fileName = null,
             string filter = null,
             string initialDirectory = null)
@@ -129,7 +142,7 @@ namespace LcsSaveEditor.ViewModels
                 fileName: fileName,
                 filter: filter,
                 initialDirectory: initialDirectory,
-                title: FrontendResources.Common_SaveAs,
+                title: title ?? FrontendResources.Common_SaveAs,
                 resultAction: resultAction));
         }
 
@@ -144,28 +157,39 @@ namespace LcsSaveEditor.ViewModels
 
             OnMessageBoxRequested(new MessageBoxEventArgs(
                 "(placeholder)",
-                title: FrontendResources.Dialog_Title_About,
+                title: FrontendResources.About_Window_Title,
                 icon: MessageBoxImage.Information));
         }
 
         private void ShowCloseFilePrompt()
         {
             OnMessageBoxRequested(new MessageBoxEventArgs(
-                FrontendResources.Dialog_Text_SaveChanges,
-                title: FrontendResources.Dialog_Title_SaveChanges,
+                FrontendResources.Main_DialogText_SaveBeforeClose,
+                title: FrontendResources.Main_DialogTitle_SaveBeforeClose,
                 buttons: MessageBoxButton.YesNoCancel,
                 icon: MessageBoxImage.Question,
                 defaultResult: MessageBoxResult.Yes,
-                resultAction: FileClosePrompt_ResultAction));
+                resultAction: CloseFilePrompt_ResultAction));
+        }
+
+        private void ShowReloadConfirmation()
+        {
+            OnMessageBoxRequested(new MessageBoxEventArgs(
+                FrontendResources.Main_DialogText_ConfirmReload,
+                title: FrontendResources.Main_DialogTitle_ConfirmReload,
+                buttons: MessageBoxButton.YesNo,
+                icon: MessageBoxImage.Question,
+                defaultResult: MessageBoxResult.No,
+                resultAction: ReloadConfirmation_ResultAction));
         }
 
         private SaveData LoadSaveData(string path)
         {
-            Action<Exception> errorHandler = (ex) =>
+            Action<string, string, Exception> errorHandler = (text, title, ex) =>
             {
                 Logger.Error(CommonResources.Error_LoadFail);
                 Logger.Error("({0})", ex.Message);
-                ShowErrorDialog(FrontendResources.Dialog_Text_FileLoadFail, exception: ex);
+                ShowErrorDialog(text, title: title, exception: ex);
             };
 
             SaveData saveData = null;
@@ -173,16 +197,22 @@ namespace LcsSaveEditor.ViewModels
                 saveData = SaveData.Load(path);
             }
             catch (InvalidDataException ex) {
-                Logger.Error(CommonResources.Error_LoadFail);
-                Logger.Error("({0})", ex.Message);
-                ShowErrorDialog(FrontendResources.Dialog_Text_InvalidGtaData,
-                    title: FrontendResources.Dialog_Title_InvalidGtaData);
+                errorHandler(
+                    FrontendResources.Main_DialogText_InvalidGtaData,
+                    FrontendResources.Main_DialogTitle_InvalidGtaData,
+                    ex);
             }
             catch (IOException ex) {
-                errorHandler(ex);
+                errorHandler(
+                    FrontendResources.Main_DialogText_FileLoadFail,
+                    FrontendResources.Main_DialogTitle_FileLoadFail,
+                    ex);
             }
             catch(SecurityException ex) {
-                errorHandler(ex);
+                errorHandler(
+                    FrontendResources.Main_DialogText_FileLoadFail,
+                    FrontendResources.Main_DialogTitle_FileLoadFail,
+                    ex);
             }
 
             return saveData;
@@ -190,11 +220,11 @@ namespace LcsSaveEditor.ViewModels
 
         private bool WriteSaveData(SaveData saveData, string path)
         {
-            Action<Exception> errorHandler = (ex) =>
+            Action<string, string, Exception> errorHandler = (text, title, ex) =>
             {
                 Logger.Error(CommonResources.Error_SaveFail);
                 Logger.Error("({0})", ex.Message);
-                ShowErrorDialog(FrontendResources.Dialog_Text_FileSaveFail, exception: ex);
+                ShowErrorDialog(text, title: title, exception: ex);
             };
 
             bool result = false;
@@ -204,10 +234,16 @@ namespace LcsSaveEditor.ViewModels
                 result = true;
             }
             catch (IOException ex) {
-                errorHandler(ex);
+                errorHandler(
+                    FrontendResources.Main_DialogText_FileSaveFail,
+                    FrontendResources.Main_DialogTitle_FileSaveFail,
+                    ex);
             }
             catch (SecurityException ex) {
-                errorHandler(ex);
+                errorHandler(
+                    FrontendResources.Main_DialogText_FileSaveFail,
+                    FrontendResources.Main_DialogTitle_FileSaveFail,
+                    ex);
             }
 
             return result;
@@ -279,6 +315,22 @@ namespace LcsSaveEditor.ViewModels
             IsFileModified = false;
             StatusText = FrontendResources.Main_StatusText_NoFileLoaded;
             WindowTitle = FrontendResources.Main_Window_Title;
+        }
+
+        private void ReloadFile()
+        {
+            if (IsFileModified) {
+                ShowReloadConfirmation();
+            }
+            else {
+                DoReloadFile();
+            }
+        }
+
+        private void DoReloadFile()
+        {
+            DoCloseFile();
+            OpenFile(MostRecentFilePath);
         }
 
         private void ExitApp()

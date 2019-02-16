@@ -61,6 +61,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About_Window_Title {
+            get {
+                return ResourceManager.GetString("About_Window_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to thehambone.
         /// </summary>
         public static string App_Author {
@@ -133,15 +142,6 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string Common_Clear {
-            get {
-                return ResourceManager.GetString("Common_Clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Common_Close {
@@ -169,138 +169,11 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open....
-        /// </summary>
-        public static string Common_OpenEllipses {
-            get {
-                return ResourceManager.GetString("Common_OpenEllipses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save.
-        /// </summary>
-        public static string Common_Save {
-            get {
-                return ResourceManager.GetString("Common_Save", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save As.
         /// </summary>
         public static string Common_SaveAs {
             get {
                 return ResourceManager.GetString("Common_SaveAs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save As....
-        /// </summary>
-        public static string Common_SaveAsEllipses {
-            get {
-                return ResourceManager.GetString("Common_SaveAsEllipses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save....
-        /// </summary>
-        public static string Common_SaveEllipses {
-            get {
-                return ResourceManager.GetString("Common_SaveEllipses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load file!.
-        /// </summary>
-        public static string Dialog_Text_FileLoadFail {
-            get {
-                return ResourceManager.GetString("Dialog_Text_FileLoadFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to save file!.
-        /// </summary>
-        public static string Dialog_Text_FileSaveFail {
-            get {
-                return ResourceManager.GetString("Dialog_Text_FileSaveFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid GTA:LCS save data file.
-        ///If you are trying to load a PSP save, make sure it is decrypted first..
-        /// </summary>
-        public static string Dialog_Text_InvalidGtaData {
-            get {
-                return ResourceManager.GetString("Dialog_Text_InvalidGtaData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you want to save your changes?.
-        /// </summary>
-        public static string Dialog_Text_SaveChanges {
-            get {
-                return ResourceManager.GetString("Dialog_Text_SaveChanges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A fatal exception has occurred. The application will be terminated..
-        /// </summary>
-        public static string Dialog_Text_UnhandledException1 {
-            get {
-                return ResourceManager.GetString("Dialog_Text_UnhandledException1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please report this error to {0} and attach the crash dump located at {1}..
-        /// </summary>
-        public static string Dialog_Text_UnhandledException2 {
-            get {
-                return ResourceManager.GetString("Dialog_Text_UnhandledException2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to About.
-        /// </summary>
-        public static string Dialog_Title_About {
-            get {
-                return ResourceManager.GetString("Dialog_Title_About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid Save Data.
-        /// </summary>
-        public static string Dialog_Title_InvalidGtaData {
-            get {
-                return ResourceManager.GetString("Dialog_Title_InvalidGtaData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Changes?.
-        /// </summary>
-        public static string Dialog_Title_SaveChanges {
-            get {
-                return ResourceManager.GetString("Dialog_Title_SaveChanges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unhandled Exception.
-        /// </summary>
-        public static string Dialog_Title_UnhandledException {
-            get {
-                return ResourceManager.GetString("Dialog_Title_UnhandledException", resourceCulture);
             }
         }
         
@@ -404,6 +277,60 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to load symbols file!.
+        /// </summary>
+        public static string GlobalVariables_DialogText_SymbolsLoadFail {
+            get {
+                return ResourceManager.GetString("GlobalVariables_DialogText_SymbolsLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save symbols file!.
+        /// </summary>
+        public static string GlobalVariables_DialogText_SymbolsSaveFail {
+            get {
+                return ResourceManager.GetString("GlobalVariables_DialogText_SymbolsSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Symbols File.
+        /// </summary>
+        public static string GlobalVariables_DialogTitle_LoadSymbols {
+            get {
+                return ResourceManager.GetString("GlobalVariables_DialogTitle_LoadSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Symbols File.
+        /// </summary>
+        public static string GlobalVariables_DialogTitle_SaveSymbols {
+            get {
+                return ResourceManager.GetString("GlobalVariables_DialogTitle_SaveSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Symbols Failed.
+        /// </summary>
+        public static string GlobalVariables_DialogTitle_SymbolsLoadFail {
+            get {
+                return ResourceManager.GetString("GlobalVariables_DialogTitle_SymbolsLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Symbols Failed.
+        /// </summary>
+        public static string GlobalVariables_DialogTitle_SymbolsSaveFail {
+            get {
+                return ResourceManager.GetString("GlobalVariables_DialogTitle_SymbolsSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Compatible with the {0} version of GTA:LCS..
         /// </summary>
         public static string GlobalVariables_Ini_Compatibility {
@@ -440,6 +367,33 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Log.
+        /// </summary>
+        public static string Log_DialogTitle_Save {
+            get {
+                return ResourceManager.GetString("Log_DialogTitle_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Log_Options_Clear {
+            get {
+                return ResourceManager.GetString("Log_Options_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Log_Options_Save {
+            get {
+                return ResourceManager.GetString("Log_Options_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save on exit.
         /// </summary>
         public static string Log_Options_SaveOnExit {
@@ -463,6 +417,124 @@ namespace LcsSaveEditor.Resources {
         public static string Log_Window_Title {
             get {
                 return ResourceManager.GetString("Log_Window_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes. Are you sure you want to reload this file?.
+        /// </summary>
+        public static string Main_DialogText_ConfirmReload {
+            get {
+                return ResourceManager.GetString("Main_DialogText_ConfirmReload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load file!.
+        /// </summary>
+        public static string Main_DialogText_FileLoadFail {
+            get {
+                return ResourceManager.GetString("Main_DialogText_FileLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save file!.
+        /// </summary>
+        public static string Main_DialogText_FileSaveFail {
+            get {
+                return ResourceManager.GetString("Main_DialogText_FileSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid GTA:LCS save data file.
+        ///If you are trying to load a PSP save, make sure it is decrypted first..
+        /// </summary>
+        public static string Main_DialogText_InvalidGtaData {
+            get {
+                return ResourceManager.GetString("Main_DialogText_InvalidGtaData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save your changes?.
+        /// </summary>
+        public static string Main_DialogText_SaveBeforeClose {
+            get {
+                return ResourceManager.GetString("Main_DialogText_SaveBeforeClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A fatal exception has occurred. The application will be terminated..
+        /// </summary>
+        public static string Main_DialogText_UnhandledException1 {
+            get {
+                return ResourceManager.GetString("Main_DialogText_UnhandledException1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please report this error to {0} and attach the crash dump located at {1}..
+        /// </summary>
+        public static string Main_DialogText_UnhandledException2 {
+            get {
+                return ResourceManager.GetString("Main_DialogText_UnhandledException2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload.
+        /// </summary>
+        public static string Main_DialogTitle_ConfirmReload {
+            get {
+                return ResourceManager.GetString("Main_DialogTitle_ConfirmReload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Failed.
+        /// </summary>
+        public static string Main_DialogTitle_FileLoadFail {
+            get {
+                return ResourceManager.GetString("Main_DialogTitle_FileLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Failed.
+        /// </summary>
+        public static string Main_DialogTitle_FileSaveFail {
+            get {
+                return ResourceManager.GetString("Main_DialogTitle_FileSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Save Data.
+        /// </summary>
+        public static string Main_DialogTitle_InvalidGtaData {
+            get {
+                return ResourceManager.GetString("Main_DialogTitle_InvalidGtaData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Main_DialogTitle_SaveBeforeClose {
+            get {
+                return ResourceManager.GetString("Main_DialogTitle_SaveBeforeClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled Exception.
+        /// </summary>
+        public static string Main_DialogTitle_UnhandledException {
+            get {
+                return ResourceManager.GetString("Main_DialogTitle_UnhandledException", resourceCulture);
             }
         }
         
@@ -512,7 +584,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Reload.
+        ///   Looks up a localized string similar to _Reload/Revert.
         /// </summary>
         public static string Main_MenuFile_Reload {
             get {

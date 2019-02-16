@@ -60,7 +60,7 @@ namespace LcsSaveEditor.ViewModels
         {
             OnFileDialogRequested(new FileDialogEventArgs(
                 FileDialogType.SaveDialog,
-                title: FrontendResources.Common_SaveAs,
+                title: FrontendResources.Log_DialogTitle_Save,
                 initialDirectory: Settings.Current.OtherFileDialogDirectory,
                 filter: FrontendResources.FileFilter_Log,
                 resultAction: resultAction));

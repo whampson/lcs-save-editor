@@ -83,12 +83,12 @@ SOFTWARE.
                 Grid.Column="0"
                 Command="{Binding ClearLogCommand}"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:FrontendResources.Common_Clear}"/>
+                Content="{x:Static r:FrontendResources.Log_Options_Clear}"/>
             <Button
                 Grid.Column="1"
                 Command="{Binding SaveLogCommand}"
                 Style="{StaticResource ButtonStyle}"
-                Content="{x:Static r:FrontendResources.Common_SaveEllipses}"/>
+                Content="{x:Static r:FrontendResources.Log_Options_Save}"/>
             <CheckBox
                 Grid.Column="2"
                 IsChecked="{Binding SaveOnExit}"

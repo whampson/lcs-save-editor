@@ -35,7 +35,7 @@ namespace LcsSaveEditor.ViewModels
             IsFileModified = true;
         }
 
-        private void FileClosePrompt_ResultAction(MessageBoxResult result)
+        private void CloseFilePrompt_ResultAction(MessageBoxResult result)
         {
             // Does the user want to save before closing?
             switch (result) {
@@ -45,6 +45,17 @@ namespace LcsSaveEditor.ViewModels
                     break;
                 case MessageBoxResult.No:
                     DoCloseFile();
+                    break;
+            }
+        }
+
+        private void ReloadConfirmation_ResultAction(MessageBoxResult result)
+        {
+            switch (result) {
+                case MessageBoxResult.Yes:
+                    DoReloadFile();
+                    break;
+                case MessageBoxResult.No:
                     break;
             }
         }

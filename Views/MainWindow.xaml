@@ -117,6 +117,9 @@ SOFTWARE.
             Command="{Binding SaveFileAsCommand}"
             Key="S" Modifiers="Ctrl+Shift"/>
         <KeyBinding
+            Command="{Binding ReloadCommand}"
+            Key="F5"/>
+        <KeyBinding
             Command="{Binding ExitAppCommand}"
             Key="F4" Modifiers="Alt"/>
         <KeyBinding
@@ -154,6 +157,7 @@ SOFTWARE.
                             </HierarchicalDataTemplate>
                         </MenuItem.ItemTemplate>
                     </MenuItem>
+                    <Separator/>
                     <MenuItem
                         Command="{Binding CloseFileCommand}"
                         Header="{x:Static r:FrontendResources.Main_MenuFile_Close}"
@@ -167,6 +171,11 @@ SOFTWARE.
                         Command="{Binding SaveFileAsCommand}"
                         Header="{x:Static r:FrontendResources.Main_MenuFile_SaveAs}"
                         InputGestureText="Ctrl+Shift+S"/>
+                    <Separator/>
+                    <MenuItem
+                        Command="{Binding ReloadCommand}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_Reload}"
+                        InputGestureText="F5"/>
                     <Separator/>
                     <MenuItem
                         Command="{Binding ExitAppCommand}"

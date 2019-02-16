@@ -135,32 +135,8 @@
   <data name="App_Title" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
   </data>
-  <data name="Common_Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="Common_Close" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="Common_Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="GlobalVariables_DataType_Name" xml:space="preserve">
     <value>Name</value>
-  </data>
-  <data name="Common_Open" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="Common_OpenEllipses" xml:space="preserve">
-    <value>Open...</value>
-  </data>
-  <data name="Common_Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Common_SaveAsEllipses" xml:space="preserve">
-    <value>Save As...</value>
-  </data>
-  <data name="Common_SaveEllipses" xml:space="preserve">
-    <value>Save...</value>
   </data>
   <data name="GlobalVariables_Options_LoadSymbols" xml:space="preserve">
     <value>Load Symbols...</value>
@@ -184,7 +160,7 @@
     <value>Open Recent</value>
   </data>
   <data name="Main_MenuFile_Reload" xml:space="preserve">
-    <value>_Reload</value>
+    <value>_Reload/Revert</value>
   </data>
   <data name="Main_MenuFile_Save" xml:space="preserve">
     <value>_Save</value>
@@ -224,19 +200,19 @@
     <value>Version: {0} (build {1})</value>
     <comment>{0} = version number (major.minor.revision); {1} = build number</comment>
   </data>
-  <data name="Dialog_Text_SaveChanges" xml:space="preserve">
+  <data name="Main_DialogText_SaveBeforeClose" xml:space="preserve">
     <value>Do you want to save your changes?</value>
   </data>
-  <data name="Dialog_Text_UnhandledException1" xml:space="preserve">
+  <data name="Main_DialogText_UnhandledException1" xml:space="preserve">
     <value>A fatal exception has occurred. The application will be terminated.</value>
   </data>
-  <data name="Dialog_Text_UnhandledException2" xml:space="preserve">
+  <data name="Main_DialogText_UnhandledException2" xml:space="preserve">
     <value>Please report this error to {0} and attach the crash dump located at {1}.</value>
   </data>
-  <data name="Dialog_Title_SaveChanges" xml:space="preserve">
-    <value>Save Changes?</value>
+  <data name="Main_DialogTitle_SaveBeforeClose" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="Dialog_Title_UnhandledException" xml:space="preserve">
+  <data name="Main_DialogTitle_UnhandledException" xml:space="preserve">
     <value>Unhandled Exception</value>
   </data>
   <data name="FileFilter_Gta" xml:space="preserve">
@@ -337,23 +313,71 @@
   <data name="Weapons_Slot_Special" xml:space="preserve">
     <value>Special</value>
   </data>
-  <data name="Common_SaveAs" xml:space="preserve">
-    <value>Save As</value>
-  </data>
-  <data name="Dialog_Text_FileLoadFail" xml:space="preserve">
+  <data name="Main_DialogText_FileLoadFail" xml:space="preserve">
     <value>Failed to load file!</value>
   </data>
-  <data name="Dialog_Text_FileSaveFail" xml:space="preserve">
+  <data name="Main_DialogText_FileSaveFail" xml:space="preserve">
     <value>Failed to save file!</value>
   </data>
-  <data name="Dialog_Title_About" xml:space="preserve">
+  <data name="About_Window_Title" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="Dialog_Text_InvalidGtaData" xml:space="preserve">
+  <data name="Main_DialogText_InvalidGtaData" xml:space="preserve">
     <value>Invalid GTA:LCS save data file.
 If you are trying to load a PSP save, make sure it is decrypted first.</value>
   </data>
-  <data name="Dialog_Title_InvalidGtaData" xml:space="preserve">
+  <data name="Main_DialogTitle_InvalidGtaData" xml:space="preserve">
     <value>Invalid Save Data</value>
+  </data>
+  <data name="Main_DialogText_ConfirmReload" xml:space="preserve">
+    <value>You have unsaved changes. Are you sure you want to reload this file?</value>
+  </data>
+  <data name="Main_DialogTitle_ConfirmReload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="GlobalVariables_DialogText_SymbolsLoadFail" xml:space="preserve">
+    <value>Failed to load symbols file!</value>
+  </data>
+  <data name="GlobalVariables_DialogText_SymbolsSaveFail" xml:space="preserve">
+    <value>Failed to save symbols file!</value>
+  </data>
+  <data name="GlobalVariables_DialogTitle_SymbolsLoadFail" xml:space="preserve">
+    <value>Load Symbols Failed</value>
+  </data>
+  <data name="GlobalVariables_DialogTitle_SymbolsSaveFail" xml:space="preserve">
+    <value>Save Symbols Failed</value>
+  </data>
+  <data name="Main_DialogTitle_FileLoadFail" xml:space="preserve">
+    <value>Load Failed</value>
+  </data>
+  <data name="Main_DialogTitle_FileSaveFail" xml:space="preserve">
+    <value>Save Failed</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Common_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Common_SaveAs" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="GlobalVariables_DialogTitle_LoadSymbols" xml:space="preserve">
+    <value>Load Symbols File</value>
+  </data>
+  <data name="GlobalVariables_DialogTitle_SaveSymbols" xml:space="preserve">
+    <value>Save Symbols File</value>
+  </data>
+  <data name="Log_DialogTitle_Save" xml:space="preserve">
+    <value>Save Log</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Log_Options_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Log_Options_Save" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>
