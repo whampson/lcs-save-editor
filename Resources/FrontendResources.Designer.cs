@@ -683,6 +683,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Main_Page_Start {
+            get {
+                return ResourceManager.GetString("Main_Page_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weapons.
         /// </summary>
         public static string Main_Page_Weapons {
@@ -701,11 +710,65 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No file loaded..
+        ///   Looks up a localized string similar to File closed..
         /// </summary>
-        public static string Main_StatusText_NoFileLoaded {
+        public static string Main_StatusText_FileClosed {
             get {
-                return ResourceManager.GetString("Main_StatusText_NoFileLoaded", resourceCulture);
+                return ResourceManager.GetString("Main_StatusText_FileClosed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load failed..
+        /// </summary>
+        public static string Main_StatusText_LoadFail {
+            get {
+                return ResourceManager.GetString("Main_StatusText_LoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load successful..
+        /// </summary>
+        public static string Main_StatusText_LoadSuccess {
+            get {
+                return ResourceManager.GetString("Main_StatusText_LoadSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload failed..
+        /// </summary>
+        public static string Main_StatusText_ReloadFail {
+            get {
+                return ResourceManager.GetString("Main_StatusText_ReloadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reload successful..
+        /// </summary>
+        public static string Main_StatusText_ReloadSuccess {
+            get {
+                return ResourceManager.GetString("Main_StatusText_ReloadSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save failed..
+        /// </summary>
+        public static string Main_StatusText_SaveFail {
+            get {
+                return ResourceManager.GetString("Main_StatusText_SaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save succesful..
+        /// </summary>
+        public static string Main_StatusText_SaveSuccess {
+            get {
+                return ResourceManager.GetString("Main_StatusText_SaveSuccess", resourceCulture);
             }
         }
         
@@ -742,6 +805,15 @@ namespace LcsSaveEditor.Resources {
         public static string Main_Window_Title {
             get {
                 return ResourceManager.GetString("Main_Window_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string String1 {
+            get {
+                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
