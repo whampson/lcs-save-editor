@@ -30,32 +30,85 @@ namespace LcsSaveEditor.ViewModels
     /// </summary>
     public abstract class PageViewModelBase : ObservableObject
     {
-        private MainViewModel m_mainViewModel;
-        private string m_header;
+        private bool m_isVisible;
 
         /// <summary>
-        /// Creates a new Page view model with the specified page title.
+        /// Creates a new Page view model with the specified
+        /// page title, page visibility, and reference to the main view model.
         /// </summary>
-        /// <param name="header">The title of the Page.</param>
-        public PageViewModelBase(MainViewModel mainViewModel, string header)
+        /// <param name="title">The title of the page.</param>
+        /// <param name="visibility">A value indicating when the page should be visible.</param>
+        /// <param name="mainViewModel">A reference to the main view model.</param>
+        public PageViewModelBase(string title, PageVisibility visibility, MainViewModel mainViewModel)
         {
-            m_mainViewModel = mainViewModel;
-            m_header = header;
+            Title = title;
+            Visibility = visibility;
+            MainViewModel = mainViewModel;
+            m_isVisible = visibility == PageVisibility.Always;
+
+            MainViewModel.TabRefresh += MainViewModel_TabRefresh;
         }
 
+        /// <summary>
+        /// Gets the title of this page.
+        /// </summary>
+        public string Title
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the page's visibility setting.
+        /// </summary>
+        public PageVisibility Visibility
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating wheter this page is currently visible.
+        /// </summary>
+        public bool IsVisible
+        {
+            get { return m_isVisible; }
+            set { m_isVisible = value; OnPropertyChanged(); }
+        }
+
+        /// <summary>
+        /// Gets the main window's view model for accessing functions
+        /// visible to the whole program.
+        /// </summary>
         public MainViewModel MainViewModel
         {
-            get { return m_mainViewModel; }
-            set { m_mainViewModel = value; OnPropertyChanged(); }
+            get;
         }
 
-        /// <summary>
-        /// Gets or sets the title of this page.
-        /// </summary>
-        public string Header
+        private void MainViewModel_TabRefresh(object sender, TabRefreshEventArgs e)
         {
-            get { return m_header; }
-            set { m_header = value; OnPropertyChanged(); }
+            if (Visibility == PageVisibility.Always) {
+                IsVisible = true;
+                return;
+            }
+
+            switch (e.Trigger) {
+                case TabRefreshTrigger.WindowLoaded:
+                case TabRefreshTrigger.FileClosed:
+                    IsVisible = Visibility == PageVisibility.WhenFileClosed;
+                    break;
+                case TabRefreshTrigger.FileLoaded:
+                    IsVisible = Visibility == PageVisibility.WhenFileLoaded;
+                    break;
+            }
         }
+    }
+
+    /// <summary>
+    /// Values indicating when a tab page should be visible.
+    /// </summary>
+    public enum PageVisibility
+    {
+        Always,
+        WhenFileLoaded,
+        WhenFileClosed
     }
 }
