@@ -83,13 +83,14 @@ namespace LcsSaveEditor.ViewModels
             string path = Settings.Current.GetCustomVariablesFile(fileType);
             
             if (path != null) {
-                LoadCustomVariables(path);
+                LoadCustomVariables(path, updateStatusTextOnSuccess: false);
             }
         }
 
-        private void LoadCustomVariables(string path)
+        private void LoadCustomVariables(string path, bool updateStatusTextOnSuccess = true)
         {
             GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
+
             Action<Exception> errorHandler = (ex) =>
             {
                 Settings.Current.SetCustomVariablesFile(fileType, null);
@@ -111,9 +112,9 @@ namespace LcsSaveEditor.ViewModels
                 }
 
                 Settings.Current.SetCustomVariablesFile(fileType, path);
-
-                Logger.Info(CommonResources.Info_SymbolsLoadSuccess);
-                MainViewModel.StatusText = CommonResources.Info_SymbolsLoadSuccess;
+                if (updateStatusTextOnSuccess) {
+                    MainViewModel.StatusText = CommonResources.Info_SymbolsLoadSuccess;
+                }
             }
             catch (IOException ex) {
                 errorHandler(ex);
@@ -130,6 +131,7 @@ namespace LcsSaveEditor.ViewModels
         {
             GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
             string platformName = GamePlatformHelper.GetPlatformName(fileType);
+
             Action<Exception> errorHandler = (ex) =>
             {
                 Settings.Current.SetCustomVariablesFile(fileType, null);
