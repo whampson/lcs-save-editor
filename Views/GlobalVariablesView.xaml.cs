@@ -88,10 +88,5 @@ namespace LcsSaveEditor.Views
                     break;
             }
         }
-
-        private void View_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.AutoLoadCustomVariables();
-        }
     }
 }

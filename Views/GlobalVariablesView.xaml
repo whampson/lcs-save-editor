@@ -29,8 +29,7 @@ SOFTWARE.
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
     mc:Ignorable="d" 
-    d:DesignHeight="325" d:DesignWidth="500"
-    Loaded="View_Loaded">
+    d:DesignHeight="325" d:DesignWidth="500">
 
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
