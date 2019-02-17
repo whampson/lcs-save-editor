@@ -30,6 +30,28 @@ namespace LcsSaveEditor.ViewModels
 {
     public partial class GlobalVariablesViewModel : PageViewModelBase
     {
+        private void MainViewModel_DataLoaded(object sender, SaveDataEventArgs e)
+        {
+            m_globalVariables = e.Data.Scripts.GlobalVariables;
+            foreach (ScriptVariable v in m_globalVariables) {
+                m_namedGlobalVariables.Add(new NamedScriptVariable(v));
+            }
+
+            m_globalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+            m_namedGlobalVariables.CollectionChanged += NamedGlobalVariables_CollectionChanged;
+
+            AutoLoadCustomVariables();
+        }
+
+        private void MainViewModel_DataClosing(object sender, SaveDataEventArgs e)
+        {
+            m_globalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
+            m_namedGlobalVariables.CollectionChanged -= NamedGlobalVariables_CollectionChanged;
+
+            m_namedGlobalVariables.Clear();
+            m_globalVariables = null;
+        }
+
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (m_suppressGlobalVariablesChanged) {
