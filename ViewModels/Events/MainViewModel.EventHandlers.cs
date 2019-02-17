@@ -37,14 +37,13 @@ namespace LcsSaveEditor.ViewModels
 
         private void CloseFilePrompt_ResultAction(MessageBoxResult result)
         {
-            // Does the user want to save before closing?
             switch (result) {
                 case MessageBoxResult.Yes:
                     SaveFile(MostRecentFilePath);
-                    DoCloseFile();
+                    CloseFile();
                     break;
                 case MessageBoxResult.No:
-                    DoCloseFile();
+                    CloseFile();
                     break;
             }
         }
@@ -53,7 +52,7 @@ namespace LcsSaveEditor.ViewModels
         {
             switch (result) {
                 case MessageBoxResult.Yes:
-                    DoReloadFile();
+                    ReloadFile();
                     break;
                 case MessageBoxResult.No:
                     break;
