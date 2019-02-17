@@ -22,16 +22,40 @@
 #endregion
 
 using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Models;
 using System;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+        public event EventHandler<TabRefreshEventArgs> TabRefresh;
+        public event EventHandler<SaveDataEventArgs> DataLoaded;
+        public event EventHandler<SaveDataEventArgs> DataClosing;
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequested;
         public event EventHandler<FileDialogEventArgs> FileDialogRequested;
         public event EventHandler LogWindowRequested;
         public event EventHandler AboutDialogRequested;
+
+        private void OnTabRefresh(TabRefreshTrigger trigger, int desiredTabIndex = -1)
+        {
+            TabRefresh?.Invoke(this, new TabRefreshEventArgs(trigger));
+
+            if (desiredTabIndex != -1 && desiredTabIndex == SelectedTabIndex) {
+                SelectedTabIndex = -1;
+            }
+            SelectedTabIndex = desiredTabIndex;
+        }
+
+        private void OnDataLoaded(SaveData data)
+        {
+            DataLoaded?.Invoke(this, new SaveDataEventArgs(data));
+        }
+
+        private void OnDataClosing(SaveData data)
+        {
+            DataClosing?.Invoke(this, new SaveDataEventArgs(data));
+        }
 
         private void OnMessageBoxRequested(MessageBoxEventArgs e)
         {
@@ -48,9 +72,9 @@ namespace LcsSaveEditor.ViewModels
             LogWindowRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        private void OnAboutDialogRequested(EventArgs e)
+        private void OnAboutDialogRequested()
         {
-            AboutDialogRequested?.Invoke(this, e);
+            AboutDialogRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }
