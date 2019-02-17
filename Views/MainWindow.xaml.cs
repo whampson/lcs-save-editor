@@ -88,6 +88,7 @@ namespace LcsSaveEditor.Views
         {
             m_logWindow.Owner = this;
 
+            ViewModel.PopulateTabs();
             ViewModel.LoadRecentFiles();
 
             Logger.Info("Ready.");

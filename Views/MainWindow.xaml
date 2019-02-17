@@ -27,6 +27,8 @@ SOFTWARE.
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:infr="clr-namespace:LcsSaveEditor.Infrastructure;assembly=LcsSaveEditor.Infrastructure"
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
     xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
@@ -46,6 +48,9 @@ SOFTWARE.
         <c:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
 
         <!-- Page data templates -->
+        <DataTemplate DataType="{x:Type vm:StartViewModel}">
+            <v:StartView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
             <v:WeaponsView/>
         </DataTemplate>
@@ -108,17 +113,17 @@ SOFTWARE.
             Command="{Binding OpenFileCommand}"
             Key="O" Modifiers="Ctrl"/>
         <KeyBinding
-            Command="{Binding CloseFileCommand}"
-            Key="W" Modifiers="Ctrl"/>
-        <KeyBinding
             Command="{Binding SaveFileCommand}"
             Key="S" Modifiers="Ctrl"/>
         <KeyBinding
             Command="{Binding SaveFileAsCommand}"
             Key="S" Modifiers="Ctrl+Shift"/>
         <KeyBinding
-            Command="{Binding ReloadCommand}"
+            Command="{Binding ReloadFileCommand}"
             Key="F5"/>
+        <KeyBinding
+            Command="{Binding CloseFileCommand}"
+            Key="W" Modifiers="Ctrl"/>
         <KeyBinding
             Command="{Binding ExitAppCommand}"
             Key="F4" Modifiers="Alt"/>
@@ -134,8 +139,10 @@ SOFTWARE.
         </Grid.RowDefinitions>
 
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
 
+            <!-- ========== Menu area ========== -->
+
+            <Menu DockPanel.Dock="Top">
                 <!-- File Menu -->
                 <MenuItem Header="{x:Static r:FrontendResources.Main_MenuFile}">
                     <MenuItem
@@ -159,11 +166,6 @@ SOFTWARE.
                     </MenuItem>
                     <Separator/>
                     <MenuItem
-                        Command="{Binding CloseFileCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_Close}"
-                        InputGestureText="Ctrl+W"/>
-                    <Separator/>
-                    <MenuItem
                         Command="{Binding SaveFileCommand}"
                         Header="{x:Static r:FrontendResources.Main_MenuFile_Save}"
                         InputGestureText="Ctrl+S"/>
@@ -173,9 +175,13 @@ SOFTWARE.
                         InputGestureText="Ctrl+Shift+S"/>
                     <Separator/>
                     <MenuItem
-                        Command="{Binding ReloadCommand}"
+                        Command="{Binding ReloadFileCommand}"
                         Header="{x:Static r:FrontendResources.Main_MenuFile_Reload}"
                         InputGestureText="F5"/>
+                    <MenuItem
+                        Command="{Binding CloseFileCommand}"
+                        Header="{x:Static r:FrontendResources.Main_MenuFile_Close}"
+                        InputGestureText="Ctrl+W"/>
                     <Separator/>
                     <MenuItem
                         Command="{Binding ExitAppCommand}"
@@ -193,12 +199,14 @@ SOFTWARE.
                 <!-- Help Menu -->
                 <MenuItem Header="{x:Static r:FrontendResources.Main_MenuHelp}">
                     <MenuItem
-                        Command="{Binding ShowAboutDialogCommand}"
+                        Command="{Binding ShowAboutWindowCommand}"
                         Header="{x:Static r:FrontendResources.Main_MenuHelp_About}"
                         InputGestureText="F1"/>
                 </MenuItem>
 
             </Menu>
+
+            <!-- ========== Main window area ========== -->
 
             <v:TabControlEx
                 DockPanel.Dock="Top"
@@ -207,13 +215,23 @@ SOFTWARE.
                 IsSynchronizedWithCurrentItem="True"
                 SelectedIndex="{Binding SelectedTabIndex}">
 
+                <TabControl.ItemContainerStyle>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter
+                            Property="Visibility"
+                            Value="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </Style>
+                </TabControl.ItemContainerStyle>
+
                 <TabControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Header}"/>
+                        <TextBlock Text="{Binding Title, Mode=OneWay}"/>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
             </v:TabControlEx>
         </DockPanel>
+
+        <!-- ========== Status bar area ========== -->
 
         <StatusBar Grid.Row="1" Background="White">
             <StatusBar.ItemsPanel>
