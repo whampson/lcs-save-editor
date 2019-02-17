@@ -50,6 +50,8 @@
     <Compile Include="Commands\GlobalVariablesViewModel.Commands.cs" />
     <Compile Include="Commands\LogViewModel.Commands.cs" />
     <Compile Include="Commands\MainViewModel.Commands.cs" />
+    <Compile Include="EventArgs\SaveDataEventArgs.cs" />
+    <Compile Include="EventArgs\TabRefreshEventArgs.cs" />
     <Compile Include="Events\LogViewModel.EventHandlers.cs" />
     <Compile Include="Events\LogViewModel.Events.cs" />
     <Compile Include="GlobalVariablesViewModel.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="LogViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="WeaponsViewModel.cs" />
+    <Compile Include="StartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTypes\DataTypes.csproj">
