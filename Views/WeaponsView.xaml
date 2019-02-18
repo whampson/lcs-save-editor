@@ -29,7 +29,6 @@ SOFTWARE.
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
-    xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
     mc:Ignorable="d" 
     d:DesignHeight="325" d:DesignWidth="500">
@@ -45,13 +44,16 @@ SOFTWARE.
             <Setter Property="Margin" Value="30,0,0,0"/>
         </Style>
         <Style TargetType="ComboBox" x:Key="ComboBoxStyle">
+            <Setter Property="MaxHeight" Value="25"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Margin" Value="10,5,10,5"/>
             <Setter Property="ItemTemplate" Value="{StaticResource WeaponListTemplate}"/>
         </Style>
         <Style TargetType="xctk:IntegerUpDown" x:Key="IntegerUpDownStyle">
+            <Setter Property="MaxHeight" Value="25"/>
             <Setter Property="Margin" Value="10,5,10,5"/>
             <Setter Property="Minimum" Value="1"/>
-            <Setter Property="Maximum" Value="9999"/>
+            <Setter Property="Maximum" Value="99999"/>
             <Setter Property="ClipValueToMinMax" Value="True"/>
         </Style>
     </UserControl.Resources>
@@ -61,10 +63,6 @@ SOFTWARE.
         ScrollViewer.VerticalScrollBarVisibility="Auto">
 
         <Grid
-            MinWidth="500"
-            MaxWidth="500"
-            MinHeight="325"
-            MaxHeight="325"
             Background="White">
 
             <Grid.ColumnDefinitions>
