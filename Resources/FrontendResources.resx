@@ -262,7 +262,7 @@
     <value>Log</value>
   </data>
   <data name="Main_Page_GlobalVariables" xml:space="preserve">
-    <value>GlobalVariables</value>
+    <value>Global Variables</value>
   </data>
   <data name="Main_Page_Weapons" xml:space="preserve">
     <value>Weapons</value>
@@ -397,9 +397,6 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   </data>
   <data name="Main_StatusText_SaveFail" xml:space="preserve">
     <value>Save failed.</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="Main_Page_Start" xml:space="preserve">
     <value>Start</value>

@@ -674,7 +674,7 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GlobalVariables.
+        ///   Looks up a localized string similar to Global Variables.
         /// </summary>
         public static string Main_Page_GlobalVariables {
             get {
@@ -805,15 +805,6 @@ namespace LcsSaveEditor.Resources {
         public static string Main_Window_Title {
             get {
                 return ResourceManager.GetString("Main_Window_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
