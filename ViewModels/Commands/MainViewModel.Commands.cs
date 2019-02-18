@@ -96,7 +96,7 @@ namespace LcsSaveEditor.ViewModels
         public void PopulateTabs()
         {
             m_tabs.Add(new StartViewModel(this));
-            //m_tabs.Add(new WeaponsViewModel(this));
+            m_tabs.Add(new WeaponsViewModel(this));
             m_tabs.Add(new GlobalVariablesViewModel(this));
 
             OnTabRefresh(
@@ -279,7 +279,9 @@ namespace LcsSaveEditor.ViewModels
             OnDataLoaded(CurrentSaveData);
             OnTabRefresh(
                 TabRefreshTrigger.FileLoaded,
-                GetTabIndex(FrontendResources.Main_Page_GlobalVariables));
+                GetTabIndex(FrontendResources.Main_Page_Weapons));
+
+            IsFileModified = false;
         }
 
         /// <summary>
@@ -318,8 +320,6 @@ namespace LcsSaveEditor.ViewModels
         /// </summary>
         private void ReloadFile()
         {
-            IsFileModified = false;
-
             // Close the current file, don't refresh tabs
             OnDataClosing(CurrentSaveData);
             CurrentSaveData.PropertyChanged -= CurrentSaveData_PropertyChanged;
@@ -336,6 +336,8 @@ namespace LcsSaveEditor.ViewModels
             CurrentSaveData = data;
             CurrentSaveData.PropertyChanged += CurrentSaveData_PropertyChanged;
             OnDataLoaded(CurrentSaveData);
+
+            IsFileModified = false;
         }
 
         /// <summary>
@@ -391,32 +393,31 @@ namespace LcsSaveEditor.ViewModels
         /// </returns>
         private bool LoadSaveData(string path, out SaveData data)
         {
-            Action<string, string, Exception> errorHandler = (text, title, ex) =>
+            void ErrorHandler(string text, string title, Exception ex, bool showException = true)
             {
                 Logger.Error(CommonResources.Error_LoadFail);
                 Logger.Error("({0})", ex.Message);
-                ShowErrorDialog(text, title: title, exception: ex);
-            };
+                ShowErrorDialog(text, title: title, exception: showException ? ex : null);
+            }
 
             try {
                 data = SaveData.Load(path);
-                Logger.Info(CommonResources.Info_LoadSuccess);
                 return true;
             }
             catch (InvalidDataException ex) {
-                errorHandler(
+                ErrorHandler(
                     FrontendResources.Main_DialogText_InvalidGtaData,
                     FrontendResources.Main_DialogTitle_InvalidGtaData,
-                    ex);
+                    ex, showException: false);
             }
             catch (IOException ex) {
-                errorHandler(
+                ErrorHandler(
                     FrontendResources.Main_DialogText_FileLoadFail,
                     FrontendResources.Main_DialogTitle_FileLoadFail,
                     ex);
             }
             catch (SecurityException ex) {
-                errorHandler(
+                ErrorHandler(
                     FrontendResources.Main_DialogText_FileLoadFail,
                     FrontendResources.Main_DialogTitle_FileLoadFail,
                     ex);
@@ -437,26 +438,25 @@ namespace LcsSaveEditor.ViewModels
         /// </returns>
         private bool WriteSaveData(SaveData data, string path)
         {
-            Action<string, string, Exception> errorHandler = (text, title, ex) =>
+            void ErrorHandler(string text, string title, Exception ex)
             {
                 Logger.Error(CommonResources.Error_SaveFail);
                 Logger.Error("({0})", ex.Message);
                 ShowErrorDialog(text, title: title, exception: ex);
-            };
+            }
 
             try {
                 data.Store(path);
-                Logger.Info(CommonResources.Info_SaveSuccess);
                 return true;
             }
             catch (IOException ex) {
-                errorHandler(
+                ErrorHandler(
                     FrontendResources.Main_DialogText_FileSaveFail,
                     FrontendResources.Main_DialogTitle_FileSaveFail,
                     ex);
             }
             catch (SecurityException ex) {
-                errorHandler(
+                ErrorHandler(
                     FrontendResources.Main_DialogText_FileSaveFail,
                     FrontendResources.Main_DialogTitle_FileSaveFail,
                     ex);
