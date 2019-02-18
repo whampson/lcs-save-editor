@@ -75,48 +75,20 @@ namespace LcsSaveEditor.ViewModels
         private ListCollectionView m_sniperList;
         private ListCollectionView m_specialList;
 
-        private readonly Dictionary<Weapon?, int> m_ammoIndexMap;
-        private readonly FullyObservableCollection<ScriptVariable> m_globals;
+        private Dictionary<Weapon?, int> m_ammoIndexMap;
+        private FullyObservableCollection<ScriptVariable> m_globals;
         private bool m_suppressRefresh;
 
         public WeaponsViewModel(MainViewModel mainViewModel)
-            : base(mainViewModel, FrontendResources.Main_Page_Weapons)
+            : base(FrontendResources.Main_Page_Weapons, PageVisibility.WhenFileLoaded, mainViewModel)
         {
             m_ammoIndexMap = new Dictionary<Weapon?, int>();
-            m_globals = new FullyObservableCollection<ScriptVariable>();
             m_suppressRefresh = false;
 
             InitWeaponLists();
-        }
 
-        public WeaponsViewModel(MainViewModel mainViewModel, SaveData saveData)
-            : this(mainViewModel)
-        {
-            m_globals = saveData.Scripts.GlobalVariables;
-            m_globals.CollectionChanged += GlobalVariables_CollectionChanged;
-            m_globals.ItemPropertyChanged += GlobalVariables_ItemPropertyChanged;
-
-            switch (saveData.FileType) {
-                case GamePlatform.Android:
-                case GamePlatform.IOS:
-                    InitAndroidIOSWeaponVars();
-                    break;
-                case GamePlatform.PS2:
-                case GamePlatform.PSP:
-                    InitPS2PSPWeaponVars();
-                    break;
-            }
-
-            ReadHandSlot();
-            ReadMeleeSlot();
-            ReadProjectileSlot();
-            ReadPistolSlot();
-            ReadShotgunSlot();
-            ReadSmgSlot();
-            ReadAssaultSlot();
-            ReadHeavySlot();
-            ReadSniperSlot();
-            ReadSpecialSlot();
+            MainViewModel.DataLoaded += MainViewModel_DataLoaded;
+            MainViewModel.DataClosing += MainViewModel_DataClosing;
         }
 
         public bool HasMelee

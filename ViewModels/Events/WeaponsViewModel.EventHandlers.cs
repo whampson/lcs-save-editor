@@ -21,6 +21,7 @@
  */
 #endregion
 
+using LcsSaveEditor.DataTypes;
 using LcsSaveEditor.Infrastructure;
 using System.Collections.Specialized;
 
@@ -28,6 +29,43 @@ namespace LcsSaveEditor.ViewModels
 {
     public partial class WeaponsViewModel : PageViewModelBase
     {
+        private void MainViewModel_DataLoaded(object sender, SaveDataEventArgs e)
+        {
+            m_globals = e.Data.Scripts.GlobalVariables;
+            m_globals.CollectionChanged += GlobalVariables_CollectionChanged;
+            m_globals.ItemPropertyChanged += GlobalVariables_ItemPropertyChanged;
+
+            switch (e.Data.FileType)
+            {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    InitAndroidIOSWeaponVars();
+                    break;
+                case GamePlatform.PS2:
+                case GamePlatform.PSP:
+                    InitPS2PSPWeaponVars();
+                    break;
+            }
+
+            ReadHandSlot();
+            ReadMeleeSlot();
+            ReadProjectileSlot();
+            ReadPistolSlot();
+            ReadShotgunSlot();
+            ReadSmgSlot();
+            ReadAssaultSlot();
+            ReadHeavySlot();
+            ReadSniperSlot();
+            ReadSpecialSlot();
+        }
+
+        private void MainViewModel_DataClosing(object sender, SaveDataEventArgs e)
+        {
+            m_globals.ItemPropertyChanged -= GlobalVariables_ItemPropertyChanged;
+            m_globals.CollectionChanged -= GlobalVariables_CollectionChanged;
+            m_globals = null;
+        }
+
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             // Detect external changes made to global variables list
