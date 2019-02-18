@@ -91,7 +91,7 @@ namespace LcsSaveEditor.ViewModels
         {
             GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
 
-            Action<Exception> errorHandler = (ex) =>
+            void ErrorHandler(Exception ex)
             {
                 Settings.Current.SetCustomVariablesFile(fileType, null);
                 Logger.Error(CommonResources.Error_SymbolsLoadFail);
@@ -101,7 +101,7 @@ namespace LcsSaveEditor.ViewModels
                     title: FrontendResources.GlobalVariables_DialogTitle_SymbolsLoadFail,
                     exception: ex);
                 MainViewModel.StatusText = CommonResources.Error_SymbolsLoadFail;
-            };
+            }
 
             try {
                 Dictionary<string, string> dict = IniHelper.ReadAllKeys(path);
@@ -117,13 +117,13 @@ namespace LcsSaveEditor.ViewModels
                 }
             }
             catch (IOException ex) {
-                errorHandler(ex);
+                ErrorHandler(ex);
             }
             catch (SecurityException ex) {
-                errorHandler(ex);
+                ErrorHandler(ex);
             }
             catch (UnauthorizedAccessException ex) {
-                errorHandler(ex);
+                ErrorHandler(ex);
             }
         }
 
@@ -132,7 +132,7 @@ namespace LcsSaveEditor.ViewModels
             GamePlatform fileType = MainViewModel.CurrentSaveData.FileType;
             string platformName = GamePlatformHelper.GetPlatformName(fileType);
 
-            Action<Exception> errorHandler = (ex) =>
+            void ErrorHandler(Exception ex)
             {
                 Settings.Current.SetCustomVariablesFile(fileType, null);
                 Logger.Error(CommonResources.Error_SymbolsSaveFail);
@@ -142,7 +142,7 @@ namespace LcsSaveEditor.ViewModels
                     title: FrontendResources.GlobalVariables_DialogTitle_SymbolsSaveFail,
                     exception: ex);
                 MainViewModel.StatusText = CommonResources.Error_SymbolsSaveFail;
-            };
+            }
 
             Dictionary<string, string> dict = new Dictionary<string, string>();
             for (int i = 0; i < m_namedGlobalVariables.Count; i++) {
@@ -163,13 +163,13 @@ namespace LcsSaveEditor.ViewModels
                 MainViewModel.StatusText = CommonResources.Info_SymbolsSaveSuccess;
             }
             catch (IOException ex) {
-                errorHandler(ex);
+                ErrorHandler(ex);
             }
             catch (SecurityException ex) {
-                errorHandler(ex);
+                ErrorHandler(ex);
             }
             catch (UnauthorizedAccessException ex) {
-                errorHandler(ex);
+                ErrorHandler(ex);
             }
         }
 
