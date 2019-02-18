@@ -59,7 +59,7 @@ SOFTWARE.
         </DataTemplate>
 
         <!-- Component styles -->
-        <Style x:Key="TabControlStyle" TargetType="{x:Type v:TabControlEx}">
+        <Style TargetType="{x:Type v:TabControlEx}" x:Key="TabControlStyle">
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- Template code to render TabControlEx. Adapted from http://stackoverflow.com/a/9802346. -->
