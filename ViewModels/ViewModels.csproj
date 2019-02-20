@@ -47,20 +47,21 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commands\GlobalVariablesViewModel.Commands.cs" />
     <Compile Include="Commands\LogViewModel.Commands.cs" />
     <Compile Include="Commands\MainViewModel.Commands.cs" />
-    <Compile Include="EventArgs\SaveDataEventArgs.cs" />
-    <Compile Include="EventArgs\TabRefreshEventArgs.cs" />
+    <Compile Include="Commands\ScriptsViewModel.Commands.cs" />
+    <Compile Include="Events\EventArgs\SaveDataEventArgs.cs" />
+    <Compile Include="Events\EventArgs\TabRefreshEventArgs.cs" />
     <Compile Include="Events\LogViewModel.EventHandlers.cs" />
     <Compile Include="Events\LogViewModel.Events.cs" />
-    <Compile Include="GlobalVariablesViewModel.cs" />
+    <Compile Include="Events\ScriptsViewModel.EventHanders.cs" />
     <Compile Include="Interfaces\NamedScriptVariable.cs" />
     <Compile Include="Interfaces\PageViewModelBase.cs" />
     <Compile Include="Interfaces\RecentFilesList.cs" />
     <Compile Include="Interfaces\RecentlyAccessedFile.cs" />
     <Compile Include="LogViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="ScriptsViewModel.cs" />
     <Compile Include="WeaponsViewModel.cs" />
     <Compile Include="StartViewModel.cs" />
   </ItemGroup>
@@ -101,9 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\WeaponsViewModel.EventHandlers.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Events\GlobalVariablesViewModel.EventHandlers.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
