@@ -28,7 +28,7 @@ using System;
 namespace LcsSaveEditor.ViewModels
 {
     /// <summary>
-    /// Represents a named <see cref="ScriptVariable"/>.
+    /// A <see cref="ScriptVariable"/> wrapper that associates a name with a script variable.
     /// </summary>
     public class NamedScriptVariable : ObservableObject
     {
@@ -58,79 +58,18 @@ namespace LcsSaveEditor.ViewModels
             }
         }
 
-        public ScriptVariable Value
+        public uint Value
         {
             get { return m_value; }
-            set {
-                m_value = value ?? new ScriptVariable();
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public uint ValueUInt32
-        {
-            get { return m_value.Value; }
-            set {
-                m_value.Value = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public int ValueInt32
-        {
-            get { return (int) m_value.Value; }
-            set {
-                unchecked {
-                    m_value.Value = (uint) value;
-                }
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public float ValueSingle
-        {
-            get {
-                return BitConverter.ToSingle(BitConverter.GetBytes(m_value.Value), 0);
-            }
-            set {
-                m_value.Value = BitConverter.ToUInt32(BitConverter.GetBytes(value), 0);
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueBoolean));
-            }
-        }
-
-        public bool ValueBoolean
-        {
-            get { return m_value.Value != 0; }
-            set {
-                m_value.Value = value ? 1U : 0U;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ValueUInt32));
-                OnPropertyChanged(nameof(ValueInt32));
-                OnPropertyChanged(nameof(ValueSingle));
-            }
+            set { m_value = value; OnPropertyChanged(); }
         }
 
         public override string ToString()
         {
-            return string.Format("{0} = {1}, {2} = {3}, {4} = {5}, {6} = {7}, {8} = {9}",
-                nameof(Name), Name,
-                nameof(ValueUInt32), ValueUInt32,
-                nameof(ValueInt32), ValueInt32,
-                nameof(ValueSingle), ValueSingle,
-                nameof(ValueBoolean), ValueBoolean);
+            if (!string.IsNullOrWhiteSpace(Name)) {
+                return Name + " = " + Value;
+            }
+            return Value.ToString();
         }
     }
 }
