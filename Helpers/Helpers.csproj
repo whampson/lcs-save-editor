@@ -59,6 +59,7 @@
     <Compile Include="EnumHelper.cs" />
     <Compile Include="GamePlatformHelper.cs" />
     <Compile Include="IniHelper.cs" />
+    <Compile Include="ScriptVariableDataType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
