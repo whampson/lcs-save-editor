@@ -70,10 +70,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Converters\Converters.csproj">
-      <Project>{b306386c-4686-4ec3-899b-28f6892f2b8f}</Project>
-      <Name>Converters</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DataTypes\DataTypes.csproj">
       <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
       <Name>DataTypes</Name>
