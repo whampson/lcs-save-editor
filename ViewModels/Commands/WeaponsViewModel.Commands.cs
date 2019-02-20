@@ -511,10 +511,6 @@ namespace LcsSaveEditor.ViewModels
 
         private void RefreshWeaponSlot(int globalVarIndex)
         {
-            if (m_suppressRefresh) {
-                return;
-            }
-
             Weapon? changedWeapon = m_ammoIndexMap.FirstOrDefault(x => x.Value == globalVarIndex).Key;
             switch (changedWeapon) {
                 case Weapon.BrassKnuckles:

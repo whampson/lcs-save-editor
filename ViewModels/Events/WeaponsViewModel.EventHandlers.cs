@@ -33,10 +33,8 @@ namespace LcsSaveEditor.ViewModels
         {
             m_globals = e.Data.Scripts.GlobalVariables;
             m_globals.CollectionChanged += GlobalVariables_CollectionChanged;
-            m_globals.ItemPropertyChanged += GlobalVariables_ItemPropertyChanged;
 
-            switch (e.Data.FileType)
-            {
+            switch (e.Data.FileType) {
                 case GamePlatform.Android:
                 case GamePlatform.IOS:
                     InitAndroidIOSWeaponVars();
@@ -61,35 +59,34 @@ namespace LcsSaveEditor.ViewModels
 
         private void MainViewModel_DataClosing(object sender, SaveDataEventArgs e)
         {
-            m_globals.ItemPropertyChanged -= GlobalVariables_ItemPropertyChanged;
             m_globals.CollectionChanged -= GlobalVariables_CollectionChanged;
             m_globals = null;
         }
 
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            // Detect external changes made to global variables list
+            // Detect external changes made to global variables list.
+
+            // This event occurs when a global variable is modified from outside
+            // the Weapons page.
+
+            if (m_suppressRefresh) {
+                return;
+            }
 
             switch (e.Action) {
-                case NotifyCollectionChangedAction.Add:
+                //case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Replace:
                     for (int i = 0; i < e.NewItems.Count; i++) {
                         RefreshWeaponSlot(e.NewStartingIndex + i);
                     }
                     break;
-                case NotifyCollectionChangedAction.Remove:
-                    for (int i = 0; i < e.OldItems.Count; i++) {
-                        RefreshWeaponSlot(e.OldStartingIndex + i);
-                    }
-                    break;
+                //case NotifyCollectionChangedAction.Remove:
+                //    for (int i = 0; i < e.OldItems.Count; i++) {
+                //        RefreshWeaponSlot(e.OldStartingIndex + i);
+                //    }
+                //    break;
             }
-        }
-
-        private void GlobalVariables_ItemPropertyChanged(object sender, ItemPropertyChangedEventArgs e)
-        {
-            // Detect external changes made to individual global variables
-
-            RefreshWeaponSlot(e.CollectionIndex);
         }
     }
 }
