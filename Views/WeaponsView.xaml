@@ -27,7 +27,7 @@ SOFTWARE.
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-    xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
+    xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
     mc:Ignorable="d" 
