@@ -26,7 +26,7 @@ SOFTWARE.
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:c="clr-namespace:LcsSaveEditor.Converters;assembly=LcsSaveEditor.Converters"
+    xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:infr="clr-namespace:LcsSaveEditor.Infrastructure;assembly=LcsSaveEditor.Infrastructure"
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
@@ -34,7 +34,7 @@ SOFTWARE.
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
     mc:Ignorable="d"
     Title="{Binding WindowTitle}"
-    Height="450" Width="600"
+    Height="600" Width="800"
     Loaded="Window_Loaded"
     Closing="Window_Closing">
 
@@ -54,8 +54,8 @@ SOFTWARE.
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
             <v:WeaponsView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:GlobalVariablesViewModel}">
-            <v:GlobalVariablesView/>
+        <DataTemplate DataType="{x:Type vm:ScriptsViewModel}">
+            <v:ScriptsPage/>
         </DataTemplate>
 
         <!-- Component styles -->
@@ -157,11 +157,9 @@ SOFTWARE.
                             </Style>
                         </MenuItem.ItemContainerStyle>
                         <MenuItem.ItemTemplate>
-                            <HierarchicalDataTemplate
-                                DataType="{x:Type vm:RecentlyAccessedFile}"
-                                ItemsSource="{Binding RecentFiles}">
+                            <DataTemplate DataType="{x:Type vm:RecentlyAccessedFile}">
                                 <TextBlock Text="{Binding Path}"/>
-                            </HierarchicalDataTemplate>
+                            </DataTemplate>
                         </MenuItem.ItemTemplate>
                     </MenuItem>
                     <Separator/>
