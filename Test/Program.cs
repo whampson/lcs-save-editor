@@ -21,7 +21,7 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
 using System;
 using System.IO;

@@ -21,7 +21,7 @@
  */
 #endregion
 
-using LcsSaveEditor.Helpers;
+using LcsSaveEditor.Core.Helpers;
 using LcsSaveEditor.Resources;
 using System;
 using System.ComponentModel;
@@ -39,14 +39,13 @@ namespace LcsSaveEditor.Views.Converters
     [ValueConversion(typeof(Enum), typeof(string))]
     public class EnumDescriptionConverter : IValueConverter
     {
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null) {
                 return DependencyProperty.UnsetValue;
             }
 
-            DescriptionAttribute descAttr = EnumHelper.GetAttribute<DescriptionAttribute>(value as Enum);
+            DescriptionAttribute descAttr = EnumAttributeHelper.GetAttribute<DescriptionAttribute>(value as Enum);
             if (descAttr == null) {
                 return value.ToString();
             }

@@ -24,11 +24,11 @@
 namespace LcsSaveEditor.Views
 {
     /// <summary>
-    /// Interaction logic for StartView.xaml
+    /// Interaction logic for WeaponsPage.xaml
     /// </summary>
-    public partial class StartView : PageViewBase
+    public partial class WeaponsPage : PageView
     {
-        public StartView()
+        public WeaponsPage()
             : base()
         {
             InitializeComponent();

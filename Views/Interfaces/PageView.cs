@@ -30,9 +30,9 @@ namespace LcsSaveEditor.Views
     /// A Page view is a generic view that is shown in the main TabControl;
     /// each tab shows a separate "Page".
     /// </summary>
-    public abstract class PageViewBase : UserControl
+    public abstract class PageView : UserControl
     {
-        protected PageViewBase()
+        protected PageView()
             : base()
         { }
     }

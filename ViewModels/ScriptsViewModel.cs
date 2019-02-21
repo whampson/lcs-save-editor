@@ -23,6 +23,7 @@
 
 using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
+using LcsSaveEditor.Resources;
 
 namespace LcsSaveEditor.ViewModels
 {
@@ -43,7 +44,7 @@ namespace LcsSaveEditor.ViewModels
         private ScriptVariableDataFormat m_localVariablesFormat;
 
         public ScriptsViewModel(MainViewModel mainViewModel)
-            : base("Scripts", PageVisibility.WhenFileLoaded, mainViewModel)
+            : base(FrontendResources.Main_Page_Scripts, PageVisibility.WhenFileLoaded, mainViewModel)
         {
             m_namedGlobalVariables = new FullyObservableCollection<NamedScriptVariable>();
             m_activeThreads = new FullyObservableCollection<RunningScript>();
@@ -69,7 +70,7 @@ namespace LcsSaveEditor.ViewModels
             set { m_globalVariablesSelectedIndex = value; OnPropertyChanged(); }
         }
 
-        public ScriptVariableDataFormat GlobalVariablesType
+        public ScriptVariableDataFormat GlobalVariablesFormat
         {
             get { return m_globalVariablesFormat; }
             set { m_globalVariablesFormat = value; OnPropertyChanged(); }
@@ -99,7 +100,7 @@ namespace LcsSaveEditor.ViewModels
             set { m_localVariablesSelectedIndex = value; OnPropertyChanged(); }
         }
 
-        public ScriptVariableDataFormat LocalVariablesType
+        public ScriptVariableDataFormat LocalVariablesFormat
         {
             get { return m_localVariablesFormat; }
             set { m_localVariablesFormat = value; OnPropertyChanged(); }

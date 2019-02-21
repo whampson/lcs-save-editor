@@ -57,7 +57,7 @@ namespace LcsSaveEditor.ViewModels
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
                     (x) => MainViewModel.ShowOpenFileDialog(
                         FileDialog_ResultAction,
-                        title: FrontendResources.GlobalVariables_DialogTitle_LoadSymbols,
+                        title: FrontendResources.Scripts_DialogTitle_LoadSymbols,
                         filter: FrontendResources.FileFilter_Ini,
                         initialDirectory: Settings.Current.CustomVariablesFileDialogDirectory));
             }
@@ -69,7 +69,7 @@ namespace LcsSaveEditor.ViewModels
                 return new RelayCommand<Action<bool?, FileDialogEventArgs>>(
                     (x) => MainViewModel.ShowSaveFileDialog(
                         FileDialog_ResultAction,
-                        title: FrontendResources.GlobalVariables_DialogTitle_SaveSymbols,
+                        title: FrontendResources.Scripts_DialogTitle_SaveSymbols,
                         fileName: DefaultSymbolsFileName,
                         filter: FrontendResources.FileFilter_Ini,
                         initialDirectory: Settings.Current.CustomVariablesFileDialogDirectory));
@@ -111,8 +111,8 @@ namespace LcsSaveEditor.ViewModels
                 Logger.Error(CommonResources.Error_SymbolsLoadFail);
                 Logger.Error("({0})", ex.Message);
                 MainViewModel.ShowErrorDialog(
-                    FrontendResources.GlobalVariables_DialogText_SymbolsLoadFail,
-                    title: FrontendResources.GlobalVariables_DialogTitle_SymbolsLoadFail,
+                    FrontendResources.Scripts_DialogText_SymbolsLoadFail,
+                    title: FrontendResources.Scripts_DialogTitle_SymbolsLoadFail,
                     exception: ex);
                 MainViewModel.StatusText = CommonResources.Error_SymbolsLoadFail;
             }
@@ -154,8 +154,8 @@ namespace LcsSaveEditor.ViewModels
                 Logger.Error(CommonResources.Error_SymbolsSaveFail);
                 Logger.Error("({0})", ex.Message);
                 MainViewModel.ShowErrorDialog(
-                    FrontendResources.GlobalVariables_DialogText_SymbolsSaveFail,
-                    title: FrontendResources.GlobalVariables_DialogTitle_SymbolsSaveFail,
+                    FrontendResources.Scripts_DialogText_SymbolsSaveFail,
+                    title: FrontendResources.Scripts_DialogTitle_SymbolsSaveFail,
                     exception: ex);
                 MainViewModel.StatusText = CommonResources.Error_SymbolsSaveFail;
             }
@@ -169,8 +169,8 @@ namespace LcsSaveEditor.ViewModels
             }
 
             try {
-                IniHelper.WriteComment(path, string.Format(FrontendResources.GlobalVariables_Ini_Compatibility, platformName));
-                IniHelper.AppendComment(path, FrontendResources.GlobalVariables_Ini_GeneratedBy + "\n");
+                IniHelper.WriteComment(path, string.Format(FrontendResources.Scripts_Ini_Compatibility, platformName));
+                IniHelper.AppendComment(path, FrontendResources.Scripts_Ini_GeneratedBy + "\n");
                 IniHelper.AppendAllKeys(path, dict);
 
                 Settings.Current.SetCustomVariablesFile(fileType, path);

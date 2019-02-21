@@ -21,22 +21,22 @@ SOFTWARE.
 -->
 
 <Window
-    x:Class="LcsSaveEditor.Views.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:infr="clr-namespace:LcsSaveEditor.Infrastructure;assembly=LcsSaveEditor.Infrastructure"
-    xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
-    xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
-    xmlns:v="clr-namespace:LcsSaveEditor.Views"
-    mc:Ignorable="d"
-    Title="{Binding WindowTitle}"
-    Height="600" Width="800"
-    Loaded="Window_Loaded"
-    Closing="Window_Closing">
+        x:Class="LcsSaveEditor.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
+        xmlns:ctrl="clr-namespace:LcsSaveEditor.Core.Controls;assembly=LcsSaveEditor.Core"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
+        xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
+        xmlns:v="clr-namespace:LcsSaveEditor.Views"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}"
+        Height="600" Width="800"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -49,26 +49,26 @@ SOFTWARE.
 
         <!-- Page data templates -->
         <DataTemplate DataType="{x:Type vm:StartViewModel}">
-            <v:StartView/>
+            <v:StartPage/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
-            <v:WeaponsView/>
+            <v:WeaponsPage/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:ScriptsViewModel}">
             <v:ScriptsPage/>
         </DataTemplate>
 
         <!-- Component styles -->
-        <Style TargetType="{x:Type v:TabControlEx}" x:Key="TabControlStyle">
+        <Style TargetType="{x:Type ctrl:NonUnloadingTabControl}" x:Key="TabControlStyle">
             <Setter Property="Template">
                 <Setter.Value>
                     <!-- Template code to render TabControlEx. Adapted from http://stackoverflow.com/a/9802346. -->
                     <ControlTemplate TargetType="{x:Type TabControl}">
                         <Grid
-                            Background="{TemplateBinding Background}"
-                            ClipToBounds="True"
-                            KeyboardNavigation.TabNavigation="Local"
-                            SnapsToDevicePixels="True">
+                                Background="{TemplateBinding Background}"
+                                ClipToBounds="True"
+                                KeyboardNavigation.TabNavigation="Local"
+                                SnapsToDevicePixels="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="0"/>
@@ -79,27 +79,27 @@ SOFTWARE.
                             </Grid.RowDefinitions>
                             <DockPanel Margin="2,2,0,0" LastChildFill="False">
                                 <TabPanel
-                                    x:Name="HeaderPanel"
-                                    Margin="0,0,0,-1"
-                                    VerticalAlignment="Bottom"
-                                    Panel.ZIndex="1"
-                                    DockPanel.Dock="Left"
-                                    IsItemsHost="True"
-                                    KeyboardNavigation.TabIndex="1"/>
+                                        x:Name="HeaderPanel"
+                                        Margin="0,0,0,-1"
+                                        VerticalAlignment="Bottom"
+                                        Panel.ZIndex="1"
+                                        DockPanel.Dock="Left"
+                                        IsItemsHost="True"
+                                        KeyboardNavigation.TabIndex="1"/>
                             </DockPanel>
                             <Border
-                                x:Name="ContentPanel"
-                                Grid.Row="1" Grid.Column="0"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                KeyboardNavigation.TabIndex="2"
-                                KeyboardNavigation.TabNavigation="Local">
+                                    x:Name="ContentPanel"
+                                    Grid.Row="1" Grid.Column="0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    KeyboardNavigation.DirectionalNavigation="Contained"
+                                    KeyboardNavigation.TabIndex="2"
+                                    KeyboardNavigation.TabNavigation="Local">
                                 <Grid
-                                    x:Name="PART_ItemsHolder"
-                                    Margin="{TemplateBinding Padding}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                        x:Name="PART_ItemsHolder"
+                                        Margin="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </Border>
                         </Grid>
                     </ControlTemplate>
@@ -110,26 +110,26 @@ SOFTWARE.
 
     <Window.InputBindings>
         <KeyBinding
-            Command="{Binding OpenFileCommand}"
-            Key="O" Modifiers="Ctrl"/>
+                Command="{Binding OpenFileCommand}"
+                Key="O" Modifiers="Ctrl"/>
         <KeyBinding
-            Command="{Binding SaveFileCommand}"
-            Key="S" Modifiers="Ctrl"/>
+                Command="{Binding SaveFileCommand}"
+                Key="S" Modifiers="Ctrl"/>
         <KeyBinding
-            Command="{Binding SaveFileAsCommand}"
-            Key="S" Modifiers="Ctrl+Shift"/>
+                Command="{Binding SaveFileAsCommand}"
+                Key="S" Modifiers="Ctrl+Shift"/>
         <KeyBinding
-            Command="{Binding ReloadFileCommand}"
-            Key="F5"/>
+                Command="{Binding ReloadFileCommand}"
+                Key="F5"/>
         <KeyBinding
-            Command="{Binding CloseFileCommand}"
-            Key="W" Modifiers="Ctrl"/>
+                Command="{Binding CloseFileCommand}"
+                Key="W" Modifiers="Ctrl"/>
         <KeyBinding
-            Command="{Binding ExitAppCommand}"
-            Key="F4" Modifiers="Alt"/>
+                Command="{Binding ExitAppCommand}"
+                Key="F4" Modifiers="Alt"/>
         <KeyBinding
-            Command="{Binding ShowAboutDialogCommand}"
-            Key="F1"/>
+                Command="{Binding ShowAboutWindowCommand}"
+                Key="F1"/>
     </Window.InputBindings>
 
     <Grid>
@@ -146,11 +146,11 @@ SOFTWARE.
                 <!-- File Menu -->
                 <MenuItem Header="{x:Static r:FrontendResources.Main_MenuFile}">
                     <MenuItem
-                        Command="{Binding OpenFileCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_Open}"
-                        InputGestureText="Ctrl+O"/>
+                            Command="{Binding OpenFileCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_Open}"
+                            InputGestureText="Ctrl+O"/>
                     <MenuItem ItemsSource="{Binding RecentFiles.Items}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_OpenRecent}">
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_OpenRecent}">
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="{x:Type MenuItem}">
                                 <Setter Property="Command" Value="{Binding Command}"/>
@@ -164,60 +164,60 @@ SOFTWARE.
                     </MenuItem>
                     <Separator/>
                     <MenuItem
-                        Command="{Binding SaveFileCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_Save}"
-                        InputGestureText="Ctrl+S"/>
+                            Command="{Binding SaveFileCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_Save}"
+                            InputGestureText="Ctrl+S"/>
                     <MenuItem
-                        Command="{Binding SaveFileAsCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_SaveAs}"
-                        InputGestureText="Ctrl+Shift+S"/>
+                            Command="{Binding SaveFileAsCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_SaveAs}"
+                            InputGestureText="Ctrl+Shift+S"/>
                     <Separator/>
                     <MenuItem
-                        Command="{Binding ReloadFileCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_Reload}"
-                        InputGestureText="F5"/>
+                            Command="{Binding ReloadFileCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_Reload}"
+                            InputGestureText="F5"/>
                     <MenuItem
-                        Command="{Binding CloseFileCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_Close}"
-                        InputGestureText="Ctrl+W"/>
+                            Command="{Binding CloseFileCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_Close}"
+                            InputGestureText="Ctrl+W"/>
                     <Separator/>
                     <MenuItem
-                        Command="{Binding ExitAppCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuFile_Exit}"
-                        InputGestureText="Alt+F4"/>
+                            Command="{Binding ExitAppCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuFile_Exit}"
+                            InputGestureText="Alt+F4"/>
                 </MenuItem>
 
                 <!-- View Menu -->
                 <MenuItem Header="{x:Static r:FrontendResources.Main_MenuView}">
                     <MenuItem
-                        Command="{Binding ShowLogWindowCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuView_Log}"/>
+                            Command="{Binding ShowLogWindowCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuView_Log}"/>
                 </MenuItem>
 
                 <!-- Help Menu -->
                 <MenuItem Header="{x:Static r:FrontendResources.Main_MenuHelp}">
                     <MenuItem
-                        Command="{Binding ShowAboutWindowCommand}"
-                        Header="{x:Static r:FrontendResources.Main_MenuHelp_About}"
-                        InputGestureText="F1"/>
+                            Command="{Binding ShowAboutWindowCommand}"
+                            Header="{x:Static r:FrontendResources.Main_MenuHelp_About}"
+                            InputGestureText="F1"/>
                 </MenuItem>
 
             </Menu>
 
             <!-- ========== Main window area ========== -->
 
-            <v:TabControlEx
-                DockPanel.Dock="Top"
-                Style="{StaticResource TabControlStyle}"
-                ItemsSource="{Binding Tabs}"
-                IsSynchronizedWithCurrentItem="True"
-                SelectedIndex="{Binding SelectedTabIndex}">
+            <ctrl:NonUnloadingTabControl
+                    DockPanel.Dock="Top"
+                    Style="{StaticResource TabControlStyle}"
+                    ItemsSource="{Binding Tabs}"
+                    IsSynchronizedWithCurrentItem="True"
+                    SelectedIndex="{Binding SelectedTabIndex}">
 
                 <TabControl.ItemContainerStyle>
                     <Style TargetType="{x:Type TabItem}">
                         <Setter
-                            Property="Visibility"
-                            Value="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                Property="Visibility"
+                                Value="{Binding IsVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </Style>
                 </TabControl.ItemContainerStyle>
 
@@ -226,7 +226,7 @@ SOFTWARE.
                         <TextBlock Text="{Binding Title, Mode=OneWay}"/>
                     </DataTemplate>
                 </TabControl.ItemTemplate>
-            </v:TabControlEx>
+            </ctrl:NonUnloadingTabControl>
         </DockPanel>
 
         <!-- ========== Status bar area ========== -->
@@ -254,8 +254,8 @@ SOFTWARE.
 
             <StatusBarItem Grid.Column="2" HorizontalAlignment="Center">
                 <TextBlock
-                    Text="{x:Static r:FrontendResources.Main_StatusBar_FileModifiedFlag}"
-                    Visibility="{Binding IsFileModified, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Text="{x:Static r:FrontendResources.Main_StatusBar_FileModifiedFlag}"
+                        Visibility="{Binding IsFileModified, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                     <TextBlock.ToolTip>
                         <ToolTip>
@@ -269,8 +269,8 @@ SOFTWARE.
 
             <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Center">
                 <TextBlock
-                        Text="{Binding CurrentSaveData.FileType, Converter={StaticResource EnumDescriptionConverter}}"
-                        Visibility="{Binding IsFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Text="{Binding CurrentSaveData.FileType, Converter={StaticResource EnumDescriptionConverter}}"
+                            Visibility="{Binding IsFileOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <TextBlock.ToolTip>
                         <ToolTip>
                             <TextBlock Text="{Binding FileTypeToolTipText}"/>

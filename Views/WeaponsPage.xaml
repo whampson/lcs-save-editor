@@ -20,16 +20,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<v:PageViewBase
-    x:Class="LcsSaveEditor.Views.WeaponsView"
+<v:PageView
+    x:Class="LcsSaveEditor.Views.WeaponsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
     xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
     xmlns:v="clr-namespace:LcsSaveEditor.Views"
+    xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="325" d:DesignWidth="500">
 
@@ -49,7 +49,7 @@ SOFTWARE.
             <Setter Property="Margin" Value="10,5,10,5"/>
             <Setter Property="ItemTemplate" Value="{StaticResource WeaponListTemplate}"/>
         </Style>
-        <Style TargetType="xctk:IntegerUpDown" x:Key="IntegerUpDownStyle">
+        <Style TargetType="tk:IntegerUpDown" x:Key="IntegerUpDownStyle">
             <Setter Property="MaxHeight" Value="25"/>
             <Setter Property="Margin" Value="10,5,10,5"/>
             <Setter Property="Minimum" Value="1"/>
@@ -194,42 +194,42 @@ SOFTWARE.
                 SelectedItem="{Binding Special}"
                 IsEnabled="{Binding HasSpecial}"/>
 
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="2" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding ProjectileAmmo}"
                 IsEnabled="{Binding HasProjectile}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="3" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding PistolAmmo}"
                 IsEnabled="{Binding HasPistol}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="4" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding ShotgunAmmo}"
                 IsEnabled="{Binding HasShotgun}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="5" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding SmgAmmo}"
                 IsEnabled="{Binding HasSmg}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="6" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding AssaultAmmo}"
                 IsEnabled="{Binding HasAssault}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="7" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding HeavyAmmo}"
                 IsEnabled="{Binding HasHeavy}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="8" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding SniperAmmo}"
                 IsEnabled="{Binding HasSniper}"/>
-            <xctk:IntegerUpDown
+            <tk:IntegerUpDown
                 Grid.Row="9" Grid.Column="2"
                 Style="{StaticResource IntegerUpDownStyle}"
                 Value="{Binding SpecialAmmo}"
@@ -237,4 +237,4 @@ SOFTWARE.
         </Grid>
 
     </ScrollViewer>
-</v:PageViewBase>
+</v:PageView>

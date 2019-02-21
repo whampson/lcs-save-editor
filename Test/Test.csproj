@@ -74,21 +74,9 @@
     <None Include="SaveData\lcs_psp_save03.b" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
-      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
-      <Name>DataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Extensions\Extensions.csproj">
-      <Project>{bddfe47a-4066-4f9f-b50e-d65e5fc77e19}</Project>
-      <Name>Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Helpers\Helpers.csproj">
-      <Project>{003b8084-2efa-453a-b2a1-09189725aed3}</Project>
-      <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{008c66e5-d540-4ceb-95f6-5f7bd38e6b10}</Project>
-      <Name>Infrastructure</Name>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{1c60d446-08b6-4b7a-9b0b-0bb0b3137ff6}</Project>

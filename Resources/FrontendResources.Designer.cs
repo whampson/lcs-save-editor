@@ -205,168 +205,6 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        public static string GlobalVariables_ContextMenu_Delete {
-            get {
-                return ResourceManager.GetString("GlobalVariables_ContextMenu_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert Above.
-        /// </summary>
-        public static string GlobalVariables_ContextMenu_InsertAbove {
-            get {
-                return ResourceManager.GetString("GlobalVariables_ContextMenu_InsertAbove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert Below.
-        /// </summary>
-        public static string GlobalVariables_ContextMenu_InsertBelow {
-            get {
-                return ResourceManager.GetString("GlobalVariables_ContextMenu_InsertBelow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to True/False.
-        /// </summary>
-        public static string GlobalVariables_DataType_Bool {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DataType_Bool", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Float.
-        /// </summary>
-        public static string GlobalVariables_DataType_Float {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DataType_Float", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Int32.
-        /// </summary>
-        public static string GlobalVariables_DataType_Int32 {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DataType_Int32", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
-        public static string GlobalVariables_DataType_Name {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DataType_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UInt32.
-        /// </summary>
-        public static string GlobalVariables_DataType_UInt32 {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DataType_UInt32", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to load symbols file!.
-        /// </summary>
-        public static string GlobalVariables_DialogText_SymbolsLoadFail {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DialogText_SymbolsLoadFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to save symbols file!.
-        /// </summary>
-        public static string GlobalVariables_DialogText_SymbolsSaveFail {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DialogText_SymbolsSaveFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load Symbols File.
-        /// </summary>
-        public static string GlobalVariables_DialogTitle_LoadSymbols {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DialogTitle_LoadSymbols", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Symbols File.
-        /// </summary>
-        public static string GlobalVariables_DialogTitle_SaveSymbols {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DialogTitle_SaveSymbols", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load Symbols Failed.
-        /// </summary>
-        public static string GlobalVariables_DialogTitle_SymbolsLoadFail {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DialogTitle_SymbolsLoadFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Symbols Failed.
-        /// </summary>
-        public static string GlobalVariables_DialogTitle_SymbolsSaveFail {
-            get {
-                return ResourceManager.GetString("GlobalVariables_DialogTitle_SymbolsSaveFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Compatible with the {0} version of GTA:LCS..
-        /// </summary>
-        public static string GlobalVariables_Ini_Compatibility {
-            get {
-                return ResourceManager.GetString("GlobalVariables_Ini_Compatibility", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Generated automatically by the GTA:LCS Save Editor..
-        /// </summary>
-        public static string GlobalVariables_Ini_GeneratedBy {
-            get {
-                return ResourceManager.GetString("GlobalVariables_Ini_GeneratedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load Symbols....
-        /// </summary>
-        public static string GlobalVariables_Options_LoadSymbols {
-            get {
-                return ResourceManager.GetString("GlobalVariables_Options_LoadSymbols", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Symbols....
-        /// </summary>
-        public static string GlobalVariables_Options_SaveSymbols {
-            get {
-                return ResourceManager.GetString("GlobalVariables_Options_SaveSymbols", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Save Log.
         /// </summary>
         public static string Log_DialogTitle_Save {
@@ -683,6 +521,15 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scripts.
+        /// </summary>
+        public static string Main_Page_Scripts {
+            get {
+                return ResourceManager.GetString("Main_Page_Scripts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string Main_Page_Start {
@@ -805,6 +652,312 @@ namespace LcsSaveEditor.Resources {
         public static string Main_Window_Title {
             get {
                 return ResourceManager.GetString("Main_Window_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Float.
+        /// </summary>
+        public static string Scripts_DataType_Float {
+            get {
+                return ResourceManager.GetString("Scripts_DataType_Float", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hex.
+        /// </summary>
+        public static string Scripts_DataType_Hex {
+            get {
+                return ResourceManager.GetString("Scripts_DataType_Hex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Int.
+        /// </summary>
+        public static string Scripts_DataType_Int {
+            get {
+                return ResourceManager.GetString("Scripts_DataType_Int", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load symbols file!.
+        /// </summary>
+        public static string Scripts_DialogText_SymbolsLoadFail {
+            get {
+                return ResourceManager.GetString("Scripts_DialogText_SymbolsLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save symbols file!.
+        /// </summary>
+        public static string Scripts_DialogText_SymbolsSaveFail {
+            get {
+                return ResourceManager.GetString("Scripts_DialogText_SymbolsSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Symbols File.
+        /// </summary>
+        public static string Scripts_DialogTitle_LoadSymbols {
+            get {
+                return ResourceManager.GetString("Scripts_DialogTitle_LoadSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Symbols File.
+        /// </summary>
+        public static string Scripts_DialogTitle_SaveSymbols {
+            get {
+                return ResourceManager.GetString("Scripts_DialogTitle_SaveSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Symbols Failed.
+        /// </summary>
+        public static string Scripts_DialogTitle_SymbolsLoadFail {
+            get {
+                return ResourceManager.GetString("Scripts_DialogTitle_SymbolsLoadFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Symbols Failed.
+        /// </summary>
+        public static string Scripts_DialogTitle_SymbolsSaveFail {
+            get {
+                return ResourceManager.GetString("Scripts_DialogTitle_SymbolsSaveFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Scripts_GlobalVariables_NameField {
+            get {
+                return ResourceManager.GetString("Scripts_GlobalVariables_NameField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string Scripts_GlobalVariables_ValueField {
+            get {
+                return ResourceManager.GetString("Scripts_GlobalVariables_ValueField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ActiveThreads.
+        /// </summary>
+        public static string Scripts_GroupHeader_ActiveThreads {
+            get {
+                return ResourceManager.GetString("Scripts_GroupHeader_ActiveThreads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Scripts_GroupHeader_DataType {
+            get {
+                return ResourceManager.GetString("Scripts_GroupHeader_DataType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global Variables.
+        /// </summary>
+        public static string Scripts_GroupHeader_GlobalVariables {
+            get {
+                return ResourceManager.GetString("Scripts_GroupHeader_GlobalVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string Scripts_GroupHeader_Options {
+            get {
+                return ResourceManager.GetString("Scripts_GroupHeader_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible with the {0} version of GTA:LCS..
+        /// </summary>
+        public static string Scripts_Ini_Compatibility {
+            get {
+                return ResourceManager.GetString("Scripts_Ini_Compatibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated automatically by the GTA:LCS Save Editor..
+        /// </summary>
+        public static string Scripts_Ini_GeneratedBy {
+            get {
+                return ResourceManager.GetString("Scripts_Ini_GeneratedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load Symbols....
+        /// </summary>
+        public static string Scripts_Options_LoadSymbols {
+            get {
+                return ResourceManager.GetString("Scripts_Options_LoadSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Symbols....
+        /// </summary>
+        public static string Scripts_Options_SaveSymbols {
+            get {
+                return ResourceManager.GetString("Scripts_Options_SaveSymbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Scripts_ThreadFlag_IsActive {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadFlag_IsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mission.
+        /// </summary>
+        public static string Scripts_ThreadFlag_IsMission {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadFlag_IsMission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to W/B check enabled.
+        /// </summary>
+        public static string Scripts_ThreadFlag_IsWastedBustedCheckEnabled {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadFlag_IsWastedBustedCheckEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mission cleanup.
+        /// </summary>
+        public static string Scripts_ThreadFlag_UsesMissionCleanup {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadFlag_UsesMissionCleanup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flags.
+        /// </summary>
+        public static string Scripts_ThreadProperties_Flags {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_Flags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thread ID.
+        /// </summary>
+        public static string Scripts_ThreadProperties_Id {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instruction Pointer.
+        /// </summary>
+        public static string Scripts_ThreadProperties_InstructionPointer {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_InstructionPointer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Variables.
+        /// </summary>
+        public static string Scripts_ThreadProperties_LocalVariables {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_LocalVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Scripts_ThreadProperties_Name {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gosub Return Stack.
+        /// </summary>
+        public static string Scripts_ThreadProperties_ReturnStack {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_ReturnStack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gosub Depth.
+        /// </summary>
+        public static string Scripts_ThreadProperties_ReturnStackTop {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_ReturnStackTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timer 1:.
+        /// </summary>
+        public static string Scripts_ThreadProperties_Timer1 {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_Timer1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timer 2:.
+        /// </summary>
+        public static string Scripts_ThreadProperties_Timer2 {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_Timer2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timers.
+        /// </summary>
+        public static string Scripts_ThreadProperties_Timers {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_Timers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wake Time:.
+        /// </summary>
+        public static string Scripts_ThreadProperties_WakeTime {
+            get {
+                return ResourceManager.GetString("Scripts_ThreadProperties_WakeTime", resourceCulture);
             }
         }
         

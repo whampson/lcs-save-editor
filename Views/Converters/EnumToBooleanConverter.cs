@@ -27,6 +27,7 @@ using System.Windows.Data;
 
 namespace LcsSaveEditor.Views.Converters
 {
+    [ValueConversion(typeof(Enum), typeof(bool), ParameterType = typeof(Enum))]
     public class EnumToBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

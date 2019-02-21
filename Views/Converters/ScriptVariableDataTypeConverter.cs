@@ -21,20 +21,26 @@
  */
 #endregion
 
-using LcsSaveEditor.Helpers;
+using LcsSaveEditor.Models;
+using LcsSaveEditor.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows.Data;
 
 namespace LcsSaveEditor.Views.Converters
 {
-    public class ScriptVariableDataTypeConverter : IMultiValueConverter
+    /// <summary>
+    /// Converts a <see cref="ScriptVariable"/> to a <see cref="string"/> and back
+    /// using the specified <see cref="ScriptVariableDataFormat"/>.
+    /// </summary>
+    [ValueConversion(typeof(ScriptVariable), typeof(string))]
+    public class ScriptVariableDataFormatConverter : IMultiValueConverter
     {
         private object m_param;
 
-        public ScriptVariableDataTypeConverter()
+        public ScriptVariableDataFormatConverter()
         {
-            m_param = ScriptVariableDataType.Int;
+            m_param = ScriptVariableDataFormat.Int;
         }
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -46,16 +52,16 @@ namespace LcsSaveEditor.Views.Converters
                 return "0";
             }
 
-            if (!(m_param is ScriptVariableDataType t)) {
-                t = ScriptVariableDataType.Int;
+            if (!(m_param is ScriptVariableDataFormat t)) {
+                t = ScriptVariableDataFormat.Int;
             }
 
             switch (t) {
-                case ScriptVariableDataType.Int:
+                case ScriptVariableDataFormat.Int:
                     return ((int) v).ToString();
-                case ScriptVariableDataType.Float:
+                case ScriptVariableDataFormat.Float:
                     return BitConverter.ToSingle(BitConverter.GetBytes(v), 0).ToString();
-                case ScriptVariableDataType.Hex:
+                case ScriptVariableDataFormat.Hex:
                     return v.ToString("X");
             }
 
@@ -68,22 +74,22 @@ namespace LcsSaveEditor.Views.Converters
                 return new object[] { 0U, m_param };
             }
 
-            if (!(m_param is ScriptVariableDataType t)) {
-                t = ScriptVariableDataType.Int;
+            if (!(m_param is ScriptVariableDataFormat t)) {
+                t = ScriptVariableDataFormat.Int;
             }
 
             switch (t) {
-                case ScriptVariableDataType.Int:
+                case ScriptVariableDataFormat.Int:
                     if (int.TryParse(v, out int i)) {
                         return new object[] { (uint) i, m_param };
                     }
                     break;
-                case ScriptVariableDataType.Float:
+                case ScriptVariableDataFormat.Float:
                     if (float.TryParse(v, out float f)) {
                         return new object[] { BitConverter.ToUInt32(BitConverter.GetBytes(f), 0), m_param };
                     }
                     break;
-                case ScriptVariableDataType.Hex:
+                case ScriptVariableDataFormat.Hex:
                     if (uint.TryParse(v, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out uint ui)) {
                         return new object[] { ui, m_param };
                     }

@@ -56,7 +56,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,19 +75,18 @@
     <Compile Include="Converters\ScriptVariableDataTypeConverter.cs" />
     <Compile Include="Converters\StringToUriConverter.cs" />
     <Compile Include="Converters\Vector3dToStringConverter.cs" />
-    <Compile Include="Interfaces\PageViewBase.cs" />
-    <Compile Include="Interfaces\TabControlEx.cs" />
+    <Compile Include="Interfaces\PageView.cs" />
     <Compile Include="LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ScriptsPage.xaml.cs">
       <DependentUpon>ScriptsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeaponsView.xaml.cs">
-      <DependentUpon>WeaponsView.xaml</DependentUpon>
+    <Compile Include="WeaponsPage.xaml.cs">
+      <DependentUpon>WeaponsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
+    <Compile Include="StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Page Include="LogWindow.xaml">
       <SubType>Designer</SubType>
@@ -109,27 +107,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WeaponsView.xaml">
+    <Page Include="WeaponsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="StartView.xaml">
+    <Page Include="StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
-      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
-      <Name>DataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Helpers\Helpers.csproj">
-      <Project>{003b8084-2efa-453a-b2a1-09189725aed3}</Project>
-      <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{008c66e5-d540-4ceb-95f6-5f7bd38e6b10}</Project>
-      <Name>Infrastructure</Name>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{1C60D446-08B6-4B7A-9B0B-0BB0B3137FF6}</Project>
