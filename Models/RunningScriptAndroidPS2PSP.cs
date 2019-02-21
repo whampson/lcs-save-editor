@@ -21,7 +21,7 @@
  */
 #endregion
 
-using LcsSaveEditor.Extensions;
+using LcsSaveEditor.Core.Extensions;
 using System.IO;
 using System.Text;
 

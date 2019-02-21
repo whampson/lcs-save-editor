@@ -23,7 +23,7 @@
 
 using System;
 using System.Collections.Specialized;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Resources;
 
 namespace LcsSaveEditor.Models

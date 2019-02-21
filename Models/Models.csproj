@@ -46,6 +46,21 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BanditRaceStat.cs" />
+    <Compile Include="DataTypes\Costumes.cs" />
+    <Compile Include="DataTypes\ExportCars.cs" />
+    <Compile Include="DataTypes\GarageState.cs" />
+    <Compile Include="DataTypes\GarageType.cs" />
+    <Compile Include="DataTypes\InsaneStuntJump.cs" />
+    <Compile Include="DataTypes\Language.cs" />
+    <Compile Include="DataTypes\ObjectType.cs" />
+    <Compile Include="DataTypes\PlayerCameraMode.cs" />
+    <Compile Include="DataTypes\RadarMode.cs" />
+    <Compile Include="DataTypes\RadioStation.cs" />
+    <Compile Include="DataTypes\StoredCarPerks.cs" />
+    <Compile Include="DataTypes\Vehicle.cs" />
+    <Compile Include="DataTypes\VehicleCameraMode.cs" />
+    <Compile Include="DataTypes\Weapon.cs" />
+    <Compile Include="DataTypes\Weather.cs" />
     <Compile Include="DirtBikeRaceStat.cs" />
     <Compile Include="FavoriteRadioStationList.cs" />
     <Compile Include="FavoriteRadioStationListAndroidIOS.cs" />
@@ -86,21 +101,9 @@
     <Compile Include="Vector3d.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
-      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
-      <Name>DataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Extensions\Extensions.csproj">
-      <Project>{BDDFE47A-4066-4F9F-B50E-D65E5FC77E19}</Project>
-      <Name>Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Helpers\Helpers.csproj">
-      <Project>{003B8084-2EFA-453A-B2A1-09189725AED3}</Project>
-      <Name>Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{008c66e5-d540-4ceb-95f6-5f7bd38e6b10}</Project>
-      <Name>Infrastructure</Name>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>

@@ -25,9 +25,9 @@ using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Text;
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Extensions;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Extensions;
+using LcsSaveEditor.Models.DataTypes;
 using LcsSaveEditor.Resources;
 
 namespace LcsSaveEditor.Models
