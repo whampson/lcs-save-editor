@@ -23,7 +23,7 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
     /// Weapons available for Toni to wield.

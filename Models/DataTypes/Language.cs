@@ -23,23 +23,32 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Game systems that Grand Theft Auto: Liberty City Stories runs on.
+    /// Languages supported by Grand Theft Auto: Liberty City Stories.
     /// </summary>
-    public enum GamePlatform
+    public enum Language : uint
     {
-        [Description("Android")]
-        Android,
+        [Description("English")]
+        English,
 
-        [Description("iOS")]
-        IOS,
+        [Description("French")]
+        French,
 
-        [Description("PlayStation 2")]
-        PS2,
+        [Description("German")]
+        German,
 
-        [Description("PlayStation Portable")]
-        PSP
-    };
+        [Description("Italian")]
+        Italian,
+
+        [Description("Spanish")]
+        Spanish,
+
+        [Description("Russian")]
+        Russian,
+
+        [Description("Japanese")]
+        Japanese
+    }
 }

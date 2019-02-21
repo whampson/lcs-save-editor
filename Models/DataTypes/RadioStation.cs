@@ -23,35 +23,50 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Weather patterns found in-game.
+    /// Radio stations.
     /// </summary>
-    public enum Weather : short
+    public enum RadioStation : byte
     {
-        [Description("Sunny")]
-        Sunny,
+        /* TODO: MyMix on Android/iOS shares the same value as RadioOff
+           on PS2/PSP. Figure out how to handle this.
+           RadioStationConveter for View? */
 
-        [Description("Cloudy")]
-        Cloudy,
+        [Description("Head Radio")]
+        HeadRadio,
 
-        [Description("Rainy")]
-        Rainy,
+        [Description("Double Clef FM")]
+        DoubleClefFM,
 
-        [Description("Foggy")]
-        Foggy,
+        [Description("K-Jah")]
+        KJah,
 
-        [Description("Extra Sunny")]
-        ExtraSunny,
+        [Description("Rise FM")]
+        RiseFM,
 
-        [Description("Hurricane")]
-        Hurricane,
+        [Description("Lips 106")]
+        Lips106,
 
-        [Description("Extra Colors")]
-        ExtraColors,
+        [Description("Radio Del Mundo")]
+        RadioDelMundo,
 
-        [Description("Snow")]
-        Snow
+        [Description("MSX98")]
+        Msx98,
+
+        [Description("Flashback FM")]
+        FlashbackFM,
+
+        [Description("The Liberty Jam")]
+        TheLibertyJam,
+
+        [Description("LCFR")]
+        Lcfr,
+
+        //MyMix,
+
+        [Description("Radio Off")]
+        RadioOff
     }
 }

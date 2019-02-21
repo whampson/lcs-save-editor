@@ -21,40 +21,63 @@
  */
 #endregion
 
+using System;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Insane Stunt Jump types.
+    /// Cars that are wanted for export at Love Media.
     /// </summary>
-    public enum InsaneStuntJump : uint
+    [Flags]
+    public enum ExportCars : uint
     {
-        [Description("No Insane Stunts Completed")]
-        NoInsaneStuntsCompleted,
+        [Description("Hearse")]
+        Hearse = 1 << 0,
 
-        [Description("Insane Stunt")]
-        InsaneStunt,
+        [Description("Faggio")]
+        Faggio = 1 << 1,
 
-        [Description("Perfect Insane Stunt")]
-        PerfectInsaneStunt,
+        [Description("Freeway")]
+        Freeway = 1 << 2,
 
-        [Description("Double Insane Stunt")]
-        DoubleInsaneStunt,
+        [Description("Deimos SP")]
+        DeimosSP = 1 << 3,
 
-        [Description("Perfect Double Insane Stunt")]
-        PerfectDoubleInsaneStunt,
+        [Description("Manana")]
+        Manana = 1 << 4,
 
-        [Description("Triple Insane Stunt")]
-        TripleInsaneStunt,
+        [Description("Hellenbach GT")]
+        HellenbachGT = 1 << 5,
 
-        [Description("Perfect Triple Insane Stunt")]
-        PerfectTripleInsaneStunt,
+        [Description("Phobos VT")]
+        PhobosVT = 1 << 6,
 
-        [Description("Quadruple Insane Stunt")]
-        QuadrupleInsaneStunt,
+        [Description("V8 Ghost")]
+        V8Ghost = 1 << 7,
 
-        [Description("Perfect Quadruple Insane Stunt")]
-        PerfectQuadrupleInsaneStunt
+        [Description("Thunder Rodd")]
+        ThunderRodd = 1 << 8,
+
+        [Description("PCJ-600")]
+        Pcj600 = 1 << 9,
+
+        [Description("Sentinel")]
+        Sentinel = 1 << 10,
+
+        [Description("Infernus")]
+        Infernus = 1 << 11,
+
+        [Description("Banshee")]
+        Banshee = 1 << 12,
+
+        [Description("Patriot")]
+        Patriot = 1 << 13,
+
+        [Description("BF Injection")]
+        BFInjection = 1 << 14,
+
+        [Description("Landstalker")]
+        Landstalker = 1 << 15
     }
 }

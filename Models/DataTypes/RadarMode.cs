@@ -21,51 +21,22 @@
  */
 #endregion
 
-using System;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Special properties that can be applied to any vehicle stored in a garage.
+    /// Radar configurations.
     /// </summary>
-    [Flags]
-    public enum StoredCarPerks : uint
+    public enum RadarMode : uint
     {
-        [Description("Bullet-proof")]
-        BulletProof     = 1 << 0,
+        [Description("Map & Blips")]
+        MapAndBlips,
 
-        [Description("Fire-proof")]
-        FireProof       = 1 << 1,
+        [Description("Blips Only")]
+        BlipsOnly,
 
-        [Description("Explosion-proof")]
-        ExplosionProof  = 1 << 2,
-
-        [Description("Collision-proof")]
-        CollisionProof  = 1 << 3,
-
-        [Description("Melee-proof")]
-        MeleeProof      = 1 << 4,
-
-        [Description("Pop-proof")]
-        PopProof        = 1 << 5,
-
-        [Description("Strong")]
-        Strong          = 1 << 6,
-
-        [Description("Heavy")]
-        Heavy           = 1 << 7,
-
-        [Description("Permanent Color")]
-        PermanentColor  = 1 << 8,
-
-        [Description("Timebomb Fitted")]
-        TimebombFitted  = 1 << 9,
-
-        [Description("Tip-proof")]
-        TipProof        = 1 << 10,
-
-        [Description("(unknown)")]
-        _Unknown        = 1 << 15
+        [Description("Radar Off")]
+        RadarOff
     }
 }

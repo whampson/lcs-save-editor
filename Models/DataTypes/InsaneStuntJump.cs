@@ -23,20 +23,38 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Camera positions when controlling Toni on foot.
+    /// Insane Stunt Jump types.
     /// </summary>
-    public enum PlayerCameraMode
+    public enum InsaneStuntJump : uint
     {
-        [Description("Near")]
-        Near = 1,
+        [Description("No Insane Stunts Completed")]
+        NoInsaneStuntsCompleted,
 
-        [Description("Default")]
-        Default,
+        [Description("Insane Stunt")]
+        InsaneStunt,
 
-        [Description("Far")]
-        Far
+        [Description("Perfect Insane Stunt")]
+        PerfectInsaneStunt,
+
+        [Description("Double Insane Stunt")]
+        DoubleInsaneStunt,
+
+        [Description("Perfect Double Insane Stunt")]
+        PerfectDoubleInsaneStunt,
+
+        [Description("Triple Insane Stunt")]
+        TripleInsaneStunt,
+
+        [Description("Perfect Triple Insane Stunt")]
+        PerfectTripleInsaneStunt,
+
+        [Description("Quadruple Insane Stunt")]
+        QuadrupleInsaneStunt,
+
+        [Description("Perfect Quadruple Insane Stunt")]
+        PerfectQuadrupleInsaneStunt
     }
 }

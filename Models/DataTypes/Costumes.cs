@@ -21,52 +21,63 @@
  */
 #endregion
 
+using System;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Radio stations.
+    /// Outfits that Toni can wear.
     /// </summary>
-    public enum RadioStation : byte
+    [Flags]
+    public enum Costumes : ushort
     {
-        /* TODO: MyMix on Android/iOS shares the same value as RadioOff
-           on PS2/PSP. Figure out how to handle this.
-           RadioStationConveter for View? */
+        [Description("Casual Clothes")]
+        CasualClothes = 1 << 0,
 
-        [Description("Head Radio")]
-        HeadRadio,
+        [Description("Leone's Suit")]
+        LeonesSuit = 1 << 1,
 
-        [Description("Double Clef FM")]
-        DoubleClefFM,
+        [Description("Overalls")]
+        Overalls = 1 << 2,
 
-        [Description("K-Jah")]
-        KJah,
+        [Description("Avenging Angels Fatigues")]
+        AvengingAngelsFatigues = 1 << 3,
 
-        [Description("Rise FM")]
-        RiseFM,
+        [Description("Chauffeur's Clothes")]
+        ChauffeursClothes = 1 << 4,
 
-        [Description("Lips 106")]
-        Lips106,
+        [Description("Lawyer's Suit")]
+        LawyersSuit = 1 << 5,
 
-        [Description("Radio Del Mundo")]
-        RadioDelMundo,
+        [Description("Tuxedo")]
+        Tuxedo = 1 << 6,
 
-        [Description("MSX98")]
-        Msx98,
+        [Description("'The King' Jumpsuit")]
+        TheKingJumpsuit = 1 << 7,
 
-        [Description("Flashback FM")]
-        FlashbackFM,
+        [Description("Cox Mascot Suit")]
+        CoxMascotSuit = 1 << 8,
 
-        [Description("The Liberty Jam")]
-        TheLibertyJam,
+        [Description("Underwear")]
+        Underwear = 1 << 9,
 
-        [Description("LCFR")]
-        Lcfr,
+        [Description("Hero Garb")]
+        HeroGarb = 1 << 10,
 
-        //MyMix,
+        [Description("Dragon Jumpsuit")]
+        DragonJumpsuit = 1 << 11,
 
-        [Description("Radio Off")]
-        RadioOff
+        [Description("Antonio")]
+        Antonio = 1 << 12,
+
+        [Description("Sweats")]
+        Sweats = 1 << 13,
+
+        [Description("Goodfella")]
+        Goodfella = 1 << 14,
+
+        [Description("Wiseguy")]
+        Wiseguy = 1 << 15
     }
 }

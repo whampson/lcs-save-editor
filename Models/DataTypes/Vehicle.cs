@@ -23,7 +23,7 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
     /// Vehicles present in Grand Theft Auto: Liberty City Stories

@@ -23,20 +23,35 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Radar configurations.
+    /// Weather patterns found in-game.
     /// </summary>
-    public enum RadarMode : uint
+    public enum Weather : short
     {
-        [Description("Map & Blips")]
-        MapAndBlips,
+        [Description("Sunny")]
+        Sunny,
 
-        [Description("Blips Only")]
-        BlipsOnly,
+        [Description("Cloudy")]
+        Cloudy,
 
-        [Description("Radar Off")]
-        RadarOff
+        [Description("Rainy")]
+        Rainy,
+
+        [Description("Foggy")]
+        Foggy,
+
+        [Description("Extra Sunny")]
+        ExtraSunny,
+
+        [Description("Hurricane")]
+        Hurricane,
+
+        [Description("Extra Colors")]
+        ExtraColors,
+
+        [Description("Snow")]
+        Snow
     }
 }

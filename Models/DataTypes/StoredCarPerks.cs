@@ -24,60 +24,48 @@
 using System;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Outfits that Toni can wear.
+    /// Special properties that can be applied to any vehicle stored in a garage.
     /// </summary>
     [Flags]
-    public enum Costumes : ushort
+    public enum StoredCarPerks : uint
     {
-        [Description("Casual Clothes")]
-        CasualClothes = 1 << 0,
+        [Description("Bullet-proof")]
+        BulletProof     = 1 << 0,
 
-        [Description("Leone's Suit")]
-        LeonesSuit = 1 << 1,
+        [Description("Fire-proof")]
+        FireProof       = 1 << 1,
 
-        [Description("Overalls")]
-        Overalls = 1 << 2,
+        [Description("Explosion-proof")]
+        ExplosionProof  = 1 << 2,
 
-        [Description("Avenging Angels Fatigues")]
-        AvengingAngelsFatigues = 1 << 3,
+        [Description("Collision-proof")]
+        CollisionProof  = 1 << 3,
 
-        [Description("Chauffeur's Clothes")]
-        ChauffeursClothes = 1 << 4,
+        [Description("Melee-proof")]
+        MeleeProof      = 1 << 4,
 
-        [Description("Lawyer's Suit")]
-        LawyersSuit = 1 << 5,
+        [Description("Pop-proof")]
+        PopProof        = 1 << 5,
 
-        [Description("Tuxedo")]
-        Tuxedo = 1 << 6,
+        [Description("Strong")]
+        Strong          = 1 << 6,
 
-        [Description("'The King' Jumpsuit")]
-        TheKingJumpsuit = 1 << 7,
+        [Description("Heavy")]
+        Heavy           = 1 << 7,
 
-        [Description("Cox Mascot Suit")]
-        CoxMascotSuit = 1 << 8,
+        [Description("Permanent Color")]
+        PermanentColor  = 1 << 8,
 
-        [Description("Underwear")]
-        Underwear = 1 << 9,
+        [Description("Timebomb Fitted")]
+        TimebombFitted  = 1 << 9,
 
-        [Description("Hero Garb")]
-        HeroGarb = 1 << 10,
+        [Description("Tip-proof")]
+        TipProof        = 1 << 10,
 
-        [Description("Dragon Jumpsuit")]
-        DragonJumpsuit = 1 << 11,
-
-        [Description("Antonio")]
-        Antonio = 1 << 12,
-
-        [Description("Sweats")]
-        Sweats = 1 << 13,
-
-        [Description("Goodfella")]
-        Goodfella = 1 << 14,
-
-        [Description("Wiseguy")]
-        Wiseguy = 1 << 15
+        [Description("(unknown)")]
+        _Unknown        = 1 << 15
     }
 }

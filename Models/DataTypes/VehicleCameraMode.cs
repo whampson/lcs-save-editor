@@ -23,29 +23,29 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Garage states in Grand Theft Auto: Liberty City Stories
+    /// Camera positions when driving a car.
     /// </summary>
-    public enum GarageState
+    public enum VehicleCameraMode
     {
-        [Description("Closed")]
-        Closed,
+        [Description("Bumper")]
+        Bumper,
 
-        [Description("Open")]
-        Open,
+        [Description("Near")]
+        Near,
 
-        [Description("Closing")]
-        Closing,
+        [Description("Default")]
+        Default,
 
-        [Description("Opening")]
-        Opening,
+        [Description("Far")]
+        Far,
 
-        [Description("Closed w/ serviced car")]
-        ClosedWithServicedCar,
+        [Description("Fixed")]
+        Fixed,
 
-        [Description("Opened w/ car dropoff")]
-        OpenedWithVehicleDropoff
+        [Description("Cinematic")]
+        Cinematic
     }
 }

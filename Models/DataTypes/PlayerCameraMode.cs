@@ -23,29 +23,20 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Camera positions when driving a car.
+    /// Camera positions when controlling Toni on foot.
     /// </summary>
-    public enum VehicleCameraMode
+    public enum PlayerCameraMode
     {
-        [Description("Bumper")]
-        Bumper,
-
         [Description("Near")]
-        Near,
+        Near = 1,
 
         [Description("Default")]
         Default,
 
         [Description("Far")]
-        Far,
-
-        [Description("Fixed")]
-        Fixed,
-
-        [Description("Cinematic")]
-        Cinematic
+        Far
     }
 }

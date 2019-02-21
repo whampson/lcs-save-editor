@@ -21,63 +21,31 @@
  */
 #endregion
 
-using System;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Cars that are wanted for export at Love Media.
+    /// Garage states in Grand Theft Auto: Liberty City Stories
     /// </summary>
-    [Flags]
-    public enum ExportCars : uint
+    public enum GarageState
     {
-        [Description("Hearse")]
-        Hearse = 1 << 0,
+        [Description("Closed")]
+        Closed,
 
-        [Description("Faggio")]
-        Faggio = 1 << 1,
+        [Description("Open")]
+        Open,
 
-        [Description("Freeway")]
-        Freeway = 1 << 2,
+        [Description("Closing")]
+        Closing,
 
-        [Description("Deimos SP")]
-        DeimosSP = 1 << 3,
+        [Description("Opening")]
+        Opening,
 
-        [Description("Manana")]
-        Manana = 1 << 4,
+        [Description("Closed w/ serviced car")]
+        ClosedWithServicedCar,
 
-        [Description("Hellenbach GT")]
-        HellenbachGT = 1 << 5,
-
-        [Description("Phobos VT")]
-        PhobosVT = 1 << 6,
-
-        [Description("V8 Ghost")]
-        V8Ghost = 1 << 7,
-
-        [Description("Thunder Rodd")]
-        ThunderRodd = 1 << 8,
-
-        [Description("PCJ-600")]
-        Pcj600 = 1 << 9,
-
-        [Description("Sentinel")]
-        Sentinel = 1 << 10,
-
-        [Description("Infernus")]
-        Infernus = 1 << 11,
-
-        [Description("Banshee")]
-        Banshee = 1 << 12,
-
-        [Description("Patriot")]
-        Patriot = 1 << 13,
-
-        [Description("BF Injection")]
-        BFInjection = 1 << 14,
-
-        [Description("Landstalker")]
-        Landstalker = 1 << 15
+        [Description("Opened w/ car dropoff")]
+        OpenedWithVehicleDropoff
     }
 }

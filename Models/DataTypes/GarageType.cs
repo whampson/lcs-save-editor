@@ -23,32 +23,47 @@
 
 using System.ComponentModel;
 
-namespace LcsSaveEditor.DataTypes
+namespace LcsSaveEditor.Models.DataTypes
 {
     /// <summary>
-    /// Languages supported by Grand Theft Auto: Liberty City Stories.
+    /// Garage types in Grand Theft Auto: Liberty City Stories
     /// </summary>
-    public enum Language : uint
+    public enum GarageType
     {
-        [Description("English")]
-        English,
+        [Description("Placeholder garage")]
+        Mission = 1,
 
-        [Description("French")]
-        French,
+        [Description("Bombshop (Timer)")]
+        BombShop1,
 
-        [Description("German")]
-        German,
+        [Description("Bombshop (Ignition)")]
+        BombShop2,
 
-        [Description("Italian")]
-        Italian,
+        [Description("Bombshop (Remote)")]
+        BombShop3,
 
-        [Description("Spanish")]
-        Spanish,
+        [Description("Pay'n'Spray")]
+        Respray,
 
-        [Description("Russian")]
-        Russian,
+        [Description("Export garage")]
+        CollectCars = 8,
 
-        [Description("Japanese")]
-        Japanese
+        [Description("Crusher")]
+        Crusher = 13,
+
+        [Description("Hideout (Portland)")]
+        Hideout1 = 16,
+
+        [Description("Hideout (Staunton)")]
+        Hideout2,
+
+        [Description("Hideout (Shoreside)")]
+        Hideout3,
+
+        [Description("Common garage")]
+        Script,
+
+        [Description("Mission keep car")]
+        MissionKeepCar = 21,
     }
 }
