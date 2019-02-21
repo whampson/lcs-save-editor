@@ -52,10 +52,6 @@
     <Compile Include="Controls\MessageBoxEx.cs" />
     <Compile Include="Controls\NonUnloadingTabControl.cs" />
     <Compile Include="DataBlock.cs" />
-    <Compile Include="EventArgs\DialogCloseEventArgs.cs" />
-    <Compile Include="EventArgs\FileDialogEventArgs.cs" />
-    <Compile Include="EventArgs\ItemPropertyChangedEventArgs.cs" />
-    <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
     <Compile Include="Extensions\BinaryReaderExtensions.cs" />
     <Compile Include="Extensions\BinaryWriterExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -64,12 +60,12 @@
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\GamePlatformHelper.cs" />
     <Compile Include="Helpers\IniHelper.cs" />
+    <Compile Include="ItemPropertyChangedEventArgs.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="LogLevel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="ScriptVariableDataType.cs" />
     <Compile Include="SerializableObject.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
