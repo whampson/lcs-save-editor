@@ -21,14 +21,23 @@
  */
 #endregion
 
-using LcsSaveEditor.Resources;
+using System;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public class StartViewModel : PageViewModel
+    /// <summary>
+    /// Parameters for closing a dialog window from an event.
+    /// </summary>
+    public class DialogCloseEventArgs : EventArgs
     {
-        public StartViewModel(MainViewModel mainViewModel)
-            : base(FrontendResources.Main_Page_Start, PageVisibility.WhenFileClosed, mainViewModel)
-        { }
+        public DialogCloseEventArgs(bool? dialogResult = null)
+        {
+            DialogResult = dialogResult;
+        }
+
+        public bool? DialogResult
+        {
+            get;
+        }
     }
 }

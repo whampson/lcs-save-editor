@@ -21,34 +21,23 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
-using System.IO;
+using System;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class LogViewModel : ObservableObject
+    /// <summary>
+    /// Parameters for handling a tab refresh event.
+    /// </summary>
+    public class TabRefreshEventArgs : EventArgs
     {
-        private void SaveLog_ResultAction(bool? dialogResult, FileDialogEventArgs e)
+        public TabRefreshEventArgs(TabRefreshTrigger trigger)
         {
-            if (dialogResult != true) {
-                return;
-            }
-
-            Settings.Current.OtherFileDialogDirectory = Path.GetDirectoryName(e.FileName);
-
-            Logger.WriteLogFile(e.FileName);
+            Trigger = trigger;
         }
 
-        private void SaveOnExit_ResultAction(bool? dialogResult, FileDialogEventArgs e)
+        public TabRefreshTrigger Trigger
         {
-            if (dialogResult != true) {
-                SaveOnExit = false;
-                return;
-            }
-
-            Settings.Current.OtherFileDialogDirectory = Path.GetDirectoryName(e.FileName);
-
-            Logger.SaveOnExitFileName = e.FileName;
+            get;
         }
     }
 }

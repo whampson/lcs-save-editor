@@ -21,13 +21,12 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using System.Collections.Specialized;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class WeaponsViewModel : PageViewModelBase
+    public partial class WeaponsViewModel : PageViewModel
     {
         private void MainViewModel_DataLoaded(object sender, SaveDataEventArgs e)
         {
@@ -75,17 +74,11 @@ namespace LcsSaveEditor.ViewModels
             }
 
             switch (e.Action) {
-                //case NotifyCollectionChangedAction.Add:
                 case NotifyCollectionChangedAction.Replace:
                     for (int i = 0; i < e.NewItems.Count; i++) {
                         RefreshWeaponSlot(e.NewStartingIndex + i);
                     }
                     break;
-                //case NotifyCollectionChangedAction.Remove:
-                //    for (int i = 0; i < e.OldItems.Count; i++) {
-                //        RefreshWeaponSlot(e.OldStartingIndex + i);
-                //    }
-                //    break;
             }
         }
     }

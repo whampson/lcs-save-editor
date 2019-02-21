@@ -21,14 +21,26 @@
  */
 #endregion
 
-using LcsSaveEditor.Resources;
-
 namespace LcsSaveEditor.ViewModels
 {
-    public class StartViewModel : PageViewModel
+    /// <summary>
+    /// Values indicating when a tab refresh event occurred.
+    /// </summary>
+    public enum TabRefreshTrigger
     {
-        public StartViewModel(MainViewModel mainViewModel)
-            : base(FrontendResources.Main_Page_Start, PageVisibility.WhenFileClosed, mainViewModel)
-        { }
+        /// <summary>
+        /// Refresh occurred after the window finished loading.
+        /// </summary>
+        WindowLoaded,
+
+        /// <summary>
+        /// Refresh occurred after a file was loaded.
+        /// </summary>
+        FileLoaded,
+
+        /// <summary>
+        /// Refresh occurred after a file was closed.
+        /// </summary>
+        FileClosed
     }
 }

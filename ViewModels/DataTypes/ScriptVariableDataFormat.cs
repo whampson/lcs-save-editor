@@ -21,14 +21,28 @@
  */
 #endregion
 
-using LcsSaveEditor.Resources;
+using LcsSaveEditor.Models;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public class StartViewModel : PageViewModel
+    /// <summary>
+    /// Number formats that can be used to represent the value of a <see cref="ScriptVariable"/>.
+    /// </summary>
+    public enum ScriptVariableDataFormat
     {
-        public StartViewModel(MainViewModel mainViewModel)
-            : base(FrontendResources.Main_Page_Start, PageVisibility.WhenFileClosed, mainViewModel)
-        { }
+        /// <summary>
+        /// Indicates that a <see cref="ScriptVariable"/> should be displayed as an integer.
+        /// </summary>
+        Int,
+
+        /// <summary>
+        /// Indicates that a <see cref="ScriptVariable"/> should be displayed as floating-point number.
+        /// </summary>
+        Float,
+
+        /// <summary>
+        /// Indicates that a <see cref="ScriptVariable"/> should be displayed as a hexadecimal number.
+        /// </summary>
+        Hex
     }
 }

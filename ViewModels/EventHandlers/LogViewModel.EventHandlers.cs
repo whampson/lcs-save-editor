@@ -22,48 +22,31 @@
 #endregion
 
 using LcsSaveEditor.Core;
-using LcsSaveEditor.Resources;
-using System;
-using System.Windows.Input;
+using System.IO;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class LogViewModel : ObservableObject
     {
-        public ICommand ClearLogCommand
+        private void SaveLog_ResultAction(bool? dialogResult, FileDialogEventArgs e)
         {
-            get { return new RelayCommand(() => LogItems.Clear()); }
-        }
-
-        public ICommand SaveLogCommand
-        {
-            get {
-                return new RelayCommand<Action<bool?, DialogCloseEventArgs>>(
-                    (x) => ShowSaveDialog(SaveLog_ResultAction));
+            if (dialogResult != true) {
+                return;
             }
+
+            Settings.Current.OtherFileDialogDirectory = Path.GetDirectoryName(e.FileName);
+            Logger.WriteLogFile(e.FileName);
         }
 
-        public ICommand SaveOnExitCommand
+        private void SaveOnExit_ResultAction(bool? dialogResult, FileDialogEventArgs e)
         {
-            get {
-                return new RelayCommand<Action<bool?, DialogCloseEventArgs>>(
-                    (x) => ShowSaveDialog(SaveOnExit_ResultAction));
+            if (dialogResult != true) {
+                SaveOnExit = false;
+                return;
             }
-        }
 
-        public ICommand CloseWindowCommand
-        {
-            get { return new RelayCommand(() => OnDialogCloseRequested(new DialogCloseEventArgs(false))); }
-        }
-
-        private void ShowSaveDialog(Action<bool?, FileDialogEventArgs> resultAction)
-        {
-            OnFileDialogRequested(new FileDialogEventArgs(
-                FileDialogType.SaveDialog,
-                title: FrontendResources.Log_DialogTitle_Save,
-                initialDirectory: Settings.Current.OtherFileDialogDirectory,
-                filter: FrontendResources.FileFilter_Log,
-                resultAction: resultAction));
+            Settings.Current.OtherFileDialogDirectory = Path.GetDirectoryName(e.FileName);
+            Logger.SaveOnExitFileName = e.FileName;
         }
     }
 }

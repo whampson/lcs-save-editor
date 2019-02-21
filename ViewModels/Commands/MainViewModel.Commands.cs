@@ -21,7 +21,7 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
 using System;
@@ -106,7 +106,7 @@ namespace LcsSaveEditor.ViewModels
 
         private int GetTabIndex(string tabName)
         {
-            PageViewModelBase item = m_tabs.Where(x => x.Title == tabName).FirstOrDefault();
+            PageViewModel item = m_tabs.Where(x => x.Title == tabName).FirstOrDefault();
             if (item == null) {
                 return -1;
             }

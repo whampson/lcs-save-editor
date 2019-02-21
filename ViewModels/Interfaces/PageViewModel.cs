@@ -21,14 +21,14 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 
 namespace LcsSaveEditor.ViewModels
 {
     /// <summary>
     /// Base class for Page view models.
     /// </summary>
-    public abstract class PageViewModelBase : ObservableObject
+    public abstract class PageViewModel : ObservableObject
     {
         private bool m_isVisible;
 
@@ -39,7 +39,7 @@ namespace LcsSaveEditor.ViewModels
         /// <param name="title">The title of the page.</param>
         /// <param name="visibility">A value indicating when the page should be visible.</param>
         /// <param name="mainViewModel">A reference to the main view model.</param>
-        public PageViewModelBase(string title, PageVisibility visibility, MainViewModel mainViewModel)
+        public PageViewModel(string title, PageVisibility visibility, MainViewModel mainViewModel)
         {
             Title = title;
             Visibility = visibility;
@@ -100,15 +100,5 @@ namespace LcsSaveEditor.ViewModels
                     break;
             }
         }
-    }
-
-    /// <summary>
-    /// Values indicating when a tab page should be visible.
-    /// </summary>
-    public enum PageVisibility
-    {
-        Always,
-        WhenFileLoaded,
-        WhenFileClosed
     }
 }

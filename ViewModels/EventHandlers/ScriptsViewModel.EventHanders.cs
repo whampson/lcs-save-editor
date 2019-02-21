@@ -21,14 +21,14 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
 using System.Collections.Specialized;
 using System.IO;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class ScriptsViewModel : PageViewModelBase
+    public partial class ScriptsViewModel : PageViewModel
     {
         private bool m_suppressGlobalVariablesCollectionChanged;
         private bool m_suppressNamedGlobalVariablesCollectionChanged;
@@ -51,14 +51,12 @@ namespace LcsSaveEditor.ViewModels
 
             m_globalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
             m_namedGlobalVariables.CollectionChanged += NamedGlobalVariables_CollectionChanged;
-            m_namedGlobalVariables.ItemPropertyChanged += NamedGlobalVariables_ItemPropertyChanged;
         }
 
         private void MainViewModel_DataClosing(object sender, SaveDataEventArgs e)
         {
             m_globalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
             m_namedGlobalVariables.CollectionChanged -= NamedGlobalVariables_CollectionChanged;
-            m_namedGlobalVariables.ItemPropertyChanged -= NamedGlobalVariables_ItemPropertyChanged;
 
             m_namedGlobalVariables.Clear();
             m_globalVariables = null;

@@ -21,27 +21,28 @@
  */
 #endregion
 
-using System;
-
 namespace LcsSaveEditor.ViewModels
 {
-    public class TabRefreshEventArgs : EventArgs
+    /// <summary>
+    /// Values indicating when a tab page should be visible.
+    /// </summary>
+    public enum PageVisibility
     {
-        public TabRefreshEventArgs(TabRefreshTrigger trigger)
-        {
-            Trigger = trigger;
-        }
+        /// <summary>
+        /// Indicates that a tab page should always be visibile.
+        /// </summary>
+        Always,
 
-        public TabRefreshTrigger Trigger
-        {
-            get;
-        }
-    }
+        /// <summary>
+        /// Indicates that a tab page should be visibile only when
+        /// editing a file.
+        /// </summary>
+        WhenFileLoaded,
 
-    public enum TabRefreshTrigger
-    {
-        WindowLoaded,
-        FileLoaded,
-        FileClosed
+        /// <summary>
+        /// Indicates that a tab page should be visibile only when
+        /// not editing a file.
+        /// </summary>
+        WhenFileClosed
     }
 }

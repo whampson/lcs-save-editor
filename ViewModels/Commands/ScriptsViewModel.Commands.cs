@@ -21,9 +21,8 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Helpers;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Helpers;
 using LcsSaveEditor.Resources;
 using System;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ using System.Windows.Input;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class ScriptsViewModel : PageViewModelBase
+    public partial class ScriptsViewModel : PageViewModel
     {
         private const string DefaultSymbolsFileName = "CustomVariables.ini";
 

@@ -21,14 +21,14 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Models.DataTypes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class WeaponsViewModel : PageViewModelBase
+    public partial class WeaponsViewModel : PageViewModel
     {
         private void InitWeaponLists()
         {

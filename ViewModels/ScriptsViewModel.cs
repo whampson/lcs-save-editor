@@ -21,20 +21,12 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Helpers;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
-using LcsSaveEditor.Resources;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Security;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class ScriptsViewModel : PageViewModelBase
+    public partial class ScriptsViewModel : PageViewModel
     {
         private int m_globalVariablesSelectedIndex;
         private int m_localVariablesSelectedIndex;
@@ -47,8 +39,8 @@ namespace LcsSaveEditor.ViewModels
         private FullyObservableCollection<NamedScriptVariable> m_namedGlobalVariables;
         private FullyObservableCollection<RunningScript> m_activeThreads;
 
-        private ScriptVariableDataType m_globalVariablesType;
-        private ScriptVariableDataType m_localVariablesType;
+        private ScriptVariableDataFormat m_globalVariablesFormat;
+        private ScriptVariableDataFormat m_localVariablesFormat;
 
         public ScriptsViewModel(MainViewModel mainViewModel)
             : base("Scripts", PageVisibility.WhenFileLoaded, mainViewModel)
@@ -77,10 +69,10 @@ namespace LcsSaveEditor.ViewModels
             set { m_globalVariablesSelectedIndex = value; OnPropertyChanged(); }
         }
 
-        public ScriptVariableDataType GlobalVariablesType
+        public ScriptVariableDataFormat GlobalVariablesType
         {
-            get { return m_globalVariablesType; }
-            set { m_globalVariablesType = value; OnPropertyChanged(); }
+            get { return m_globalVariablesFormat; }
+            set { m_globalVariablesFormat = value; OnPropertyChanged(); }
         }
 
         public FullyObservableCollection<RunningScript> ActiveThreads
@@ -107,10 +99,10 @@ namespace LcsSaveEditor.ViewModels
             set { m_localVariablesSelectedIndex = value; OnPropertyChanged(); }
         }
 
-        public ScriptVariableDataType LocalVariablesType
+        public ScriptVariableDataFormat LocalVariablesType
         {
-            get { return m_localVariablesType; }
-            set { m_localVariablesType = value; OnPropertyChanged(); }
+            get { return m_localVariablesFormat; }
+            set { m_localVariablesFormat = value; OnPropertyChanged(); }
         }
 
         public int ReturnStackSelectedIndex
