@@ -37,26 +37,23 @@ namespace LcsSaveEditor.ViewModels
         private void MainViewModel_DataLoaded(object sender, SaveDataEventArgs e)
         {
             m_globalVariables = e.Data.Scripts.GlobalVariables;
-
-            m_suppressNamedGlobalVariablesItemPropertyChanged = true;
             foreach (ScriptVariable v in m_globalVariables) {
                 m_namedGlobalVariables.Add(new NamedScriptVariable(v));
             }
 
             AutoLoadCustomVariables();
-
-            m_suppressNamedGlobalVariablesItemPropertyChanged = false;
-
             ActiveThreads = e.Data.Scripts.RunningScripts;
 
             m_globalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
             m_namedGlobalVariables.CollectionChanged += NamedGlobalVariables_CollectionChanged;
+            m_namedGlobalVariables.ItemPropertyChanged += NamedGlobalVariables_ItemPropertyChanged;
         }
 
         private void MainViewModel_DataClosing(object sender, SaveDataEventArgs e)
         {
             m_globalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
             m_namedGlobalVariables.CollectionChanged -= NamedGlobalVariables_CollectionChanged;
+            m_namedGlobalVariables.ItemPropertyChanged -= NamedGlobalVariables_ItemPropertyChanged;
 
             m_namedGlobalVariables.Clear();
             m_globalVariables = null;
