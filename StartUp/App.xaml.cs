@@ -29,6 +29,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -94,7 +95,7 @@ namespace LcsSaveEditor.StartUp
 
             Logger.Info("========== {0} ==========", FrontendResources.App_Title);
             Logger.Info(GetAppVersionString());
-            Logger.Info(FrontendResources.App_HostOS, Environment.OSVersion);
+            Logger.Info(FrontendResources.App_HostOS, RuntimeInformation.OSDescription);
             Logger.Info("==========={0}===========", new string('=', FrontendResources.App_Title.Length));
 
             LoadSettings();
