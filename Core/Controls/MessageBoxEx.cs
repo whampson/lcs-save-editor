@@ -29,7 +29,7 @@ using System.Windows;
 using System.Windows.Interop;
 using LcsSaveEditor.Resources;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core.Controls
 {
     /// <summary>
     /// A more WPF-compatible version of the Win32 <see cref="System.Windows.MessageBox"/>.

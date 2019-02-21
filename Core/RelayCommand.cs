@@ -29,7 +29,7 @@ using System.Windows.Input;
  * https://msdn.microsoft.com/en-us/magazine/dd419663.aspx
  */
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     public class RelayCommand<T> : ICommand
     {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{003B8084-2EFA-453A-B2A1-09189725AED3}</ProjectGuid>
+    <ProjectGuid>{008C66E5-D540-4CEB-95F6-5F7BD38E6B10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LcsSaveEditor.Helpers</RootNamespace>
-    <AssemblyName>LcsSaveEditor.Helpers</AssemblyName>
+    <RootNamespace>LcsSaveEditor.Core</RootNamespace>
+    <AssemblyName>LcsSaveEditor.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -35,31 +35,54 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
-      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
-      <Name>DataTypes</Name>
-    </ProjectReference>
+    <Compile Include="..\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Behaviors\ScrollOnNewItem.cs" />
+    <Compile Include="Controls\MessageBoxEx.cs" />
+    <Compile Include="Controls\NonUnloadingTabControl.cs" />
+    <Compile Include="DataBlock.cs" />
+    <Compile Include="EventArgs\DialogCloseEventArgs.cs" />
+    <Compile Include="EventArgs\FileDialogEventArgs.cs" />
+    <Compile Include="EventArgs\ItemPropertyChangedEventArgs.cs" />
+    <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
+    <Compile Include="Extensions\BinaryReaderExtensions.cs" />
+    <Compile Include="Extensions\BinaryWriterExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FullyObservableCollection.cs" />
+    <Compile Include="GamePlatform.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\GamePlatformHelper.cs" />
+    <Compile Include="Helpers\IniHelper.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogItem.cs" />
+    <Compile Include="LogLevel.cs" />
+    <Compile Include="ObservableObject.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ScriptVariableDataType.cs" />
+    <Compile Include="SerializableObject.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
       <Name>Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="EnumHelper.cs" />
-    <Compile Include="GamePlatformHelper.cs" />
-    <Compile Include="IniHelper.cs" />
-    <Compile Include="ScriptVariableDataType.cs" />
+    <PackageReference Include="Expression.Blend.Sdk.WPF">
+      <Version>1.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

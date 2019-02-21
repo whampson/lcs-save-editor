@@ -26,7 +26,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// Allows objects used in the MVVM methodology to be observed by Views and View Models.

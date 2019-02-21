@@ -21,23 +21,12 @@
  */
 #endregion
 
-using System;
-
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
-    /// <summary>
-    /// Parameters for closing a dialog window from an event.
-    /// </summary>
-    public class DialogCloseEventArgs : EventArgs
+    public enum ScriptVariableDataType
     {
-        public DialogCloseEventArgs(bool? dialogResult = null)
-        {
-            DialogResult = dialogResult;
-        }
-
-        public bool? DialogResult
-        {
-            get;
-        }
+        Int,
+        Float,
+        Hex
     }
 }

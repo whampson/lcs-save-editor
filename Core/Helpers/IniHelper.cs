@@ -21,12 +21,11 @@
  */
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace LcsSaveEditor.Helpers
+namespace LcsSaveEditor.Core.Helpers
 {
     /// <summary>
     /// Helper class for reading and writing .ini files.

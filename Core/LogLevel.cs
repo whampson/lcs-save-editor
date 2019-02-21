@@ -21,21 +21,17 @@
  */
 #endregion
 
-namespace LcsSaveEditor.Extensions
+namespace LcsSaveEditor.Core
 {
     /// <summary>
-    /// Extensions to the <see cref="string"/> class.
+    /// <see cref="LogItem"/> importance levels.
     /// </summary>
-    public static class StringExtensions
+    public enum LogLevel
     {
-        /// <summary>
-        /// Removes all NUL characters from a string.
-        /// </summary>
-        /// <param name="s">The string to strip of NUL characters.</param>
-        /// <returns>The stripped string.</returns>
-        public static string StripNull(this string s)
-        {
-            return s.Replace("\0", "");
-        }
+        Debug,
+        Info,
+        Warn,
+        Error,
+        Fatal
     }
 }

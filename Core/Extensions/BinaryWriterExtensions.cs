@@ -24,7 +24,7 @@
 using System;
 using System.IO;
 
-namespace LcsSaveEditor.Extensions
+namespace LcsSaveEditor.Core.Extensions
 {
     /// <summary>
     /// Extensions to the <see cref="BinaryWriter"/> class.

@@ -28,7 +28,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// An extension of <see cref="ObservableCollection{T}"/> that can

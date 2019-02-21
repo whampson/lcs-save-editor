@@ -21,13 +21,12 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// An XML-serializable application settings interface.

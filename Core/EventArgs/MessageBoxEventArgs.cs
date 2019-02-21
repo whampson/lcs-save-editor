@@ -21,10 +21,11 @@
  */
 #endregion
 
+using LcsSaveEditor.Core.Controls;
 using System;
 using System.Windows;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// Parameters for opening a <see cref="MessageBoxEx"/> from an event.

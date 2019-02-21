@@ -21,25 +21,25 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
 using System.ComponentModel;
 
-namespace LcsSaveEditor.Helpers
+namespace LcsSaveEditor.Core
 {
     /// <summary>
-    /// Utility class for the <see cref="GamePlatform"/> enum.
+    /// Game systems that Grand Theft Auto: Liberty City Stories runs on.
     /// </summary>
-    public static class GamePlatformHelper
+    public enum GamePlatform
     {
-        /// <summary>
-        /// Gets the full platform name from the
-        /// <see cref="GamePlatform"/>'s Description attribute.
-        /// </summary>
-        /// <param name="platform">The platform to get the full name of.</param>
-        /// <returns>The platform's full name.</returns>
-        public static string GetPlatformName(GamePlatform platform)
-        {
-            return EnumHelper.GetAttribute<DescriptionAttribute>(platform).Description;
-        }
-    }
+        [Description("Android")]
+        Android,
+
+        [Description("iOS")]
+        IOS,
+
+        [Description("PlayStation 2")]
+        PS2,
+
+        [Description("PlayStation Portable")]
+        PSP
+    };
 }

@@ -27,7 +27,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core.Behaviors
 {
     /// <summary>
     /// Causes an <see cref="ItemsControl"/> to scroll

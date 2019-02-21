@@ -25,7 +25,7 @@ using Microsoft.Win32;
 using System;
 using System.Windows;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// Parameters for opening a <see cref="FileDialog"/> from an event.

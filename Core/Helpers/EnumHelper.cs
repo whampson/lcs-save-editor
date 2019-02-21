@@ -25,12 +25,12 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace LcsSaveEditor.Helpers
+namespace LcsSaveEditor.Core.Helpers
 {
     /// <summary>
-    /// Utility class for Enums.
+    /// Helper class for getting attribute information from Enum values.
     /// </summary>
-    public static class EnumHelper
+    public static class EnumAttributeHelper
     {
         /// <summary>
         /// Gets an <see cref="Attribute"/> attached to an enum value.

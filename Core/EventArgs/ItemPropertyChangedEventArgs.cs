@@ -21,53 +21,41 @@
  */
 #endregion
 
-using System;
+using System.ComponentModel;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
-    /// A log entry.
+    /// Provides data for the <see cref="FullyObservableCollection{T}.ItemPropertyChanged"/> event.
     /// </summary>
-    public class LogItem
+    /// <remarks>
+    /// Adapted from http://code.i-harness.com/en/q/15c80f.
+    /// </remarks>
+    public class ItemPropertyChangedEventArgs : PropertyChangedEventArgs
     {
         /// <summary>
-        /// Creates a new <see cref="LogItem"/>.
+        /// Initializes a new instance of the <see cref="ItemPropertyChangedEventArgs"/> class.
         /// </summary>
-        /// <param name="level">The item's importance level.</param>
-        /// <param name="timestamp">The item's timestamp.</param>
-        /// <param name="message">The item's message.</param>
-        public LogItem(LogLevel level, DateTime timestamp, string message)
+        /// <param name="index">The index in the collection of changed item.</param>
+        /// <param name="name">The name of the property that changed.</param>
+        public ItemPropertyChangedEventArgs(int index, string name)
+            : base(name)
         {
-            Level = level;
-            Timestamp = timestamp;
-            Message = message;
+            CollectionIndex = index;
         }
 
         /// <summary>
-        /// Gets this item's importance level.
+        /// Initializes a new instance of the <see cref="ItemPropertyChangedEventArgs"/> class.
         /// </summary>
-        public LogLevel Level { get; }
+        /// <param name="index">The index.</param>
+        /// <param name="args">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        public ItemPropertyChangedEventArgs(int index, PropertyChangedEventArgs args)
+            : this(index, args.PropertyName)
+        { }
 
         /// <summary>
-        /// Gets this item's timestamp.
+        /// Gets the index in the collection for which the property change has occurred.
         /// </summary>
-        public DateTime Timestamp { get; }
-
-        /// <summary>
-        /// Gets this item's message.
-        /// </summary>
-        public string Message { get; }
-
-        /// <summary>
-        /// Converts this <see cref="LogItem"/> to a <see cref="string"/>.
-        /// </summary>
-        /// <returns>This item as a string.</returns>
-        public override string ToString()
-        {
-            return string.Format("{0}  {1}  {2}",
-                Timestamp.ToString("HH:mm:ss.fff"),
-                Level.ToString().PadRight(5),
-                Message);
-        }
+        public int CollectionIndex { get; }
     }
 }

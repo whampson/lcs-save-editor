@@ -28,7 +28,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// A simple event logger.

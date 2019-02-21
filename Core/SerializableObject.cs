@@ -23,7 +23,7 @@
 
 using System.IO;
 
-namespace LcsSaveEditor.Infrastructure
+namespace LcsSaveEditor.Core
 {
     /// <summary>
     /// Provides a framework for object serialization.
