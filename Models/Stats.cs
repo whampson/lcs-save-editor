@@ -21,13 +21,12 @@
  */
 #endregion
 
-using System;
+using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Extensions;
+using LcsSaveEditor.Models.DataTypes;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Extensions;
-using LcsSaveEditor.Infrastructure;
 
 namespace LcsSaveEditor.Models
 {

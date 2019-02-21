@@ -21,7 +21,7 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
 using System;
@@ -97,7 +97,7 @@ namespace LcsSaveEditor.ViewModels
         {
             m_tabs.Add(new StartViewModel(this));
             m_tabs.Add(new WeaponsViewModel(this));
-            m_tabs.Add(new GlobalVariablesViewModel(this));
+            m_tabs.Add(new ScriptsViewModel(this));
 
             OnTabRefresh(
                 TabRefreshTrigger.WindowLoaded,
@@ -106,7 +106,7 @@ namespace LcsSaveEditor.ViewModels
 
         private int GetTabIndex(string tabName)
         {
-            PageViewModelBase item = m_tabs.Where(x => x.Title == tabName).FirstOrDefault();
+            PageViewModel item = m_tabs.Where(x => x.Title == tabName).FirstOrDefault();
             if (item == null) {
                 return -1;
             }
@@ -295,9 +295,12 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
             StatusText = FrontendResources.Main_StatusText_SaveSuccess;
+            WindowTitle = string.Format("{0} - [{1}]", FrontendResources.Main_Window_Title, path);
+
+            MostRecentFilePath = path;
+            AddRecentFile(path);
 
             IsFileModified = false;
-            MostRecentFilePath = path;
         }
 
         /// <summary>

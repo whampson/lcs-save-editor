@@ -21,9 +21,9 @@
  */
 #endregion
 
+using LcsSaveEditor.Core;
 using System.IO;
 using System.Text;
-using LcsSaveEditor.Infrastructure;
 
 namespace LcsSaveEditor.Models
 {

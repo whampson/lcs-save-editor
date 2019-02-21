@@ -21,14 +21,14 @@
  */
 #endregion
 
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Resources;
-using LcsSaveEditor.ViewModels;
 using LcsSaveEditor.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -94,7 +94,7 @@ namespace LcsSaveEditor.StartUp
 
             Logger.Info("========== {0} ==========", FrontendResources.App_Title);
             Logger.Info(GetAppVersionString());
-            Logger.Info(FrontendResources.App_HostOS, Environment.OSVersion);
+            Logger.Info(FrontendResources.App_HostOS, RuntimeInformation.OSDescription);
             Logger.Info("==========={0}===========", new string('=', FrontendResources.App_Title.Length));
 
             LoadSettings();
@@ -123,12 +123,12 @@ namespace LcsSaveEditor.StartUp
             MessageBoxEx.Show(
                 MainWindow,
                 string.Format("{0}\n\n{1}: {2}\n\n{3}",
-                    FrontendResources.Dialog_Text_UnhandledException1,
+                    FrontendResources.Main_DialogText_UnhandledException1,
                     e.Exception.GetType().Name,
                     e.Exception.Message,
-                    string.Format(FrontendResources.Dialog_Text_UnhandledException2,
+                    string.Format(FrontendResources.Main_DialogText_UnhandledException2,
                         FrontendResources.App_AuthorContact, logFile)),
-                FrontendResources.Dialog_Title_UnhandledException,
+                FrontendResources.Main_DialogTitle_UnhandledException,
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
 

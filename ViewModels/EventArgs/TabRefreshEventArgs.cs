@@ -25,6 +25,9 @@ using System;
 
 namespace LcsSaveEditor.ViewModels
 {
+    /// <summary>
+    /// Parameters for handling a tab refresh event.
+    /// </summary>
     public class TabRefreshEventArgs : EventArgs
     {
         public TabRefreshEventArgs(TabRefreshTrigger trigger)
@@ -36,12 +39,5 @@ namespace LcsSaveEditor.ViewModels
         {
             get;
         }
-    }
-
-    public enum TabRefreshTrigger
-    {
-        WindowLoaded,
-        FileLoaded,
-        FileClosed
     }
 }

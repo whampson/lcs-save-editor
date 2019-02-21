@@ -25,7 +25,7 @@ using LcsSaveEditor.Resources;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public class StartViewModel : PageViewModelBase
+    public class StartViewModel : PageViewModel
     {
         public StartViewModel(MainViewModel mainViewModel)
             : base(FrontendResources.Main_Page_Start, PageVisibility.WhenFileClosed, mainViewModel)

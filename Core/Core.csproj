@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{008C66E5-D540-4CEB-95F6-5F7BD38E6B10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LcsSaveEditor.Core</RootNamespace>
+    <AssemblyName>LcsSaveEditor.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Behaviors\ScrollOnNewItem.cs" />
+    <Compile Include="Controls\MessageBoxEx.cs" />
+    <Compile Include="Controls\NonUnloadingTabControl.cs" />
+    <Compile Include="DataBlock.cs" />
+    <Compile Include="Extensions\BinaryReaderExtensions.cs" />
+    <Compile Include="Extensions\BinaryWriterExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FullyObservableCollection.cs" />
+    <Compile Include="GamePlatform.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\GamePlatformHelper.cs" />
+    <Compile Include="Helpers\IniHelper.cs" />
+    <Compile Include="ItemPropertyChangedEventArgs.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogItem.cs" />
+    <Compile Include="LogLevel.cs" />
+    <Compile Include="ObservableObject.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="SerializableObject.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Expression.Blend.Sdk.WPF">
+      <Version>1.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

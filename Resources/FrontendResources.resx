@@ -135,13 +135,13 @@
   <data name="App_Title" xml:space="preserve">
     <value>GTA:LCS Save Editor</value>
   </data>
-  <data name="GlobalVariables_DataType_Name" xml:space="preserve">
+  <data name="Scripts_GlobalVariables_NameField" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="GlobalVariables_Options_LoadSymbols" xml:space="preserve">
+  <data name="Scripts_Options_LoadSymbols" xml:space="preserve">
     <value>Load Symbols...</value>
   </data>
-  <data name="GlobalVariables_Options_SaveSymbols" xml:space="preserve">
+  <data name="Scripts_Options_SaveSymbols" xml:space="preserve">
     <value>Save Symbols...</value>
   </data>
   <data name="Main_MenuFile" xml:space="preserve">
@@ -224,33 +224,12 @@
   <data name="FileFilter_Log" xml:space="preserve">
     <value>Log Files (*.log)|*.log|All Files (*.*)|*.*</value>
   </data>
-  <data name="GlobalVariables_ContextMenu_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="GlobalVariables_ContextMenu_InsertAbove" xml:space="preserve">
-    <value>Insert Above</value>
-  </data>
-  <data name="GlobalVariables_ContextMenu_InsertBelow" xml:space="preserve">
-    <value>Insert Below</value>
-  </data>
-  <data name="GlobalVariables_Ini_Compatibility" xml:space="preserve">
+  <data name="Scripts_Ini_Compatibility" xml:space="preserve">
     <value>Compatible with the {0} version of GTA:LCS.</value>
     <comment>{0} = game platform name</comment>
   </data>
-  <data name="GlobalVariables_Ini_GeneratedBy" xml:space="preserve">
+  <data name="Scripts_Ini_GeneratedBy" xml:space="preserve">
     <value>Generated automatically by the GTA:LCS Save Editor.</value>
-  </data>
-  <data name="GlobalVariables_DataType_Bool" xml:space="preserve">
-    <value>True/False</value>
-  </data>
-  <data name="GlobalVariables_DataType_Float" xml:space="preserve">
-    <value>Float</value>
-  </data>
-  <data name="GlobalVariables_DataType_Int32" xml:space="preserve">
-    <value>Int32</value>
-  </data>
-  <data name="GlobalVariables_DataType_UInt32" xml:space="preserve">
-    <value>UInt32</value>
   </data>
   <data name="Log_Options_SaveOnExit" xml:space="preserve">
     <value>Save on exit</value>
@@ -262,7 +241,7 @@
     <value>Log</value>
   </data>
   <data name="Main_Page_GlobalVariables" xml:space="preserve">
-    <value>GlobalVariables</value>
+    <value>Global Variables</value>
   </data>
   <data name="Main_Page_Weapons" xml:space="preserve">
     <value>Weapons</value>
@@ -332,16 +311,16 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Main_DialogTitle_ConfirmReload" xml:space="preserve">
     <value>Reload</value>
   </data>
-  <data name="GlobalVariables_DialogText_SymbolsLoadFail" xml:space="preserve">
+  <data name="Scripts_DialogText_SymbolsLoadFail" xml:space="preserve">
     <value>Failed to load symbols file!</value>
   </data>
-  <data name="GlobalVariables_DialogText_SymbolsSaveFail" xml:space="preserve">
+  <data name="Scripts_DialogText_SymbolsSaveFail" xml:space="preserve">
     <value>Failed to save symbols file!</value>
   </data>
-  <data name="GlobalVariables_DialogTitle_SymbolsLoadFail" xml:space="preserve">
+  <data name="Scripts_DialogTitle_SymbolsLoadFail" xml:space="preserve">
     <value>Load Symbols Failed</value>
   </data>
-  <data name="GlobalVariables_DialogTitle_SymbolsSaveFail" xml:space="preserve">
+  <data name="Scripts_DialogTitle_SymbolsSaveFail" xml:space="preserve">
     <value>Save Symbols Failed</value>
   </data>
   <data name="Main_DialogTitle_FileLoadFail" xml:space="preserve">
@@ -359,10 +338,10 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Common_SaveAs" xml:space="preserve">
     <value>Save As</value>
   </data>
-  <data name="GlobalVariables_DialogTitle_LoadSymbols" xml:space="preserve">
+  <data name="Scripts_DialogTitle_LoadSymbols" xml:space="preserve">
     <value>Load Symbols File</value>
   </data>
-  <data name="GlobalVariables_DialogTitle_SaveSymbols" xml:space="preserve">
+  <data name="Scripts_DialogTitle_SaveSymbols" xml:space="preserve">
     <value>Save Symbols File</value>
   </data>
   <data name="Log_DialogTitle_Save" xml:space="preserve">
@@ -398,10 +377,79 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Main_StatusText_SaveFail" xml:space="preserve">
     <value>Save failed.</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Main_Page_Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="Main_Page_Scripts" xml:space="preserve">
+    <value>Scripts</value>
+  </data>
+  <data name="Scripts_GroupHeader_GlobalVariables" xml:space="preserve">
+    <value>Global Variables</value>
+  </data>
+  <data name="Scripts_GlobalVariables_ValueField" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Scripts_DataType_Float" xml:space="preserve">
+    <value>Float</value>
+  </data>
+  <data name="Scripts_DataType_Hex" xml:space="preserve">
+    <value>Hex</value>
+  </data>
+  <data name="Scripts_DataType_Int" xml:space="preserve">
+    <value>Int</value>
+  </data>
+  <data name="Scripts_GroupHeader_ActiveThreads" xml:space="preserve">
+    <value>ActiveThreads</value>
+  </data>
+  <data name="Scripts_GroupHeader_DataType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Scripts_GroupHeader_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Scripts_ThreadFlag_IsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Scripts_ThreadFlag_IsMission" xml:space="preserve">
+    <value>Mission</value>
+  </data>
+  <data name="Scripts_ThreadFlag_IsWastedBustedCheckEnabled" xml:space="preserve">
+    <value>W/B check enabled</value>
+  </data>
+  <data name="Scripts_ThreadFlag_UsesMissionCleanup" xml:space="preserve">
+    <value>Mission cleanup</value>
+  </data>
+  <data name="Scripts_ThreadProperties_Flags" xml:space="preserve">
+    <value>Flags</value>
+  </data>
+  <data name="Scripts_ThreadProperties_Id" xml:space="preserve">
+    <value>Thread ID</value>
+  </data>
+  <data name="Scripts_ThreadProperties_InstructionPointer" xml:space="preserve">
+    <value>Instruction Pointer</value>
+  </data>
+  <data name="Scripts_ThreadProperties_LocalVariables" xml:space="preserve">
+    <value>Local Variables</value>
+  </data>
+  <data name="Scripts_ThreadProperties_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Scripts_ThreadProperties_ReturnStack" xml:space="preserve">
+    <value>Gosub Return Stack</value>
+  </data>
+  <data name="Scripts_ThreadProperties_ReturnStackTop" xml:space="preserve">
+    <value>Gosub Depth</value>
+  </data>
+  <data name="Scripts_ThreadProperties_Timer1" xml:space="preserve">
+    <value>Timer 1:</value>
+  </data>
+  <data name="Scripts_ThreadProperties_Timer2" xml:space="preserve">
+    <value>Timer 2:</value>
+  </data>
+  <data name="Scripts_ThreadProperties_Timers" xml:space="preserve">
+    <value>Timers</value>
+  </data>
+  <data name="Scripts_ThreadProperties_WakeTime" xml:space="preserve">
+    <value>Wake Time:</value>
   </data>
 </root>

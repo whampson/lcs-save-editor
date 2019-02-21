@@ -21,17 +21,16 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
+using LcsSaveEditor.Models.DataTypes;
 using LcsSaveEditor.Resources;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Data;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class WeaponsViewModel : PageViewModelBase
+    public partial class WeaponsViewModel : PageViewModel
     {
         private bool m_hasMelee;
         private bool m_hasProjectile;

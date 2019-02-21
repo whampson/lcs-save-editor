@@ -21,9 +21,8 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
-using LcsSaveEditor.Extensions;
-using LcsSaveEditor.Infrastructure;
+using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Extensions;
 using LcsSaveEditor.Resources;
 using System;
 using System.ComponentModel;

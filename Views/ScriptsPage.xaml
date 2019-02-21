@@ -1,0 +1,429 @@
+﻿<v:PageView
+        x:Class="LcsSaveEditor.Views.ScriptsPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
+        xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:v="clr-namespace:LcsSaveEditor.Views"
+        xmlns:vm="clr-namespace:LcsSaveEditor.ViewModels;assembly=LcsSaveEditor.ViewModels"
+        xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d" 
+        d:DesignHeight="500" d:DesignWidth="750">
+
+    <UserControl.Resources>
+        <!-- Converters -->
+        <c:ScriptVariableDataFormatConverter x:Key="ScriptVariableDataFormatConverter"/>
+        <c:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+
+        <!-- Styles -->
+        <Style TargetType="RadioButton" x:Key="RadioButtonStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="2.5"/>
+        </Style>
+        <Style TargetType="{x:Type tk:IntegerUpDown}" x:Key="TimerUpDownStyle">
+            <Setter Property="Margin" Value="5,2,1,2"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="{x:Static s:Int32.MaxValue}"/>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TextLabelStyle">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="FlagsCheckBoxStyle">
+            <Setter Property="Margin" Value="2.5"/>
+        </Style>
+        <Style TargetType="GroupBox" x:Key="ThreadPropertiesGroupBoxStyle">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ActiveThreadsSelectedIndex}" Value="-1">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DataGrid" x:Key="DataGridStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="True"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="60*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Global Variables area -->
+        <GroupBox Grid.Column="0" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_GlobalVariables}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="75"/>
+                </Grid.RowDefinitions>
+
+                <!-- Global Variables data grid -->
+                <DataGrid
+                        Grid.Row="0"
+                        ItemsSource="{Binding Path=NamedGlobalVariables}"
+                        SelectedIndex="{Binding Path=GlobalVariablesSelectedIndex}"
+                        Style="{StaticResource ResourceKey=DataGridStyle}"
+                        LoadingRow="GlobalVariablesDataGrid_LoadingRow">
+
+                    <DataGrid.RowHeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                    MinWidth="35"
+                                    Text="{Binding Path=Header, RelativeSource={RelativeSource AncestorType=DataGridRow}}"
+                                    FontFamily="Courier New" FontWeight="Black"/>
+                        </DataTemplate>
+                    </DataGrid.RowHeaderTemplate>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                                Width="60*"
+                                Header="{x:Static r:FrontendResources.Scripts_GlobalVariables_NameField}"
+                                Binding="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn
+                                Width="40*"
+                                Header="{x:Static r:FrontendResources.Scripts_GlobalVariables_ValueField}">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding Converter="{StaticResource ResourceKey=ScriptVariableDataFormatConverter}">
+                                    <Binding Path="Value"/>
+                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" Path="DataContext.GlobalVariablesFormat"/>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="125"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Global variables data type selection -->
+                    <GroupBox Grid.Column="0" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_DataType}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton
+                                    Grid.Column="0"
+                                    Content="{x:Static r:FrontendResources.Scripts_DataType_Int}"
+                                    IsChecked="{Binding
+                                        Path=GlobalVariablesFormat,
+                                        Converter={StaticResource ResourceKey=EnumToBooleanConverter},
+                                        ConverterParameter={x:Static vm:ScriptVariableDataFormat.Int}}"
+                                    Style="{StaticResource ResourceKey=RadioButtonStyle}"/>
+                            <RadioButton
+                                    Grid.Column="1"
+                                    Content="{x:Static r:FrontendResources.Scripts_DataType_Float}"
+                                    IsChecked="{Binding
+                                        Path=GlobalVariablesFormat,
+                                        Converter={StaticResource ResourceKey=EnumToBooleanConverter},
+                                        ConverterParameter={x:Static vm:ScriptVariableDataFormat.Float}}"
+                                    Style="{StaticResource ResourceKey=RadioButtonStyle}"/>
+                            <RadioButton
+                                    Grid.Column="2"
+                                    Content="{x:Static r:FrontendResources.Scripts_DataType_Hex}"
+                                    IsChecked="{Binding
+                                        Path=GlobalVariablesFormat,
+                                        Converter={StaticResource ResourceKey=EnumToBooleanConverter},
+                                        ConverterParameter={x:Static vm:ScriptVariableDataFormat.Hex}}"
+                                    Style="{StaticResource ResourceKey=RadioButtonStyle}"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- Global variables options -->
+                    <GroupBox Grid.Column="1" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_Options}">
+                        <StackPanel>
+                            <Button
+                                    Content="{x:Static r:FrontendResources.Scripts_Options_LoadSymbols}"
+                                    Command="{Binding LoadSymbolsCommand}"
+                                    Style="{StaticResource ResourceKey=ButtonStyle}"/>
+                            <Button
+                                    Content="{x:Static r:FrontendResources.Scripts_Options_SaveSymbols}"
+                                    Command="{Binding SaveSymbolsCommand}"
+                                    Style="{StaticResource ResourceKey=ButtonStyle}"/>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <!-- Active threads area -->
+        <GroupBox Grid.Column="2" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_ActiveThreads}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="70*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Active threads list -->
+                <ListBox Grid.Column="0"
+                        ItemsSource="{Binding Path=ActiveThreads}"
+                        SelectedItem="{Binding Path=ActiveThreadsSelectedItem}"
+                        SelectedIndex="{Binding Path=ActiveThreadsSelectedIndex}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <DockPanel Grid.Column="1">
+                    <Grid DockPanel.Dock="Top" Height="275">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Name, ID, and Instruction Pointer -->
+                        <GroupBox
+                                Grid.Row="0" Grid.Column="0"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Name}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <TextBox
+                                    Text="{Binding Path=ActiveThreadsSelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"
+                                    MaxLength="7"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="1" Grid.Column="0"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Id}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <tk:IntegerUpDown
+                                    Value="{Binding Path=ActiveThreadsSelectedItem.ThreadId}"
+                                    Minimum="0"
+                                    Maximum="{x:Static s:Int32.MaxValue}"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="2" Grid.Column="0"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_InstructionPointer}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <tk:IntegerUpDown
+                                    Value="{Binding Path=ActiveThreadsSelectedItem.InstructionPointer.Value}"
+                                    Minimum="0"
+                                    Maximum="{x:Static s:Int32.MaxValue}"/>
+                        </GroupBox>
+
+                        <!-- Flags -->
+                        <GroupBox
+                                Grid.Row="3" Grid.Column="0" Grid.RowSpan="3"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Flags}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <StackPanel>
+                                <CheckBox
+                                        Content="{x:Static r:FrontendResources.Scripts_ThreadFlag_IsMission}"
+                                        IsChecked="{Binding Path=ActiveThreadsSelectedItem.IsMission}"
+                                        Style="{StaticResource ResourceKey=FlagsCheckBoxStyle}"/>
+                                <CheckBox
+                                        Content="{x:Static r:FrontendResources.Scripts_ThreadFlag_IsActive}"
+                                        IsChecked="{Binding Path=ActiveThreadsSelectedItem.IsActive}"
+                                        Style="{StaticResource ResourceKey=FlagsCheckBoxStyle}"/>
+                                <CheckBox
+                                        Content="{x:Static r:FrontendResources.Scripts_ThreadFlag_UsesMissionCleanup}"
+                                        IsChecked="{Binding Path=ActiveThreadsSelectedItem.UsesMissionCleanup}"
+                                        Style="{StaticResource ResourceKey=FlagsCheckBoxStyle}"/>
+                                <CheckBox
+                                        Content="{x:Static r:FrontendResources.Scripts_ThreadFlag_IsWastedBustedCheckEnabled}"
+                                        IsChecked="{Binding Path=ActiveThreadsSelectedItem.IsWastedBustedCheckEnabled}"
+                                        Style="{StaticResource ResourceKey=FlagsCheckBoxStyle}"/>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Timers -->
+                        <GroupBox
+                                Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timers}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45*"/>
+                                    <ColumnDefinition Width="55*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock
+                                        Grid.Row="0" Grid.Column="0"
+                                        Text="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer1}"
+                                        Style="{StaticResource ResourceKey=TextLabelStyle}"/>
+                                <tk:IntegerUpDown
+                                        Grid.Row="0" Grid.Column="1"
+                                        Value="{Binding Path=ActiveThreadsSelectedItem.Timer1}"
+                                        Style="{StaticResource ResourceKey=TimerUpDownStyle}"/>
+                                <TextBlock
+                                        Grid.Row="1" Grid.Column="0"
+                                        Text="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer2}"
+                                        Style="{StaticResource ResourceKey=TextLabelStyle}"/>
+                                <tk:IntegerUpDown
+                                        Grid.Row="1" Grid.Column="1"
+                                        Value="{Binding Path=ActiveThreadsSelectedItem.Timer2}"
+                                        Style="{StaticResource ResourceKey=TimerUpDownStyle}"/>
+                                <TextBlock
+                                        Grid.Row="2" Grid.Column="0"
+                                        Text="{x:Static r:FrontendResources.Scripts_ThreadProperties_WakeTime}"
+                                        Style="{StaticResource ResourceKey=TextLabelStyle}"/>
+                                <tk:IntegerUpDown
+                                        Grid.Row="2" Grid.Column="1"
+                                        Value="{Binding Path=ActiveThreadsSelectedItem.WakeTime}"
+                                        Style="{StaticResource ResourceKey=TimerUpDownStyle}"/>
+                            </Grid>
+                        </GroupBox>
+
+                        <!-- Return stack -->
+                        <GroupBox
+                                Grid.Row="2" Grid.Column="1" Grid.RowSpan="4"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStack}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="45"/>
+                                </Grid.RowDefinitions>
+                                
+                                <DataGrid
+                                        ItemsSource="{Binding Path=ActiveThreadsSelectedItem.ReturnStack}"
+                                        SelectedIndex="{Binding Path=ReturnStackSelectedIndex}"
+                                        Style="{StaticResource ResourceKey=DataGridStyle}"
+                                        HeadersVisibility="Row"
+                                        LoadingRow="ReturnStackDataGrid_LoadingRow">
+
+                                    <DataGrid.RowHeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                    MinWidth="20"
+                                                    Text="{Binding Path=Header, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                                        </DataTemplate>
+                                    </DataGrid.RowHeaderTemplate>
+
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                                Width="1*"
+                                                Binding="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <GroupBox Grid.Row="1" Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStackTop}">
+                                    <tk:IntegerUpDown
+                                            Value="{Binding Path=ActiveThreadsSelectedItem.ReturnStackTop}"
+                                            Minimum="0"
+                                            Maximum="15"/>
+                                </GroupBox>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+
+                    <!-- Local Variables -->
+                    <GroupBox
+                            DockPanel.Dock="Bottom"
+                            Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_LocalVariables}"
+                            Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Local Variables data grid -->
+                            <DataGrid
+                                    Grid.Row="0"
+                                    ItemsSource="{Binding Path=ActiveThreadsSelectedItem.LocalVariables}"
+                                    SelectedIndex="{Binding Path=LocalVariablesSelectedIndex}"
+                                    Style="{StaticResource ResourceKey=DataGridStyle}"
+                                    HeadersVisibility="Row"
+                                    LoadingRow="LocalVariablesDataGrid_LoadingRow">
+
+                                <DataGrid.RowHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                                MinWidth="30"
+                                                Text="{Binding Path=Header, RelativeSource={RelativeSource AncestorType=DataGridRow}}"
+                                                FontFamily="Courier New" FontWeight="Black"/>
+                                    </DataTemplate>
+                                </DataGrid.RowHeaderTemplate>
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="1*">
+                                        <DataGridTextColumn.Binding>
+                                            <MultiBinding Converter="{StaticResource ResourceKey=ScriptVariableDataFormatConverter}">
+                                                <Binding Path="Value"/>
+                                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" Path="DataContext.LocalVariablesFormat"/>
+                                            </MultiBinding>
+                                        </DataGridTextColumn.Binding>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <!-- Local variables data type selection -->
+                            <GroupBox Grid.Row="1" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_DataType}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <RadioButton
+                                            Grid.Column="0"
+                                            Content="{x:Static r:FrontendResources.Scripts_DataType_Int}"
+                                            IsChecked="{Binding
+                                                Path=LocalVariablesFormat,
+                                                Converter={StaticResource ResourceKey=EnumToBooleanConverter},
+                                                ConverterParameter={x:Static vm:ScriptVariableDataFormat.Int}}"
+                                            Style="{StaticResource ResourceKey=RadioButtonStyle}"/>
+                                    <RadioButton
+                                            Grid.Column="1"
+                                            Content="{x:Static r:FrontendResources.Scripts_DataType_Float}"
+                                            IsChecked="{Binding
+                                                Path=LocalVariablesFormat,
+                                                Converter={StaticResource ResourceKey=EnumToBooleanConverter},
+                                                ConverterParameter={x:Static vm:ScriptVariableDataFormat.Float}}"
+                                            Style="{StaticResource ResourceKey=RadioButtonStyle}"/>
+                                    <RadioButton
+                                            Grid.Column="2"
+                                            Content="{x:Static r:FrontendResources.Scripts_DataType_Hex}"
+                                            IsChecked="{Binding
+                                                Path=LocalVariablesFormat,
+                                                Converter={StaticResource ResourceKey=EnumToBooleanConverter},
+                                                ConverterParameter={x:Static vm:ScriptVariableDataFormat.Hex}}"
+                                            Style="{StaticResource ResourceKey=RadioButtonStyle}"/>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </DockPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</v:PageView>

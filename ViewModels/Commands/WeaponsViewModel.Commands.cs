@@ -21,14 +21,14 @@
  */
 #endregion
 
-using LcsSaveEditor.DataTypes;
+using LcsSaveEditor.Models.DataTypes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
 
 namespace LcsSaveEditor.ViewModels
 {
-    public partial class WeaponsViewModel : PageViewModelBase
+    public partial class WeaponsViewModel : PageViewModel
     {
         private void InitWeaponLists()
         {
@@ -511,10 +511,6 @@ namespace LcsSaveEditor.ViewModels
 
         private void RefreshWeaponSlot(int globalVarIndex)
         {
-            if (m_suppressRefresh) {
-                return;
-            }
-
             Weapon? changedWeapon = m_ammoIndexMap.FirstOrDefault(x => x.Value == globalVarIndex).Key;
             switch (changedWeapon) {
                 case Weapon.BrassKnuckles:

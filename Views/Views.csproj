@@ -56,7 +56,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -71,24 +70,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalVariablesView.xaml.cs">
-      <DependentUpon>GlobalVariablesView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\PageViewBase.cs" />
-    <Compile Include="Interfaces\TabControlEx.cs" />
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Converters\ScriptVariableDataTypeConverter.cs" />
+    <Compile Include="Converters\StringToUriConverter.cs" />
+    <Compile Include="Converters\Vector3dToStringConverter.cs" />
+    <Compile Include="Interfaces\PageView.cs" />
     <Compile Include="LogWindow.xaml.cs">
       <DependentUpon>LogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WeaponsView.xaml.cs">
-      <DependentUpon>WeaponsView.xaml</DependentUpon>
+    <Compile Include="ScriptsPage.xaml.cs">
+      <DependentUpon>ScriptsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartView.xaml.cs">
-      <DependentUpon>StartView.xaml</DependentUpon>
+    <Compile Include="WeaponsPage.xaml.cs">
+      <DependentUpon>WeaponsPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="GlobalVariablesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="LogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -104,27 +103,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="WeaponsView.xaml">
+    <Page Include="ScriptsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WeaponsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="StartView.xaml">
+    <Page Include="StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Converters\Converters.csproj">
-      <Project>{b306386c-4686-4ec3-899b-28f6892f2b8f}</Project>
-      <Name>Converters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataTypes\DataTypes.csproj">
-      <Project>{faaae0ae-426a-4fbe-97a6-acd41ec7f265}</Project>
-      <Name>DataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{008c66e5-d540-4ceb-95f6-5f7bd38e6b10}</Project>
-      <Name>Infrastructure</Name>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{1C60D446-08B6-4B7A-9B0B-0BB0B3137FF6}</Project>
+      <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{926fc80b-20e4-4352-9bf3-6793f1d46483}</Project>
@@ -152,5 +151,6 @@
       <Version>3.5.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
