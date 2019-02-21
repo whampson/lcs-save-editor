@@ -51,6 +51,9 @@ SOFTWARE.
         <DataTemplate DataType="{x:Type vm:StartViewModel}">
             <v:StartPage/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:GeneralViewModel}">
+            <v:GeneralPage/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:WeaponsViewModel}">
             <v:WeaponsPage/>
         </DataTemplate>

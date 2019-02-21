@@ -1,0 +1,164 @@
+﻿<!--
+Copyright(c) 2016-2019 Wes Hampson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<v:PageView
+        x:Class="LcsSaveEditor.Views.GeneralPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:v="clr-namespace:LcsSaveEditor.Views"
+        xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d"
+        d:DesignHeight="500" d:DesignWidth="750">
+
+    <UserControl.Resources>
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="File Information">
+            <StackPanel>
+                <GroupBox Header="Last Mission Passed Name">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0"/>
+                        <Button Grid.Column="1" Content="Select..." Style="{StaticResource ResourceKey=ButtonStyle}"/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Modification Time">
+                    <DatePicker/>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Game Time">
+            <StackPanel>
+                <GroupBox Header="Current Time">
+                    <tk:DateTimeUpDown Format="Custom" FormatString="HH:mm"/>
+                </GroupBox>
+                <GroupBox Header="Minute Duration (millis)">
+                    <tk:IntegerUpDown/>
+                </GroupBox>
+                <GroupBox Header="Total Playing Time (millis)">
+                    <tk:IntegerUpDown Minimum="0" Maximum="{x:Static s:Int32.MaxValue}" ClipValueToMinMax="True"/>
+                </GroupBox>
+                <GroupBox Header="Last Clock Tick">
+                    <tk:IntegerUpDown Minimum="0" Maximum="{x:Static s:Int32.MaxValue}" ClipValueToMinMax="True"/>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="0" Grid.Column="1" Header="Controls">
+            <StackPanel>
+                <CheckBox Content="Invert look"/>
+                <CheckBox Content="Vibration"/>
+                <CheckBox Content="Swap D-pad and stick"/>
+                <GroupBox Header="Controls Set">
+                    <ComboBox/>
+                </GroupBox>
+                <GroupBox Header="On-Foot Camera">
+                    <ComboBox/>
+                </GroupBox>
+                <GroupBox Header="In-Vehicle Camera">
+                    <ComboBox/>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Weather">
+            <ListBox/>
+        </GroupBox>
+
+        <GroupBox Grid.Row="0" Grid.Column="2" Header="Display">
+            <StackPanel>
+                <CheckBox Content="Show HUD"/>
+                <CheckBox Content="Show subtitles"/>
+                <CheckBox Content="Widescreen"/>
+                <CheckBox Content="Enhanced colors"/>
+                <GroupBox Header="Language">
+                    <ComboBox/>
+                </GroupBox>
+                <GroupBox Header="Radar Mode">
+                    <ComboBox/>
+                </GroupBox>
+                <GroupBox Header="Brightness">
+                    <StackPanel>
+                        <Slider/>
+                        <CheckBox Content="Extra vlaues"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <GroupBox Header="Audio">
+                <StackPanel>
+                    <GroupBox Header="Radio Volume">
+                        <Slider/>
+                    </GroupBox>
+                    <GroupBox Header="SFX Volume">
+                        <Slider/>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Miscellaneous">
+                <StackPanel>
+                    <CheckBox Content="Cheated flag"/>
+                    <CheckBox Content="Taxi boost"/>
+                    <CheckBox Content="Dildo Dodo flyers"/>
+                    <GroupBox Header="Map Target">
+                        <StackPanel>
+                            <CheckBox Content="Enabled"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="X: "/>
+                                <tk:SingleUpDown Width="75"/>
+                                <TextBlock Text="Y: " Margin="10,0,0,0"/>
+                                <tk:SingleUpDown Width="75"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</v:PageView>

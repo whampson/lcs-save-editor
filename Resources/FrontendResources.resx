@@ -452,4 +452,7 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Scripts_ThreadProperties_WakeTime" xml:space="preserve">
     <value>Wake Time:</value>
   </data>
+  <data name="Main_Page_General" xml:space="preserve">
+    <value>General</value>
+  </data>
 </root>

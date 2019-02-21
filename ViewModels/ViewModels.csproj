@@ -61,6 +61,7 @@
     <Compile Include="Events\LogViewModel.Events.cs" />
     <Compile Include="EventHandlers\ScriptsViewModel.EventHanders.cs" />
     <Compile Include="DataTypes\NamedScriptVariable.cs" />
+    <Compile Include="GeneralViewModel.cs" />
     <Compile Include="Interfaces\PageViewModel.cs" />
     <Compile Include="Interfaces\RecentFilesList.cs" />
     <Compile Include="Interfaces\RecentlyAccessedFile.cs" />

@@ -96,6 +96,7 @@ namespace LcsSaveEditor.ViewModels
         public void PopulateTabs()
         {
             m_tabs.Add(new StartViewModel(this));
+            m_tabs.Add(new GeneralViewModel(this));
             m_tabs.Add(new WeaponsViewModel(this));
             m_tabs.Add(new ScriptsViewModel(this));
 
@@ -279,7 +280,7 @@ namespace LcsSaveEditor.ViewModels
             OnDataLoaded(CurrentSaveData);
             OnTabRefresh(
                 TabRefreshTrigger.FileLoaded,
-                GetTabIndex(FrontendResources.Main_Page_Weapons));
+                GetTabIndex(FrontendResources.Main_Page_General));
 
             IsFileModified = false;
         }
