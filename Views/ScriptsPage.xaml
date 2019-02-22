@@ -29,14 +29,14 @@
             <Setter Property="Width" Value="100"/>
             <Setter Property="Margin" Value="2.5"/>
         </Style>
-        <Style TargetType="{x:Type tk:IntegerUpDown}" x:Key="TimerUpDownStyle">
-            <Setter Property="Margin" Value="5,2,1,2"/>
+        <Style TargetType="{x:Type tk:IntegerUpDown}" x:Key="IntegerUpDownStyle">
             <Setter Property="Minimum" Value="0"/>
             <Setter Property="Maximum" Value="{x:Static s:Int32.MaxValue}"/>
         </Style>
-        <Style TargetType="TextBlock" x:Key="TextLabelStyle">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+        <Style TargetType="{x:Type tk:IntegerUpDown}" x:Key="HexUpDownStyle">
+            <Setter Property="Minimum" Value="{x:Static s:Int32.MinValue}"/>
+            <Setter Property="Maximum" Value="{x:Static s:Int32.MaxValue}"/>
+            <Setter Property="FormatString" Value="X8"/>
         </Style>
         <Style TargetType="CheckBox" x:Key="FlagsCheckBoxStyle">
             <Setter Property="Margin" Value="2.5"/>
@@ -63,15 +63,15 @@
             <Setter Property="CanUserResizeRows" Value="False"/>
         </Style>
     </UserControl.Resources>
-
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="475"/>
         </Grid.ColumnDefinitions>
 
         <!-- Global Variables area -->
-        <GroupBox Grid.Column="0" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_GlobalVariables}">
+        <GroupBox Grid.Column="0"
+                    Header="{x:Static r:FrontendResources.Scripts_GroupHeader_GlobalVariables}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -176,12 +176,13 @@
         <GroupBox Grid.Column="2" Header="{x:Static r:FrontendResources.Scripts_GroupHeader_ActiveThreads}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Active threads list -->
-                <ListBox Grid.Column="0"
+                <ListBox
+                        Grid.Column="0"
                         ItemsSource="{Binding Path=ActiveThreads}"
                         SelectedItem="{Binding Path=ActiveThreadsSelectedItem}"
                         SelectedIndex="{Binding Path=ActiveThreadsSelectedIndex}">
@@ -193,49 +194,67 @@
                 </ListBox>
 
                 <DockPanel Grid.Column="1">
-                    <Grid DockPanel.Dock="Top" Height="275">
+                    <Grid DockPanel.Dock="Top" Height="285">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="50*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
                             <RowDefinition Height="45"/>
                             <RowDefinition Height="45"/>
                             <RowDefinition Height="45"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <!-- Name, ID, and Instruction Pointer -->
+                        <!-- Name, ID, Instruction Pointer, Next and Previous Script Pointers -->
                         <GroupBox
-                                Grid.Row="0" Grid.Column="0"
+                                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                 Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Name}"
                                 Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <TextBox
                                     Text="{Binding Path=ActiveThreadsSelectedItem.Name, UpdateSourceTrigger=PropertyChanged}"
-                                    MaxLength="7"/>
+                                    MaxLength="7"
+                                    VerticalAlignment="Center"
+                                    Height="22"/>
                         </GroupBox>
                         <GroupBox
-                                Grid.Row="1" Grid.Column="0"
+                                Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                 Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Id}"
                                 Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <tk:IntegerUpDown
                                     Value="{Binding Path=ActiveThreadsSelectedItem.ThreadId}"
-                                    Minimum="0"
-                                    Maximum="{x:Static s:Int32.MaxValue}"/>
+                                    Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
                         </GroupBox>
                         <GroupBox
-                                Grid.Row="2" Grid.Column="0"
+                                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                 Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_InstructionPointer}"
                                 Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <tk:IntegerUpDown
-                                    Value="{Binding Path=ActiveThreadsSelectedItem.InstructionPointer.Value}"
-                                    Minimum="0"
-                                    Maximum="{x:Static s:Int32.MaxValue}"/>
+                                Value="{Binding Path=ActiveThreadsSelectedItem.InstructionPointer}"
+                                Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="3" Grid.Column="0"
+                                Header="Previous"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <tk:IntegerUpDown
+                                Value="{Binding Path=ActiveThreadsSelectedItem.PreviousScriptPointer}"
+                                Style="{StaticResource ResourceKey=HexUpDownStyle}"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="3" Grid.Column="1"
+                                Header="Next"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
+                            <tk:IntegerUpDown
+                                Value="{Binding Path=ActiveThreadsSelectedItem.NextScriptPointer}"
+                                Style="{StaticResource ResourceKey=HexUpDownStyle}"/>
                         </GroupBox>
 
                         <!-- Flags -->
                         <GroupBox
-                                Grid.Row="3" Grid.Column="0" Grid.RowSpan="3"
+                                Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                                 Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Flags}"
                                 Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <StackPanel>
@@ -260,87 +279,61 @@
 
                         <!-- Timers -->
                         <GroupBox
-                                Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
-                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timers}"
-                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="45*"/>
-                                    <ColumnDefinition Width="55*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                
-                                <TextBlock
-                                        Grid.Row="0" Grid.Column="0"
-                                        Text="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer1}"
-                                        Style="{StaticResource ResourceKey=TextLabelStyle}"/>
-                                <tk:IntegerUpDown
-                                        Grid.Row="0" Grid.Column="1"
-                                        Value="{Binding Path=ActiveThreadsSelectedItem.Timer1}"
-                                        Style="{StaticResource ResourceKey=TimerUpDownStyle}"/>
-                                <TextBlock
-                                        Grid.Row="1" Grid.Column="0"
-                                        Text="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer2}"
-                                        Style="{StaticResource ResourceKey=TextLabelStyle}"/>
-                                <tk:IntegerUpDown
-                                        Grid.Row="1" Grid.Column="1"
-                                        Value="{Binding Path=ActiveThreadsSelectedItem.Timer2}"
-                                        Style="{StaticResource ResourceKey=TimerUpDownStyle}"/>
-                                <TextBlock
-                                        Grid.Row="2" Grid.Column="0"
-                                        Text="{x:Static r:FrontendResources.Scripts_ThreadProperties_WakeTime}"
-                                        Style="{StaticResource ResourceKey=TextLabelStyle}"/>
-                                <tk:IntegerUpDown
-                                        Grid.Row="2" Grid.Column="1"
-                                        Value="{Binding Path=ActiveThreadsSelectedItem.WakeTime}"
-                                        Style="{StaticResource ResourceKey=TimerUpDownStyle}"/>
-                            </Grid>
+                                Grid.Row="0" Grid.Column="2"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer1}">
+                            <tk:IntegerUpDown
+                                    Value="{Binding Path=ActiveThreadsSelectedItem.Timer1}"
+                                    Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="1" Grid.Column="2"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer2}">
+                            <tk:IntegerUpDown
+                                    Value="{Binding Path=ActiveThreadsSelectedItem.Timer2}"
+                                    Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="2" Grid.Column="2"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_WakeTime}">
+                            <tk:IntegerUpDown
+                                    Value="{Binding Path=ActiveThreadsSelectedItem.WakeTime}"
+                                    Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                        </GroupBox>
+                        <GroupBox
+                                Grid.Row="3" Grid.Column="2"
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStackTop}">
+                            <tk:IntegerUpDown
+                                    Value="{Binding Path=ActiveThreadsSelectedItem.ReturnStackTop}"
+                                    Minimum="0"
+                                    Maximum="15"/>
                         </GroupBox>
 
                         <!-- Return stack -->
                         <GroupBox
-                                Grid.Row="2" Grid.Column="1" Grid.RowSpan="4"
+                                Grid.Row="4" Grid.Column="2"
                                 Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStack}"
                                 Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="45"/>
-                                </Grid.RowDefinitions>
-                                
-                                <DataGrid
-                                        ItemsSource="{Binding Path=ActiveThreadsSelectedItem.ReturnStack}"
-                                        SelectedIndex="{Binding Path=ReturnStackSelectedIndex}"
-                                        Style="{StaticResource ResourceKey=DataGridStyle}"
-                                        HeadersVisibility="Row"
-                                        LoadingRow="ReturnStackDataGrid_LoadingRow">
+                            <DataGrid
+                                    ItemsSource="{Binding Path=ActiveThreadsSelectedItem.ReturnStack}"
+                                    SelectedIndex="{Binding Path=ReturnStackSelectedIndex}"
+                                    Style="{StaticResource ResourceKey=DataGridStyle}"
+                                    HeadersVisibility="Row"
+                                    LoadingRow="ReturnStackDataGrid_LoadingRow">
 
-                                    <DataGrid.RowHeaderTemplate>
-                                        <DataTemplate>
-                                            <TextBlock
-                                                    MinWidth="20"
-                                                    Text="{Binding Path=Header, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
-                                        </DataTemplate>
-                                    </DataGrid.RowHeaderTemplate>
+                                <DataGrid.RowHeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                                MinWidth="20"
+                                                Text="{Binding Path=Header, RelativeSource={RelativeSource AncestorType=DataGridRow}}"/>
+                                    </DataTemplate>
+                                </DataGrid.RowHeaderTemplate>
 
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn
-                                                Width="1*"
-                                                Binding="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-
-                                <GroupBox Grid.Row="1" Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStackTop}">
-                                    <tk:IntegerUpDown
-                                            Value="{Binding Path=ActiveThreadsSelectedItem.ReturnStackTop}"
-                                            Minimum="0"
-                                            Maximum="15"/>
-                                </GroupBox>
-                            </Grid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                            Width="1*"
+                                            Binding="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </GroupBox>
                     </Grid>
 
