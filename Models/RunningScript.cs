@@ -42,7 +42,7 @@ namespace LcsSaveEditor.Models
         protected uint m_prevScript;
         protected uint m_threadId;
         protected string m_name;
-        protected ScriptAddress m_instructionPointer;
+        protected uint m_instructionPointer;
         protected FullyObservableCollection<ScriptAddress> m_returnStack;
         protected ushort m_returnStackTop;
         protected FullyObservableCollection<ScriptVariable> m_localVariables;
@@ -93,7 +93,7 @@ namespace LcsSaveEditor.Models
             set { m_name = value; OnPropertyChanged(); }
         }
 
-        public ScriptAddress InstructionPointer
+        public uint InstructionPointer
         {
             get { return m_instructionPointer; }
             set { m_instructionPointer = value; OnPropertyChanged(); }
