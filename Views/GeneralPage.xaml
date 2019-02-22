@@ -38,127 +38,213 @@ SOFTWARE.
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="Margin" Value="5,0,0,0"/>
         </Style>
+        <Style TargetType="CheckBox" x:Key="CheckBoxStyle">
+            <!--<Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>-->
+            <Setter Property="Margin" Value="5,3,0,3"/>
+        </Style>
+        <Style TargetType="Slider" x:Key="SliderStyle">
+            <Setter Property="AutoToolTipPlacement" Value="TopLeft"/>
+            <Setter Property="AutoToolTipPrecision" Value="0"/>
+        </Style>
+        <Style TargetType="tk:IntegerUpDown" x:Key="IntegerUpDownStyle">
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="{x:Static s:Int32.MaxValue}"/>
+            <Setter Property="ClipValueToMinMax" Value="True"/>
+        </Style>
     </UserControl.Resources>
 
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="115"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.Column="0" Header="File Information">
-            <StackPanel>
-                <GroupBox Header="Last Mission Passed Name">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition Width="75"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBox Grid.Column="0"/>
-                        <Button Grid.Column="1" Content="Select..." Style="{StaticResource ResourceKey=ButtonStyle}"/>
-                    </Grid>
-                </GroupBox>
-
-                <GroupBox Header="Modification Time">
-                    <DatePicker/>
-                </GroupBox>
-            </StackPanel>
-        </GroupBox>
-
-        <GroupBox Grid.Row="1" Grid.Column="0" Header="Game Time">
-            <StackPanel>
-                <GroupBox Header="Current Time">
-                    <tk:DateTimeUpDown Format="Custom" FormatString="HH:mm"/>
-                </GroupBox>
-                <GroupBox Header="Minute Duration (millis)">
-                    <tk:IntegerUpDown/>
-                </GroupBox>
-                <GroupBox Header="Total Playing Time (millis)">
-                    <tk:IntegerUpDown Minimum="0" Maximum="{x:Static s:Int32.MaxValue}" ClipValueToMinMax="True"/>
-                </GroupBox>
-                <GroupBox Header="Last Clock Tick">
-                    <tk:IntegerUpDown Minimum="0" Maximum="{x:Static s:Int32.MaxValue}" ClipValueToMinMax="True"/>
-                </GroupBox>
-            </StackPanel>
-        </GroupBox>
-
-        <GroupBox Grid.Row="0" Grid.Column="1" Header="Controls">
-            <StackPanel>
-                <CheckBox Content="Invert look"/>
-                <CheckBox Content="Vibration"/>
-                <CheckBox Content="Swap D-pad and stick"/>
-                <GroupBox Header="Controls Set">
-                    <ComboBox/>
-                </GroupBox>
-                <GroupBox Header="On-Foot Camera">
-                    <ComboBox/>
-                </GroupBox>
-                <GroupBox Header="In-Vehicle Camera">
-                    <ComboBox/>
-                </GroupBox>
-            </StackPanel>
-        </GroupBox>
-
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Weather">
-            <ListBox/>
-        </GroupBox>
-
-        <GroupBox Grid.Row="0" Grid.Column="2" Header="Display">
-            <StackPanel>
-                <CheckBox Content="Show HUD"/>
-                <CheckBox Content="Show subtitles"/>
-                <CheckBox Content="Widescreen"/>
-                <CheckBox Content="Enhanced colors"/>
-                <GroupBox Header="Language">
-                    <ComboBox/>
-                </GroupBox>
-                <GroupBox Header="Radar Mode">
-                    <ComboBox/>
-                </GroupBox>
-                <GroupBox Header="Brightness">
-                    <StackPanel>
-                        <Slider/>
-                        <CheckBox Content="Extra vlaues"/>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
-        </GroupBox>
-
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <GroupBox Header="Audio">
+            <GroupBox
+                Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                Header="File Information">
                 <StackPanel>
-                    <GroupBox Header="Radio Volume">
-                        <Slider/>
+                    <GroupBox Header="Last Mission Passed Name">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="75"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                Grid.Column="0"/>
+                            <Button
+                                Grid.Column="1"
+                                Content="Select..."
+                                Style="{StaticResource ResourceKey=ButtonStyle}"/>
+                        </Grid>
                     </GroupBox>
-                    <GroupBox Header="SFX Volume">
-                        <Slider/>
+                    <GroupBox Header="Modification Time">
+                        <tk:DateTimeUpDown
+                            Format="Custom"
+                            FormatString="dd MMMM yyyy HH:mm:ss"/>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Miscellaneous">
+
+            <GroupBox
+                Grid.Column="0" Grid.Row="2" Grid.RowSpan="2"
+                Header="Miscellaneous">
                 <StackPanel>
-                    <CheckBox Content="Cheated flag"/>
-                    <CheckBox Content="Taxi boost"/>
-                    <CheckBox Content="Dildo Dodo flyers"/>
+                    <CheckBox
+                        Content="Cheated flag"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Taxi boost"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Dildo Dodo flyers"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
                     <GroupBox Header="Map Target">
                         <StackPanel>
-                            <CheckBox Content="Enabled"/>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="X: "/>
-                                <tk:SingleUpDown Width="75"/>
-                                <TextBlock Text="Y: " Margin="10,0,0,0"/>
-                                <tk:SingleUpDown Width="75"/>
-                            </StackPanel>
+                            <CheckBox
+                                Content="Show map target"
+                                Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Text="X:"
+                                    Margin="5,0,5,0"
+                                    VerticalAlignment="Center"/>
+                                <tk:SingleUpDown
+                                    Grid.Column="1"/>
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="Y:"
+                                    Margin="5,0,5,0"
+                                    VerticalAlignment="Center"/>
+                                <tk:SingleUpDown
+                                    Grid.Column="3"/>
+                            </Grid>
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
-        </StackPanel>
-    </Grid>
+
+            <GroupBox
+                Grid.Column="0" Grid.Row="4" Grid.RowSpan="2"
+                Header="Game Time">
+                <StackPanel>
+                    <GroupBox Header="Current Time">
+                        <tk:DateTimeUpDown
+                            Format="Custom"
+                            FormatString="HH:mm"/>
+                    </GroupBox>
+                    <GroupBox Header="Minute Duration (millis)">
+                        <tk:IntegerUpDown
+                            Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                    </GroupBox>
+                    <GroupBox Header="Total Playing Time (millis)">
+                        <tk:IntegerUpDown
+                            Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                    </GroupBox>
+                    <GroupBox Header="Last Clock Tick">
+                        <tk:IntegerUpDown
+                            Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
+                Header="Controls">
+                <StackPanel>
+                    <CheckBox   
+                        Content="Invert look"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Vibration"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Swap D-pad and stick"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <GroupBox Header="Controls Set">
+                        <ComboBox/>
+                    </GroupBox>
+                    <GroupBox Header="On-Foot Camera">
+                        <ComboBox/>
+                    </GroupBox>
+                    <GroupBox Header="In-Vehicle Camera">
+                        <ComboBox/>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                Grid.Column="1" Grid.Row="3" Grid.RowSpan="3"
+                Header="Display" Canvas.Left="260">
+                <StackPanel>
+                    <CheckBox
+                        Content="Show HUD"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Show subtitles"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Widescreen"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <CheckBox
+                        Content="Enhanced colors"
+                        Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                    <GroupBox Header="Language">
+                        <ComboBox/>
+                    </GroupBox>
+                    <GroupBox Header="Radar Mode">
+                        <ComboBox/>
+                    </GroupBox>
+                    <GroupBox Header="Brightness">
+                        <StackPanel>
+                            <Slider
+                                Style="{StaticResource ResourceKey=SliderStyle}"/>
+                            <CheckBox
+                                Content="Extra values"
+                                Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"
+                Header="Audio">
+                <StackPanel>
+                    <GroupBox Header="Radio Volume">
+                        <Slider
+                            Style="{StaticResource ResourceKey=SliderStyle}"/>
+                    </GroupBox>
+                    <GroupBox Header="SFX Volume">
+                        <Slider
+                            Style="{StaticResource ResourceKey=SliderStyle}"/>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox
+                Grid.Column="2" Grid.Row="2" Grid.RowSpan="4"
+                Header="Weather">
+                <ListBox/>
+            </GroupBox>
+
+        </Grid>
+    </ScrollViewer>
 </v:PageView>
