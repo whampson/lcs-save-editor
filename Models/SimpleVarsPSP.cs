@@ -79,7 +79,7 @@ namespace LcsSaveEditor.Models
                 _m_timeStep = r.ReadSingle();
                 _m_timeStepNonClipped = r.ReadSingle();
                 _m_framesPerUpdate = r.ReadSingle();
-                _m_frameCounter = r.ReadUInt32();
+                m_frameCounter = r.ReadUInt32();
                 m_prevWeatherType = (Weather) r.ReadInt16();
                 m_currWeatherType = (Weather) r.ReadInt16();
                 m_forcedWeatherType = (Weather) r.ReadInt16();
@@ -117,7 +117,7 @@ namespace LcsSaveEditor.Models
                 m_unknownA4 = r.ReadUInt32();
                 m_unknownA8 = r.ReadUInt32();
                 m_prefsControllerConfig = r.ReadUInt16();
-                m_prefsInvertLook = r.ReadBoolean();
+                m_prefsDisableInvertLook = r.ReadBoolean();
                 m_prefsSwapNippleAndDPad = r.ReadBoolean();
                 m_hasPlayerCheated = r.ReadBoolean();
                 m_allTaxisHaveNitro = r.ReadBoolean();
@@ -150,7 +150,7 @@ namespace LcsSaveEditor.Models
                 w.Write(_m_timeStep);
                 w.Write(_m_timeStepNonClipped);
                 w.Write(_m_framesPerUpdate);
-                w.Write(_m_frameCounter);
+                w.Write(m_frameCounter);
                 w.Write((short) m_prevWeatherType);
                 w.Write((short) m_currWeatherType);
                 w.Write((short) m_forcedWeatherType);
@@ -188,7 +188,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknownA4);
                 w.Write(m_unknownA8);
                 w.Write(m_prefsControllerConfig);
-                w.Write(m_prefsInvertLook);
+                w.Write(m_prefsDisableInvertLook);
                 w.Write(m_prefsSwapNippleAndDPad);
                 w.Write(m_hasPlayerCheated);
                 w.Write(m_allTaxisHaveNitro);

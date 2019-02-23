@@ -47,7 +47,7 @@ namespace LcsSaveEditor.Models
         protected float _m_timeStep;
         protected float _m_timeStepNonClipped;
         protected float _m_framesPerUpdate;
-        protected uint _m_frameCounter;
+        protected uint m_frameCounter;
         protected Weather m_prevWeatherType;
         protected Weather m_currWeatherType;
         protected Weather m_forcedWeatherType;
@@ -124,6 +124,12 @@ namespace LcsSaveEditor.Models
             set { m_totalTimePlayedInMilliseconds = value; OnPropertyChanged(); }
         }
 
+        public uint FrameCounter
+        {
+            get { return m_frameCounter; }
+            set { m_frameCounter = value; OnPropertyChanged(); }
+        }
+
         public Weather PreviousWeather
         {
             get { return m_prevWeatherType; }
@@ -197,10 +203,10 @@ namespace LcsSaveEditor.Models
             set { m_prefsRadarMode = value; OnPropertyChanged(); }
         }
 
-        public bool UseVibrantColors
+        public bool EnhancedColors
         {
-            get { return m_blurOn; }
-            set { m_blurOn = value; OnPropertyChanged(); }
+            get { return !m_blurOn; }
+            set { m_blurOn = !value; OnPropertyChanged(); }
         }
 
         public bool WidescreenEnabled
