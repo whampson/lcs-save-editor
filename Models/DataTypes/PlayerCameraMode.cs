@@ -33,8 +33,8 @@ namespace LcsSaveEditor.Models.DataTypes
         [Description("Near")]
         Near = 1,
 
-        [Description("Default")]
-        Default,
+        [Description("Middle")]
+        Middle,
 
         [Description("Far")]
         Far
