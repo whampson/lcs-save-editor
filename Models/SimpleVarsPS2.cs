@@ -80,8 +80,8 @@ namespace LcsSaveEditor.Models
                 m_prefsLanguage = (Language) r.ReadUInt32();
                 m_millisecondsPerGameMinute = r.ReadUInt32();
                 m_lastClockTick = r.ReadUInt32();
-                m_gameClockHours = r.ReadByte();
-                m_gameClockMinutes = r.ReadByte();
+                m_gameTimeHours = r.ReadByte();
+                m_gameTimeMinutes = r.ReadByte();
                 _m_gameClockSeconds = r.ReadUInt16();
                 m_totalTimePlayedInMilliseconds = r.ReadUInt32();
                 _m_timeScale = r.ReadSingle();
@@ -160,8 +160,8 @@ namespace LcsSaveEditor.Models
                 w.Write((uint) m_prefsLanguage);
                 w.Write(m_millisecondsPerGameMinute);
                 w.Write(m_lastClockTick);
-                w.Write(m_gameClockHours);
-                w.Write(m_gameClockMinutes);
+                w.Write(m_gameTimeHours);
+                w.Write(m_gameTimeMinutes);
                 w.Write(_m_gameClockSeconds);
                 w.Write(m_totalTimePlayedInMilliseconds);
                 w.Write(_m_timeScale);

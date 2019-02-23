@@ -21,6 +21,7 @@
  */
 #endregion
 
+using System;
 using System.ComponentModel;
 using LcsSaveEditor.Core;
 using LcsSaveEditor.Models.DataTypes;
@@ -39,8 +40,8 @@ namespace LcsSaveEditor.Models
         protected Language m_prefsLanguage;
         protected uint m_millisecondsPerGameMinute;
         protected uint m_lastClockTick;
-        protected byte m_gameClockHours;
-        protected byte m_gameClockMinutes;
+        protected byte m_gameTimeHours;
+        protected byte m_gameTimeMinutes;
         protected ushort _m_gameClockSeconds;
         protected uint m_totalTimePlayedInMilliseconds;
         protected float _m_timeScale;
@@ -106,16 +107,16 @@ namespace LcsSaveEditor.Models
             set { m_lastClockTick = value; OnPropertyChanged(); }
         }
 
-        public byte GameClockHours
+        public byte GameTimeHours
         {
-            get { return m_gameClockHours; }
-            set { m_gameClockHours = value; OnPropertyChanged(); }
+            get { return m_gameTimeHours; }
+            set { m_gameTimeHours = value; OnPropertyChanged(); }
         }
 
-        public byte GameClockMinutes
+        public byte GameTimeMinutes
         {
-            get { return m_gameClockMinutes; }
-            set { m_gameClockMinutes = value; OnPropertyChanged(); }
+            get { return m_gameTimeMinutes; }
+            set { m_gameTimeMinutes = value; OnPropertyChanged(); }
         }
 
         public uint TotalTimePlayedInMilliseconds
