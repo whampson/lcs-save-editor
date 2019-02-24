@@ -116,7 +116,9 @@ namespace LcsSaveEditor.Models
                 m_unknownA0 = r.ReadUInt32();
                 m_unknownA4 = r.ReadUInt32();
                 m_unknownA8 = r.ReadUInt32();
-                m_prefsControllerConfig = r.ReadUInt16();
+                ushort ctrl = r.ReadUInt16();
+                // Yeah, this is goofy on PSP: values 0 and 1 are setup2, values 2 and 3 are setup1
+                m_prefsControllerConfig = ((ctrl / 2) == 0) ? ControllerConfig.Setup2 : ControllerConfig.Setup1;
                 m_prefsDisableInvertLook = r.ReadBoolean();
                 m_prefsSwapNippleAndDPad = r.ReadBoolean();
                 m_hasPlayerCheated = r.ReadBoolean();
@@ -187,7 +189,13 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknownA0);
                 w.Write(m_unknownA4);
                 w.Write(m_unknownA8);
-                w.Write(m_prefsControllerConfig);
+                // Again... goofy. See the comment in DeserializeObject() for an explanation.
+                if (m_prefsControllerConfig == ControllerConfig.Setup2) {
+                    w.Write((ushort) 0);
+                }
+                else {
+                    w.Write((ushort) 2);
+                }
                 w.Write(m_prefsDisableInvertLook);
                 w.Write(m_prefsSwapNippleAndDPad);
                 w.Write(m_hasPlayerCheated);

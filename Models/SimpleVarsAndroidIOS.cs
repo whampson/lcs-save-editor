@@ -135,7 +135,7 @@ namespace LcsSaveEditor.Models
                 m_unknown120 = r.ReadUInt32();
                 m_unknown124 = r.ReadUInt32();
                 m_unknown128 = r.ReadSingle();
-                m_prefsControllerConfig = r.ReadUInt16();
+                m_prefsControllerConfig = (ControllerConfig) r.ReadUInt16();
                 m_prefsInvertLook = r.ReadBoolean();
                 m_prefsSwapNippleAndDPad = r.ReadBoolean();
                 m_hasPlayerCheated = r.ReadBoolean();
@@ -214,7 +214,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknown120);
                 w.Write(m_unknown124);
                 w.Write(m_unknown128);
-                w.Write(m_prefsControllerConfig);
+                w.Write((ushort) m_prefsControllerConfig);
                 w.Write(m_prefsInvertLook);
                 w.Write(m_prefsSwapNippleAndDPad);
                 w.Write(m_hasPlayerCheated);

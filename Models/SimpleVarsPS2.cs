@@ -129,7 +129,7 @@ namespace LcsSaveEditor.Models
                 m_unknownB0 = r.ReadUInt32();
                 m_unknownB4 = r.ReadUInt32();
                 m_unknownB8 = r.ReadSingle();
-                m_prefsControllerConfig = r.ReadUInt16();
+                m_prefsControllerConfig = (ControllerConfig) r.ReadUInt16();
                 m_unknownBE = r.ReadUInt16();
                 m_prefsDisableInvertLook = r.ReadBoolean32();
                 m_prefsUseVibration = r.ReadBoolean();
@@ -209,7 +209,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_unknownB0);
                 w.Write(m_unknownB4);
                 w.Write(m_unknownB8);
-                w.Write(m_prefsControllerConfig);
+                w.Write((ushort) m_prefsControllerConfig);
                 w.Write(m_unknownBE);
                 w.WriteBoolean32(m_prefsDisableInvertLook);
                 w.Write(m_prefsUseVibration);

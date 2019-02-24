@@ -21,7 +21,6 @@
  */
 #endregion
 
-using System;
 using System.ComponentModel;
 using LcsSaveEditor.Core;
 using LcsSaveEditor.Models.DataTypes;
@@ -67,7 +66,7 @@ namespace LcsSaveEditor.Models
         protected uint m_prefsSfxVolume;
         protected RadioStation _m_prefsRadioStation;
         protected byte _m_prefsOutput;
-        protected ushort m_prefsControllerConfig;
+        protected ControllerConfig m_prefsControllerConfig;
         protected bool m_prefsDisableInvertLook;
         protected bool m_prefsInvertLook;
         protected bool m_prefsUseVibration;
@@ -228,7 +227,7 @@ namespace LcsSaveEditor.Models
             set { m_prefsSfxVolume = value; OnPropertyChanged(); }
         }
 
-        public ushort ControllerConfiguration
+        public ControllerConfig ControllerConfiguration
         {
             get { return m_prefsControllerConfig; }
             set { m_prefsControllerConfig = value; OnPropertyChanged(); }
