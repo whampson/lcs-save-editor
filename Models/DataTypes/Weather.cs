@@ -51,7 +51,7 @@ namespace LcsSaveEditor.Models.DataTypes
         [Description("Extra Colors")]
         ExtraColors,
 
-        [Description("Snow")]
-        Snow
+        [Description("Snowy")]
+        Snowy
     }
 }
