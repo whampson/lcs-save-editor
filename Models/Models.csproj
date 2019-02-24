@@ -46,6 +46,7 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BanditRaceStat.cs" />
+    <Compile Include="DataTypes\ControllerConfig.cs" />
     <Compile Include="DataTypes\Costumes.cs" />
     <Compile Include="DataTypes\ExportCars.cs" />
     <Compile Include="DataTypes\GarageState.cs" />
