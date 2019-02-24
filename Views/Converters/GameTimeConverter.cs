@@ -45,7 +45,7 @@ namespace LcsSaveEditor.Views.Converters
             byte? h = (byte?) time?.Hour;
             byte? m = (byte?) time?.Minute;
 
-            return new object[] { (h != null) ? h : 0, (m != null) ? m : 0 };
+            return new object[] { h ?? 0, m ?? 0 };
         }
     }
 }
