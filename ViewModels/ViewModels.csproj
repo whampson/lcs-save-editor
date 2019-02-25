@@ -47,6 +47,7 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\GeneralViewModel.Commands.cs" />
     <Compile Include="Commands\LogViewModel.Commands.cs" />
     <Compile Include="Commands\MainViewModel.Commands.cs" />
     <Compile Include="Commands\ScriptsViewModel.Commands.cs" />
@@ -57,7 +58,9 @@
     <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
     <Compile Include="EventArgs\SaveDataEventArgs.cs" />
     <Compile Include="EventArgs\TabRefreshEventArgs.cs" />
+    <Compile Include="EventHandlers\GeneralViewModel.EventHandlers.cs" />
     <Compile Include="EventHandlers\LogViewModel.EventHandlers.cs" />
+    <Compile Include="Events\GeneralViewModel.Events.cs" />
     <Compile Include="Events\LogViewModel.Events.cs" />
     <Compile Include="EventHandlers\ScriptsViewModel.EventHanders.cs" />
     <Compile Include="DataTypes\NamedScriptVariable.cs" />

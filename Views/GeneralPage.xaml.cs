@@ -21,6 +21,12 @@
  */
 #endregion
 
+using LcsSaveEditor.ViewModels;
+using System;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+
 namespace LcsSaveEditor.Views
 {
     /// <summary>
@@ -32,6 +38,40 @@ namespace LcsSaveEditor.Views
             : base()
         {
             InitializeComponent();
+        }
+
+        public GeneralViewModel ViewModel
+        {
+            get { return (GeneralViewModel) DataContext; }
+            set { DataContext = value; }
+        }
+
+        private void ViewModel_ShowSelectedWeatherItem(object sender, EventArgs e)
+        {
+            /*
+             * Scrolls the ListBox to the selected item.
+             * Can't use ScrollIntoView() because items in the ListBox are not unique.
+             * Adapted from https://stackoverflow.com/a/211984.
+             */
+
+            // TODO: BUG - this event doesn't get fired the first time a file ia loaded.
+
+            int idx = m_weatherListBox.SelectedIndex;
+            if (idx == -1) {
+                return;
+            }
+
+            VirtualizingStackPanel vsp = (VirtualizingStackPanel) typeof(ItemsControl)
+                .InvokeMember("_itemsHost", BindingFlags.Instance | BindingFlags.GetField | BindingFlags.NonPublic, null, m_weatherListBox, null);
+
+            double scrollHeight = vsp.ScrollOwner.ScrollableHeight;
+            double offset = scrollHeight * idx / m_weatherListBox.Items.Count;
+            vsp.SetVerticalOffset(offset);
+        }
+
+        private void PageView_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ShowSelectedWeatherItem += ViewModel_ShowSelectedWeatherItem;
         }
     }
 }
