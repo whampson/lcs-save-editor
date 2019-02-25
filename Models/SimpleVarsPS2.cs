@@ -89,10 +89,9 @@ namespace LcsSaveEditor.Models
                 _m_timeStepNonClipped = r.ReadSingle();
                 _m_framesPerUpdate = r.ReadSingle();
                 m_frameCounter = r.ReadUInt32();
-                m_prevWeatherType = (Weather) r.ReadInt16();
-                m_currWeatherType = (Weather) r.ReadInt16();
-                short forced = r.ReadInt16();
-                m_forcedWeatherType = (forced != -1) ? (Weather?) forced : null;
+                m_prevWeatherType = (DataTypes.Weather) r.ReadInt16();
+                m_currWeatherType = (DataTypes.Weather) r.ReadInt16();
+                m_forcedWeatherType = (DataTypes.Weather) r.ReadInt16();
                 m_unknown3E = r.ReadUInt16();
                 m_weatherTypeInList = r.ReadUInt32();
                 _m_interpolationValue = r.ReadSingle();
@@ -172,7 +171,7 @@ namespace LcsSaveEditor.Models
                 w.Write(m_frameCounter);
                 w.Write((short) m_prevWeatherType);
                 w.Write((short) m_currWeatherType);
-                w.Write((short?) m_forcedWeatherType ?? -1);
+                w.Write((short) m_forcedWeatherType);
                 w.Write(m_unknown3E);
                 w.Write(m_weatherTypeInList);
                 w.Write(_m_interpolationValue);

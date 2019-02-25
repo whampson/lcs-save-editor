@@ -50,7 +50,7 @@ namespace LcsSaveEditor.Models
         protected uint m_frameCounter;
         protected Weather m_prevWeatherType;
         protected Weather m_currWeatherType;
-        protected Weather? m_forcedWeatherType;
+        protected Weather m_forcedWeatherType;
         protected uint m_weatherTypeInList;
         protected float _m_interpolationValue;
         protected Vector3d m_cameraPosition;
@@ -144,8 +144,31 @@ namespace LcsSaveEditor.Models
 
         public Weather? ForcedWeather
         {
-            get { return m_forcedWeatherType; }
-            set { m_forcedWeatherType = value; OnPropertyChanged(); }
+            get {
+                if ((int) m_forcedWeatherType == -1) {
+                    return null;
+                }
+
+                return (Weather?) m_forcedWeatherType;
+            }
+            set {
+                m_forcedWeatherType = value ?? (Weather) (-1);
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ForcedWeatherEnabled
+        {
+            get { return ForcedWeather != null; }
+            set {
+                if (value && ForcedWeather == null) {
+                    ForcedWeather = Weather.Sunny;
+                }
+                else if (!value) {
+                    ForcedWeather = null;
+                }
+                OnPropertyChanged();
+            }
         }
 
         public uint WeatherIndex
