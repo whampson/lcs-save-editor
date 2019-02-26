@@ -280,28 +280,32 @@
                         <!-- Timers -->
                         <GroupBox
                                 Grid.Row="0" Grid.Column="2"
-                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer1}">
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer1}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <tk:IntegerUpDown
                                     Value="{Binding Path=ActiveThreadsSelectedItem.Timer1}"
                                     Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
                         </GroupBox>
                         <GroupBox
                                 Grid.Row="1" Grid.Column="2"
-                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer2}">
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_Timer2}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <tk:IntegerUpDown
                                     Value="{Binding Path=ActiveThreadsSelectedItem.Timer2}"
                                     Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
                         </GroupBox>
                         <GroupBox
                                 Grid.Row="2" Grid.Column="2"
-                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_WakeTime}">
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_WakeTime}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <tk:IntegerUpDown
                                     Value="{Binding Path=ActiveThreadsSelectedItem.WakeTime}"
                                     Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
                         </GroupBox>
                         <GroupBox
                                 Grid.Row="3" Grid.Column="2"
-                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStackTop}">
+                                Header="{x:Static r:FrontendResources.Scripts_ThreadProperties_ReturnStackTop}"
+                                Style="{StaticResource ResourceKey=ThreadPropertiesGroupBoxStyle}">
                             <tk:IntegerUpDown
                                     Value="{Binding Path=ActiveThreadsSelectedItem.ReturnStackTop}"
                                     Minimum="0"
