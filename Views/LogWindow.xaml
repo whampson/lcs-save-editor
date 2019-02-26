@@ -35,6 +35,7 @@ SOFTWARE.
         Title="{x:Static r:FrontendResources.Log_Window_Title}"
         Height="300" Width="450"
         WindowStartupLocation="CenterOwner"
+        Loaded="Window_Loaded"
         Closing="Window_Closing">
 
     <Window.DataContext>
@@ -60,6 +61,7 @@ SOFTWARE.
         </Grid.RowDefinitions>
 
         <ScrollViewer
+                Name="m_scrollViewer"
                 VerticalScrollBarVisibility="Auto"
                 HorizontalScrollBarVisibility="Auto">
             <ItemsControl

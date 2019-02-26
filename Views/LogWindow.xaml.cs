@@ -56,6 +56,11 @@ namespace LcsSaveEditor.Views
             e.ShowDialog(this);
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            m_scrollViewer.ScrollToEnd();
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             // Hide instead of close so we can open it again later
