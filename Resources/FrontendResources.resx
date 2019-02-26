@@ -455,4 +455,8 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Main_Page_General" xml:space="preserve">
     <value>General</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GameData_PS2_Gxt_English" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\GameData\PS2\ENGLISH.GXT;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -205,6 +205,16 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] GameData_PS2_Gxt_English {
+            get {
+                object obj = ResourceManager.GetObject("GameData_PS2_Gxt_English", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Log.
         /// </summary>
         public static string Log_DialogTitle_Save {
