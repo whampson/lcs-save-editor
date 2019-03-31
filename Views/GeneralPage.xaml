@@ -30,6 +30,7 @@ SOFTWARE.
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         xmlns:v="clr-namespace:LcsSaveEditor.Views"
         xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:ctrl="clr-namespace:LcsSaveEditor.Core.Controls;assembly=LcsSaveEditor.Core"
         mc:Ignorable="d"
         d:DesignHeight="500" d:DesignWidth="750"
         Loaded="PageView_Loaded">
@@ -38,6 +39,7 @@ SOFTWARE.
         <c:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
         <c:GameTimeConverter x:Key="GameTimeConverter"/>
         <c:MillisecondsToTimeSpanConverter x:Key="MillisecondsToTimeSpanConverter"/>
+        <c:GxtConverter x:Key="GxtConverter"/>
 
         <DataTemplate DataType="{x:Type ComboBox}" x:Key="ComboBoxListDataTemplate">
             <TextBlock Text="{Binding Converter={StaticResource ResourceKey=EnumDescriptionConverter}}"/>
@@ -90,17 +92,20 @@ SOFTWARE.
                     <GroupBox Header="Last Mission Passed Name">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="75"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox
+                            <ctrl:NonStretchingTextBox
                                     Grid.Column="0"
-                                    IsEnabled="False"
-                                    Height="22">
-                            </TextBox>
+                                    IsReadOnly="True"
+                                    VerticalAlignment="Center"
+                                    Height="22"
+                                    Padding="1"
+                                    Text="{Binding Path=Stats.LastMissionPassedName, Converter={StaticResource ResourceKey=GxtConverter}}"/>
                             <Button
                                     Grid.Column="1"
                                     Content="Select..."
+                                    Command="{Binding Path=SelectGxtKeyCommand}"
                                     Style="{StaticResource ResourceKey=ButtonStyle}"/>
                         </Grid>
                     </GroupBox>
