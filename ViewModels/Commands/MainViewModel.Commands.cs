@@ -198,6 +198,11 @@ namespace LcsSaveEditor.ViewModels
                 resultAction: resultAction));
         }
 
+        public void ShowGxtSelectionDialog(Action<bool?, GxtSelectionEventArgs> resultAction)
+        {
+            OnGxtSelectionDialogRequested(new GxtSelectionEventArgs(resultAction));
+        }
+
         /// <summary>
         /// Opens the log window.
         /// </summary>

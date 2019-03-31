@@ -21,16 +21,29 @@
  */
 #endregion
 
+using LcsSaveEditor.Core;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Models.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace LcsSaveEditor.ViewModels
 {
     public partial class GeneralViewModel : PageViewModel
     {
+        public ICommand SelectGxtKeyCommand
+        {
+            get { return new RelayCommand(SelectGxtKey); }
+        }
+
+        private void SelectGxtKey()
+        {
+            MainViewModel.ShowGxtSelectionDialog(GxtSelectionDialog_ResultAction);
+        }
+
         private void InitLists()
         {
             m_controlsList = new ListCollectionView(new List<ControllerConfig>()
