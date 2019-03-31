@@ -22,6 +22,8 @@
 #endregion
 
 using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Controls;
+using LcsSaveEditor.Core.Helpers;
 using LcsSaveEditor.Resources;
 using LcsSaveEditor.Views;
 using System;
@@ -71,6 +73,15 @@ namespace LcsSaveEditor.StartUp
             }
         }
 
+        private void LoadGxt()
+        {
+            Logger.Info("Loading GXT...");
+
+            using (MemoryStream ms = new MemoryStream(FrontendResources.GameData_PS2_Gxt_English)) {
+                GxtHelper.CurrentMainTable = GxtHelper.ReadMainTable(ms);
+            }
+        }
+
         private void LoadUI()
         {
             Logger.Info(CommonResources.Info_LoadingUI);
@@ -98,6 +109,7 @@ namespace LcsSaveEditor.StartUp
             Logger.Info("==========={0}===========", new string('=', FrontendResources.App_Title.Length));
 
             LoadSettings();
+            LoadGxt();
             LoadUI();
         }
 
