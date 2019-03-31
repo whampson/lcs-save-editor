@@ -73,12 +73,16 @@
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
     <Compile Include="Converters\GameTimeConverter.cs" />
+    <Compile Include="Converters\GxtConverter.cs" />
     <Compile Include="Converters\MillisecondsToTimeSpanConverter.cs" />
     <Compile Include="Converters\ScriptVariableDataTypeConverter.cs" />
     <Compile Include="Converters\StringToUriConverter.cs" />
     <Compile Include="Converters\Vector3dToStringConverter.cs" />
     <Compile Include="GeneralPage.xaml.cs">
       <DependentUpon>GeneralPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GxtSelectionWindow.xaml.cs">
+      <DependentUpon>GxtSelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\PageView.cs" />
     <Compile Include="LogWindow.xaml.cs">
@@ -94,6 +98,10 @@
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
     <Page Include="GeneralPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GxtSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
