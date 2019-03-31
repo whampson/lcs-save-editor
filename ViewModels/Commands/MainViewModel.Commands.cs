@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Helpers;
 using LcsSaveEditor.Models;
 using LcsSaveEditor.Resources;
 using System;
@@ -103,6 +104,21 @@ namespace LcsSaveEditor.ViewModels
             OnTabRefresh(
                 TabRefreshTrigger.WindowLoaded,
                 GetTabIndex(FrontendResources.Main_Page_Start));
+        }
+
+        private void UpdateWindowTitle()
+        {
+            if (IsFileOpen) {
+                WindowTitle = string.Format("{0} {1} - [{2}]",
+                    FrontendResources.Main_Window_Title,
+                    VersionHelper.GetAppVersionString(),
+                    MostRecentFilePath);
+            }
+            else {
+                WindowTitle = string.Format("{0} {1}",
+                    FrontendResources.Main_Window_Title,
+                    VersionHelper.GetAppVersionString());
+            }
         }
 
         private int GetTabIndex(string tabName)
@@ -274,7 +290,6 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
             StatusText = FrontendResources.Main_StatusText_LoadSuccess;
-            WindowTitle = string.Format("{0} - [{1}]", FrontendResources.Main_Window_Title, path);
 
             CurrentSaveData = data;
             CurrentSaveData.PropertyChanged += CurrentSaveData_PropertyChanged;
@@ -288,6 +303,7 @@ namespace LcsSaveEditor.ViewModels
                 GetTabIndex(FrontendResources.Main_Page_General));
 
             IsFileModified = false;
+            UpdateWindowTitle();
         }
 
         /// <summary>
@@ -301,12 +317,12 @@ namespace LcsSaveEditor.ViewModels
                 return;
             }
             StatusText = FrontendResources.Main_StatusText_SaveSuccess;
-            WindowTitle = string.Format("{0} - [{1}]", FrontendResources.Main_Window_Title, path);
 
             MostRecentFilePath = path;
             AddRecentFile(path);
 
             IsFileModified = false;
+            UpdateWindowTitle();
         }
 
         /// <summary>
@@ -338,7 +354,7 @@ namespace LcsSaveEditor.ViewModels
             // Re-open the file
             if (!LoadSaveData(MostRecentFilePath, out SaveData data)) {
                 StatusText = FrontendResources.Main_StatusText_ReloadFail;
-                WindowTitle = FrontendResources.Main_Window_Title;
+                UpdateWindowTitle();
                 return;
             }
             StatusText = FrontendResources.Main_StatusText_ReloadSuccess;
@@ -380,7 +396,7 @@ namespace LcsSaveEditor.ViewModels
 
             IsFileModified = false;
             StatusText = FrontendResources.Main_StatusText_FileClosed;
-            WindowTitle = FrontendResources.Main_Window_Title;
+            UpdateWindowTitle();
         }
 
         /// <summary>

@@ -45,8 +45,9 @@ namespace LcsSaveEditor.ViewModels
             m_recentFiles = new RecentFilesList(10);
             m_tabs = new ObservableCollection<PageViewModel>();
             m_selectedTabIndex = -1;
-            m_windowTitle = FrontendResources.Main_Window_Title;
             m_statusText = FrontendResources.Main_StatusText_Welcome;
+
+            UpdateWindowTitle();
         }
 
         public ObservableCollection<PageViewModel> Tabs
