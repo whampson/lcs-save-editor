@@ -22,7 +22,9 @@
 #endregion
 
 using LcsSaveEditor.Core;
+using LcsSaveEditor.Core.Helpers;
 using LcsSaveEditor.Models;
+using Microsoft.Win32;
 using System;
 using System.IO;
 
@@ -40,7 +42,16 @@ namespace Test
 
         public static void Main(string[] args)
         {
-            LoggerTest();
+            GxtTest();
+        }
+
+        static void GxtTest()
+        {
+            string path = @"..\..\Gxt\ENGLISH.GXT";
+
+            using (FileStream fs = new FileStream(path, FileMode.Open)) {
+                GxtHelper.ReadMainTable(fs);
+            }
         }
 
         static void LoggerTest()

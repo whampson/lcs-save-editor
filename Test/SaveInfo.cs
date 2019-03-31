@@ -44,8 +44,8 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Language), save.SimpleVars.Language);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.MillisecondsPerGameMinute), save.SimpleVars.MillisecondsPerGameMinute);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.LastClockTick), save.SimpleVars.LastClockTick);
-            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.GameClockHours), save.SimpleVars.GameClockHours);
-            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.GameClockMinutes), save.SimpleVars.GameClockMinutes);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.GameTimeHours), save.SimpleVars.GameTimeHours);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.GameTimeMinutes), save.SimpleVars.GameTimeMinutes);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.TotalTimePlayedInMilliseconds), save.SimpleVars.TotalTimePlayedInMilliseconds);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.PreviousWeather), save.SimpleVars.PreviousWeather);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.CurrentWeather), save.SimpleVars.CurrentWeather);
@@ -57,7 +57,7 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowHud), save.SimpleVars.ShowHud);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowSubtitles), save.SimpleVars.ShowSubtitles);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.RadarMode), save.SimpleVars.RadarMode);
-            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.UseVibrantColors), save.SimpleVars.UseVibrantColors);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.EnhancedColors), save.SimpleVars.EnhancedColors);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WidescreenEnabled), save.SimpleVars.WidescreenEnabled);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.RadioVolume), save.SimpleVars.RadioVolume);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.SfxVolume), save.SimpleVars.SfxVolume);
