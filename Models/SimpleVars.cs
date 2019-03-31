@@ -21,6 +21,7 @@
  */
 #endregion
 
+using System;
 using System.ComponentModel;
 using LcsSaveEditor.Core;
 using LcsSaveEditor.Models.DataTypes;
@@ -75,11 +76,12 @@ namespace LcsSaveEditor.Models
         protected bool m_allTaxisHaveNitro;
         protected bool m_targetIsOn;
         protected Vector2d m_targetPosition;
-        protected Timestamp m_saveTime;
+        protected DateTime m_saveTime;
 
         public SimpleVars()
         {
             m_prefsDisableInvertLook = true;
+            m_saveTime = new DateTime(1969, 12, 31, 23, 59, 59);
         }
 
         public string SaveNameGxt
@@ -309,17 +311,10 @@ namespace LcsSaveEditor.Models
             }
         }
 
-        public Timestamp Timestamp
+        public DateTime ModificationTime
         {
             get { return m_saveTime; }
-            set {
-                if (m_saveTime != null) {
-                    m_saveTime.PropertyChanged -= Timestamp_PropertyChanged;
-                }
-                m_saveTime = value;
-                m_saveTime.PropertyChanged += Timestamp_PropertyChanged;
-                OnPropertyChanged();
-            }
+            set { m_saveTime = value; OnPropertyChanged(); }
         }
 
         private void CameraPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -330,11 +325,6 @@ namespace LcsSaveEditor.Models
         private void WaypointPosition_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(nameof(WaypointPosition));
-        }
-
-        private void Timestamp_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPropertyChanged(nameof(Timestamp));
         }
     }
 }

@@ -98,7 +98,6 @@
     <Compile Include="Stats.cs" />
     <Compile Include="StoredCar.cs" />
     <Compile Include="StreetRaceStat.cs" />
-    <Compile Include="Timestamp.cs" />
     <Compile Include="Vector2d.cs" />
     <Compile Include="Vector3d.cs" />
   </ItemGroup>

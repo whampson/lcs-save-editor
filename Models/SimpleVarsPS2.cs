@@ -23,6 +23,8 @@
 
 using LcsSaveEditor.Core.Extensions;
 using LcsSaveEditor.Models.DataTypes;
+using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -89,9 +91,9 @@ namespace LcsSaveEditor.Models
                 _m_timeStepNonClipped = r.ReadSingle();
                 _m_framesPerUpdate = r.ReadSingle();
                 m_frameCounter = r.ReadUInt32();
-                m_prevWeatherType = (DataTypes.Weather) r.ReadInt16();
-                m_currWeatherType = (DataTypes.Weather) r.ReadInt16();
-                m_forcedWeatherType = (DataTypes.Weather) r.ReadInt16();
+                m_prevWeatherType = (Weather) r.ReadInt16();
+                m_currWeatherType = (Weather) r.ReadInt16();
+                m_forcedWeatherType = (Weather) r.ReadInt16();
                 m_unknown3E = r.ReadUInt16();
                 m_weatherTypeInList = r.ReadUInt32();
                 _m_interpolationValue = r.ReadSingle();
@@ -141,7 +143,23 @@ namespace LcsSaveEditor.Models
                 m_targetIsOn = r.ReadBoolean32();
                 WaypointPosition = Deserialize<Vector2d>(stream);
                 m_unknownDC = r.ReadUInt32();
-                Timestamp = Deserialize<Timestamp>(stream);
+
+                int second = r.ReadInt32();
+                int minute = r.ReadInt32();
+                int hour = r.ReadInt32();
+                int day = r.ReadInt32();
+                int month = r.ReadInt32();
+                int year = r.ReadInt32();
+
+                string dateStr = string.Format(
+                    "{0:D4}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}",
+                    year, day, month, hour, minute, second);
+                DateTime.TryParseExact(
+                    dateStr,
+                    "yyyy-dd-MM HH:mm:ss",
+                    CultureInfo.InvariantCulture,
+                    DateTimeStyles.None,
+                    out m_saveTime);
             }
 
             return stream.Position - start;
@@ -221,7 +239,12 @@ namespace LcsSaveEditor.Models
                 w.WriteBoolean32(m_targetIsOn);
                 Serialize(m_targetPosition, stream);
                 w.Write(m_unknownDC);
-                Serialize(m_saveTime, stream);
+                w.Write(m_saveTime.Second);
+                w.Write(m_saveTime.Minute);
+                w.Write(m_saveTime.Hour);
+                w.Write(m_saveTime.Day);
+                w.Write(m_saveTime.Month);
+                w.Write(m_saveTime.Year);
             }
 
             return stream.Position - start;
