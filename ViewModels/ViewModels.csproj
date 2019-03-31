@@ -55,6 +55,7 @@
     <Compile Include="DataTypes\TabRefreshTrigger.cs" />
     <Compile Include="EventArgs\DialogCloseEventArgs.cs" />
     <Compile Include="EventArgs\FileDialogEventArgs.cs" />
+    <Compile Include="EventArgs\GxtSelectionEventArgs.cs" />
     <Compile Include="EventArgs\MessageBoxEventArgs.cs" />
     <Compile Include="EventArgs\SaveDataEventArgs.cs" />
     <Compile Include="EventArgs\TabRefreshEventArgs.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="EventHandlers\ScriptsViewModel.EventHanders.cs" />
     <Compile Include="DataTypes\NamedScriptVariable.cs" />
     <Compile Include="GeneralViewModel.cs" />
+    <Compile Include="GxtViewModel.cs" />
     <Compile Include="Interfaces\PageViewModel.cs" />
     <Compile Include="Interfaces\RecentFilesList.cs" />
     <Compile Include="Interfaces\RecentlyAccessedFile.cs" />
