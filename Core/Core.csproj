@@ -62,6 +62,7 @@
     <Compile Include="Helpers\GamePlatformHelper.cs" />
     <Compile Include="Helpers\GxtHelper.cs" />
     <Compile Include="Helpers\IniHelper.cs" />
+    <Compile Include="Helpers\VersionHelper.cs" />
     <Compile Include="ItemPropertyChangedEventArgs.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LogItem.cs" />
