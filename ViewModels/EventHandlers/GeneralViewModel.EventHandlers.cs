@@ -53,5 +53,15 @@ namespace LcsSaveEditor.ViewModels
             SimpleVars = null;
             Stats = null;
         }
+
+        private void GxtSelectionDialog_ResultAction(bool? dialogResult, GxtSelectionEventArgs e)
+        {
+            if (dialogResult != true) {
+                return;
+            }
+
+            SimpleVars.SaveNameGxt = e.Key;
+            Stats.LastMissionPassedName = e.Key;
+        }
     }
 }

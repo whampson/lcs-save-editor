@@ -34,6 +34,7 @@ namespace LcsSaveEditor.ViewModels
         public event EventHandler<SaveDataEventArgs> DataClosing;
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequested;
         public event EventHandler<FileDialogEventArgs> FileDialogRequested;
+        public event EventHandler<GxtSelectionEventArgs> GxtSelectionDialogRequested;
         public event EventHandler LogWindowRequested;
         public event EventHandler AboutDialogRequested;
 
@@ -65,6 +66,11 @@ namespace LcsSaveEditor.ViewModels
         private void OnFileDialogRequested(FileDialogEventArgs e)
         {
             FileDialogRequested?.Invoke(this, e);
+        }
+
+        private void OnGxtSelectionDialogRequested(GxtSelectionEventArgs e)
+        {
+            GxtSelectionDialogRequested?.Invoke(this, e);
         }
 
         private void OnLogWindowRequested()
