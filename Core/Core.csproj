@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="Behaviors\ScrollOnNewItem.cs" />
     <Compile Include="Controls\MessageBoxEx.cs" />
+    <Compile Include="Controls\NonStretchingTextBox.cs" />
     <Compile Include="Controls\NonUnloadingTabControl.cs" />
     <Compile Include="DataBlock.cs" />
     <Compile Include="Extensions\BinaryReaderExtensions.cs" />
