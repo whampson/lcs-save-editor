@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Gxt\ENGLISH.GXT" />
     <None Include="SaveData\lcs_android_save00.b" />
     <None Include="SaveData\lcs_android_save01.b" />
     <None Include="SaveData\lcs_android_save02.b" />

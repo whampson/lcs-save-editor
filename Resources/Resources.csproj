@@ -68,7 +68,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ENGLISH.GXT" />
+    <None Include="Resources\GameData\PS2\ENGLISH.GXT" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
