@@ -44,6 +44,7 @@ namespace LcsSaveEditor.Views
 
             ViewModel.MessageBoxRequested += ViewModel_MessageBoxRequested;
             ViewModel.FileDialogRequested += ViewModel_FileDialogRequested;
+            ViewModel.GxtSelectionDialogRequested += ViewModel_GxtSelectionDialogRequested;
             ViewModel.LogWindowRequested += ViewModel_LogWindowRequested;
         }
 
@@ -61,6 +62,21 @@ namespace LcsSaveEditor.Views
         private void ViewModel_FileDialogRequested(object sender, FileDialogEventArgs e)
         {
             e.ShowDialog(this);
+        }
+
+        private void ViewModel_GxtSelectionDialogRequested(object sender, GxtSelectionEventArgs e)
+        {
+            GxtSelectionWindow w = new GxtSelectionWindow()
+            {
+                Owner = this
+            };
+
+            bool? r = w.ShowDialog();
+            GxtViewModel vm = (GxtViewModel) w.DataContext;
+
+            e.Key = vm.SelectedItem.Key;
+            e.Value = vm.SelectedItem.Value;
+            e.ResultAction?.Invoke(r, e);
         }
 
         private void ViewModel_LogWindowRequested(object sender, EventArgs e)
