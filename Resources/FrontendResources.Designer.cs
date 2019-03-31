@@ -115,29 +115,11 @@ namespace LcsSaveEditor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Host OS: {0}.
-        /// </summary>
-        public static string App_HostOS {
-            get {
-                return ResourceManager.GetString("App_HostOS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to GTA:LCS Save Editor.
         /// </summary>
         public static string App_Title {
             get {
                 return ResourceManager.GetString("App_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Version: {0} (build {1}).
-        /// </summary>
-        public static string App_Version {
-            get {
-                return ResourceManager.GetString("App_Version", resourceCulture);
             }
         }
         
