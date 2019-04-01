@@ -321,13 +321,13 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Main_DialogTitle_FileSaveFail" xml:space="preserve">
     <value>Save Failed</value>
   </data>
-  <data name="Common_Error" xml:space="preserve">
+  <data name="Common_Label_Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="Common_Open" xml:space="preserve">
+  <data name="Common_Label_Open" xml:space="preserve">
     <value>Open</value>
   </data>
-  <data name="Common_SaveAs" xml:space="preserve">
+  <data name="Common_Label_SaveAs" xml:space="preserve">
     <value>Save As</value>
   </data>
   <data name="Scripts_DialogTitle_LoadSymbols" xml:space="preserve">
@@ -339,7 +339,7 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <data name="Log_DialogTitle_Save" xml:space="preserve">
     <value>Save Log</value>
   </data>
-  <data name="Common_Close" xml:space="preserve">
+  <data name="Common_Label_Close" xml:space="preserve">
     <value>Close</value>
   </data>
   <data name="Log_Options_Clear" xml:space="preserve">
@@ -450,5 +450,194 @@ If you are trying to load a PSP save, make sure it is decrypted first.</value>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="GameData_PS2_Gxt_English" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\GameData\PS2\ENGLISH.GXT;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Common_Label_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="General_ButtonText_Select" xml:space="preserve">
+    <value>Select...</value>
+  </data>
+  <data name="General_GroupHeader_AudioSettings" xml:space="preserve">
+    <value>Audio Settings</value>
+  </data>
+  <data name="General_GroupHeader_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="General_GroupHeader_Controls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="General_GroupHeader_ControlsSet" xml:space="preserve">
+    <value>Controls Set</value>
+  </data>
+  <data name="General_GroupHeader_CurrentTime" xml:space="preserve">
+    <value>Current Time</value>
+  </data>
+  <data name="General_GroupHeader_DisplaySettings" xml:space="preserve">
+    <value>Display Settings</value>
+  </data>
+  <data name="General_GroupHeader_FileInfo" xml:space="preserve">
+    <value>File Information</value>
+  </data>
+  <data name="General_GroupHeader_ForcedWeather" xml:space="preserve">
+    <value>Forced Weather</value>
+  </data>
+  <data name="General_GroupHeader_InVehicleCamera" xml:space="preserve">
+    <value>In-Vehicle Camera</value>
+  </data>
+  <data name="General_GroupHeader_LastMissionPassed" xml:space="preserve">
+    <value>Last Mission Passed Name</value>
+  </data>
+  <data name="General_GroupHeader_MapTarget" xml:space="preserve">
+    <value>Map Target</value>
+  </data>
+  <data name="General_GroupHeader_MinuteDuration" xml:space="preserve">
+    <value>Minute Duration</value>
+  </data>
+  <data name="General_GroupHeader_Miscellaneous" xml:space="preserve">
+    <value>Miscellaneous</value>
+  </data>
+  <data name="General_GroupHeader_ModificationTime" xml:space="preserve">
+    <value>Modification Time</value>
+  </data>
+  <data name="General_GroupHeader_OnFootCamera" xml:space="preserve">
+    <value>On-Foot Camera</value>
+  </data>
+  <data name="General_GroupHeader_RadarMode" xml:space="preserve">
+    <value>Radar Mode</value>
+  </data>
+  <data name="General_GroupHeader_RadioVolume" xml:space="preserve">
+    <value>Radio Volume</value>
+  </data>
+  <data name="General_GroupHeader_SfxVolume" xml:space="preserve">
+    <value>SFX Volume</value>
+  </data>
+  <data name="General_GroupHeader_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="General_GroupHeader_TotalTimePlayed" xml:space="preserve">
+    <value>Total Time Played</value>
+  </data>
+  <data name="General_GroupHeader_Weather" xml:space="preserve">
+    <value>Weather</value>
+  </data>
+  <data name="General_ToolTip_CurrentTime" xml:space="preserve">
+    <value>The current time in-game.</value>
+  </data>
+  <data name="General_ToolTip_LastMissionPassed" xml:space="preserve">
+    <value>The name of the last mission passed (GXT string).
+On mobile saves, this will set the name of the file in the Load Game menu.</value>
+  </data>
+  <data name="General_ToolTip_MinuteDuration" xml:space="preserve">
+    <value>The number of real-world milliseconds that pass for each in-game minute.</value>
+  </data>
+  <data name="General_ToolTip_ModificationTime" xml:space="preserve">
+    <value>The time when this file was last modified by the game (PS2 only).</value>
+  </data>
+  <data name="General_ToolTip_TotalTimePlayed" xml:space="preserve">
+    <value>The total time spent playing the game.
+Format: days.hours:minutes:seconds.</value>
+  </data>
+  <data name="Common_Label_X" xml:space="preserve">
+    <value>X:</value>
+  </data>
+  <data name="Common_Label_Y" xml:space="preserve">
+    <value>Y:</value>
+  </data>
+  <data name="Common_Label_Z" xml:space="preserve">
+    <value>Z:</value>
+  </data>
+  <data name="General_CheckBox_CheatsUsed" xml:space="preserve">
+    <value>Cheats used</value>
+  </data>
+  <data name="General_CheckBox_EnhancedColors" xml:space="preserve">
+    <value>Alternative color palette</value>
+  </data>
+  <data name="General_CheckBox_InvertLook" xml:space="preserve">
+    <value>Invert look</value>
+  </data>
+  <data name="General_CheckBox_Leaflets" xml:space="preserve">
+    <value>'BITE' leaflets</value>
+  </data>
+  <data name="General_CheckBox_ShowHud" xml:space="preserve">
+    <value>Show HUD</value>
+  </data>
+  <data name="General_CheckBox_ShowSubtitles" xml:space="preserve">
+    <value>Show subtitles</value>
+  </data>
+  <data name="General_CheckBox_SwapAnalog" xml:space="preserve">
+    <value>Swap analog and D-pad</value>
+  </data>
+  <data name="General_CheckBox_TaxiBoost" xml:space="preserve">
+    <value>Taxi boost jump</value>
+  </data>
+  <data name="General_CheckBox_Vibration" xml:space="preserve">
+    <value>Vibration</value>
+  </data>
+  <data name="General_CheckBox_Widescreen" xml:space="preserve">
+    <value>Widescreen</value>
+  </data>
+  <data name="General_ToolTip_Brightness" xml:space="preserve">
+    <value>Brightness setting.</value>
+  </data>
+  <data name="General_ToolTip_CheatsUsed" xml:space="preserve">
+    <value>Indicates whether cheats have been used on this save.</value>
+  </data>
+  <data name="General_ToolTip_ControllerConfig" xml:space="preserve">
+    <value>Controller configuration setting (PS2/PSP only).</value>
+  </data>
+  <data name="General_ToolTip_EnhancedColors" xml:space="preserve">
+    <value>Activates an alternative color palette with an overall brighter look.</value>
+  </data>
+  <data name="General_ToolTip_ForcedWeather" xml:space="preserve">
+    <value>Force the weather to remain a certain way.
+Note that certain game events will override this setting.</value>
+  </data>
+  <data name="General_ToolTip_InVehicleCamera" xml:space="preserve">
+    <value>In-vehicle camera setting.</value>
+  </data>
+  <data name="General_ToolTip_InvertLook" xml:space="preserve">
+    <value>Enables or disables look inversion.</value>
+  </data>
+  <data name="General_ToolTip_Leaflets" xml:space="preserve">
+    <value>Enables or disables the Candy Suxxx 'BITE' flyers from Vice City.
+When enabled, you will see the 'BITE' leaflets appear as rubbish in the streets.</value>
+  </data>
+  <data name="General_ToolTip_MapTarget" xml:space="preserve">
+    <value>Enables or disables and sets the positon of the radar waypoint.</value>
+  </data>
+  <data name="General_ToolTip_OnFootCamera" xml:space="preserve">
+    <value>On-foot camera setting.</value>
+  </data>
+  <data name="General_ToolTip_RadarMode" xml:space="preserve">
+    <value>Radar mode setting.</value>
+  </data>
+  <data name="General_ToolTip_RadioVolume" xml:space="preserve">
+    <value>Radio station volume.</value>
+  </data>
+  <data name="General_ToolTip_SfxVolume" xml:space="preserve">
+    <value>Sound effects volume.</value>
+  </data>
+  <data name="General_ToolTip_ShowHud" xml:space="preserve">
+    <value>Enables or disables the HUD.</value>
+  </data>
+  <data name="General_ToolTip_Subtitles" xml:space="preserve">
+    <value>Enables or disables subtitles.</value>
+  </data>
+  <data name="General_ToolTip_SwapAnalog" xml:space="preserve">
+    <value>Swaps the functionality of the analog stick and directional buttons (PSP only).</value>
+  </data>
+  <data name="General_ToolTip_TaxiBoost" xml:space="preserve">
+    <value>Enables or disables the taxi hop feature found in Vice City and San Andreas.
+When enabled, press the horn while driving a taxi to make it hop!</value>
+  </data>
+  <data name="General_ToolTip_Vibration" xml:space="preserve">
+    <value>Enables or disables vibration (PS2 only).</value>
+  </data>
+  <data name="General_ToolTip_Weather" xml:space="preserve">
+    <value>The current weather conditions.
+The game uses a fixed set of weather patterns. At the top of every hour, the game will cycle to the next item in the list.</value>
+  </data>
+  <data name="General_ToolTip_Widescreen" xml:space="preserve">
+    <value>Enables or disables widesceen mode (PS2 only).</value>
   </data>
 </root>

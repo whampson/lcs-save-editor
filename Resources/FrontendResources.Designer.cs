@@ -126,36 +126,72 @@ namespace LcsSaveEditor.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
-        public static string Common_Close {
+        public static string Common_Label_Close {
             get {
-                return ResourceManager.GetString("Common_Close", resourceCulture);
+                return ResourceManager.GetString("Common_Label_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string Common_Label_Enabled {
+            get {
+                return ResourceManager.GetString("Common_Label_Enabled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string Common_Error {
+        public static string Common_Label_Error {
             get {
-                return ResourceManager.GetString("Common_Error", resourceCulture);
+                return ResourceManager.GetString("Common_Label_Error", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
-        public static string Common_Open {
+        public static string Common_Label_Open {
             get {
-                return ResourceManager.GetString("Common_Open", resourceCulture);
+                return ResourceManager.GetString("Common_Label_Open", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Save As.
         /// </summary>
-        public static string Common_SaveAs {
+        public static string Common_Label_SaveAs {
             get {
-                return ResourceManager.GetString("Common_SaveAs", resourceCulture);
+                return ResourceManager.GetString("Common_Label_SaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X:.
+        /// </summary>
+        public static string Common_Label_X {
+            get {
+                return ResourceManager.GetString("Common_Label_X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y:.
+        /// </summary>
+        public static string Common_Label_Y {
+            get {
+                return ResourceManager.GetString("Common_Label_Y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z:.
+        /// </summary>
+        public static string Common_Label_Z {
+            get {
+                return ResourceManager.GetString("Common_Label_Z", resourceCulture);
             }
         }
         
@@ -193,6 +229,525 @@ namespace LcsSaveEditor.Resources {
             get {
                 object obj = ResourceManager.GetObject("GameData_PS2_Gxt_English", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select....
+        /// </summary>
+        public static string General_ButtonText_Select {
+            get {
+                return ResourceManager.GetString("General_ButtonText_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cheats used.
+        /// </summary>
+        public static string General_CheckBox_CheatsUsed {
+            get {
+                return ResourceManager.GetString("General_CheckBox_CheatsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alternative color palette.
+        /// </summary>
+        public static string General_CheckBox_EnhancedColors {
+            get {
+                return ResourceManager.GetString("General_CheckBox_EnhancedColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invert look.
+        /// </summary>
+        public static string General_CheckBox_InvertLook {
+            get {
+                return ResourceManager.GetString("General_CheckBox_InvertLook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;BITE&apos; leaflets.
+        /// </summary>
+        public static string General_CheckBox_Leaflets {
+            get {
+                return ResourceManager.GetString("General_CheckBox_Leaflets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show HUD.
+        /// </summary>
+        public static string General_CheckBox_ShowHud {
+            get {
+                return ResourceManager.GetString("General_CheckBox_ShowHud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show subtitles.
+        /// </summary>
+        public static string General_CheckBox_ShowSubtitles {
+            get {
+                return ResourceManager.GetString("General_CheckBox_ShowSubtitles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swap analog and D-pad.
+        /// </summary>
+        public static string General_CheckBox_SwapAnalog {
+            get {
+                return ResourceManager.GetString("General_CheckBox_SwapAnalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taxi boost jump.
+        /// </summary>
+        public static string General_CheckBox_TaxiBoost {
+            get {
+                return ResourceManager.GetString("General_CheckBox_TaxiBoost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vibration.
+        /// </summary>
+        public static string General_CheckBox_Vibration {
+            get {
+                return ResourceManager.GetString("General_CheckBox_Vibration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Widescreen.
+        /// </summary>
+        public static string General_CheckBox_Widescreen {
+            get {
+                return ResourceManager.GetString("General_CheckBox_Widescreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio Settings.
+        /// </summary>
+        public static string General_GroupHeader_AudioSettings {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_AudioSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness.
+        /// </summary>
+        public static string General_GroupHeader_Brightness {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls.
+        /// </summary>
+        public static string General_GroupHeader_Controls {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_Controls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls Set.
+        /// </summary>
+        public static string General_GroupHeader_ControlsSet {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_ControlsSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Time.
+        /// </summary>
+        public static string General_GroupHeader_CurrentTime {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_CurrentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Settings.
+        /// </summary>
+        public static string General_GroupHeader_DisplaySettings {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_DisplaySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Information.
+        /// </summary>
+        public static string General_GroupHeader_FileInfo {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_FileInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forced Weather.
+        /// </summary>
+        public static string General_GroupHeader_ForcedWeather {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_ForcedWeather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In-Vehicle Camera.
+        /// </summary>
+        public static string General_GroupHeader_InVehicleCamera {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_InVehicleCamera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Mission Passed Name.
+        /// </summary>
+        public static string General_GroupHeader_LastMissionPassed {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_LastMissionPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map Target.
+        /// </summary>
+        public static string General_GroupHeader_MapTarget {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_MapTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minute Duration.
+        /// </summary>
+        public static string General_GroupHeader_MinuteDuration {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_MinuteDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miscellaneous.
+        /// </summary>
+        public static string General_GroupHeader_Miscellaneous {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_Miscellaneous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modification Time.
+        /// </summary>
+        public static string General_GroupHeader_ModificationTime {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_ModificationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On-Foot Camera.
+        /// </summary>
+        public static string General_GroupHeader_OnFootCamera {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_OnFootCamera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radar Mode.
+        /// </summary>
+        public static string General_GroupHeader_RadarMode {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_RadarMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radio Volume.
+        /// </summary>
+        public static string General_GroupHeader_RadioVolume {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_RadioVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SFX Volume.
+        /// </summary>
+        public static string General_GroupHeader_SfxVolume {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_SfxVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string General_GroupHeader_Time {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Time Played.
+        /// </summary>
+        public static string General_GroupHeader_TotalTimePlayed {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_TotalTimePlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather.
+        /// </summary>
+        public static string General_GroupHeader_Weather {
+            get {
+                return ResourceManager.GetString("General_GroupHeader_Weather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brightness setting..
+        /// </summary>
+        public static string General_ToolTip_Brightness {
+            get {
+                return ResourceManager.GetString("General_ToolTip_Brightness", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indicates whether cheats have been used on this save..
+        /// </summary>
+        public static string General_ToolTip_CheatsUsed {
+            get {
+                return ResourceManager.GetString("General_ToolTip_CheatsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controller configuration setting (PS2/PSP only)..
+        /// </summary>
+        public static string General_ToolTip_ControllerConfig {
+            get {
+                return ResourceManager.GetString("General_ToolTip_ControllerConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current time in-game..
+        /// </summary>
+        public static string General_ToolTip_CurrentTime {
+            get {
+                return ResourceManager.GetString("General_ToolTip_CurrentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activates an alternative color palette with an overall brighter look..
+        /// </summary>
+        public static string General_ToolTip_EnhancedColors {
+            get {
+                return ResourceManager.GetString("General_ToolTip_EnhancedColors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force the weather to remain a certain way.
+        ///Note that certain game events will override this setting..
+        /// </summary>
+        public static string General_ToolTip_ForcedWeather {
+            get {
+                return ResourceManager.GetString("General_ToolTip_ForcedWeather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In-vehicle camera setting..
+        /// </summary>
+        public static string General_ToolTip_InVehicleCamera {
+            get {
+                return ResourceManager.GetString("General_ToolTip_InVehicleCamera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables look inversion..
+        /// </summary>
+        public static string General_ToolTip_InvertLook {
+            get {
+                return ResourceManager.GetString("General_ToolTip_InvertLook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the last mission passed (GXT string).
+        ///On mobile saves, this will set the name of the file in the Load Game menu..
+        /// </summary>
+        public static string General_ToolTip_LastMissionPassed {
+            get {
+                return ResourceManager.GetString("General_ToolTip_LastMissionPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables the Candy Suxxx &apos;BITE&apos; flyers from Vice City.
+        ///When enabled, you will see the &apos;BITE&apos; leaflets appear as rubbish in the streets..
+        /// </summary>
+        public static string General_ToolTip_Leaflets {
+            get {
+                return ResourceManager.GetString("General_ToolTip_Leaflets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables and sets the positon of the radar waypoint..
+        /// </summary>
+        public static string General_ToolTip_MapTarget {
+            get {
+                return ResourceManager.GetString("General_ToolTip_MapTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number of real-world milliseconds that pass for each in-game minute..
+        /// </summary>
+        public static string General_ToolTip_MinuteDuration {
+            get {
+                return ResourceManager.GetString("General_ToolTip_MinuteDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The time when this file was last modified by the game (PS2 only)..
+        /// </summary>
+        public static string General_ToolTip_ModificationTime {
+            get {
+                return ResourceManager.GetString("General_ToolTip_ModificationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On-foot camera setting..
+        /// </summary>
+        public static string General_ToolTip_OnFootCamera {
+            get {
+                return ResourceManager.GetString("General_ToolTip_OnFootCamera", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radar mode setting..
+        /// </summary>
+        public static string General_ToolTip_RadarMode {
+            get {
+                return ResourceManager.GetString("General_ToolTip_RadarMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Radio station volume..
+        /// </summary>
+        public static string General_ToolTip_RadioVolume {
+            get {
+                return ResourceManager.GetString("General_ToolTip_RadioVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound effects volume..
+        /// </summary>
+        public static string General_ToolTip_SfxVolume {
+            get {
+                return ResourceManager.GetString("General_ToolTip_SfxVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables the HUD..
+        /// </summary>
+        public static string General_ToolTip_ShowHud {
+            get {
+                return ResourceManager.GetString("General_ToolTip_ShowHud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables subtitles..
+        /// </summary>
+        public static string General_ToolTip_Subtitles {
+            get {
+                return ResourceManager.GetString("General_ToolTip_Subtitles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swaps the functionality of the analog stick and directional buttons (PSP only)..
+        /// </summary>
+        public static string General_ToolTip_SwapAnalog {
+            get {
+                return ResourceManager.GetString("General_ToolTip_SwapAnalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables the taxi hop feature found in Vice City and San Andreas.
+        ///When enabled, press the horn while driving a taxi to make it hop!.
+        /// </summary>
+        public static string General_ToolTip_TaxiBoost {
+            get {
+                return ResourceManager.GetString("General_ToolTip_TaxiBoost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The total time spent playing the game.
+        ///Format: days.hours:minutes:seconds..
+        /// </summary>
+        public static string General_ToolTip_TotalTimePlayed {
+            get {
+                return ResourceManager.GetString("General_ToolTip_TotalTimePlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables vibration (PS2 only)..
+        /// </summary>
+        public static string General_ToolTip_Vibration {
+            get {
+                return ResourceManager.GetString("General_ToolTip_Vibration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current weather conditions.
+        ///The game uses a fixed set of weather patterns. At the top of every hour, the game will cycle to the next item in the list..
+        /// </summary>
+        public static string General_ToolTip_Weather {
+            get {
+                return ResourceManager.GetString("General_ToolTip_Weather", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables or disables widesceen mode (PS2 only)..
+        /// </summary>
+        public static string General_ToolTip_Widescreen {
+            get {
+                return ResourceManager.GetString("General_ToolTip_Widescreen", resourceCulture);
             }
         }
         

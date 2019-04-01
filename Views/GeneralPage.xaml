@@ -27,6 +27,7 @@ SOFTWARE.
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:c="clr-namespace:LcsSaveEditor.Views.Converters"
+        xmlns:r="clr-namespace:LcsSaveEditor.Resources;assembly=LcsSaveEditor.Resources"
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         xmlns:v="clr-namespace:LcsSaveEditor.Views"
         xmlns:tk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
@@ -87,11 +88,11 @@ SOFTWARE.
 
             <GroupBox
                     Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
-                    Header="File Information">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_FileInfo}">
                 <StackPanel>
                     <GroupBox
-                            Header="Last Mission Passed Name"
-                            ToolTip="The name of the last mission passed (GXT string).&#10;On mobile saves, this will set the name of the file in the Load Game menu.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_LastMissionPassed}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_LastMissionPassed}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -106,16 +107,16 @@ SOFTWARE.
                                     Text="{Binding Path=Stats.LastMissionPassedName, Converter={StaticResource ResourceKey=GxtConverter}}"/>
                             <Button
                                     Grid.Column="1"
-                                    Content="Select..."
+                                    Content="{x:Static r:FrontendResources.General_ButtonText_Select}"
                                     Command="{Binding Path=SelectGxtKeyCommand}"
                                     Style="{StaticResource ResourceKey=ButtonStyle}"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox
-                            Header="Modification Time"
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_ModificationTime}"
                             IsEnabled="{Binding Path=IsModificationTimeEnabled}"
                             ToolTipService.ShowOnDisabled="True"
-                            ToolTip="The time when this file was last modified by the game (PS2 only).">
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_ModificationTime}">
                         <tk:DateTimePicker
                                 Value="{Binding Path=SimpleVars.ModificationTime}"
                                 Format="Custom"
@@ -127,11 +128,11 @@ SOFTWARE.
 
             <GroupBox
                     Grid.Column="0" Grid.Row="2"
-                    Header="Time">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_Time}">
                 <StackPanel>
                     <GroupBox
-                            Header="Current Time"
-                            ToolTip="The current time in-game.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_CurrentTime}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_CurrentTime}">
                         <tk:DateTimeUpDown
                                 Format="Custom"
                                 FormatString="HH:mm">
@@ -144,15 +145,15 @@ SOFTWARE.
                         </tk:DateTimeUpDown>
                     </GroupBox>
                     <GroupBox
-                            Header="Minute Duration"
-                            ToolTip="The number of real-world milliseconds that pass for each in-game minute.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_MinuteDuration}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_MinuteDuration}">
                         <tk:IntegerUpDown
                                 Value="{Binding Path=SimpleVars.MillisecondsPerGameMinute}"
                                 Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
                     </GroupBox>
                     <GroupBox
-                            Header="Total Time Played"
-                            ToolTip="The total time spent playing the game.&#10;Format: days.hours:minutes:seconds.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_TotalTimePlayed}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_TotalTimePlayed}">
                         <tk:TimeSpanUpDown
                                     Value="{Binding Path=SimpleVars.TotalTimePlayedInMilliseconds, Converter={StaticResource ResourceKey=MillisecondsToTimeSpanConverter}}"
                                     Margin="0,0,0,2.5"/>
@@ -162,14 +163,14 @@ SOFTWARE.
 
             <GroupBox
                     Grid.Column="0" Grid.Row="3"
-                    Header="Miscellaneous">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_Miscellaneous}">
                 <StackPanel>
                     <GroupBox 
-                            Header="Map Target"
-                            ToolTip="Enables or disables and sets the positon of the radar waypoint.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_MapTarget}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_MapTarget}">
                         <StackPanel>
                             <CheckBox
-                                    Content="Enabled"
+                                    Content="{x:Static r:FrontendResources.Common_Label_Enabled}"
                                     IsChecked="{Binding Path=SimpleVars.ShowWaypoint}"
                                     Margin="5,3,0,3"/>
                             <Grid>
@@ -181,7 +182,7 @@ SOFTWARE.
                                 </Grid.ColumnDefinitions>
                                 <TextBlock
                                         Grid.Column="0"
-                                        Text="X:"
+                                        Text="{x:Static r:FrontendResources.Common_Label_X}"
                                         Style="{StaticResource ResourceKey=LabelTextBlockStyle}"/>
                                 <tk:SingleUpDown
                                         Grid.Column="1"
@@ -189,7 +190,7 @@ SOFTWARE.
                                         IsEnabled="{Binding Path=SimpleVars.ShowWaypoint}"/>
                                 <TextBlock
                                         Grid.Column="2"
-                                        Text="Y:"
+                                        Text="{x:Static r:FrontendResources.Common_Label_Y}"
                                         Style="{StaticResource ResourceKey=LabelTextBlockStyle}"/>
                                 <tk:SingleUpDown
                                         Grid.Column="3"
@@ -199,91 +200,92 @@ SOFTWARE.
                         </StackPanel>
                     </GroupBox>
                     <CheckBox
-                            Content="Cheats used"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_CheatsUsed}"
                             IsChecked="{Binding Path=SimpleVars.HasPlayerCheated}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Indicates whether cheats have been used on this save."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_CheatsUsed}"/>
                     <CheckBox
-                            Content="Taxi boost jump"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_TaxiBoost}"
                             IsChecked="{Binding Path=SimpleVars.TaxiBounceEnabled}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Enables or disables the taxi hop feature found in Vice City and San Andreas.&#10;When enabled, press the horn while driving a taxi to make it hop!"/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_TaxiBoost}"/>
                     <CheckBox
-                            Content="'BITE' leaflets"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_Leaflets}"
                             IsChecked="{Binding Path=Stats.PamphletMissionPassed}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Enables or disabled the Candy Suxxx 'BITE' flyers from Vice City.&#10;When enabled, you will see the 'BITE' leaflets appear as rubbish in the streets."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_Leaflets}"/>
                 </StackPanel>
             </GroupBox>
 
             <GroupBox
                     Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
-                    Header="Controls">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_Controls}">
                 <StackPanel>
                     <GroupBox
-                            Header="Controls Set"
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_ControlsSet}"
                             IsEnabled="{Binding Path=IsControlsSetEnabled}"
                             ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Controller configuration setting (PS2/PSP only).">
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_ControllerConfig}">
                         <ComboBox
                                 ItemsSource="{Binding Path=ControlsList}"
                                 SelectedItem="{Binding Path=SimpleVars.ControllerConfiguration}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
                     <GroupBox
-                            Header="On-Foot Camera"
-                            ToolTip="On-foot camera setting.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_OnFootCamera}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_OnFootCamera}">
                         <ComboBox
                                 ItemsSource="{Binding Path=OnFootCameraList}"
                                 SelectedItem="{Binding Path=PlayerCamera}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
                     <GroupBox
-                            Header="In-Vehicle Camera"
-                            ToolTip="In-vehicle camera setting.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_InVehicleCamera}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_InVehicleCamera}">
                         <ComboBox
                                 ItemsSource="{Binding Path=InVehicleCameraList}"
                                 SelectedItem="{Binding Path=SimpleVars.VehicleCamera}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
                     <CheckBox   
-                            Content="Invert look"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_InvertLook}"
                             IsChecked="{Binding Path=SimpleVars.InvertLook}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Enables or disables look inversion."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_InvertLook}"/>
                     <CheckBox
-                            Content="Vibration"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_Vibration}"
                             IsChecked="{Binding Path=SimpleVars.VibrationEnabled}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
                             IsEnabled="{Binding Path=IsVibrationEnabled}"
                             ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Enables or disables vibration (PS2 only)."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_Vibration}"/>
                     <CheckBox
-                            Content="Swap analog and D-pad"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_SwapAnalog}"
                             IsChecked="{Binding Path=SimpleVars.SwapAnalogAndDPad}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
                             IsEnabled="{Binding Path=IsSwapAnalogAndDPadEnabled}"
                             ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Swaps the functionality of the analog stick and directional buttons (PSP only)."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_SwapAnalog}"/>
                 </StackPanel>
             </GroupBox>
 
             <GroupBox
                     Grid.Column="1" Grid.Row="3" Grid.RowSpan="3"
-                    Header="Display Settings" Canvas.Left="260">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_DisplaySettings}"
+                    Canvas.Left="260">
                 <StackPanel>
 
                     <GroupBox
-                            Header="Radar Mode"
-                            ToolTip="Radar mode setting.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_RadarMode}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_RadarMode}">
                         <ComboBox
                                 ItemsSource="{Binding Path=RadarModeList}"
                                 SelectedItem="{Binding Path=SimpleVars.RadarMode}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
                     <GroupBox
-                            Header="Brightness"
-                            ToolTip="Brightness setting.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_Brightness}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_Brightness}">
                         <Slider
                                 Value="{Binding Path=SimpleVars.Brightness}"
                                 Style="{StaticResource ResourceKey=SliderStyle}"
@@ -291,37 +293,37 @@ SOFTWARE.
                                 Maximum="{Binding Path=BrightnessMaxValue}"/>
                     </GroupBox>
                     <CheckBox
-                            Content="Show HUD"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_ShowHud}"
                             IsChecked="{Binding Path=SimpleVars.ShowHud}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Enables or disables the HUD."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_ShowHud}"/>
                     <CheckBox
-                            Content="Show subtitles"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_ShowSubtitles}"
                             IsChecked="{Binding Path=SimpleVars.ShowSubtitles}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Enables or disables subtitles."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_Subtitles}"/>
                     <CheckBox
-                            Content="Widescreen"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_Widescreen}"
                             IsChecked="{Binding Path=SimpleVars.WidescreenEnabled}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
                             IsEnabled="{Binding Path=IsWidescreenEnabled}"
                             ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Enables or disables widesceen mode (PS2 only)."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_Widescreen}"/>
                     <CheckBox
-                            Content="Alternative color palette"
+                            Content="{x:Static r:FrontendResources.General_CheckBox_EnhancedColors}"
                             IsChecked="{Binding Path=SimpleVars.EnhancedColors}"
                             Style="{StaticResource ResourceKey=CheckBoxStyle}"
-                            ToolTip="Activates an alternative color palette with an overall brighter look."/>
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_EnhancedColors}"/>
                 </StackPanel>
             </GroupBox>
 
             <GroupBox
                     Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"
-                    Header="Audio Settings">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_AudioSettings}">
                 <StackPanel>
                     <GroupBox
-                            Header="Radio Volume"
-                            ToolTip="Radio station volume.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_RadioVolume}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_RadioVolume}">
                         <Slider
                                 Style="{StaticResource ResourceKey=SliderStyle}"
                                 Value="{Binding Path=SimpleVars.RadioVolume}"
@@ -329,8 +331,8 @@ SOFTWARE.
                                 Maximum="127"/>
                     </GroupBox>
                     <GroupBox
-                            Header="SFX Volume"
-                            ToolTip="Sound effects volume.">
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_SfxVolume}"
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_SfxVolume}">
                         <Slider
                                 Style="{StaticResource ResourceKey=SliderStyle}"
                                 Value="{Binding Path=SimpleVars.SfxVolume}"
@@ -342,7 +344,7 @@ SOFTWARE.
 
             <GroupBox
                     Grid.Column="2" Grid.Row="2" Grid.RowSpan="4"
-                    Header="Weather">
+                    Header="{x:Static r:FrontendResources.General_GroupHeader_Weather}">
                 <DockPanel>
                     <ListBox
                             DockPanel.Dock="Top"
@@ -351,7 +353,7 @@ SOFTWARE.
                             ItemsSource="{Binding Path=WeatherList}"
                             SelectedIndex="{Binding Path=SimpleVars.WeatherIndex}"
                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                            ToolTip="The current weather conditions.&#10;The game uses a fixed set of weather patterns. At the top of every hour, the game will cycle to the next item in the list.">
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_Weather}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource ResourceKey=EnumDescriptionConverter}}"/>
@@ -360,12 +362,12 @@ SOFTWARE.
                     </ListBox>
                     <GroupBox
                             DockPanel.Dock="Bottom"
-                            Header="Forced Weather"
+                            Header="{x:Static r:FrontendResources.General_GroupHeader_ForcedWeather}"
                             Margin="0,5,0,0"
-                            ToolTip="Force the weather to remain a certain way. Note that certain game events will override this setting.">
+                            ToolTip="{x:Static r:FrontendResources.General_ToolTip_ForcedWeather}">
                         <StackPanel>
                             <CheckBox
-                                    Content="Enabled"
+                                    Content="{x:Static r:FrontendResources.Common_Label_Enabled}"
                                     IsChecked="{Binding Path=SimpleVars.ForcedWeatherEnabled}"
                                     Margin="5,3,0,3"/>
                             <ComboBox
