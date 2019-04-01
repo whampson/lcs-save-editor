@@ -89,7 +89,9 @@ SOFTWARE.
                     Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                     Header="File Information">
                 <StackPanel>
-                    <GroupBox Header="Last Mission Passed Name">
+                    <GroupBox
+                            Header="Last Mission Passed Name"
+                            ToolTip="The name of the last mission passed (GXT string).&#10;On mobile saves, this will set the name of the file in the Load Game menu.">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -109,10 +111,16 @@ SOFTWARE.
                                     Style="{StaticResource ResourceKey=ButtonStyle}"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Header="Modification Time">
-                        <tk:DateTimeUpDown
+                    <GroupBox
+                            Header="Modification Time"
+                            IsEnabled="{Binding Path=IsModificationTimeEnabled}"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTip="The time when this file was last modified by the game (PS2 only).">
+                        <tk:DateTimePicker
+                                Value="{Binding Path=SimpleVars.ModificationTime}"
                                 Format="Custom"
                                 FormatString="dd MMMM yyyy HH:mm:ss"/>
+
                     </GroupBox>
                 </StackPanel>
             </GroupBox>
@@ -121,7 +129,9 @@ SOFTWARE.
                     Grid.Column="0" Grid.Row="2"
                     Header="Time">
                 <StackPanel>
-                    <GroupBox Header="Current Time">
+                    <GroupBox
+                            Header="Current Time"
+                            ToolTip="The current time in-game.">
                         <tk:DateTimeUpDown
                                 Format="Custom"
                                 FormatString="HH:mm">
@@ -133,12 +143,16 @@ SOFTWARE.
                             </tk:DateTimeUpDown.Value>
                         </tk:DateTimeUpDown>
                     </GroupBox>
-                    <GroupBox Header="Minute Duration (milliseconds)">
+                    <GroupBox
+                            Header="Minute Duration"
+                            ToolTip="The number of real-world milliseconds that pass for each in-game minute.">
                         <tk:IntegerUpDown
                                 Value="{Binding Path=SimpleVars.MillisecondsPerGameMinute}"
                                 Style="{StaticResource ResourceKey=IntegerUpDownStyle}"/>
                     </GroupBox>
-                    <GroupBox Header="Total Time Played">
+                    <GroupBox
+                            Header="Total Time Played"
+                            ToolTip="The total time spent playing the game.&#10;Format: days.hours:minutes:seconds.">
                         <tk:TimeSpanUpDown
                                     Value="{Binding Path=SimpleVars.TotalTimePlayedInMilliseconds, Converter={StaticResource ResourceKey=MillisecondsToTimeSpanConverter}}"
                                     Margin="0,0,0,2.5"/>
@@ -150,7 +164,9 @@ SOFTWARE.
                     Grid.Column="0" Grid.Row="3"
                     Header="Miscellaneous">
                 <StackPanel>
-                    <GroupBox Header="Map Target">
+                    <GroupBox 
+                            Header="Map Target"
+                            ToolTip="Enables or disables and sets the positon of the radar waypoint.">
                         <StackPanel>
                             <CheckBox
                                     Content="Enabled"
@@ -185,15 +201,18 @@ SOFTWARE.
                     <CheckBox
                             Content="Cheats used"
                             IsChecked="{Binding Path=SimpleVars.HasPlayerCheated}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Indicates whether cheats have been used on this save."/>
                     <CheckBox
                             Content="Taxi boost jump"
                             IsChecked="{Binding Path=SimpleVars.TaxiBounceEnabled}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Enables or disables the taxi hop feature found in Vice City and San Andreas.&#10;When enabled, press the horn while driving a taxi to make it hop!"/>
                     <CheckBox
                             Content="'BITE' leaflets"
                             IsChecked="{Binding Path=Stats.PamphletMissionPassed}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Enables or disabled the Candy Suxxx 'BITE' flyers from Vice City.&#10;When enabled, you will see the 'BITE' leaflets appear as rubbish in the streets."/>
                 </StackPanel>
             </GroupBox>
 
@@ -201,19 +220,27 @@ SOFTWARE.
                     Grid.Column="1" Grid.Row="0" Grid.RowSpan="3"
                     Header="Controls">
                 <StackPanel>
-                    <GroupBox Header="Controls Set">
+                    <GroupBox
+                            Header="Controls Set"
+                            IsEnabled="{Binding Path=IsControlsSetEnabled}"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTip="Controller configuration setting (PS2/PSP only).">
                         <ComboBox
                                 ItemsSource="{Binding Path=ControlsList}"
                                 SelectedItem="{Binding Path=SimpleVars.ControllerConfiguration}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
-                    <GroupBox Header="On-Foot Camera">
+                    <GroupBox
+                            Header="On-Foot Camera"
+                            ToolTip="On-foot camera setting.">
                         <ComboBox
                                 ItemsSource="{Binding Path=OnFootCameraList}"
-                                SelectedItem="{Binding Path=SimpleVars.PlayerCamera}"
+                                SelectedItem="{Binding Path=PlayerCamera}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
-                    <GroupBox Header="In-Vehicle Camera">
+                    <GroupBox
+                            Header="In-Vehicle Camera"
+                            ToolTip="In-vehicle camera setting.">
                         <ComboBox
                                 ItemsSource="{Binding Path=InVehicleCameraList}"
                                 SelectedItem="{Binding Path=SimpleVars.VehicleCamera}"
@@ -222,15 +249,22 @@ SOFTWARE.
                     <CheckBox   
                             Content="Invert look"
                             IsChecked="{Binding Path=SimpleVars.InvertLook}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Enables or disables look inversion."/>
                     <CheckBox
                             Content="Vibration"
                             IsChecked="{Binding Path=SimpleVars.VibrationEnabled}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            IsEnabled="{Binding Path=IsVibrationEnabled}"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTip="Enables or disables vibration (PS2 only)."/>
                     <CheckBox
-                            Content="Use D-pad for player movement"
+                            Content="Swap analog and D-pad"
                             IsChecked="{Binding Path=SimpleVars.SwapAnalogAndDPad}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            IsEnabled="{Binding Path=IsSwapAnalogAndDPadEnabled}"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTip="Swaps the functionality of the analog stick and directional buttons (PSP only)."/>
                 </StackPanel>
             </GroupBox>
 
@@ -239,13 +273,17 @@ SOFTWARE.
                     Header="Display Settings" Canvas.Left="260">
                 <StackPanel>
 
-                    <GroupBox Header="Radar Mode">
+                    <GroupBox
+                            Header="Radar Mode"
+                            ToolTip="Radar mode setting.">
                         <ComboBox
                                 ItemsSource="{Binding Path=RadarModeList}"
                                 SelectedItem="{Binding Path=SimpleVars.RadarMode}"
                                 Style="{StaticResource ResourceKey=ComboBoxStyle}"/>
                     </GroupBox>
-                    <GroupBox Header="Brightness">
+                    <GroupBox
+                            Header="Brightness"
+                            ToolTip="Brightness setting.">
                         <Slider
                                 Value="{Binding Path=SimpleVars.Brightness}"
                                 Style="{StaticResource ResourceKey=SliderStyle}"
@@ -255,19 +293,25 @@ SOFTWARE.
                     <CheckBox
                             Content="Show HUD"
                             IsChecked="{Binding Path=SimpleVars.ShowHud}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Enables or disables the HUD."/>
                     <CheckBox
                             Content="Show subtitles"
                             IsChecked="{Binding Path=SimpleVars.ShowSubtitles}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Enables or disables subtitles."/>
                     <CheckBox
                             Content="Widescreen"
                             IsChecked="{Binding Path=SimpleVars.WidescreenEnabled}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            IsEnabled="{Binding Path=IsWidescreenEnabled}"
+                            ToolTipService.ShowOnDisabled="True"
+                            ToolTip="Enables or disables widesceen mode (PS2 only)."/>
                     <CheckBox
-                            Content="Enhanced colors"
+                            Content="Alternative color palette"
                             IsChecked="{Binding Path=SimpleVars.EnhancedColors}"
-                            Style="{StaticResource ResourceKey=CheckBoxStyle}"/>
+                            Style="{StaticResource ResourceKey=CheckBoxStyle}"
+                            ToolTip="Activates an alternative color palette with an overall brighter look."/>
                 </StackPanel>
             </GroupBox>
 
@@ -275,14 +319,18 @@ SOFTWARE.
                     Grid.Column="2" Grid.Row="0" Grid.RowSpan="2"
                     Header="Audio Settings">
                 <StackPanel>
-                    <GroupBox Header="Radio Volume">
+                    <GroupBox
+                            Header="Radio Volume"
+                            ToolTip="Radio station volume.">
                         <Slider
                                 Style="{StaticResource ResourceKey=SliderStyle}"
                                 Value="{Binding Path=SimpleVars.RadioVolume}"
                                 Minimum="0"
                                 Maximum="127"/>
                     </GroupBox>
-                    <GroupBox Header="SFX Volume">
+                    <GroupBox
+                            Header="SFX Volume"
+                            ToolTip="Sound effects volume.">
                         <Slider
                                 Style="{StaticResource ResourceKey=SliderStyle}"
                                 Value="{Binding Path=SimpleVars.SfxVolume}"
@@ -302,7 +350,8 @@ SOFTWARE.
                             Height="285"
                             ItemsSource="{Binding Path=WeatherList}"
                             SelectedIndex="{Binding Path=SimpleVars.WeatherIndex}"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            ToolTip="The current weather conditions.&#10;The game uses a fixed set of weather patterns. At the top of every hour, the game will cycle to the next item in the list.">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Converter={StaticResource ResourceKey=EnumDescriptionConverter}}"/>
@@ -312,7 +361,8 @@ SOFTWARE.
                     <GroupBox
                             DockPanel.Dock="Bottom"
                             Header="Forced Weather"
-                            Margin="0,5,0,0">
+                            Margin="0,5,0,0"
+                            ToolTip="Force the weather to remain a certain way. Note that certain game events will override this setting.">
                         <StackPanel>
                             <CheckBox
                                     Content="Enabled"
