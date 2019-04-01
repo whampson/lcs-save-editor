@@ -69,7 +69,7 @@ namespace Test
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.TaxiBounceEnabled), save.SimpleVars.TaxiBounceEnabled);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ShowWaypoint), save.SimpleVars.ShowWaypoint);
             Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.WaypointPosition), save.SimpleVars.WaypointPosition);
-            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.Timestamp), save.SimpleVars.Timestamp);
+            Console.WriteLine("{0}: {1}", nameof(save.SimpleVars.ModificationTime), save.SimpleVars.ModificationTime);
             Console.WriteLine();
         }
 
