@@ -108,7 +108,7 @@ SOFTWARE.
                     Grid.Column="3"
                     Command="{Binding CloseWindowCommand}"
                     Style="{StaticResource ButtonStyle}"
-                    Content="{x:Static r:FrontendResources.Common_Close}"/>
+                    Content="{x:Static r:FrontendResources.Common_Label_Close}"/>
         </Grid>
 
     </Grid>

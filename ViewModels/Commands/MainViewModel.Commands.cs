@@ -174,7 +174,7 @@ namespace LcsSaveEditor.ViewModels
 
             OnMessageBoxRequested(new MessageBoxEventArgs(
                 msg,
-                title: title ?? FrontendResources.Common_Error,
+                title: title ?? FrontendResources.Common_Label_Error,
                 icon: MessageBoxImage.Error));
         }
 
@@ -192,7 +192,7 @@ namespace LcsSaveEditor.ViewModels
                 fileName: fileName,
                 filter: filter,
                 initialDirectory: initialDirectory,
-                title: title ?? FrontendResources.Common_Open,
+                title: title ?? FrontendResources.Common_Label_Open,
                 resultAction: resultAction));
         }
 
@@ -210,7 +210,7 @@ namespace LcsSaveEditor.ViewModels
                 fileName: fileName,
                 filter: filter,
                 initialDirectory: initialDirectory,
-                title: title ?? FrontendResources.Common_SaveAs,
+                title: title ?? FrontendResources.Common_Label_SaveAs,
                 resultAction: resultAction));
         }
 
