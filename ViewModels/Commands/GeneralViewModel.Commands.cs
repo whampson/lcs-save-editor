@@ -101,5 +101,33 @@ namespace LcsSaveEditor.ViewModels
                 Weather.Snowy
             });
         }
+
+        private void UpdateDisabledItemsBasedOnPlatform(GamePlatform platform)
+        {
+            switch (platform) {
+                case GamePlatform.Android:
+                case GamePlatform.IOS:
+                    IsControlsSetEnabled = false;
+                    IsModificationTimeEnabled = false;
+                    IsVibrationEnabled = false;
+                    IsWidescreenEnabled = false;
+                    IsSwapAnalogAndDPadEnabled = false;
+                    break;
+                case GamePlatform.PS2:
+                    IsControlsSetEnabled = true;
+                    IsModificationTimeEnabled = true;
+                    IsVibrationEnabled = true;
+                    IsWidescreenEnabled = true;
+                    IsSwapAnalogAndDPadEnabled = false;
+                    break;
+                case GamePlatform.PSP:
+                    IsControlsSetEnabled = true;
+                    IsModificationTimeEnabled = false;
+                    IsVibrationEnabled = false;
+                    IsWidescreenEnabled = false;
+                    IsSwapAnalogAndDPadEnabled = true;
+                    break;
+            }
+        }
     }
 }

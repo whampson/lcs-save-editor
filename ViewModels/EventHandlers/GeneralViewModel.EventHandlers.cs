@@ -30,22 +30,26 @@ namespace LcsSaveEditor.ViewModels
         private void MainViewModel_DataLoaded(object sender, SaveDataEventArgs e)
         {
             SimpleVars = e.Data.SimpleVars;
+            Scripts = e.Data.Scripts;
             Stats = e.Data.Stats;
 
             switch (e.Data.FileType) {
                 case GamePlatform.Android:
                 case GamePlatform.IOS:
+                    isPS2PSP = false;
                     BrightnessMinValue = AndroidIOSBrightnessMinValue;
                     BrightnessMaxValue = AndroidIOSBrightnessMaxValue;
                     break;
                 case GamePlatform.PS2:
                 case GamePlatform.PSP:
+                    isPS2PSP = true;
                     BrightnessMinValue = PS2PSPBrightnessMinValue;
                     BrightnessMaxValue = PS2PSPBrightnessMaxValue;
                     break;
             }
 
             OnShowSelectedWeatherItem();
+            UpdateDisabledItemsBasedOnPlatform(e.Data.FileType);
         }
 
         private void MainViewModel_DataClosing(object sender, SaveDataEventArgs e)

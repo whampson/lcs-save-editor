@@ -22,6 +22,7 @@
 #endregion
 
 using LcsSaveEditor.Models;
+using LcsSaveEditor.Models.DataTypes;
 using LcsSaveEditor.Resources;
 using System.Windows.Data;
 
@@ -35,10 +36,19 @@ namespace LcsSaveEditor.ViewModels
         private const int AndroidIOSBrightnessMaxValue = 700;
 
         private SimpleVars m_simpleVars;
+        private Scripts m_scripts;
         private Stats m_stats;
+
+        private bool isPS2PSP;
 
         private int m_brightnessMinValue;
         private int m_brightnessMaxValue;
+
+        private bool m_isModificationTimeEnabled;
+        private bool m_isControlsSetEnabled;
+        private bool m_isSwapAnalogAndDPadEnabled;
+        private bool m_isVibrationEnabled;
+        private bool m_isWidescreenEnabled;
 
         private ListCollectionView m_controlsList;
         private ListCollectionView m_onFootCameraList;
@@ -63,10 +73,33 @@ namespace LcsSaveEditor.ViewModels
             set { m_simpleVars = value; OnPropertyChanged(); }
         }
 
+        public Scripts Scripts
+        {
+            get { return m_scripts; }
+            set { m_scripts = value; OnPropertyChanged(); }
+        }
+
         public Stats Stats
         {
             get { return m_stats; }
             set { m_stats = value; OnPropertyChanged(); }
+        }
+
+        public PlayerCameraMode PlayerCamera
+        {
+            // TODO: make a GlobalVariables class that abstracts away platform differences between global variable numbers
+            get {
+                if (isPS2PSP) {
+                    return (PlayerCameraMode) m_scripts.GlobalVariables[516].Value;
+                }
+                return m_simpleVars.PlayerCamera;
+            }
+            set {
+                m_simpleVars.PlayerCamera = value;
+                if (isPS2PSP) {
+                    m_scripts.GlobalVariables[516].Value = (uint) value;
+                }
+            }
         }
 
         public int BrightnessMinValue
@@ -79,6 +112,36 @@ namespace LcsSaveEditor.ViewModels
         {
             get { return m_brightnessMaxValue; }
             set { m_brightnessMaxValue = value; OnPropertyChanged(); }
+        }
+
+        public bool IsModificationTimeEnabled
+        {
+            get { return m_isModificationTimeEnabled; }
+            set { m_isModificationTimeEnabled = value; OnPropertyChanged(); }
+        }
+
+        public bool IsControlsSetEnabled
+        {
+            get { return m_isControlsSetEnabled; }
+            set { m_isControlsSetEnabled = value; OnPropertyChanged(); }
+        }
+
+        public bool IsSwapAnalogAndDPadEnabled
+        {
+            get { return m_isSwapAnalogAndDPadEnabled; }
+            set { m_isSwapAnalogAndDPadEnabled = value; OnPropertyChanged(); }
+        }
+
+        public bool IsVibrationEnabled
+        {
+            get { return m_isVibrationEnabled; }
+            set { m_isVibrationEnabled = value; OnPropertyChanged(); }
+        }
+
+        public bool IsWidescreenEnabled
+        {
+            get { return m_isWidescreenEnabled; }
+            set { m_isWidescreenEnabled = value; OnPropertyChanged(); }
         }
 
         public ListCollectionView ControlsList
