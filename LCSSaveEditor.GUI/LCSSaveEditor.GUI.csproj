@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <Version>0.11.0-alpha</Version>
+    <FileVersion>0.11.0.102</FileVersion>
+    <AssemblyVersion>0.11.0.102</AssemblyVersion>
+    <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
+    <Product>LcsSaveEditor</Product>
+    <Authors>Wes Hampson</Authors>
+    <Company>Wes Hampson</Company>
+    <Copyright>(C) 2016-2020 Wes Hampson. All Rights Reserved.</Copyright>
+    <Description>Grand Theft Auto: Liberty City Stories save file editor.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
+    <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
+    <PackageReference Include="WpfEssentials.Win32" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LCSSaveEditor.Core\LCSSaveEditor.Core.csproj" />
+    <ProjectReference Include="..\..\gta-save-data\GTASaveData.LCS\GTASaveData.LCS.csproj" />
+  </ItemGroup>
+
+</Project>

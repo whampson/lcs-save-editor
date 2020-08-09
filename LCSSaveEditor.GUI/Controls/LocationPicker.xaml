@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="LCSSaveEditor.GUI.Controls.LocationPicker"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    mc:Ignorable="d">
+
+    <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:LocationPicker}}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Style="{StaticResource LabelStyleRight}" Text="X:"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="0,0,5,0" Style="{StaticResource LabelStyleRight}" Text="Y:"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,0,5,0" Style="{StaticResource LabelStyleRight}" Text="Z:"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="0" Value="{Binding Value.X}" ValueChanged="X_ValueChanged" AllowSpin="True"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="1" Value="{Binding Value.Y}" ValueChanged="Y_ValueChanged"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="2" Value="{Binding Value.Z}" ValueChanged="Z_ValueChanged"/>
+    </Grid>
+
+</UserControl>

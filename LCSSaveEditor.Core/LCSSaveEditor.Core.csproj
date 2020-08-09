@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.11.0-alpha</Version>
+    <FileVersion>0.11.0.31</FileVersion>
+    <AssemblyVersion>0.11.0.31</AssemblyVersion>
+    <AssemblyName>LcsSaveEditor.Core</AssemblyName>
+    <Product>LcsSaveEditor</Product>
+    <Authors>Wes Hampson</Authors>
+    <Company>Wes Hampson</Company>
+    <Copyright>(C) 2016-2020 Wes Hampson. All Rights Reserved.</Copyright>
+    <Description>Core library for the Grand Theft Auto: Liberty City Stories save file editor.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="WpfEssentials" Version="1.2.0" />
+    <!--<PackageReference Include="GTASaveData.LCS" Version="1.0.1" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\gta-save-data\GTASaveData.LCS\GTASaveData.LCS.csproj" />
+  </ItemGroup>
+
+</Project>
