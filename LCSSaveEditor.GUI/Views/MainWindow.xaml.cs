@@ -59,7 +59,7 @@ namespace LCSSaveEditor.GUI.Views
             if (ViewModel.IsDirty)
             {
                 e.Cancel = true;
-                ViewModel.PromptSaveChanges(ExitAppConfirmationDialog_Callback);
+                ViewModel.PromptSaveChanges(ExitAppDialog_Callback);
                 return;
             }
 
@@ -78,12 +78,38 @@ namespace LCSSaveEditor.GUI.Views
             m_initialized = false;
         }
 
-        private void ExitAppConfirmationDialog_Callback(MessageBoxResult r)
+
+        private void Window_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 1)
+                {
+                    ViewModel.ShowError("Multiple files selected. Please select only one file.");
+                    return;
+                }
+
+                ViewModel.TheSettings.SetLastAccess(files[0]);
+                ViewModel.OpenFile(files[0]);
+            }
+            else
+            {
+                ViewModel.ShowError("Data format not supported. Please select a file.");
+                return;
+            }
+        }
+
+        private void ExitAppDialog_Callback(MessageBoxResult r)
         {
             if (r != MessageBoxResult.Cancel)
             {
-                if (r == MessageBoxResult.Yes) ViewModel.SaveFile();
-                ViewModel.IsDirty = false;
+                if (r == MessageBoxResult.Yes)
+                {
+                    ViewModel.SaveFile();
+                }
+
+                ViewModel.ClearDirty();
                 ViewModel.CloseFile();
                 Application.Current.Shutdown();
             }
@@ -116,7 +142,10 @@ namespace LCSSaveEditor.GUI.Views
                 return;
             }
 
-            if (m_logWindow == null) m_logWindow = new LogWindow() { Owner = this };
+            if (m_logWindow == null)
+            {
+                m_logWindow = new LogWindow() { Owner = this };
+            }
             m_logWindow.Show();
         }
 

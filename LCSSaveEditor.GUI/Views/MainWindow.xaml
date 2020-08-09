@@ -10,8 +10,9 @@
     mc:Ignorable="d"
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:MainWindow}"
+    Title="{Binding Title}"
     Loaded="Window_Loaded" Closing="Window_Closing"
-    Title="{Binding Title}">
+    AllowDrop="True" Drop="Window_Drop">
 
     <Window.DataContext>
         <m:MainWindow/>
@@ -67,6 +68,11 @@
                     Command="{Binding FileExitCommand}"/>
             </MenuItem>
 
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Change Something"
+                    Command="{Binding ChangeSomethingCommand}"/>
+            </MenuItem>
+
             <MenuItem Header="_View">
                 <MenuItem Header="Show _Log"
                     Command="{Binding ViewShowLogCommand}"/>
@@ -96,13 +102,10 @@
                 IsSynchronizedWithCurrentItem="True"
                 SelectedIndex="{Binding SelectedTabIndex}"
                 SelectionChanged="TabControl_SelectionChanged">
-
                 <ctrl:TabControlEx.ItemTemplate>
-
                     <DataTemplate>
                         <TextBlock Text="{Binding Title, Mode=OneWay}"/>
                     </DataTemplate>
-
                 </ctrl:TabControlEx.ItemTemplate>
             </ctrl:TabControlEx>
 

@@ -16,15 +16,11 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler<FileDialogEventArgs> FileDialogRequest;
         public event EventHandler<FileDialogEventArgs> FolderDialogRequest;
 
-        public const int DefaultTimerDuration = 5;   // seconds
-
         private readonly DispatcherTimer m_timer;
-        private string m_title;
-        private int m_timerDuration;
         private int m_timerTick;
-        private string m_statusText;
+        private string m_currentStatusText;
         private string m_permanentStatusText;
-        
+        private string m_title;
 
         public string Title
         {
@@ -32,36 +28,15 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_title = value; OnPropertyChanged(); }
         }
 
-        public int TimerDuration
-        {
-            get { return m_timerDuration; }
-            set { m_timerDuration = value; OnPropertyChanged(); }
-        }
-
-        public int TimerTick
-        {
-            get { return m_timerTick; }
-            set { m_timerTick = value; OnPropertyChanged(); }
-        }
-
         public string StatusText
         {
-            get { return m_statusText; }
-            set
-            {
-                if (m_timer.IsEnabled)
-                {
-                    m_timer.Stop();
-                }
-                m_statusText = value;
-                OnPropertyChanged();
-            }
+            get { return m_currentStatusText; }
+            private set { m_currentStatusText = value; OnPropertyChanged(); }
         }
 
         public WindowBase()
         {
             m_timer = new DispatcherTimer();
-            m_timerDuration = DefaultTimerDuration;
         }
 
         public virtual void Initialize()
@@ -80,17 +55,24 @@ namespace LCSSaveEditor.GUI.ViewModels
             m_permanentStatusText = status;
         }
 
-        public void SetTimedStatusText(string status)
+        public void SetTimedStatusText(string status,
+            int duration = 5,   // seconds
+            string expiredStatus = null)
         {
+            if (expiredStatus == null)
+            {
+                expiredStatus = m_permanentStatusText;
+            }
+
             if (m_timer.IsEnabled)
             {
                 m_timer.Stop();
-                m_statusText = m_permanentStatusText;
+                m_currentStatusText = expiredStatus;
             }
 
-            m_permanentStatusText = StatusText;
+            m_permanentStatusText = expiredStatus;
             StatusText = status;
-            m_timerTick = m_timerDuration;
+            m_timerTick = duration;
             m_timer.Interval = TimeSpan.FromSeconds(1);
             m_timer.Start();
         }
@@ -148,7 +130,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             FileDialogEventArgs e = new FileDialogEventArgs(type, callback)
             {
-                InitialDirectory = Settings.TheSettings.LastFileAccessed
+                InitialDirectory = Settings.TheSettings.LastDirectoryAccessed
             };
             FileDialogRequest?.Invoke(this, e);
         }

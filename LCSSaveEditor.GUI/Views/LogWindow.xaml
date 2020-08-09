@@ -8,7 +8,7 @@
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     mc:Ignorable="d" 
     Title="Log"
-    Height="350" Width="500"
+    Height="500" Width="650"
     d:DataContext="{d:DesignInstance m:LogWindow}"
     Loaded="Window_Loaded" Closing="Window_Closing"
     WindowStartupLocation="CenterOwner">

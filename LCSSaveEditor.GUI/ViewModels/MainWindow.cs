@@ -1,15 +1,16 @@
-﻿using GTASaveData.LCS;
+﻿using GTASaveData;
+using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Events;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using WpfEssentials;
@@ -122,8 +123,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (TheEditor.IsFileOpen)
             {
-                ShowError("Please close the current file before opening a new one.");
-                return;
+                if (IsDirty)
+                {
+                    PromptSaveChanges(OpenFilePrompt_Callback);
+                    return;
+                }
+                CloseFile();
             }
 
             try
@@ -138,12 +143,11 @@ namespace LCSSaveEditor.GUI.ViewModels
                     ShowError("The file is not a valid GTA:LCS save file.");
                     return;
                 }
+
+                ShowException(e, "The file could not be opened.");
+
 #if !DEBUG
-                else
-                {
-                    ShowException(e, "The file could not be loaded.");
-                    return;
-                }
+                return;
 #else
                 throw;
 #endif
@@ -166,28 +170,32 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 Log.Exception(e);
                 ShowException(e, "The file could not be saved.");
+                SetTimedStatusText("Error saving file.", 10, expiredStatus: "Ready.");
+
+#if !DEBUG
+                return;
+#else
+                throw;
+#endif
             }
         }
 
         public void RevertFile()
         {
-            if (IsDirty) PromptConfirmRevert(RevertFileDialog_Callback);
-            else DoRevert();
-        }
+            if (IsDirty)
+            {
+                PromptConfirmRevert(RevertFilePrompt_Callback);
+                return;
+            }
 
-        public void DoRevert()
-        {
             m_isRevertingFile = true;
             Log.Info("Reverting file...");
 
-            Tabs.Where(t => t.Visibility == TabPageVisibility.WhenFileIsOpen).ToList()
-                .ForEach(t => t.Unload());
-
+            Tabs.Where(t => t.Visibility == TabPageVisibility.WhenFileIsOpen).ToList().ForEach(t => t.Unload());
             TheEditor.CloseFile();
-            TheEditor.OpenFile(TheSettings.MostRecentFile);
 
-            Tabs.Where(t => t.Visibility == TabPageVisibility.WhenFileIsOpen).ToList()
-                .ForEach(t => t.Load());
+            TheEditor.OpenFile(TheSettings.MostRecentFile);
+            Tabs.Where(t => t.Visibility == TabPageVisibility.WhenFileIsOpen).ToList().ForEach(t => t.Load());
 
             Log.Info("File reverted.");
             m_isRevertingFile = false;
@@ -195,36 +203,40 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void CloseFile()
         {
-            if (IsDirty) PromptSaveChanges(CloseFileDialog_Callback);
-            else DoClose();
-        }
+            if (IsDirty)
+            {
+                PromptSaveChanges(CloseFilePrompt_Callback);
+                return;
+            }
 
-        private void DoClose()
-        {
             TheEditor.CloseFile();
         }
 
-        private void DoExit()
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void UpdateTitle()
-        {
-            string title = App.Name;
-            if (IsDirty) title = $"*{title}";
-            if (TheSave != null) title += $" - {TheSettings.MostRecentFile}";
-
-            Title = title;
-        }
-
-        private void SetDirty()
+        public void SetDirty()
         {
             if (!IsDirty)
             {
                 IsDirty = true;
                 UpdateTitle();
             }
+        }
+
+        public void ClearDirty()
+        {
+            if (IsDirty)
+            {
+                IsDirty = false;
+                UpdateTitle();
+            }
+        }
+
+        private void UpdateTitle()
+        {
+            string title = App.Name;
+            if (IsDirty) title = $"*{title}";
+            if (TheEditor.IsFileOpen) title += $" - {TheSettings.MostRecentFile}";
+
+            Title = title;
         }
 
         #region Window Actions
@@ -254,13 +266,11 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (!m_isRevertingFile)
             {
                 RefreshTabs(TabUpdateTrigger.FileOpened);
-                SetStatusText("Ready.");
-                SetTimedStatusText("File opened successfully.");
+                SetTimedStatusText("File opened successfully.", expiredStatus: "Ready.");
             }
             else
             {
-                SetStatusText("Ready.");
-                SetTimedStatusText("File reverted.");
+                SetTimedStatusText("File reverted.", expiredStatus: "Ready.");
             }
         }
 
@@ -275,14 +285,12 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheEditor_FileClosed(object sender, EventArgs e)
         {
-            IsDirty = false;
-            UpdateTitle();
+            ClearDirty();
 
             UnregisterDirtyHandlers(TheSave);
             OnPropertyChanged(nameof(TheSave));
 
-            SetStatusText("Ready.");
-            SetTimedStatusText("File closed.");
+            SetTimedStatusText("File closed.", expiredStatus: "Ready.");
         }
 
         private void TheEditor_FileSaving(object sender, string e)
@@ -296,26 +304,44 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheEditor_FileSaved(object sender, EventArgs e)
         {
-            IsDirty = false;
-            UpdateTitle();
-            SetStatusText("Ready.");
-            SetTimedStatusText("File saved successfully.");
+            ClearDirty();
+            SetTimedStatusText("File saved successfully.", expiredStatus: "Ready.");
         }
 
-        void RevertFileDialog_Callback(MessageBoxResult r)
+        private void RevertFilePrompt_Callback(MessageBoxResult r)
         {
             if (r == MessageBoxResult.Yes)
             {
-                DoRevert();
+                ClearDirty();
+                RevertFile();
             }
         }
 
-        void CloseFileDialog_Callback(MessageBoxResult r)
+        private void OpenFilePrompt_Callback(MessageBoxResult r)
         {
             if (r != MessageBoxResult.Cancel)
             {
-                if (r == MessageBoxResult.Yes) SaveFile();
-                DoClose();
+                if (r == MessageBoxResult.Yes)
+                {
+                    SaveFile();
+                }
+
+                ClearDirty();
+                OpenFile(TheSettings.LastFileAccessed);
+            }
+        }
+
+        private void CloseFilePrompt_Callback(MessageBoxResult r)
+        {
+            if (r != MessageBoxResult.Cancel)
+            {
+                if (r == MessageBoxResult.Yes)
+                {
+                    SaveFile();
+                }
+
+                ClearDirty();
+                CloseFile();
             }
         }
 
@@ -383,21 +409,88 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheSave_PropertyDirty(object sender, PropertyChangedEventArgs e)
         {
-            Log.Info($"PropertyChanged: {e.PropertyName}");
             SetDirty();
+
+            if (sender is IEnumerable)
+            {
+                // Ignore collections
+                return;
+            }
+
+            var type = sender.GetType();
+            var prop = type.GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+            var data = prop.GetValue(sender);
+            Log.Info($"PropertyChanged: {type.FullName}.{e.PropertyName} = {data}");
         }
 
         private void TheSave_CollectionDirty(object sender, NotifyCollectionChangedEventArgs e)
         {
-            // TOOD: log
-            //Log.Info($"CollectionChanged: {e.}");
+            var type = sender.GetType().GetGenericArguments()[0];
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                {
+                    for (int i = 0; i < e.NewItems.Count; i++)
+                    {
+                        var data = e.NewItems[i];
+                        if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
+                        Log.Info($"CollectionChanged: Add: {type.FullName}[{e.NewStartingIndex + i}] = {data}");
+                    }
+                    break;
+                }
+                case NotifyCollectionChangedAction.Remove:
+                {
+                    for (int i = 0; i < e.OldItems.Count; i++)
+                    {
+                        var data = e.OldItems[i];
+                        if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
+                        Log.Info($"CollectionChanged: Remove: {type.FullName}[{e.OldStartingIndex + i}] = {data}");
+                    }
+                    break;
+                }
+                case NotifyCollectionChangedAction.Replace:
+                {
+                    for (int i = 0; i < e.NewItems.Count; i++)
+                    {
+                        var data = e.NewItems[i];
+                        if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
+                        Log.Info($"CollectionChanged: Replace: {type.FullName}[{e.NewStartingIndex + i}] = {data}");
+                    }
+                    break;
+                }
+                case NotifyCollectionChangedAction.Move:
+                {
+                    for (int i = 0; i < e.NewItems.Count; i++)
+                    {
+                        Log.Info($"CollectionChanged: Move: {type.FullName}[{e.OldStartingIndex + i}] => {type.FullName}[{e.NewStartingIndex + i}]");
+                    }
+                    break;
+                }
+                case NotifyCollectionChangedAction.Reset:
+                {
+                    Log.Info($"CollectionChanged: Reset: {type.FullName}");
+                    break;
+                }
+            }
             SetDirty();
         }
 
         private void TheSave_CollectionElementDirty(object sender, ItemStateChangedEventArgs e)
         {
-            Log.Info($"PropertyChanged: {e.PropertyName} at index {e.ItemIndex}");
             SetDirty();
+
+            if (!(sender is IList list))
+            {
+                return;
+            }
+
+            var item = list[e.ItemIndex];
+            var type = item.GetType();
+            var prop = type.GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
+            var data = prop.GetValue(item);
+            if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
+            Log.Info($"PropertyChanged: {type.FullName}[{e.ItemIndex}].{e.PropertyName} = {data}");
+
         }
         #endregion
 
@@ -409,7 +502,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public ICommand FileOpenRecentCommand => new RelayCommand<string>
         (
-            (x) => OpenFile(x),
+            (x) => { TheSettings.SetLastAccess(x); OpenFile(x);  },
             (_) => TheSettings.RecentFiles.Count > 0
         );
 
@@ -458,6 +551,18 @@ namespace LCSSaveEditor.GUI.ViewModels
                    $"Version: {App.InformationalVersion}\n",
                     title: "About");
             }
+        );
+
+        public ICommand ChangeSomethingCommand => new RelayCommand
+        (
+            () =>
+            {
+                TheSave.SimpleVars.ShowSubtitles = false;
+                TheSave.Garages.CarsInSafeHouse[0].Extra1 = -1;
+                TheSave.Garages.CarsInSafeHouse[2] = new StoredCar();
+                TheSave.Scripts.SetGlobal(69, 420);
+            },
+            () => TheEditor.IsFileOpen
         );
     }
     #endregion
