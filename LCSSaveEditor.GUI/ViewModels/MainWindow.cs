@@ -54,7 +54,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public MainWindow()
         {
-            Tabs = new ObservableCollection<TabPageBase>();
+            Tabs = new ObservableCollection<TabPageBase>
+            {
+                new WelcomeTab(this),
+                new GeneralTab(this),
+            };
 
             UpdateTitle();
         }
@@ -149,11 +153,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
                 ShowException(e, "The file could not be opened.");
 
-#if !DEBUG
+            #if !DEBUG
                 return;
-#else
+            #else
                 throw;
-#endif
+            #endif
 
             }
         }
@@ -175,11 +179,11 @@ namespace LCSSaveEditor.GUI.ViewModels
                 ShowException(e, "The file could not be saved.");
                 SetTimedStatusText("Error saving file.", 10, expiredStatus: "Ready.");
 
-#if !DEBUG
+            #if !DEBUG
                 return;
-#else
+            #else
                 throw;
-#endif
+            #endif
             }
         }
 
@@ -590,6 +594,41 @@ namespace LCSSaveEditor.GUI.ViewModels
         (
             () => AboutWindowRequest?.Invoke(this, EventArgs.Empty)
         );
+
+        #if DEBUG
+        public ICommand DebugCauseUnhandledException => new RelayCommand
+        (
+            () =>
+            {
+                Random r = new Random();
+                int func = r.Next(0, 3);
+
+                switch (func)
+                {
+                    // Any prospecting programers out there? Find the issues with each function!
+                    case 0:
+                    {
+                        int[] foo = { 0, 1 };
+                        foo[2] = 3;
+                        break;
+                    }
+                    case 1:
+                    {
+                        using StreamBuffer buf = new StreamBuffer(10);
+                        buf.Write(r.Next());
+                        buf.Write(r.Next());
+                        buf.Write(r.Next());
+                        break;
+                    }
+                    case 2:
+                    {
+                        int.Parse("one");
+                        break;
+                    }
+                }
+            }
+        );
+        #endif
+        #endregion
     }
-    #endregion
 }

@@ -12,8 +12,10 @@ namespace LCSSaveEditor.Core
 
         private ObservableCollection<string> m_recentFiles;
         private int m_recentFilesCapacity;
-        private string m_lastDirectoryAccessed;
+        private string m_lastDirAccessed;
         private string m_lastFileAccessed;
+        private string m_saveDir;
+        private bool m_saveDirRecursiveSearch;
         private bool m_autoDetectFileType;
         private FileFormat m_forcedFileType;
         private bool m_updateTimeStamp;
@@ -38,14 +40,27 @@ namespace LCSSaveEditor.Core
 
         public string LastDirectoryAccessed
         {
-            get { return m_lastDirectoryAccessed; }
-            set { m_lastDirectoryAccessed = value; OnPropertyChanged(); }
+            get { return m_lastDirAccessed; }
+            set { m_lastDirAccessed = value; OnPropertyChanged(); }
         }
         public string LastFileAccessed
         {
             get { return m_lastFileAccessed; }
             set { m_lastFileAccessed = value; OnPropertyChanged(); }
         }
+
+        public string SaveDirectory
+        {
+            get { return m_saveDir; }
+            set { m_saveDir = value; OnPropertyChanged(); }
+        }
+
+        public bool SaveDirectoryRecursiveSearch
+        {
+            get { return m_saveDirRecursiveSearch; }
+            set { m_saveDirRecursiveSearch = value; OnPropertyChanged(); }
+        }
+
 
         public bool AutoDetectFileType
         {

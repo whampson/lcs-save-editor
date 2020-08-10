@@ -38,8 +38,11 @@ namespace LCSSaveEditor.GUI.Views
 
         private void UpdateTextBox()
         {
-            m_textBox.Text = App.LogText;
-            m_textBox.ScrollToEnd();
+            Dispatcher.Invoke(() =>
+            {
+                m_textBox.Text = App.LogText;
+                m_textBox.ScrollToEnd();
+            });
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

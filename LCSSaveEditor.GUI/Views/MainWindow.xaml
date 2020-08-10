@@ -9,6 +9,7 @@
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     xmlns:ctrl="clr-namespace:LCSSaveEditor.GUI.Controls"
     xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
+    xmlns:dbg ="debug-build"
     mc:Ignorable="d"
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:MainWindow}"
@@ -29,6 +30,15 @@
         <KeyBinding Modifiers="Alt" Key="F4" Command="{Binding FileExitCommand}"/>
         <KeyBinding Key="F1" Command="{Binding HelpAboutCommand}"/>
     </Window.InputBindings>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type m:WelcomeTab}">
+            <v:WelcomeTab/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type m:GeneralTab}">
+            <v:GeneralTab/>
+        </DataTemplate>
+    </Window.Resources>
 
     <DockPanel>
 
@@ -104,6 +114,15 @@
                     InputGestureText="F1"
                     Command="{Binding HelpAboutCommand}"/>
             </MenuItem>
+
+            <mc:AlternateContent>
+                <mc:Choice Requires="dbg">
+                    <MenuItem Header="_Debug">
+                        <MenuItem Header="Cause Unhandled Exception"
+                            Command="{Binding DebugCauseUnhandledException}"/>
+                    </MenuItem>
+                </mc:Choice>
+            </mc:AlternateContent>
         </Menu>
 
         <Grid DockPanel.Dock="Bottom">
@@ -115,7 +134,7 @@
 
             <ctrl:TabControlEx
                 Grid.Row="0"
-                Margin="-0.5,2,-0.5,-0.5"
+                Margin="-0.5,2.5,-0.5,-0.5"
                 Style="{StaticResource TabControlStyle}"
                 ItemsSource="{Binding Tabs}"
                 IsSynchronizedWithCurrentItem="True"

@@ -51,6 +51,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void SetStatusText(string status)
         {
+            if (m_timer.IsEnabled)
+            {
+                m_timer.Stop();
+            }
+
             StatusText = status;
             m_permanentStatusText = status;
         }

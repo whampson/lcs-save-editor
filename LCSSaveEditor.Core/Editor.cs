@@ -2,6 +2,7 @@
 using GTASaveData.LCS;
 using System;
 using System.IO;
+using System.Security;
 using WpfEssentials;
 
 namespace LCSSaveEditor.Core
@@ -53,6 +54,35 @@ namespace LCSSaveEditor.Core
             {
                 // TODO: actually implement this
                 ActiveFile.FileFormat = newFormat;
+            }
+        }
+
+        public static bool TryOpenFile(string path, out LCSSave saveFile)
+        {
+            try
+            {
+                if (SaveData.GetFileFormat<LCSSave>(path, out FileFormat fmt))
+                {
+                    saveFile = SaveData.Load<LCSSave>(path, fmt);
+                    return saveFile != null;
+                }
+
+                saveFile = null;
+                return false;
+            }
+            catch (Exception e)
+            {
+                if (e is IOException ||
+                    e is SecurityException ||
+                    e is UnauthorizedAccessException ||
+                    e is SerializationException ||
+                    e is InvalidDataException)
+                {
+                    Log.Error(e);
+                    saveFile = null;
+                    return false;
+                }
+                throw;
             }
         }
 

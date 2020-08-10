@@ -54,19 +54,25 @@ namespace LCSSaveEditor.GUI.Views
 
         protected virtual void OnInitialize()
         {
-            ViewModel.ShuttingDown += ViewModel_ShuttingDown;
-            ViewModel.Loading += ViewModel_Loading;
-            ViewModel.Unloading += ViewModel_Unloading;
-            ViewModel.Updating += ViewModel_Updating;
+            if (ViewModel != null)
+            {
+                ViewModel.ShuttingDown += ViewModel_ShuttingDown;
+                ViewModel.Loading += ViewModel_Loading;
+                ViewModel.Unloading += ViewModel_Unloading;
+                ViewModel.Updating += ViewModel_Updating;
+            }
         }
 
         protected virtual void OnShutdown()
         {
-            ViewModel.Updating -= ViewModel_Updating;
-            ViewModel.Unloading -= ViewModel_Unloading;
-            ViewModel.Loading -= ViewModel_Loading;
-            ViewModel.ShuttingDown -= ViewModel_ShuttingDown;
-            Loaded -= View_Loaded;
+            if (ViewModel != null)
+            {
+                ViewModel.Updating -= ViewModel_Updating;
+                ViewModel.Unloading -= ViewModel_Unloading;
+                ViewModel.Loading -= ViewModel_Loading;
+                ViewModel.ShuttingDown -= ViewModel_ShuttingDown;
+                Loaded -= View_Loaded;
+            }
         }
 
         protected virtual void OnLoad()
