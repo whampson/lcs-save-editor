@@ -4,9 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
     xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     xmlns:ctrl="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
     mc:Ignorable="d"
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:MainWindow}"
@@ -28,7 +30,6 @@
         <KeyBinding Key="F1" Command="{Binding HelpAboutCommand}"/>
     </Window.InputBindings>
 
-
     <DockPanel>
 
         <Menu DockPanel.Dock="Top">
@@ -37,7 +38,7 @@
                 <MenuItem Header="_Open..." 
                     InputGestureText="Ctrl+O"
                     Command="{Binding FileOpenCommand}"/>
-                <MenuItem Header="Open _Recent"
+                <MenuItem Header="Open R_ecent"
                     IsEnabled="{Binding TheSettings.RecentFiles.Count, Converter={StaticResource IsNotZero}}"
                     ItemsSource="{Binding TheSettings.RecentFiles}">
                     <MenuItem.ItemContainerStyle>
@@ -52,16 +53,18 @@
                 <MenuItem Header="_Save"
                     InputGestureText="Ctrl+S"
                     Command="{Binding FileSaveCommand}"/>
-                <MenuItem Header="_Save As..."
+                <MenuItem Header="Save _As..."
                     InputGestureText="Ctrl+Shift+S"
                     Command="{Binding FileSaveAsCommand}"/>
                 <Separator/>
-                <MenuItem Header="_Revert File"
-                    InputGestureText="Ctrl+R"
-                    Command="{Binding FileRevertCommand}"/>
                 <MenuItem Header="_Close File"
                     InputGestureText="Ctrl+W"
                     Command="{Binding FileCloseCommand}"/>
+                <MenuItem Header="_Revert File"
+                    InputGestureText="Ctrl+R"
+                    Command="{Binding FileRevertCommand}"/>
+                <MenuItem Header="_Transfer Data..."
+                    Command="{Binding FileTransferDataCommand}"/>
                 <Separator/>
                 <MenuItem Header="E_xit"
                     InputGestureText="Alt+F4"
@@ -69,18 +72,34 @@
             </MenuItem>
 
             <MenuItem Header="_Edit">
-                <MenuItem Header="Change Something"
-                    Command="{Binding ChangeSomethingCommand}"/>
+                <MenuItem Header="File _Type" IsEnabled="{Binding TheEditor.IsFileOpen}">
+                    <MenuItem Header="_Android"
+                        IsChecked="{Binding TheSave.FileFormat.IsAndroid, Mode=OneWay}"
+                        Command="{Binding EditConvertAndroidCommand}"/>
+                    <MenuItem Header="_iOS"
+                        IsChecked="{Binding TheSave.FileFormat.IsiOS, Mode=OneWay}"
+                        Command="{Binding EditConvertiOSCommand}"/>
+                    <MenuItem Header="PS_2"
+                        IsChecked="{Binding TheSave.FileFormat.IsPS2, Mode=OneWay}"
+                        Command="{Binding EditConvertPS2Command}"/>
+                    <MenuItem Header="_PSP"
+                        IsChecked="{Binding TheSave.FileFormat.IsPSP, Mode=OneWay}"
+                        Command="{Binding EditConvertPSPCommand}"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="_Settings..."
+                    Command="{Binding EditSettingsCommand}"/>
             </MenuItem>
 
             <MenuItem Header="_View">
-                <MenuItem Header="Show _Log"
-                    Command="{Binding ViewShowLogCommand}"/>
+                <MenuItem Header="_Log"
+                    Command="{Binding ViewLogCommand}"/>
             </MenuItem>
 
             <MenuItem Header="_Help">
-                <!--<MenuItem Header="Check for _Updates"
-                    Command="{Binding HelpUpdateCommand}"/>-->
+                <MenuItem Header="Check for _Updates"
+                    Command="{Binding HelpUpdateCommand}"/>
+                <Separator/>
                 <MenuItem Header="_About"
                     InputGestureText="F1"
                     Command="{Binding HelpAboutCommand}"/>

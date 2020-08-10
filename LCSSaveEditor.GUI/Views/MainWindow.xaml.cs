@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -45,10 +46,12 @@ namespace LCSSaveEditor.GUI.Views
             if (m_initialized) return;
 
             ViewModel.Initialize();
+            ViewModel.SettingsWindowRequest += ViewModel_SettingsWindowRequest;
+            ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
+            ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
             ViewModel.MessageBoxRequest += ViewModel_MessageBoxRequest;
             ViewModel.FileDialogRequest += ViewModel_FileDialogRequest;
             ViewModel.FolderDialogRequest += ViewModel_FolderDialogRequest;
-            ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
 
             m_initializing = false;
             m_initialized = true;
@@ -64,10 +67,12 @@ namespace LCSSaveEditor.GUI.Views
             }
 
             ViewModel.Shutdown();
+            ViewModel.SettingsWindowRequest -= ViewModel_SettingsWindowRequest;
+            ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
+            ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
             ViewModel.MessageBoxRequest -= ViewModel_MessageBoxRequest;
             ViewModel.FileDialogRequest -= ViewModel_FileDialogRequest;
             ViewModel.FolderDialogRequest -= ViewModel_FolderDialogRequest;
-            ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
 
             if (m_logWindow != null)
             {
@@ -100,19 +105,34 @@ namespace LCSSaveEditor.GUI.Views
             }
         }
 
-        private void ExitAppDialog_Callback(MessageBoxResult r)
+        private void ViewModel_SettingsWindowRequest(object sender, EventArgs e)
         {
-            if (r != MessageBoxResult.Cancel)
-            {
-                if (r == MessageBoxResult.Yes)
-                {
-                    ViewModel.SaveFile();
-                }
+            ViewModel.ShowInfo($"TODO: settings");
+        }
 
-                ViewModel.ClearDirty();
-                ViewModel.CloseFile();
-                Application.Current.Shutdown();
+        private void ViewModel_LogWindowRequest(object sender, EventArgs e)
+        {
+            if (m_logWindow != null && m_logWindow.IsVisible)
+            {
+                m_logWindow.Focus();
+                return;
             }
+
+            if (m_logWindow == null)
+            {
+                m_logWindow = new LogWindow() { Owner = this };
+            }
+            m_logWindow.Show();
+        }
+
+        private void ViewModel_AboutWindowRequest(object sender, EventArgs e)
+        {
+                ViewModel.ShowInfo(
+                    $"{App.Name}\n" +
+                    "(C) 2016-2020 Wes Hampson\n" +
+                    "\n" +
+                   $"Version: {App.InformationalVersion}\n",
+                    title: "About");
         }
 
         private void ViewModel_MessageBoxRequest(object sender, MessageBoxEventArgs e)
@@ -134,21 +154,6 @@ namespace LCSSaveEditor.GUI.Views
             e.Callback?.Invoke(r, e);
         }
 
-        private void ViewModel_LogWindowRequest(object sender, EventArgs e)
-        {
-            if (m_logWindow != null && m_logWindow.IsVisible)
-            {
-                m_logWindow.Focus();
-                return;
-            }
-
-            if (m_logWindow == null)
-            {
-                m_logWindow = new LogWindow() { Owner = this };
-            }
-            m_logWindow.Show();
-        }
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (m_initializing || !(e.OriginalSource is TabControl))
@@ -162,6 +167,21 @@ namespace LCSSaveEditor.GUI.Views
                 {
                     page.Update();
                 }
+            }
+        }
+
+        private void ExitAppDialog_Callback(MessageBoxResult r)
+        {
+            if (r != MessageBoxResult.Cancel)
+            {
+                if (r == MessageBoxResult.Yes)
+                {
+                    ViewModel.SaveFile();
+                }
+
+                ViewModel.ClearDirty();
+                ViewModel.CloseFile();
+                Application.Current.Shutdown();
             }
         }
     }

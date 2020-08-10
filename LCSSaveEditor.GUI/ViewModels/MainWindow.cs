@@ -20,6 +20,8 @@ namespace LCSSaveEditor.GUI.ViewModels
 {
     public class MainWindow : WindowBase
     {
+        public event EventHandler SettingsWindowRequest;
+        public event EventHandler AboutWindowRequest;
         public event EventHandler LogWindowRequest;
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
 
@@ -57,6 +59,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             UpdateTitle();
         }
 
+        #region Window Actions
         public override void Initialize()
         {
             base.Initialize();
@@ -212,34 +215,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             TheEditor.CloseFile();
         }
 
-        public void SetDirty()
-        {
-            if (!IsDirty)
-            {
-                IsDirty = true;
-                UpdateTitle();
-            }
-        }
-
-        public void ClearDirty()
-        {
-            if (IsDirty)
-            {
-                IsDirty = false;
-                UpdateTitle();
-            }
-        }
-
-        private void UpdateTitle()
-        {
-            string title = App.Name;
-            if (IsDirty) title = $"*{title}";
-            if (TheEditor.IsFileOpen) title += $" - {TheSettings.MostRecentFile}";
-
-            Title = title;
-        }
-
-        #region Window Actions
         public void RefreshTabs(TabUpdateTrigger trigger)
         {
             TabUpdate?.Invoke(this, new TabUpdateEventArgs(trigger));
@@ -307,7 +282,9 @@ namespace LCSSaveEditor.GUI.ViewModels
             ClearDirty();
             SetTimedStatusText("File saved successfully.", expiredStatus: "Ready.");
         }
+        #endregion
 
+        #region Dialog Callbacks
         private void RevertFilePrompt_Callback(MessageBoxResult r)
         {
             if (r == MessageBoxResult.Yes)
@@ -359,6 +336,35 @@ namespace LCSSaveEditor.GUI.ViewModels
                     SaveFile(e.FileName);
                     break;
             }
+        }
+        #endregion
+
+        #region Dirty Bit
+        public void SetDirty()
+        {
+            if (!IsDirty)
+            {
+                IsDirty = true;
+                UpdateTitle();
+            }
+        }
+
+        public void ClearDirty()
+        {
+            if (IsDirty)
+            {
+                IsDirty = false;
+                UpdateTitle();
+            }
+        }
+
+        private void UpdateTitle()
+        {
+            string title = App.Name;
+            if (IsDirty) title = $"*{title}";
+            if (TheEditor.IsFileOpen) title += $" - {TheSettings.MostRecentFile}";
+
+            Title = title;
         }
 
         private void RegisterDirtyHandlers(INotifyPropertyChanged o)
@@ -506,12 +512,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             (_) => TheSettings.RecentFiles.Count > 0
         );
 
-        public ICommand FileCloseCommand => new RelayCommand
-        (
-            () => CloseFile(),
-            () => TheEditor.IsFileOpen
-        );
-
         public ICommand FileSaveCommand => new RelayCommand
         (
             () => SaveFile(),
@@ -524,9 +524,21 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => TheEditor.IsFileOpen
         );
 
+        public ICommand FileCloseCommand => new RelayCommand
+        (
+            () => CloseFile(),
+            () => TheEditor.IsFileOpen
+        );
+
         public ICommand FileRevertCommand => new RelayCommand
         (
             () => RevertFile(),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand FileTransferDataCommand => new RelayCommand
+        (
+            () => ShowInfo("TODO: transfer data dialog"),
             () => TheEditor.IsFileOpen
         );
 
@@ -535,34 +547,48 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => Application.Current.MainWindow.Close()
         );
 
-        public ICommand ViewShowLogCommand => new RelayCommand
+        public ICommand EditConvertAndroidCommand => new RelayCommand
+        (
+            () => TheEditor.ChangeFileFormat(LCSSave.FileFormats.Android),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand EditConvertiOSCommand => new RelayCommand
+        (
+            () => TheEditor.ChangeFileFormat(LCSSave.FileFormats.iOS),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand EditConvertPS2Command => new RelayCommand
+        (
+            () => TheEditor.ChangeFileFormat(LCSSave.FileFormats.PS2),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand EditConvertPSPCommand => new RelayCommand
+        (
+            () => TheEditor.ChangeFileFormat(LCSSave.FileFormats.PSP),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand EditSettingsCommand => new RelayCommand
+        (
+            () => SettingsWindowRequest?.Invoke(this, EventArgs.Empty)
+        );
+
+        public ICommand ViewLogCommand => new RelayCommand
         (
             () => LogWindowRequest?.Invoke(this, EventArgs.Empty)
         );
 
-        public ICommand HelpAboutCommand => new RelayCommand
+        public ICommand HelpUpdateCommand => new RelayCommand
         (
-            () =>
-            {
-                ShowInfo(
-                    $"{App.Name}\n" +
-                    "(C) 2016-2020 Wes Hampson\n" +
-                    "\n" +
-                   $"Version: {App.InformationalVersion}\n",
-                    title: "About");
-            }
+            () => ShowInfo("TODO: updater")
         );
 
-        public ICommand ChangeSomethingCommand => new RelayCommand
+        public ICommand HelpAboutCommand => new RelayCommand
         (
-            () =>
-            {
-                TheSave.SimpleVars.ShowSubtitles = false;
-                TheSave.Garages.CarsInSafeHouse[0].Extra1 = -1;
-                TheSave.Garages.CarsInSafeHouse[2] = new StoredCar();
-                TheSave.Scripts.SetGlobal(69, 420);
-            },
-            () => TheEditor.IsFileOpen
+            () => AboutWindowRequest?.Invoke(this, EventArgs.Empty)
         );
     }
     #endregion

@@ -45,6 +45,17 @@ namespace LCSSaveEditor.Core
         public Editor()
         { }
 
+        public void ChangeFileFormat(FileFormat newFormat)
+        {
+            if (!IsFileOpen) throw NoFileOpen();
+
+            if (newFormat != ActiveFile.FileFormat)
+            {
+                // TODO: actually implement this
+                ActiveFile.FileFormat = newFormat;
+            }
+        }
+
         public void OpenFile(string path)
         {
             if (IsFileOpen) throw FileAlreadyOpened();

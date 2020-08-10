@@ -17,6 +17,10 @@
         <m:LogWindow/>
     </Window.DataContext>
 
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding WindowHideCommand}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
