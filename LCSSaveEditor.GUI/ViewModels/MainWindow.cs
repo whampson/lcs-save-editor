@@ -33,6 +33,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public Editor TheEditor => Editor.TheEditor;
         public LCSSave TheSave => TheEditor.ActiveFile;
         public Settings TheSettings => Settings.TheSettings;
+        public Gxt TheText => Gxt.TheText;
 
         public ObservableCollection<TabPageBase> Tabs
         {
@@ -76,6 +77,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             TheEditor.FileSaved += TheEditor_FileSaved;
 
             LoadSettings();
+            LoadGxt();
             InitializeTabs();
             RefreshTabs(TabUpdateTrigger.WindowLoaded);
         }
@@ -124,6 +126,15 @@ namespace LCSSaveEditor.GUI.ViewModels
         public void SaveSettings()
         {
             TheSettings.SaveSettings(App.SettingsPath);
+        }
+
+        public void LoadGxt()
+        {
+            MemoryStream m = new MemoryStream();
+            var info = Application.GetResourceStream(App.GxtResourceUri);
+            info.Stream.CopyTo(m);
+
+            TheText.Load(m.ToArray());
         }
 
         public void OpenFile(string path)
@@ -596,7 +607,21 @@ namespace LCSSaveEditor.GUI.ViewModels
         );
 
         #if DEBUG
-        public ICommand DebugCauseUnhandledException => new RelayCommand
+        public ICommand DebugLoadGxtFile => new RelayCommand
+        (
+            () =>
+            {
+                ShowFileDialog(FileDialogType.OpenFileDialog, (x,y) =>
+                {
+                    if (x == true)
+                    {
+                        TheText.Load(y.FileName);
+                    }
+                });
+            }
+        );
+
+        public ICommand DebugRaiseUnhandledException => new RelayCommand
         (
             () =>
             {
@@ -628,7 +653,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                 }
             }
         );
-        #endif
+
+#endif
         #endregion
     }
 }

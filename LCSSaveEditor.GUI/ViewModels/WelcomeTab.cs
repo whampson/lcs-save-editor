@@ -206,8 +206,12 @@ namespace LCSSaveEditor.GUI.ViewModels
                 if (Editor.TryOpenFile(path, out LCSSave saveFile))
                 {
                     string lastMissionPassedKey = saveFile.Stats.LastMissionPassedName;
-                    saveFile.SimpleVars.TimeStamp.TryGetDateTime(out DateTime timeStamp);
+                    if (!MainViewModel.TheText.TryGetValue("MAIN", lastMissionPassedKey, out string title))
+                    {
+                        title = $"(invalid GXT key: {lastMissionPassedKey})";
+                    }
 
+                    saveFile.SimpleVars.TimeStamp.TryGetDateTime(out DateTime timeStamp);
                     if (!saveFile.FileFormat.IsPS2)
                     {
                         timeStamp = File.GetLastWriteTime(path);
@@ -219,17 +223,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                         Path = path,
                         FileType = saveFile.FileFormat,
                         LastModified = timeStamp,
-                        Title = lastMissionPassedKey
+                        Title = title
                     };
-
-                    //if (item.Title.StartsWith('\uFFFF'))
-                    //{
-                    //    string key = item.Title.Substring(1);
-                    //    if (MainViewModel.TheText.TryGetValue(key, out string title))
-                    //    {
-                    //        item.Title = title;
-                    //    }
-                    //}
 
                     SearchWorker.ReportProgress(-1, item);
                 }

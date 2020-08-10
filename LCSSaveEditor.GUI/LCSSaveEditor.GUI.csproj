@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>0.11.0-alpha</Version>
-    <FileVersion>0.11.0.230</FileVersion>
-    <AssemblyVersion>0.11.0.230</AssemblyVersion>
+    <FileVersion>0.11.0.245</FileVersion>
+    <AssemblyVersion>0.11.0.245</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>
@@ -17,6 +17,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ENGLISH.GXT" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
     <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
     <PackageReference Include="WpfEssentials.Win32" Version="1.2.0" />
@@ -25,6 +29,12 @@
   <ItemGroup>
     <ProjectReference Include="..\LCSSaveEditor.Core\LCSSaveEditor.Core.csproj" />
     <ProjectReference Include="..\..\gta-save-data\GTASaveData.LCS\GTASaveData.LCS.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ENGLISH.GXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

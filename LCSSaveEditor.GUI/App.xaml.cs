@@ -21,6 +21,7 @@ namespace LCSSaveEditor.GUI
         public static string AuthorContact => "thehambone93@gmail.com";
         public static string Copyright => $"Copyright (C) 2016-2020 {Author}";
         public static string SettingsPath => "settings.json";
+        public static Uri GxtResourceUri => new Uri(@"pack://application:,,,/Resources/ENGLISH.GXT");
 
         public static string InformationalVersion => Assembly
             .GetExecutingAssembly()
