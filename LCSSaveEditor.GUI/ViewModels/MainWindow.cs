@@ -256,7 +256,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (!m_isRevertingFile)
             {
                 RefreshTabs(TabUpdateTrigger.FileOpened);
-                SetTimedStatusText("File opened successfully.", expiredStatus: "Ready.");
+                SetTimedStatusText("File opened.", expiredStatus: "Ready.");
             }
             else
             {
@@ -295,7 +295,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileSaved(object sender, EventArgs e)
         {
             ClearDirty();
-            SetTimedStatusText("File saved successfully.", expiredStatus: "Ready.");
+            SetTimedStatusText("File saved.", expiredStatus: "Ready.");
         }
         #endregion
 
@@ -654,7 +654,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         );
 
-#endif
+        #endif
         #endregion
     }
 }

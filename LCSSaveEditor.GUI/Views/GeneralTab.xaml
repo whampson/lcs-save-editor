@@ -7,10 +7,260 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="450" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:GeneralTab}">
-    <Grid>
-            
+
+    <Grid Margin="2.5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="2.5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Grid.Row="0" Header="Save Title">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Height="25" Margin="5"
+                        Text="{Binding SaveTitle}" IsReadOnly="True"
+                        VerticalContentAlignment="Center"/>
+                    <Button Grid.Column="1" Height="25" Margin="5"
+                        Content="Select..."
+                        Command="{Binding SelectSaveTitleCommand}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="1" Header="Time">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Clock:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Minute Length (ms):"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Frame Counter:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Global Timer:"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Total Time Played:"/>
+
+                    <xctk:DateTimeUpDown
+                        Grid.Column="1" Grid.Row="0" Margin="5" Height="25"
+                        Format="Custom" FormatString="HH:mm"
+                        Minimum="00:00" Maximum="23:59"
+                        Value="{Binding ClockValue}"/>
+                    <xctk:LongUpDown
+                        Grid.Column="1" Grid.Row="1" Height="25" Margin="5"
+                        Style="{StaticResource UnsignedIntegerUpDownStyle}"
+                        Value="{Binding SimpleVars.MillisecondsPerGameMinute}"/>
+                    <xctk:LongUpDown
+                        Grid.Column="1" Grid.Row="2" Height="25" Margin="5"
+                        Style="{StaticResource UnsignedIntegerUpDownStyle}"
+                        Value="{Binding SimpleVars.FrameCounter}"/>
+                    <xctk:LongUpDown
+                        Grid.Column="1" Grid.Row="3" Height="25" Margin="5"
+                        Style="{StaticResource UnsignedIntegerUpDownStyle}"
+                        Value="{Binding SimpleVars.LastClockTick}"/>
+                    <xctk:TimeSpanUpDown
+                        Grid.Column="1" Grid.Row="4" Margin="5" Height="25"
+                        FractionalSecondsDigitsCount="3"
+                        Value="{Binding TotalTimePlayed}"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" Header="Weather Cycle">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,5,0,5" Style="{StaticResource LabelStyleRight}" Text="Current Weather:"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" Style="{StaticResource LabelStyleLeft}" Text="Sunny"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="2" Margin="5,5,0,5" Style="{StaticResource LabelStyleRight}" Text="Forced Weather:"/>
+                    <ComboBox Grid.Column="1" Grid.Row="2" Margin="5" Height="25" Style="{StaticResource ComboBoxStyle}"/>
+
+                </Grid>
+            </GroupBox>
+
+        </Grid>
+
+        <GroupBox Grid.Column="1" Margin="2.5" Header="Game Settings">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="On-Foot Camera Mode:"/>
+                    <ComboBox
+                        Margin="5,0,5,5" Height="25"
+                        Style="{StaticResource EnumComboBoxStyle}"/>
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="In-Car Camera Mode:"/>
+                    <ComboBox
+                        Margin="5,0,5,5" Height="25"
+                        Style="{StaticResource EnumComboBoxStyle}"/>
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="Control Configuration:"/>
+                    <ComboBox
+                        Margin="5,0,5,5" Height="25"
+                        Style="{StaticResource EnumComboBoxStyle}"/>
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="Language:"/>
+                    <ComboBox
+                        Margin="5,0,5,5" Height="25"
+                        Style="{StaticResource EnumComboBoxStyle}"/>
+                    <!-- TODO: slider min/max -->
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="Music Volume:"/>
+                    <Slider
+                        Margin="5,0,5,5"
+                        Minimum="0" Maximum="127" AutoToolTipPlacement="TopLeft"
+                        Value="{Binding SimpleVars.MusicVolume}"/>
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="SFX Volume:"/>
+                    <Slider
+                        Margin="5,0,5,5"
+                        Minimum="0" Maximum="127" AutoToolTipPlacement="TopLeft"
+                        Value="{Binding SimpleVars.SfxVolume}"/>
+                    <TextBlock
+                        Margin="5"
+                        Style="{StaticResource LabelStyleLeft}"
+                        Text="Brightness:"/>
+                    <Slider
+                        Margin="5,0,5,5"
+                        Minimum="0" Maximum="1024" AutoToolTipPlacement="TopLeft"
+                        Value="{Binding SimpleVars.Brightness}"/>
+                </StackPanel>
+
+                <Grid Grid.Row="1" Margin="0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox
+                        Grid.Column="0" Grid.Row="0" Margin="5"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding SimpleVars.DisplayHud}"
+                        Content="Show HUD"/>
+                    <CheckBox
+                        Grid.Column="0" Grid.Row="1" Margin="5"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding SimpleVars.ShowSubtitles}"
+                        Content="Show Subtitles"/>
+                    <CheckBox
+                        Grid.Column="0" Grid.Row="2" Margin="5"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding SimpleVars.UseWideScreen}"
+                        Content="Use Widescreen"/>
+                    <CheckBox
+                        Grid.Column="1" Grid.Row="0" Margin="5"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding SimpleVars.InvertLook}"
+                        Content="Invert Look"/>
+                    <CheckBox
+                        Grid.Column="1" Grid.Row="1" Margin="5"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding SimpleVars.SwapNippleAndDPad}"
+                        Content="Use D-Pad"/>
+                    <CheckBox
+                        Grid.Column="1" Grid.Row="2" Margin="5"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding SimpleVars.UseVibration}"
+                        Content="Use Vibration"/>
+
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Column="2" Margin="2.5" Header="Misc">
+            <StackPanel>
+                <TextBlock Margin="5" Style="{StaticResource LabelStyleLeft}" Text="Extra Color:"/>
+                <xctk:IntegerUpDown
+                    Height="25" Margin="5"
+                    Value="{Binding SimpleVars.ExtraColor}"/>
+                <TextBlock Margin="5" Style="{StaticResource LabelStyleLeft}" Text="Target X:"/>
+                <xctk:SingleUpDown
+                    Height="25" Margin="5"
+                    Value="{Binding SimpleVars.TargetPosition.X}"/>
+                <TextBlock Margin="5" Style="{StaticResource LabelStyleLeft}" Text="Target Y:"/>
+                <xctk:SingleUpDown
+                    Height="25" Margin="5"
+                    Value="{Binding SimpleVars.TargetPosition.Y}"/>
+                <CheckBox
+                    Height="25" Margin="5"
+                    Style="{StaticResource CheckBoxStyle}"
+                    IsChecked="{Binding SimpleVars.HasPlayerCheated}"
+                    Content="Cheated Flag"/>
+                <CheckBox
+                    Height="25" Margin="5"
+                    Style="{StaticResource CheckBoxStyle}"
+                    IsChecked="{Binding SimpleVars.IsExtraColorOn}"
+                    Content="Extra Color On"/>
+                <CheckBox
+                    Height="25" Margin="5"
+                    Style="{StaticResource CheckBoxStyle}"
+                    IsChecked="{Binding SimpleVars.BlurOn}"
+                    Content="Blur On"/>
+                <CheckBox
+                    Height="25" Margin="5"
+                    Style="{StaticResource CheckBoxStyle}"
+                    IsChecked="{Binding SimpleVars.TargetIsOn}"
+                    Content="Target On"/>
+                <CheckBox
+                    Height="25" Margin="5"
+                    Style="{StaticResource CheckBoxStyle}"
+                    IsChecked="{Binding SimpleVars.TargetIsOn}"
+                    Content="Taxi Boost"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </v:TabPageBase>
