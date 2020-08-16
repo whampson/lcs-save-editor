@@ -58,7 +58,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Grid.Row="1" Header="Title">
+            <GroupBox Grid.Row="1" Header="Title" IsEnabled="{Binding TheSave.FileFormat.IsMobile}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -304,7 +304,7 @@
                     <TextBlock
                         Grid.Column="0" Grid.Row="0" Margin="5"
                         Style="{StaticResource LabelStyleRight}"
-                        Text="Permanent Weather:"/>
+                        Text="Forced Weather:"/>
                     <ComboBox
                         Grid.Column="1" Grid.Row="0" Margin="5" Height="25"
                         Style="{StaticResource EnumComboBoxStyle}"
@@ -373,9 +373,18 @@
                     <CheckBox
                         Grid.Row="1" Grid.Column="1"
                         Margin="5"
-                        Content="No Leaflets"
-                        Style="{StaticResource CheckBoxStyle}"
-                        IsChecked="{Binding Stats.PamphletMissionPassed}"/>
+                        IsChecked="{Binding Stats.PamphletMissionPassed}">
+                        <CheckBox.Style>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxStyle}">
+                                <Setter Property="Content" Value="No Leaflets"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TheSave.FileFormat.IsMobile}" Value="True">
+                                        <Setter Property="Content" Value="BITE Leaflets"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
                 </Grid>
             </GroupBox>
         </Grid>

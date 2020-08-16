@@ -30,8 +30,15 @@ namespace LCSSaveEditor.GUI.ViewModels
                 bool wasVisible = m_isVisible;
                 m_isVisible = value;
 
-                if (wasVisible && !m_isVisible) Unload();
-                if (m_isVisible && !wasVisible) Load();
+                if (wasVisible && !m_isVisible)
+                {
+                    Unload();
+                }
+                if (m_isVisible && !wasVisible)
+                {
+                    Load();
+                    Update();
+                }
                 OnPropertyChanged();
             }
         }

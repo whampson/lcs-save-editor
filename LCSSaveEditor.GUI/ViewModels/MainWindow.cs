@@ -216,6 +216,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             TheEditor.OpenFile(TheSettings.MostRecentFile);
             Tabs.Where(t => t.Visibility == TabPageVisibility.WhenFileIsOpen).ToList().ForEach(t => t.Load());
+            Tabs.Where(t => t.Visibility == TabPageVisibility.WhenFileIsOpen).ToList().ForEach(t => t.Update());
 
             Log.Info("File reverted.");
             m_isRevertingFile = false;
@@ -289,7 +290,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileSaving(object sender, string e)
         {
             SetStatusText("Saving file...");
-            if (TheSettings.UpdateTimeStampOnSave)
+            if (!TheSave.FileFormat.IsPS2 || TheSettings.UpdateTimeStampOnSave)
             {
                 TheSave.TimeStamp = DateTime.Now;
             }

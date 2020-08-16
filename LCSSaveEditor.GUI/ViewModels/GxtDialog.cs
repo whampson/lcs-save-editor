@@ -8,7 +8,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 {
     public class GxtDialog : DialogBase
     {
-        private Gxt m_gxt;
         private Dictionary<string, string> m_table;
         private string m_tableName;
         private bool m_allowTableSelection;

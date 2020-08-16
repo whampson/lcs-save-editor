@@ -143,7 +143,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             SimpleVars.PropertyChanged -= Data_PropertyChanged;
             Stats.PropertyChanged -= Data_PropertyChanged;
-
         }
 
         public override void Update()
@@ -164,19 +163,12 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void OnTitleChanged()
         {
-            string title;
+            string title = "";
             if (TheSave.FileFormat.IsMobile)
             {
                 if (!TheWindow.TheText.TryGetValue("MAIN", SimpleVars.LastMissionPassedName, out title))
                 {
                     title = $"(invalid GXT key: {SimpleVars.LastMissionPassedName})";
-                }
-            }
-            else
-            {
-                if (!TheWindow.TheText.TryGetValue("MAIN", Stats.LastMissionPassedName, out title))
-                {
-                    title = $"(invalid GXT key: {Stats.LastMissionPassedName})";
                 }
             }
 
@@ -185,7 +177,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void OnLastMissionChanged()
         {
-            // TODO: get from globals
             if (!TheWindow.TheText.TryGetValue("MAIN", Stats.LastMissionPassedName, out string title))
             {
                 title = $"(invalid GXT key: {Stats.LastMissionPassedName})";
@@ -220,8 +211,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 if (r == true)
                 {
-                    SimpleVars.LastMissionPassedName = e.SelectedKey;
-                    Stats.LastMissionPassedName = e.SelectedKey;
+                    TheSave.Name = e.SelectedKey;
                     OnTitleChanged();
                 }
             })
@@ -286,8 +276,8 @@ namespace LCSSaveEditor.GUI.ViewModels
         German,
         Italian,
         Spanish,
-        //?Russian,
-        //?Japanese,
+        Russian,
+        Japanese,
     }
 
     public enum MapLevel
