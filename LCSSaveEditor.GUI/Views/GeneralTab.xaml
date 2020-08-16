@@ -40,12 +40,16 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Last Mission:"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Progress:"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Location:"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,0,5" Style="{StaticResource LabelStyleRight}" Text="Save Time:"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Save Time:"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="File Type:"/>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,0,5" Style="{StaticResource LabelStyleRight}" Text="Script Version:"/>
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding LastMissionOnDisplay}">
                         <ToolTipService.ToolTip>
@@ -54,7 +58,9 @@
                     </TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding ProgressOnDisplay, StringFormat=P2}"/>
                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding Location, Converter={StaticResource EnumDescriptionConverter}}"/>
-                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding SimpleVars.TimeStamp}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding SimpleVars.TimeStamp}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding TheSave.FileFormat.Name}"/>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Margin="5,5,5,5" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding TheEditor.ScriptVersion}"/>
                 </Grid>
             </GroupBox>
 

@@ -39,7 +39,10 @@ namespace LCSSaveEditor.GUI.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            ViewModel.Initialize();
             ViewModel.WindowHideRequest += ViewModel_WindowHideRequest;
+            ViewModel.RegisterChangeHandlers();
+            ViewModel.UpdateList();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -51,6 +54,8 @@ namespace LCSSaveEditor.GUI.Views
                 return;
             }
 
+            ViewModel.Shutdown();
+            ViewModel.UnregisterChangeHandlers();
             ViewModel.WindowHideRequest -= ViewModel_WindowHideRequest;
         }
 
@@ -65,14 +70,14 @@ namespace LCSSaveEditor.GUI.Views
             {
                 if (isVisible)
                 {
-                    ViewModel.Update();
+                    ViewModel.UpdateList();
                 }
             }
         }
 
-        private void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        private void CheckBox_Changed(object sender, RoutedEventArgs e)
         {
-            e.Row.Header = $"${e.Row.GetIndex()}";
+            ViewModel.UpdateList();
         }
     }
 }

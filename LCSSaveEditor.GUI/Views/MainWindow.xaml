@@ -106,10 +106,25 @@
             </MenuItem>
 
             <MenuItem Header="_View">
+                <MenuItem Header="Global Variables"
+                    Command="{Binding DebugShowGlobalsCommand}"/>
+                <Separator/>
                 <MenuItem Header="_Log"
-                InputGestureText="F4"
+                    InputGestureText="F4"
                     Command="{Binding ViewLogCommand}"/>
             </MenuItem>
+
+            <mc:AlternateContent>
+                <mc:Choice Requires="dbg">
+                    <MenuItem Header="Debug">
+                        <MenuItem Header="Load GXT File..."
+                            Command="{Binding DebugLoadGxtFile}"/>
+                        <Separator/>
+                        <MenuItem Header="Raise Unhandled Exception"
+                            Command="{Binding DebugRaiseUnhandledException}"/>
+                    </MenuItem>
+                </mc:Choice>
+            </mc:AlternateContent>
 
             <MenuItem Header="_Help">
                 <MenuItem Header="_About"
@@ -119,20 +134,7 @@
                     Command="{Binding HelpUpdateCommand}"/>
             </MenuItem>
 
-            <mc:AlternateContent>
-                <mc:Choice Requires="dbg">
-                    <MenuItem Header="Debug">
-                        <MenuItem Header="Load GXT File..."
-                            Command="{Binding DebugLoadGxtFile}"/>
-                        <Separator/>
-                        <MenuItem Header="Show Globals"
-                            Command="{Binding DebugShowGlobalsCommand}"/>
-                        <Separator/>
-                        <MenuItem Header="Raise Unhandled Exception"
-                            Command="{Binding DebugRaiseUnhandledException}"/>
-                    </MenuItem>
-                </mc:Choice>
-            </mc:AlternateContent>
+            
         </Menu>
 
         <Grid DockPanel.Dock="Bottom">

@@ -105,7 +105,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 SimpleVars.CameraModeOnFoot = (float) value;
                 if (TheSave.FileFormat.IsPS2 || TheSave.FileFormat.IsPSP)
                 {
-                    TheSave.Scripts.SetGlobal(516, (int) value);
+                    TheEditor.SetGlobal(GlobalVariable.CameraModeOnFoot, (int) value);
                 }
                 OnPropertyChanged(); }
         }

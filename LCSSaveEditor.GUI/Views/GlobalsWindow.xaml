@@ -9,7 +9,7 @@
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d" 
     Title="Globals"
-    Height="400" Width="450"
+    Height="450" Width="550"
     d:DataContext="{d:DesignInstance m:GlobalsWindow}"
     Loaded="Window_Loaded" Closing="Window_Closing"
     IsVisibleChanged="Window_IsVisibleChanged"
@@ -26,47 +26,52 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid
-            Grid.Row="0" Margin="5"
-            ItemsSource="{Binding TheSave.Scripts.GlobalVariables}"
-            CanUserSortColumns="False"
-            CanUserReorderColumns="False"
-            CanUserAddRows="False"
-            CanUserDeleteRows="False"
-            AutoGenerateColumns="False"
-            LoadingRow="DataGrid_LoadingRow">
-
-            <!--<DataGrid.Columns>
-                <DataGridTemplateColumn Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <xctk:IntegerUpDown Value="{Binding Converter={StaticResource IsNotZero}}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>-->
-
-            <DataGrid.RowHeaderTemplate>
+        <ListBox
+            Margin="5"
+            HorizontalContentAlignment="Stretch"
+            ItemsSource="{Binding Globals}"
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Margin="5,0" Text="{Binding}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="95"/>
+                            <ColumnDefinition Width="95"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Margin="0,0,5,0" Text="{Binding Index, StringFormat={}${0}}"/>
+                        <TextBlock Grid.Column="1" Margin="0,0,5,0" Text="{Binding Name}"/>
+                        <TextBlock Grid.Column="2" Margin="0,0,5,0" Text="{Binding IntValue}" HorizontalAlignment="Right"/>
+                        <TextBlock Grid.Column="3" Margin="0,0,5,0" Text="{Binding FloatValue}" HorizontalAlignment="Right"/>
+                    </Grid>
                 </DataTemplate>
-            </DataGrid.RowHeaderTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-        </DataGrid>
-
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="5,0,5,5">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="85"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Button
+            <CheckBox
                 Grid.Column="1"
-                Margin="0,0,5,5"
+                Content="Show All"
+                Style="{StaticResource CheckBoxStyle}"
+                IsChecked="{Binding ShowAll}"
+                Checked="CheckBox_Changed"
+                Unchecked="CheckBox_Changed"/>
+
+            <Button
+                Grid.Column="3"
                 Content="Close"
+                Style="{StaticResource ButtonStyle}"
                 Command="{Binding WindowHideCommand}"/>
         </Grid>
     </Grid>
