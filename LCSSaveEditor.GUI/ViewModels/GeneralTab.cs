@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Input;
 using GTASaveData.LCS;
+using LCSSaveEditor.Core;
 using WpfEssentials.Win32;
 
 namespace LCSSaveEditor.GUI.ViewModels
@@ -132,13 +133,16 @@ namespace LCSSaveEditor.GUI.ViewModels
             SimpleVars = TheWindow.TheSave.SimpleVars;
             Stats = TheWindow.TheSave.Stats;
 
-            // TOOD: property change handlers for some of the properties
+            SimpleVars.PropertyChanged += Data_PropertyChanged;
+            Stats.PropertyChanged += Data_PropertyChanged;
         }
 
         public override void Unload()
         {
             base.Unload();
 
+            SimpleVars.PropertyChanged -= Data_PropertyChanged;
+            Stats.PropertyChanged -= Data_PropertyChanged;
 
         }
 
@@ -195,9 +199,32 @@ namespace LCSSaveEditor.GUI.ViewModels
             ProgressOnDisplay = Stats.ProgressMade / Stats.TotalProgressInGame;
         }
 
+        private void Data_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SimpleVars.LastMissionPassedName):
+                    OnTitleChanged();
+                    OnLastMissionChanged();
+                    break;
+                case nameof(Stats.ProgressMade):
+                case nameof(Stats.TotalProgressInGame):
+                    OnTitleChanged();
+                    break;
+            }
+        }
+
         public ICommand SelectSaveTitleCommand => new RelayCommand
         (
-            () => TheWindow.ShowInfo("TODO: GXT selection dialog")
+            () => TheWindow.ShowGxtDialog((r,e) =>
+            {
+                if (r == true)
+                {
+                    SimpleVars.LastMissionPassedName = e.SelectedKey;
+                    Stats.LastMissionPassedName = e.SelectedKey;
+                    OnTitleChanged();
+                }
+            })
         );
 
         public ICommand ShowTargetOnMapCommand => new RelayCommand

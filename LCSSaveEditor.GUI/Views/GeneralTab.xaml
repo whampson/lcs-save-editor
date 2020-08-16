@@ -17,9 +17,9 @@
 
     <Grid Margin="2.5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Margin="2.5">
@@ -47,7 +47,11 @@
                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Location:"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,0,5" Style="{StaticResource LabelStyleRight}" Text="Save Time:"/>
 
-                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding LastMissionOnDisplay}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding LastMissionOnDisplay}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="{Binding LastMissionOnDisplay}"/>
+                        </ToolTipService.ToolTip>
+                    </TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding ProgressOnDisplay, StringFormat=P2}"/>
                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding Location, Converter={StaticResource EnumDescriptionConverter}}"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding SimpleVars.TimeStamp}"/>
@@ -64,7 +68,11 @@
                     <TextBox
                         Grid.Column="0" Height="25" Margin="5"
                         Text="{Binding SaveTitleOnDisplay}" IsReadOnly="True"
-                        VerticalContentAlignment="Center"/>
+                        VerticalContentAlignment="Center">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="{Binding SaveTitleOnDisplay}"/>
+                        </ToolTipService.ToolTip>
+                    </TextBox>
                     <Button
                         Grid.Column="1" Height="25" Margin="5"
                         Style="{StaticResource ButtonStyle}"
@@ -327,9 +335,10 @@
                     <Button
                         Grid.Row="1" Grid.Column="1" Margin="5"
                         Width="96" HorizontalAlignment="Right"
+                        IsEnabled="{Binding SimpleVars.TargetIsOn}"
                         Style="{StaticResource ButtonStyle}"
-                        Content="Show on Map"
-                        Command="{Binding ShowTargetOnMapCommand}"/>
+                        Command="{Binding ShowTargetOnMapCommand}"
+                        Content="Show on Map"/>
                 </Grid>
             </GroupBox>
 
@@ -361,6 +370,12 @@
                         Content="Blur Filter"
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding SimpleVars.BlurOn}"/>
+                    <CheckBox
+                        Grid.Row="1" Grid.Column="1"
+                        Margin="5"
+                        Content="No Leaflets"
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding Stats.PamphletMissionPassed}"/>
                 </Grid>
             </GroupBox>
         </Grid>

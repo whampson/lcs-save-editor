@@ -24,6 +24,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler AboutWindowRequest;
         public event EventHandler LogWindowRequest;
         public event EventHandler GlobalsWindowRequest;
+        public event EventHandler<GxtDialogEventArgs> GxtDialogRequest;
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
 
         private ObservableCollection<TabPageBase> m_tabs;
@@ -520,6 +521,20 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
             Log.Info($"PropertyChanged: {type.Name}[{e.ItemIndex}].{e.PropertyName} = {data}");
 
+        }
+        #endregion
+
+        #region Window/Dialog Invokers
+        public void ShowGxtDialog(Action<bool?, GxtDialogEventArgs> callback,
+            string table = "MAIN",
+            bool allowTableSelection = false)
+        {
+            GxtDialogRequest?.Invoke(this, new GxtDialogEventArgs()
+            {
+                TableName = table,
+                AllowTableSelection = allowTableSelection,
+                Callback = callback
+            });
         }
         #endregion
 

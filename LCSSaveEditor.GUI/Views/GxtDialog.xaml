@@ -1,0 +1,107 @@
+﻿<Window
+    x:Class="LCSSaveEditor.GUI.Views.GxtDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance m:GxtDialog}"
+    Title="Selext GXT Entry"
+    Height="450" Width="550"
+    Loaded="Dialog_Loaded" Closing="Dialog_Closing"
+    WindowStartupLocation="CenterOwner">
+
+    <Window.DataContext>
+        <m:GxtDialog/>
+    </Window.DataContext>
+
+    <Window.Resources>
+
+        <Style TargetType="DataGrid" x:Key="DataGridStyle">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserReorderColumns" Value="True"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="IsSynchronizedWithCurrentItem" Value="False"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid
+            DockPanel.Dock="Top"
+            ItemsSource="{Binding Table}"
+            SelectedItem="{Binding SelectedItem}"
+            SelectedIndex="{Binding SelectedIndex}"
+            Style="{StaticResource DataGridStyle}"
+            Validation.ErrorTemplate="{x:Null}">
+
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Esc" Command="{Binding CancelCommand}"/>
+                <KeyBinding Key="Return" Command="{Binding SelectCommand}"/>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding SelectCommand}"/>
+            </DataGrid.InputBindings>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Header="Key"
+                    Width="1*"
+                    Binding="{Binding Key}"/>
+                <DataGridTextColumn
+                    Header="Value"
+                    Width="5*"
+                    Binding="{Binding Value}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Column="0" Margin="5"
+                Visibility="{Binding AllowTableSelection, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Style="{StaticResource LabelStyleLeft}"
+                Text="Table:"/>
+            <ComboBox
+                Grid.Column="1" Margin="5" Width="75"
+                Visibility="{Binding AllowTableSelection, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Style="{StaticResource ComboBoxStyle}"
+                SelectedItem="{Binding TableName}"
+                ItemsSource="{Binding TableNames}"
+                SelectionChanged="ComboBox_SelectionChanged"/>
+            <Button
+                Grid.Column="3" Margin="5" IsDefault="True"
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding SelectCommand}"
+                Content="Select"/>
+            <Button
+                Grid.Column="4" Margin="5" IsCancel="True"
+                Style="{StaticResource ButtonStyle}"
+                Command="{Binding CancelCommand}"
+                Content="Cancel"/>
+        </Grid>
+
+    </Grid>
+
+</Window>

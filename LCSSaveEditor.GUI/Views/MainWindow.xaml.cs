@@ -1,4 +1,6 @@
-﻿using LCSSaveEditor.GUI.ViewModels;
+﻿using LCSSaveEditor.Core;
+using LCSSaveEditor.GUI.Events;
+using LCSSaveEditor.GUI.ViewModels;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
@@ -54,6 +56,7 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.MessageBoxRequest += ViewModel_MessageBoxRequest;
             ViewModel.FileDialogRequest += ViewModel_FileDialogRequest;
             ViewModel.FolderDialogRequest += ViewModel_FolderDialogRequest;
+            ViewModel.GxtDialogRequest += ViewModel_GxtDialogRequest;
 
             m_initializing = false;
             m_initialized = true;
@@ -76,6 +79,7 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.MessageBoxRequest -= ViewModel_MessageBoxRequest;
             ViewModel.FileDialogRequest -= ViewModel_FileDialogRequest;
             ViewModel.FolderDialogRequest -= ViewModel_FolderDialogRequest;
+            ViewModel.GxtDialogRequest += ViewModel_GxtDialogRequest;
 
             if (m_logWindow != null)
             {
@@ -169,6 +173,18 @@ namespace LCSSaveEditor.GUI.Views
             bool? r = d.ShowDialog(this);
 
             e.FileName = d.SelectedPath;
+            e.Callback?.Invoke(r, e);
+        }
+
+        private void ViewModel_GxtDialogRequest(object sender, GxtDialogEventArgs e)
+        {
+            GxtDialog d = new GxtDialog() { Owner = this };
+            d.ViewModel.TableName = e.TableName;
+            d.ViewModel.AllowTableSelection = e.AllowTableSelection;
+
+            bool? r = d.ShowDialog();
+            e.SelectedKey = d.ViewModel.SelectedItem.Key;
+            e.SelectedValue = d.ViewModel.SelectedItem.Value;
             e.Callback?.Invoke(r, e);
         }
 
