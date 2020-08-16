@@ -15,9 +15,9 @@ namespace LCSSaveEditor.Core
         public event EventHandler FileClosed;
         public event EventHandler<string> FileSaving;
         public event EventHandler FileSaved;
-        
 
         private LCSSave m_activeFile;
+        private DateTime m_lastWriteTime;
 
         public LCSSave ActiveFile
         {
@@ -30,6 +30,12 @@ namespace LCSSaveEditor.Core
                 if (value != null) OnFileOpened();
                 OnPropertyChanged();
             }
+        }
+
+        public DateTime LastWriteTime
+        {
+            get { return m_lastWriteTime; }
+            set { m_lastWriteTime = value; OnPropertyChanged(); }
         }
 
         public bool IsFileOpen => m_activeFile != null;
@@ -96,6 +102,7 @@ namespace LCSSaveEditor.Core
                 : SaveData.Load<LCSSave>(path, TheSettings.ForcedFileType))
                 ?? throw BadSaveData();
             TheSettings.AddRecentFile(path);
+            LastWriteTime = File.GetLastWriteTime(path);
             OnFileOpened();
         }
 
@@ -106,6 +113,7 @@ namespace LCSSaveEditor.Core
             OnFileSaving(path);
             ActiveFile.Save(path);
             TheSettings.AddRecentFile(path);
+            LastWriteTime = File.GetLastWriteTime(path);
             OnFileSaved();
         }
 

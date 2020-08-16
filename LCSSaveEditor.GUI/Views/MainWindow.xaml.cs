@@ -112,6 +112,11 @@ namespace LCSSaveEditor.GUI.Views
             }
         }
 
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            ViewModel.CheckForExternalChanges();
+        }
+
         private void ViewModel_SettingsWindowRequest(object sender, EventArgs e)
         {
             ViewModel.ShowInfo($"TODO: settings");

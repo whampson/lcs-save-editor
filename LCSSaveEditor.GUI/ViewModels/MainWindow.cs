@@ -24,13 +24,13 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler AboutWindowRequest;
         public event EventHandler LogWindowRequest;
         public event EventHandler GlobalsWindowRequest;
-        public event EventHandler<GxtDialogEventArgs> GxtDialogRequest;
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
 
         private ObservableCollection<TabPageBase> m_tabs;
         private int m_selectedTabIndex;
         private bool m_isRevertingFile;
         private bool m_isDirty;
+        private bool m_suppressExternalChangesCheck;
 
         public Editor TheEditor => Editor.TheEditor;
         public LCSSave TheSave => TheEditor.ActiveFile;
@@ -53,6 +53,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             get { return m_isDirty; }
             set { m_isDirty = value; OnPropertyChanged(); }
+        }
+
+        public bool SuppressExternalChangesCheck
+        {
+            get { return m_suppressExternalChangesCheck; }
+            set { m_suppressExternalChangesCheck = value; OnPropertyChanged(); }
         }
 
         public MainWindow()
@@ -145,7 +151,19 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 if (IsDirty)
                 {
-                    PromptSaveChanges(OpenFilePrompt_Callback);
+                    PromptSaveChanges((r) =>
+                    {
+                        if (r != MessageBoxResult.Cancel)
+                        {
+                            if (r == MessageBoxResult.Yes)
+                            {
+                                SaveFile();
+                            }
+
+                            ClearDirty();
+                            OpenFile(TheSettings.LastFileAccessed);
+                        }
+                    });
                     return;
                 }
                 CloseFile();
@@ -204,7 +222,14 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (IsDirty)
             {
-                PromptConfirmRevert(RevertFilePrompt_Callback);
+                PromptConfirmRevert((r) =>
+                {
+                    if (r == MessageBoxResult.Yes)
+                    {
+                        ClearDirty();
+                        RevertFile();
+                    }
+                });
                 return;
             }
 
@@ -226,7 +251,19 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (IsDirty)
             {
-                PromptSaveChanges(CloseFilePrompt_Callback);
+                PromptSaveChanges((r) =>
+                {
+                    if (r != MessageBoxResult.Cancel)
+                    {
+                        if (r == MessageBoxResult.Yes)
+                        {
+                            SaveFile();
+                        }
+
+                        ClearDirty();
+                        CloseFile();
+                    }
+                });
                 return;
             }
 
@@ -238,6 +275,33 @@ namespace LCSSaveEditor.GUI.ViewModels
             TabUpdate?.Invoke(this, new TabUpdateEventArgs(trigger));
             SelectedTabIndex = Tabs.IndexOf(Tabs.Where(x => x.IsVisible).FirstOrDefault());
         }
+
+        public void CheckForExternalChanges()
+        {
+            if (!TheEditor.IsFileOpen || SuppressExternalChangesCheck)
+            {
+                return;
+            }
+
+            DateTime lastWriteTime = File.GetLastWriteTime(TheSettings.MostRecentFile);
+            if (lastWriteTime != TheEditor.LastWriteTime)
+            {
+                Log.Info("External changes detected.");
+                PromptExternalChangesDetected((r) =>
+                {
+                    if (r == MessageBoxResult.Yes)
+                    {
+                        ClearDirty();
+                        RevertFile();
+                    }
+                    else if (r == MessageBoxResult.No)
+                    {
+                        SuppressExternalChangesCheck = true;
+                    }
+                });
+            }
+        }
+
         #endregion
 
         #region Window Event Handlers
@@ -251,6 +315,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheEditor_FileOpened(object sender, EventArgs e)
         {
+            SuppressExternalChangesCheck = false;
             UpdateTitle();
 
             RegisterDirtyHandlers(TheSave);
@@ -281,9 +346,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileClosed(object sender, EventArgs e)
         {
             ClearDirty();
-
             OnPropertyChanged(nameof(TheSave));
-
             SetTimedStatusText("File closed.", expiredStatus: "Ready.");
         }
 
@@ -298,63 +361,10 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheEditor_FileSaved(object sender, EventArgs e)
         {
+            SuppressExternalChangesCheck = false;
+
             ClearDirty();
             SetTimedStatusText("File saved.", expiredStatus: "Ready.");
-        }
-        #endregion
-
-        #region Dialog Callbacks
-        private void RevertFilePrompt_Callback(MessageBoxResult r)
-        {
-            if (r == MessageBoxResult.Yes)
-            {
-                ClearDirty();
-                RevertFile();
-            }
-        }
-
-        private void OpenFilePrompt_Callback(MessageBoxResult r)
-        {
-            if (r != MessageBoxResult.Cancel)
-            {
-                if (r == MessageBoxResult.Yes)
-                {
-                    SaveFile();
-                }
-
-                ClearDirty();
-                OpenFile(TheSettings.LastFileAccessed);
-            }
-        }
-
-        private void CloseFilePrompt_Callback(MessageBoxResult r)
-        {
-            if (r != MessageBoxResult.Cancel)
-            {
-                if (r == MessageBoxResult.Yes)
-                {
-                    SaveFile();
-                }
-
-                ClearDirty();
-                CloseFile();
-            }
-        }
-
-        private void ShowFileDialog_Callback(bool? result, FileDialogEventArgs e)
-        {
-            if (result != true) return;
-
-            TheSettings.SetLastAccess(e.FileName);
-            switch (e.DialogType)
-            {
-                case FileDialogType.OpenFileDialog:
-                    OpenFile(e.FileName);
-                    break;
-                case FileDialogType.SaveFileDialog:
-                    SaveFile(e.FileName);
-                    break;
-            }
         }
         #endregion
 
@@ -525,24 +535,15 @@ namespace LCSSaveEditor.GUI.ViewModels
         }
         #endregion
 
-        #region Window/Dialog Invokers
-        public void ShowGxtDialog(Action<bool?, GxtDialogEventArgs> callback,
-            string table = "MAIN",
-            bool allowTableSelection = false)
-        {
-            GxtDialogRequest?.Invoke(this, new GxtDialogEventArgs()
-            {
-                TableName = table,
-                AllowTableSelection = allowTableSelection,
-                Callback = callback
-            });
-        }
-        #endregion
-
         #region Commands
         public ICommand FileOpenCommand => new RelayCommand
         (
-            () => ShowFileDialog(FileDialogType.OpenFileDialog, ShowFileDialog_Callback)
+            () => ShowFileDialog(FileDialogType.OpenFileDialog, (r, e) =>
+            {
+                if (r != true) return;
+                TheSettings.SetLastAccess(e.FileName);
+                OpenFile(e.FileName);
+            })
         );
 
         public ICommand FileOpenRecentCommand => new RelayCommand<string>
@@ -559,7 +560,12 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public ICommand FileSaveAsCommand => new RelayCommand
         (
-            () => ShowFileDialog(FileDialogType.SaveFileDialog, ShowFileDialog_Callback),
+            () => ShowFileDialog(FileDialogType.SaveFileDialog, (r, e) =>
+            {
+                if (r != true) return;
+                TheSettings.SetLastAccess(e.FileName);
+                SaveFile(e.FileName);
+            }),
             () => TheEditor.IsFileOpen
         );
 

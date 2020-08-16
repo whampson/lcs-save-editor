@@ -1,4 +1,5 @@
 ﻿using LCSSaveEditor.Core;
+using LCSSaveEditor.GUI.Events;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
         public event EventHandler<FileDialogEventArgs> FileDialogRequest;
         public event EventHandler<FileDialogEventArgs> FolderDialogRequest;
+        public event EventHandler<GxtDialogEventArgs> GxtDialogRequest;
 
         private readonly DispatcherTimer m_timer;
         private int m_timerTick;
@@ -127,7 +129,17 @@ namespace LCSSaveEditor.GUI.ViewModels
         public void PromptConfirmRevert(Action<MessageBoxResult> callback)
         {
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
-                "Reverting the file will cause you to lose all unsaved changes.\nContinue?", "Revert File?",
+                "Reverting the file will cause you to lose all unsaved changes.\n\n" +
+                "Continue?", "Revert File",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning, callback: callback));
+        }
+
+        public void PromptExternalChangesDetected(Action<MessageBoxResult> callback)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
+                "The file has been modified on disk.\n\n" +
+                "Do you want to reload the file? You will lose all unsaved changes.",
+                "External Changes Detected",
                 MessageBoxButton.YesNo, MessageBoxImage.Warning, callback: callback));
         }
 
@@ -147,6 +159,16 @@ namespace LCSSaveEditor.GUI.ViewModels
                 InitialDirectory = Settings.TheSettings.LastDirectoryAccessed
             };
             FolderDialogRequest?.Invoke(this, e);
+        }
+
+        public void ShowGxtDialog(Action<bool?, GxtDialogEventArgs> callback, string table = "MAIN", bool allowTableSelection = false)
+        {
+            GxtDialogRequest?.Invoke(this, new GxtDialogEventArgs()
+            {
+                TableName = table,
+                AllowTableSelection = allowTableSelection,
+                Callback = callback
+            });
         }
 
         public ICommand WindowHideCommand => new RelayCommand
