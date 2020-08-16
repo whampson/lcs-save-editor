@@ -119,17 +119,8 @@ namespace LCSSaveEditor.GUI.ViewModels
             CancelSearch();
         }
 
-        public override void Update()
-        {
-            base.Update();
-            //Search();
-            // TODO: refresh files in list
-        }
-
         public void Search()
         {
-            // TODO: detect external changes
-
             if (IsSearching)
             {
                 SearchPending = true;
@@ -163,8 +154,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (SelectedItem != null)
             {
-                TheSettings.AddRecentFile(SelectedItem.Path);
-                TheEditor.ActiveFile = SelectedItem.SaveFile;
+                TheEditor.OpenFile(SelectedItem.Path);
             }
         }
 
