@@ -12,6 +12,10 @@
     d:DesignHeight="450" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:WelcomeTab}">
 
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding SearchToggleCommand}"/>
+    </UserControl.InputBindings>
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -99,33 +103,35 @@
 
                 <TextBlock
                     Grid.Row="1"
-                    Margin="5,0,5,0"
-                    Height="25"
+                    Margin="5,0"
+                    Height="20"
                     VerticalAlignment="Center"
                     Text="{Binding SelectedDirectory}"/>
 
                 <Grid Grid.Row="2">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="95"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="95"/>
-                        <ColumnDefinition Width="95"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Button
                         Grid.Column="0"
+                        Margin="5"
                         Content="Browse..."
                         Style="{StaticResource ButtonStyle}"
                         Command="{Binding BrowseCommand}"/>
                     <CheckBox
                         Grid.Column="1"
-                        Margin="5,0,0,0"
+                        Margin="5"
                         VerticalAlignment="Center"
                         Content="Search Subfolders"
                         IsChecked="{Binding SearchSubDirectories}"/>
                     <Button
                         Grid.Column="3"
+                        Margin="5"
                         Command="{Binding SearchToggleCommand}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
@@ -133,9 +139,7 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSearching}" Value="True">
                                         <Setter Property="Content" Value="Cancel Search"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding CancelPending}" Value="True">
-                                        <Setter Property="Content" Value="Cancelling..."/>
+                                        <Setter Property="Width" Value="95"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -143,6 +147,7 @@
                     </Button>
                     <Button
                         Grid.Column="2"
+                        Margin="5"
                         Content="Open"
                         Style="{StaticResource ButtonStyle}"
                         Command="{Binding OpenCommand}"/>

@@ -1,4 +1,5 @@
-﻿using GTASaveData.LCS;
+﻿using GTASaveData;
+using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Views;
 using System;
@@ -23,21 +24,10 @@ namespace LCSSaveEditor.GUI
         public static string SettingsPath => "settings.json";
         public static Uri GxtResourceUri => new Uri(@"pack://application:,,,/Resources/ENGLISH.GXT");
 
-        public static string InformationalVersion => Assembly
+        public static string Version => Assembly
             .GetExecutingAssembly()
             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
             .InformationalVersion;
-
-        public static string FileVersion => Assembly
-            .GetExecutingAssembly()
-            .GetCustomAttribute<AssemblyFileVersionAttribute>()
-            .Version;
-
-        public static string SaveDataLibraryVersion => Assembly
-            .GetAssembly(typeof(LCSSave))
-            .GetCustomAttribute<AssemblyFileVersionAttribute>()
-            .Version;
-
 
         private static readonly StringWriter LogWriter;
         public static string LogText => LogWriter.ToString();
@@ -56,20 +46,21 @@ namespace LCSSaveEditor.GUI
             Log.InfoStream = LogWriter;
             Log.ErrorStream = LogWriter;
 
-            Log.Info($"{Name} {InformationalVersion}");
+            Log.Info($"{Name} {Version}");
             Log.Info($"{Copyright}");
+
+            var exeVer = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+            var gtaLibVer = Assembly.GetAssembly(typeof(SaveData)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+            var lcsLibVer = Assembly.GetAssembly(typeof(LCSSave)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
+            Log.Info($"File version = {exeVer}");
+            Log.Info($"GTASaveData.Core version = {gtaLibVer}");
+            Log.Info($"GTASaveData.LCS version = {lcsLibVer}");
+
         #if DEBUG
             Log.Info($"DEBUG build.");
-            Log.Info($"App version = {FileVersion}");
-            Log.Info($"Lib version = {SaveDataLibraryVersion}");
         #endif
 
-            TheWindow = new MainWindow
-            {
-                Height = 600,
-                Width = 800
-            };
-
+            TheWindow = new MainWindow();
             TheWindow.Show();
         }
 

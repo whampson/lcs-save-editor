@@ -1,0 +1,74 @@
+﻿<Window
+    x:Class="LCSSaveEditor.GUI.Views.GlobalsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    mc:Ignorable="d" 
+    Title="Globals"
+    Height="400" Width="450"
+    d:DataContext="{d:DesignInstance m:GlobalsWindow}"
+    Loaded="Window_Loaded" Closing="Window_Closing"
+    IsVisibleChanged="Window_IsVisibleChanged"
+    WindowStartupLocation="CenterOwner">
+
+    <Window.DataContext>
+        <m:GlobalsWindow/>
+    </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding WindowHideCommand}"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid
+            Grid.Row="0" Margin="5"
+            ItemsSource="{Binding TheSave.Scripts.GlobalVariables}"
+            CanUserSortColumns="False"
+            CanUserReorderColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            AutoGenerateColumns="False"
+            LoadingRow="DataGrid_LoadingRow">
+
+            <!--<DataGrid.Columns>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <xctk:IntegerUpDown Value="{Binding Converter={StaticResource IsNotZero}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>-->
+
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="5,0" Text="{Binding}"/>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+
+        </DataGrid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="85"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="1"
+                Margin="0,0,5,5"
+                Content="Close"
+                Command="{Binding WindowHideCommand}"/>
+        </Grid>
+    </Grid>
+
+</Window>

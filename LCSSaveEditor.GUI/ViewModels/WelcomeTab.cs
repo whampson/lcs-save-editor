@@ -1,6 +1,5 @@
 ﻿using GTASaveData;
 using GTASaveData.LCS;
-using GTASaveData.Types;
 using LCSSaveEditor.Core;
 using System;
 using System.Collections.Generic;
@@ -8,8 +7,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.ExceptionServices;
-using System.Threading;
-using System.Windows.Forms;
 using System.Windows.Input;
 using WpfEssentials.Win32;
 
@@ -27,14 +24,14 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public string SelectedDirectory
         {
-            get { return MainViewModel.TheSettings.SaveDirectory; }
-            set { MainViewModel.TheSettings.SaveDirectory = value; OnPropertyChanged(); }
+            get { return TheSettings.SaveDirectory; }
+            set { TheSettings.SaveDirectory = value; OnPropertyChanged(); }
         }
 
         public bool SearchSubDirectories
         {
-            get { return MainViewModel.TheSettings.SaveDirectoryRecursiveSearch; }
-            set { MainViewModel.TheSettings.SaveDirectoryRecursiveSearch = value; OnPropertyChanged(); }
+            get { return TheSettings.SaveDirectoryRecursiveSearch; }
+            set { TheSettings.SaveDirectoryRecursiveSearch = value; OnPropertyChanged(); }
         }
 
         public BackgroundWorker SearchWorker
@@ -73,8 +70,8 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_isSearching = value; OnPropertyChanged(); }
         }
 
-        public WelcomeTab(MainWindow mainViewModel)
-            : base("Welcome", TabPageVisibility.WhenFileIsClosed, mainViewModel)
+        public WelcomeTab(MainWindow window)
+            : base("Welcome", TabPageVisibility.WhenFileIsClosed, window)
         {
             ListItems = new ObservableCollection<ListItem>();
             SearchWorker = new BackgroundWorker
@@ -147,7 +144,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 SearchWorker.RunWorkerAsync();
                 IsSearching = true;
 
-                Log.Info($"Searching for GTA:LCS save files in {SelectedDirectory}...{(SearchSubDirectories ? " (recursive)" : "")}");
+                Log.Info($"Searching for GTA:LCS save files...{(SearchSubDirectories ? " (recursive)" : "")}");
             }
         }
 
@@ -166,8 +163,8 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (SelectedItem != null)
             {
-                MainViewModel.TheSettings.AddRecentFile(SelectedItem.Path);
-                MainViewModel.TheEditor.ActiveFile = SelectedItem.SaveFile;
+                TheSettings.AddRecentFile(SelectedItem.Path);
+                TheEditor.ActiveFile = SelectedItem.SaveFile;
             }
         }
 
@@ -201,12 +198,12 @@ namespace LCSSaveEditor.GUI.ViewModels
                 if (currDir != lastDir)
                 {
                     lastDir = currDir;
-                    MainViewModel.SetStatusText($"Searching {currDir}...");   // TODO: path shortening func
+                    TheWindow.SetStatusText($"Searching {currDir}...");   // TODO: path shortening func
                 }
                 if (Editor.TryOpenFile(path, out LCSSave saveFile))
                 {
                     string lastMissionPassedKey = saveFile.Stats.LastMissionPassedName;
-                    if (!MainViewModel.TheText.TryGetValue("MAIN", lastMissionPassedKey, out string title))
+                    if (!TheWindow.TheText.TryGetValue("MAIN", lastMissionPassedKey, out string title))
                     {
                         title = $"(invalid GXT key: {lastMissionPassedKey})";
                     }
@@ -247,7 +244,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (e.Cancelled)
             {
                 Log.Info("Search cancelled.");
-                MainViewModel.SetTimedStatusText("Search cancelled.", expiredStatus: "Ready.");
+                TheWindow.SetTimedStatusText("Search cancelled.", expiredStatus: "Ready.");
                 return;
             }
 
@@ -263,8 +260,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                     ExceptionDispatchInfo.Capture(e.Error).Throw();
                 }
 
-                Log.Info("Search completed with errors.");
-                MainViewModel.SetTimedStatusText("Search completed with errors. See the log for details.", expiredStatus: "Ready.");
+                Log.Info($"Search completed with errors. Found {ListItems.Count} save files.");
+                TheWindow.SetTimedStatusText("Search completed with errors. See the log for details.", expiredStatus: "Ready.");
                 return;
             }
 
@@ -274,8 +271,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                 return;
             }
 
-            Log.Info("Search completed.");
-            MainViewModel.SetTimedStatusText("Search completed.", expiredStatus: "Ready.");
+            Log.Info($"Search completed. Found {ListItems.Count} save files.");
+            TheWindow.SetTimedStatusText("Search completed.", expiredStatus: "Ready.");
         }
         #endregion
 
@@ -293,7 +290,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public ICommand BrowseCommand => new RelayCommand
         (
-            () => MainViewModel.ShowFolderDialog(FileDialogType.OpenFileDialog, FolderDialogRequested_Callback)
+            () => TheWindow.ShowFolderDialog(FileDialogType.OpenFileDialog, FolderDialogRequested_Callback)
         );
         #endregion
 

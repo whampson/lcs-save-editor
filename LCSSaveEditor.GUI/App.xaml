@@ -17,9 +17,8 @@
         <conv:IsZeroConverter x:Key="IsZero" Invert="False"/>
         <conv:IsZeroConverter x:Key="IsNotZero" Invert="True"/>
         <conv:InvertBooleanConverter x:Key="IsFalse" DefaultValue="True"/>
-        <conv:LogicalAndConverter x:Key="LogicalAnd"/>
-        <conv:LogicalOrConverter x:Key="LogicalOr"/>
         <conv:VectorConverter x:Key="VectorConverter"/>
+        <conv:UInt32Converter x:Key="ToUInt32"/>
         <wpfe:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
@@ -62,7 +61,8 @@
 
         <!-- Buttons -->
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="25"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
         </Style>
 

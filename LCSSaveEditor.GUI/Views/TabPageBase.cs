@@ -1,8 +1,8 @@
-﻿using GTASaveData.LCS;
-using LCSSaveEditor.Core;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using GTASaveData.LCS;
+using LCSSaveEditor.Core;
 
 namespace LCSSaveEditor.GUI.Views
 {
@@ -21,9 +21,9 @@ namespace LCSSaveEditor.GUI.Views
             Loaded += View_Loaded;
         }
 
-        public Editor TheEditor => ViewModel.MainViewModel.TheEditor;
-        public LCSSave TheSave => ViewModel.MainViewModel.TheSave;
-        public Settings TheSettings => ViewModel.MainViewModel.TheSettings;
+        public Editor TheEditor => ViewModel.TheWindow.TheEditor;
+        public LCSSave TheSave => ViewModel.TheWindow.TheSave;
+        public Settings TheSettings => ViewModel.TheWindow.TheSettings;
 
         private void View_Loaded(object sender, RoutedEventArgs e)
         {

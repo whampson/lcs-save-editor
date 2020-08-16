@@ -23,6 +23,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler SettingsWindowRequest;
         public event EventHandler AboutWindowRequest;
         public event EventHandler LogWindowRequest;
+        public event EventHandler GlobalsWindowRequest;
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
 
         private ObservableCollection<TabPageBase> m_tabs;
@@ -271,13 +272,14 @@ namespace LCSSaveEditor.GUI.ViewModels
                 SetStatusText("Closing file...");
                 RefreshTabs(TabUpdateTrigger.FileClosing);
             }
+
+            UnregisterDirtyHandlers(TheSave);
         }
 
         private void TheEditor_FileClosed(object sender, EventArgs e)
         {
             ClearDirty();
 
-            UnregisterDirtyHandlers(TheSave);
             OnPropertyChanged(nameof(TheSave));
 
             SetTimedStatusText("File closed.", expiredStatus: "Ready.");
@@ -422,7 +424,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 }
                 if (p.PropertyType.GetInterface(nameof(INotifyPropertyChanged)) != null)
                 {
-                    RegisterDirtyHandlers(v as INotifyPropertyChanged);
+                    UnregisterDirtyHandlers(v as INotifyPropertyChanged);
                 }
             }
             o.PropertyChanged -= TheSave_PropertyDirty;
@@ -441,12 +443,19 @@ namespace LCSSaveEditor.GUI.ViewModels
             var type = sender.GetType();
             var prop = type.GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
             var data = prop.GetValue(sender);
-            Log.Info($"PropertyChanged: {type.FullName}.{e.PropertyName} = {data}");
+            Log.Info($"PropertyChanged: {type.Name}.{e.PropertyName} = {data}");
         }
 
         private void TheSave_CollectionDirty(object sender, NotifyCollectionChangedEventArgs e)
         {
             var type = sender.GetType().GetGenericArguments()[0];
+            var name = type.Name;
+
+            if (sender == TheSave.Scripts.GlobalVariables)
+            {
+                name = "Scripts.Globals";
+            }
+
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
@@ -455,7 +464,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                     {
                         var data = e.NewItems[i];
                         if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
-                        Log.Info($"CollectionChanged: Add: {type.FullName}[{e.NewStartingIndex + i}] = {data}");
+                        Log.Info($"PropertyChanged: {name}[{e.NewStartingIndex + i}] = {data}");
                     }
                     break;
                 }
@@ -464,8 +473,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                     for (int i = 0; i < e.OldItems.Count; i++)
                     {
                         var data = e.OldItems[i];
-                        if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
-                        Log.Info($"CollectionChanged: Remove: {type.FullName}[{e.OldStartingIndex + i}] = {data}");
+                        Log.Info($"PropertyChanged: deleted {name}[{e.OldStartingIndex + i}]");
                     }
                     break;
                 }
@@ -475,7 +483,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                     {
                         var data = e.NewItems[i];
                         if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
-                        Log.Info($"CollectionChanged: Replace: {type.FullName}[{e.NewStartingIndex + i}] = {data}");
+                        Log.Info($"PropertyChanged: {name}[{e.NewStartingIndex + i}] = {data}");
                     }
                     break;
                 }
@@ -483,13 +491,13 @@ namespace LCSSaveEditor.GUI.ViewModels
                 {
                     for (int i = 0; i < e.NewItems.Count; i++)
                     {
-                        Log.Info($"CollectionChanged: Move: {type.FullName}[{e.OldStartingIndex + i}] => {type.FullName}[{e.NewStartingIndex + i}]");
+                        Log.Info($"PropertyChanged: {name}[{e.OldStartingIndex + i}] => {name}[{e.NewStartingIndex + i}]");
                     }
                     break;
                 }
                 case NotifyCollectionChangedAction.Reset:
                 {
-                    Log.Info($"CollectionChanged: Reset: {type.FullName}");
+                    Log.Info($"PropertyChanged: cleared {name}");
                     break;
                 }
             }
@@ -510,7 +518,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             var prop = type.GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
             var data = prop.GetValue(item);
             if (data is SaveDataObject o) data = o.ToJsonString(Formatting.None);
-            Log.Info($"PropertyChanged: {type.FullName}[{e.ItemIndex}].{e.PropertyName} = {data}");
+            Log.Info($"PropertyChanged: {type.Name}[{e.ItemIndex}].{e.PropertyName} = {data}");
 
         }
         #endregion
@@ -607,6 +615,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         );
 
         #if DEBUG
+        public ICommand DebugShowGlobalsCommand => new RelayCommand
+        (
+            () => GlobalsWindowRequest?.Invoke(this, EventArgs.Empty),
+            () => TheEditor.IsFileOpen
+        );
+
         public ICommand DebugLoadGxtFile => new RelayCommand
         (
             () =>

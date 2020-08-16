@@ -27,6 +27,7 @@ namespace LCSSaveEditor.GUI.Views
     {
         private bool m_initialized;
         private bool m_initializing;
+        private GlobalsWindow m_globalsWindow;
         private LogWindow m_logWindow;
         
         public ViewModels.MainWindow ViewModel
@@ -47,6 +48,7 @@ namespace LCSSaveEditor.GUI.Views
 
             ViewModel.Initialize();
             ViewModel.SettingsWindowRequest += ViewModel_SettingsWindowRequest;
+            ViewModel.GlobalsWindowRequest += ViewModel_GlobalsWindowRequest;
             ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
             ViewModel.MessageBoxRequest += ViewModel_MessageBoxRequest;
@@ -68,6 +70,7 @@ namespace LCSSaveEditor.GUI.Views
 
             ViewModel.Shutdown();
             ViewModel.SettingsWindowRequest -= ViewModel_SettingsWindowRequest;
+            ViewModel.GlobalsWindowRequest -= ViewModel_GlobalsWindowRequest;
             ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
             ViewModel.MessageBoxRequest -= ViewModel_MessageBoxRequest;
@@ -110,6 +113,21 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.ShowInfo($"TODO: settings");
         }
 
+        private void ViewModel_GlobalsWindowRequest(object sender, EventArgs e)
+        {
+            if (m_globalsWindow != null && m_globalsWindow.IsVisible)
+            {
+                m_globalsWindow.Focus();
+                return;
+            }
+
+            if (m_globalsWindow == null)
+            {
+                m_globalsWindow = new GlobalsWindow() { Owner = this };
+            }
+            m_globalsWindow.Show();
+        }
+
         private void ViewModel_LogWindowRequest(object sender, EventArgs e)
         {
             if (m_logWindow != null && m_logWindow.IsVisible)
@@ -131,7 +149,7 @@ namespace LCSSaveEditor.GUI.Views
                     $"{App.Name}\n" +
                     "(C) 2016-2020 Wes Hampson\n" +
                     "\n" +
-                   $"Version: {App.InformationalVersion}\n",
+                   $"Version: {App.Version}\n",
                     title: "About");
         }
 

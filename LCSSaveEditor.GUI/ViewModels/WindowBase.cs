@@ -127,7 +127,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public void PromptConfirmRevert(Action<MessageBoxResult> callback)
         {
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
-                "You will lose all unsaved changes. Continue?", "Revert File?",
+                "Reverting the file will cause you to lose all unsaved changes.\nContinue?", "Revert File?",
                 MessageBoxButton.YesNo, MessageBoxImage.Warning, callback: callback));
         }
 

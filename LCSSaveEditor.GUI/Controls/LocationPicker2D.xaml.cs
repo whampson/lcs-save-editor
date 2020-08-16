@@ -16,20 +16,18 @@ using Xceed.Wpf.Toolkit.Core;
 namespace LCSSaveEditor.GUI.Controls
 {
     /// <summary>
-    /// Interaction logic for LocationPicker.xaml
+    /// Interaction logic for LocationPicker2D.xaml
     /// </summary>
-    public partial class LocationPicker : UserControl
+    public partial class LocationPicker2D : UserControl
     {
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(Value), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker));
+            nameof(Value), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker2D));
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value), typeof(Vector3D), typeof(LocationPicker),
-            new PropertyMetadata(default(Vector3D)));
+            nameof(Value), typeof(Vector2D), typeof(LocationPicker2D));
 
         public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
-            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker2D),
-            new PropertyMetadata(default(Thickness)));
+            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker2D));
 
         public Thickness GapThickness
         {
@@ -43,20 +41,20 @@ namespace LCSSaveEditor.GUI.Controls
             remove { RemoveHandler(ValueChangedEvent, value); }
         }
 
-        public Vector3D Value
+        public Vector2D Value
         {
-            get { return (Vector3D) GetValue(ValueProperty); }
+            get { return (Vector2D) GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
 
-        public LocationPicker()
+        public LocationPicker2D()
         {
             InitializeComponent();
         }
 
-        private void OnValueChanged(Vector3D oldValue, Vector3D newValue)
+        private void OnValueChanged(Vector2D oldValue, Vector2D newValue)
         {
-            RaiseEvent(new PropertyChangedEventArgs<Vector3D>(ValueChangedEvent, oldValue, newValue));
+            RaiseEvent(new PropertyChangedEventArgs<Vector2D>(ValueChangedEvent, oldValue, newValue));
         }
 
         private void X_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -67,8 +65,8 @@ namespace LCSSaveEditor.GUI.Controls
             if (oldValue != newValue)
             {
                 OnValueChanged(
-                    new Vector3D() { X = oldValue, Y = Value.Y, Z = Value.Z },
-                    new Vector3D() { X = newValue, Y = Value.Y, Z = Value.Z });
+                    new Vector2D() { X = oldValue, Y = Value.Y },
+                    new Vector2D() { X = newValue, Y = Value.Y });
             }
         }
 
@@ -80,21 +78,8 @@ namespace LCSSaveEditor.GUI.Controls
             if (oldValue != newValue)
             {
                 OnValueChanged(
-                    new Vector3D() { X = Value.X, Y = oldValue, Z = Value.Z },
-                    new Vector3D() { X = Value.X, Y = newValue, Z = Value.Z });
-            }
-        }
-
-        private void Z_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            float oldValue = (float) (e.OldValue ?? new float());
-            float newValue = (float) (e.NewValue ?? new float());
-
-            if (oldValue != newValue)
-            {
-                OnValueChanged(
-                    new Vector3D() { X = Value.X, Y = Value.Y, Z = oldValue },
-                    new Vector3D() { X = Value.X, Y = Value.Y, Z = newValue });
+                    new Vector2D() { X = Value.X, Y = oldValue },
+                    new Vector2D() { X = Value.X, Y = newValue });
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using LCSSaveEditor.Core;
+﻿using GTASaveData.LCS;
+using LCSSaveEditor.Core;
 using System;
 using System.Windows.Input;
 using WpfEssentials.Win32;

@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="LCSSaveEditor.GUI.Controls.LocationPicker"
+    x:Class="LCSSaveEditor.GUI.Controls.LocationPicker2D"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,7 +8,7 @@
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d">
 
-    <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:LocationPicker}}}">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:LocationPicker2D}}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15"/>
             <ColumnDefinition Width="*"/>
@@ -17,17 +17,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Text="X:" Style="{StaticResource LabelStyleRight}"/>
         <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,0,5,0" Text="Y:" Style="{StaticResource LabelStyleRight}"/>
-        <TextBlock Grid.Column="0" Grid.Row="4" Margin="0,0,5,0" Text="Z:" Style="{StaticResource LabelStyleRight}"/>
         <xctk:SingleUpDown Grid.Column="1" Grid.Row="0" Value="{Binding Value.X}" ValueChanged="X_ValueChanged"/>
         <xctk:SingleUpDown Grid.Column="1" Grid.Row="2" Value="{Binding Value.Y}" ValueChanged="Y_ValueChanged"/>
-        <xctk:SingleUpDown Grid.Column="1" Grid.Row="4" Value="{Binding Value.Z}" ValueChanged="Z_ValueChanged"/>
         <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="0" Margin="{Binding GapThickness}" Background="Transparent"/>
-        <Separator Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Height="0" Margin="{Binding GapThickness}" Background="Transparent"/>
     </Grid>
 
 </UserControl>

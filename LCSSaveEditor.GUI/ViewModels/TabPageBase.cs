@@ -1,7 +1,7 @@
-﻿using LCSSaveEditor.GUI.Events;
+﻿using GTASaveData.LCS;
+using LCSSaveEditor.Core;
+using LCSSaveEditor.GUI.Events;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WpfEssentials;
 
 namespace LCSSaveEditor.GUI.ViewModels
@@ -50,19 +50,23 @@ namespace LCSSaveEditor.GUI.ViewModels
         /// <summary>
         /// Gets the main window data context for accessing global functions.
         /// </summary>
-        public MainWindow MainViewModel { get; }
+        public MainWindow TheWindow { get; }
+
+        public Editor TheEditor => TheWindow.TheEditor;
+        public LCSSave TheSave => TheWindow.TheSave;
+        public Settings TheSettings => TheWindow.TheSettings;
 
         /// <summary>
         /// Creates a new <see cref="BaseTabPage"/> instance.
         /// </summary>
         /// <param name="title">The tab name.</param>
         /// <param name="visibility">The tab visibility setting.</param>
-        /// <param name="mainViewModel">The main window data context.</param>
-        public TabPageBase(string title, TabPageVisibility visibility, MainWindow mainViewModel)
+        /// <param name="window">The main window data context.</param>
+        public TabPageBase(string title, TabPageVisibility visibility, MainWindow window)
         {
             Title = title;
             Visibility = visibility;
-            MainViewModel = mainViewModel;
+            TheWindow = window;
         }
 
         /// <summary>
@@ -70,7 +74,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         /// </summary>
         public virtual void Initialize()
         {
-            MainViewModel.TabUpdate += MainViewModel_TabUpdate;
+            TheWindow.TabUpdate += MainViewModel_TabUpdate;
             Initializing?.Invoke(this, EventArgs.Empty);
         }
 
@@ -79,7 +83,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         /// </summary>
         public virtual void Shutdown()
         {
-            MainViewModel.TabUpdate -= MainViewModel_TabUpdate;
+            TheWindow.TabUpdate -= MainViewModel_TabUpdate;
             ShuttingDown?.Invoke(this, EventArgs.Empty);
         }
 
@@ -89,6 +93,10 @@ namespace LCSSaveEditor.GUI.ViewModels
         public virtual void Load()
         {
             Loading?.Invoke(this, EventArgs.Empty);
+
+            OnPropertyChanged(nameof(TheEditor));
+            OnPropertyChanged(nameof(TheSave));
+            OnPropertyChanged(nameof(TheSettings));
         }
 
         /// <summary>

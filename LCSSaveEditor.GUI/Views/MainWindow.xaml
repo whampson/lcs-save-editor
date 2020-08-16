@@ -11,8 +11,9 @@
     xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
     xmlns:dbg ="debug-build"
     mc:Ignorable="d"
-    d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:MainWindow}"
+    d:DesignWidth="800" d:DesignHeight="600"
+    Width="800" Height="600"
     Title="{Binding Title}"
     Loaded="Window_Loaded" Closing="Window_Closing"
     AllowDrop="True" Drop="Window_Drop">
@@ -25,10 +26,11 @@
         <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding FileOpenCommand}"/>
         <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding FileSaveCommand}"/>
         <KeyBinding Modifiers="Ctrl" Key="W" Command="{Binding FileCloseCommand}"/>
-        <KeyBinding Modifiers="Ctrl" Key="R" Command="{Binding FileRevertCommand}"/>
         <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{Binding FileSaveAsCommand}"/>
         <KeyBinding Modifiers="Alt" Key="F4" Command="{Binding FileExitCommand}"/>
         <KeyBinding Key="F1" Command="{Binding HelpAboutCommand}"/>
+        <KeyBinding Key="F4" Command="{Binding ViewLogCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding FileRevertCommand}"/>
     </Window.InputBindings>
 
     <Window.Resources>
@@ -67,12 +69,13 @@
                     InputGestureText="Ctrl+Shift+S"
                     Command="{Binding FileSaveAsCommand}"/>
                 <Separator/>
+                <MenuItem Header="_Revert File"
+                    InputGestureText="F5"
+                    Command="{Binding FileRevertCommand}"/>
                 <MenuItem Header="_Close File"
                     InputGestureText="Ctrl+W"
                     Command="{Binding FileCloseCommand}"/>
-                <MenuItem Header="_Revert File"
-                    InputGestureText="Ctrl+R"
-                    Command="{Binding FileRevertCommand}"/>
+                <Separator/>
                 <MenuItem Header="_Transfer Data..."
                     Command="{Binding FileTransferDataCommand}"/>
                 <Separator/>
@@ -103,16 +106,16 @@
 
             <MenuItem Header="_View">
                 <MenuItem Header="_Log"
+                InputGestureText="F4"
                     Command="{Binding ViewLogCommand}"/>
             </MenuItem>
 
             <MenuItem Header="_Help">
-                <MenuItem Header="Check for _Updates"
-                    Command="{Binding HelpUpdateCommand}"/>
-                <Separator/>
                 <MenuItem Header="_About"
                     InputGestureText="F1"
                     Command="{Binding HelpAboutCommand}"/>
+                <MenuItem Header="Check for _Updates"
+                    Command="{Binding HelpUpdateCommand}"/>
             </MenuItem>
 
             <mc:AlternateContent>
@@ -120,6 +123,10 @@
                     <MenuItem Header="Debug">
                         <MenuItem Header="Load GXT File..."
                             Command="{Binding DebugLoadGxtFile}"/>
+                        <Separator/>
+                        <MenuItem Header="Show Globals"
+                            Command="{Binding DebugShowGlobalsCommand}"/>
+                        <Separator/>
                         <MenuItem Header="Raise Unhandled Exception"
                             Command="{Binding DebugRaiseUnhandledException}"/>
                     </MenuItem>
