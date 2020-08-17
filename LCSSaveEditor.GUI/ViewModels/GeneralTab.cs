@@ -98,15 +98,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public OnFootCameraMode OnFootCameraMode
         {
-            // TODO: android ios
             get { return (OnFootCameraMode) SimpleVars.CameraModeOnFoot; }
             set
             {
                 SimpleVars.CameraModeOnFoot = (float) value;
-                if (TheSave.FileFormat.IsPS2 || TheSave.FileFormat.IsPSP)
-                {
-                    TheEditor.SetGlobal(GlobalVariable.CameraModeOnFoot, (int) value);
-                }
+                TheEditor.SetGlobal(GlobalVariable.CameraModeOnFoot, (int) value);
                 OnPropertyChanged(); }
         }
 

@@ -592,6 +592,12 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => Application.Current.MainWindow.Close()
         );
 
+        public ICommand EditGlobalsCommand => new RelayCommand
+        (
+            () => GlobalsWindowRequest?.Invoke(this, EventArgs.Empty),
+            () => TheEditor.IsFileOpen
+        );
+
         public ICommand EditConvertAndroidCommand => new RelayCommand
         (
             () => TheEditor.ChangeFileFormat(LCSSave.FileFormats.Android),
@@ -637,12 +643,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         );
 
         #if DEBUG
-        public ICommand DebugShowGlobalsCommand => new RelayCommand
-        (
-            () => GlobalsWindowRequest?.Invoke(this, EventArgs.Empty),
-            () => TheEditor.IsFileOpen
-        );
-
         public ICommand DebugLoadGxtFile => new RelayCommand
         (
             () =>

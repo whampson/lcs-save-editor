@@ -23,6 +23,8 @@ namespace LCSSaveEditor.GUI.Views
     /// </summary>
     public partial class GlobalsWindow : Window
     {
+        private bool m_suppressChangeHandlers;
+
         public ViewModels.GlobalsWindow ViewModel
         {
             get { return (ViewModels.GlobalsWindow) DataContext; }
@@ -78,6 +80,26 @@ namespace LCSSaveEditor.GUI.Views
         private void CheckBox_Changed(object sender, RoutedEventArgs e)
         {
             ViewModel.UpdateList();
+        }
+
+        private void IntegerUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!m_suppressChangeHandlers)
+            {
+                m_suppressChangeHandlers = true;
+                ViewModel.UpdateIntValue();
+                m_suppressChangeHandlers = false;
+            }
+        }
+
+        private void SingleUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!m_suppressChangeHandlers)
+            {
+                m_suppressChangeHandlers = true;
+                ViewModel.UpdateFloatValue();
+                m_suppressChangeHandlers = false;
+            }
         }
     }
 }

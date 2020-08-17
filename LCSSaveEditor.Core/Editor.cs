@@ -72,6 +72,11 @@ namespace LCSSaveEditor.Core
             }
         }
 
+        public bool IsMobileScript()
+        {
+            return ScriptVersion == ScriptVersion.Android || ScriptVersion == ScriptVersion.iOS;
+        }
+
         public int GetNumGlobals()
         {
             if (!IsFileOpen) throw NoFileOpen();
@@ -81,9 +86,16 @@ namespace LCSSaveEditor.Core
         public int GetIndexOfGlobal(GlobalVariable g)
         {
             int index = (int) g;
-            if (ScriptVersion == ScriptVersion.Android || ScriptVersion == ScriptVersion.iOS)
+            if (!IsMobileScript())
             {
-                index++;
+                if (g == GlobalVariable._UnknownFlag)
+                {
+                    return -1;
+                }
+                if (g > GlobalVariable._UnknownFlag)
+                {
+                    index--;
+                }
             }
 
             return index;

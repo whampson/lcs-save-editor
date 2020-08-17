@@ -8,8 +8,8 @@
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d" 
-    Title="Globals"
-    Height="450" Width="550"
+    Title="Edit Global Variables"
+    Height="500" Width="500"
     d:DataContext="{d:DesignInstance m:GlobalsWindow}"
     Loaded="Window_Loaded" Closing="Window_Closing"
     IsVisibleChanged="Window_IsVisibleChanged"
@@ -27,13 +27,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ListBox
             Margin="5"
             HorizontalContentAlignment="Stretch"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
             ItemsSource="{Binding Globals}"
-            ScrollViewer.VerticalScrollBarVisibility="Visible">
+            SelectedItem="{Binding SelectedItem}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -52,24 +54,56 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Grid Grid.Row="1" Margin="5,0,5,5">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="15"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="115"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="0" Grid.Column="0" Margin="5"
+                Style="{StaticResource LabelStyleRight}"
+                IsEnabled="{Binding SelectedItem, Converter={StaticResource IsNotNull}}"
+                Text="Int Value:"/>
+            <TextBlock
+                Grid.Row="1" Grid.Column="0" Margin="5"
+                Style="{StaticResource LabelStyleRight}"
+                IsEnabled="{Binding SelectedItem, Converter={StaticResource IsNotNull}}"
+                Text="Float Value:"/>
+            <xctk:IntegerUpDown
+                Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
+                IsEnabled="{Binding SelectedItem, Converter={StaticResource IsNotNull}}"
+                Value="{Binding SelectedItem.IntValue}"
+                ValueChanged="IntegerUpDown_ValueChanged"/>
+            <xctk:SingleUpDown
+                Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
+                IsEnabled="{Binding SelectedItem, Converter={StaticResource IsNotNull}}"
+                Value="{Binding SelectedItem.FloatValue}"
+                ValueChanged="SingleUpDown_ValueChanged"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <CheckBox
-                Grid.Column="1"
-                Content="Show All"
+                Grid.Column="0" Margin="5"
+                Content="Show Saved Variables Only"
                 Style="{StaticResource CheckBoxStyle}"
-                IsChecked="{Binding ShowAll}"
+                IsChecked="{Binding ShowSavedOnly}"
                 Checked="CheckBox_Changed"
                 Unchecked="CheckBox_Changed"/>
 
             <Button
-                Grid.Column="3"
+                Grid.Column="2"
                 Content="Close"
                 Style="{StaticResource ButtonStyle}"
                 Command="{Binding WindowHideCommand}"/>
