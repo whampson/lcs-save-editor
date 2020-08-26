@@ -30,6 +30,7 @@ namespace LCSSaveEditor.GUI.Views
         private bool m_initialized;
         private bool m_initializing;
         private GlobalsWindow m_globalsWindow;
+        private MapWindow m_mapWindow;
         private LogWindow m_logWindow;
         
         public ViewModels.MainWindow ViewModel
@@ -44,19 +45,68 @@ namespace LCSSaveEditor.GUI.Views
             InitializeComponent();
         }
 
+        private T CreateWindow<T>() where T : Window, new()
+        {
+            return new T() { Owner = this };
+        }
+
+        private void LazyLoadWindow<T>(T window, out T outWindow) where T : Window, new()
+        {
+            if (window != null && window.IsVisible)
+            {
+                window.Focus();
+                outWindow = window;
+                return;
+            }
+            
+            if (window == null)
+            {
+                window = new T() { Owner = this };
+            }
+            
+            window.Show();
+            outWindow = window;
+        }
+
+        private void DestroyAllWindows()
+        {
+            if (m_globalsWindow != null)
+            {
+                m_globalsWindow.HideOnClose = false;
+                m_globalsWindow.Close();
+                m_globalsWindow = null;
+            }
+
+            if (m_mapWindow != null)
+            {
+                m_mapWindow.HideOnClose = false;
+                m_mapWindow.Close();
+                m_mapWindow = null;
+            }
+
+            if (m_logWindow != null)
+            {
+                m_logWindow.HideOnClose = false;
+                m_logWindow.Close();
+                m_logWindow = null;
+            }
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (m_initialized) return;
 
             ViewModel.Initialize();
-            ViewModel.SettingsWindowRequest += ViewModel_SettingsWindowRequest;
-            ViewModel.GlobalsWindowRequest += ViewModel_GlobalsWindowRequest;
-            ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
-            ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
-            ViewModel.MessageBoxRequest += ViewModel_MessageBoxRequest;
             ViewModel.FileDialogRequest += ViewModel_FileDialogRequest;
             ViewModel.FolderDialogRequest += ViewModel_FolderDialogRequest;
             ViewModel.GxtDialogRequest += ViewModel_GxtDialogRequest;
+            ViewModel.MessageBoxRequest += ViewModel_MessageBoxRequest;
+            ViewModel.SettingsWindowRequest += ViewModel_SettingsWindowRequest;
+            ViewModel.GlobalsWindowRequest += ViewModel_GlobalsWindowRequest;
+            ViewModel.MapWindowRequest += ViewModel_MapWindowRequest;
+            ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
+            ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
+            ViewModel.DestroyAllWindowsRequest += ViewModel_DestroyAllWindowsRequest;
 
             m_initializing = false;
             m_initialized = true;
@@ -72,24 +122,21 @@ namespace LCSSaveEditor.GUI.Views
             }
 
             ViewModel.Shutdown();
-            ViewModel.SettingsWindowRequest -= ViewModel_SettingsWindowRequest;
-            ViewModel.GlobalsWindowRequest -= ViewModel_GlobalsWindowRequest;
-            ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
-            ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
-            ViewModel.MessageBoxRequest -= ViewModel_MessageBoxRequest;
             ViewModel.FileDialogRequest -= ViewModel_FileDialogRequest;
             ViewModel.FolderDialogRequest -= ViewModel_FolderDialogRequest;
-            ViewModel.GxtDialogRequest += ViewModel_GxtDialogRequest;
+            ViewModel.GxtDialogRequest -= ViewModel_GxtDialogRequest;
+            ViewModel.MessageBoxRequest -= ViewModel_MessageBoxRequest;
+            ViewModel.SettingsWindowRequest -= ViewModel_SettingsWindowRequest;
+            ViewModel.GlobalsWindowRequest -= ViewModel_GlobalsWindowRequest;
+            ViewModel.MapWindowRequest -= ViewModel_MapWindowRequest;
+            ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
+            ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
+            ViewModel.DestroyAllWindowsRequest -= ViewModel_DestroyAllWindowsRequest;
 
-            if (m_logWindow != null)
-            {
-                m_logWindow.HideOnClose = false;
-                m_logWindow.Close();
-            }
+            DestroyAllWindows();
 
             m_initialized = false;
         }
-
 
         private void Window_Drop(object sender, DragEventArgs e)
         {
@@ -117,56 +164,6 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.CheckForExternalChanges();
         }
 
-        private void ViewModel_SettingsWindowRequest(object sender, EventArgs e)
-        {
-            ViewModel.ShowInfo($"TODO: settings");
-        }
-
-        private void ViewModel_GlobalsWindowRequest(object sender, EventArgs e)
-        {
-            if (m_globalsWindow != null && m_globalsWindow.IsVisible)
-            {
-                m_globalsWindow.Focus();
-                return;
-            }
-
-            if (m_globalsWindow == null)
-            {
-                m_globalsWindow = new GlobalsWindow() { Owner = this };
-            }
-            m_globalsWindow.Show();
-        }
-
-        private void ViewModel_LogWindowRequest(object sender, EventArgs e)
-        {
-            if (m_logWindow != null && m_logWindow.IsVisible)
-            {
-                m_logWindow.Focus();
-                return;
-            }
-
-            if (m_logWindow == null)
-            {
-                m_logWindow = new LogWindow() { Owner = this };
-            }
-            m_logWindow.Show();
-        }
-
-        private void ViewModel_AboutWindowRequest(object sender, EventArgs e)
-        {
-                ViewModel.ShowInfo(
-                    $"{App.Name}\n" +
-                    "(C) 2016-2020 Wes Hampson\n" +
-                    "\n" +
-                   $"Version: {App.Version}\n",
-                    title: "About");
-        }
-
-        private void ViewModel_MessageBoxRequest(object sender, MessageBoxEventArgs e)
-        {
-            e.Show(this);
-        }
-
         private void ViewModel_FileDialogRequest(object sender, FileDialogEventArgs e)
         {
             e.ShowDialog(this);
@@ -192,6 +189,47 @@ namespace LCSSaveEditor.GUI.Views
             e.SelectedValue = d.ViewModel.SelectedItem.Value;
             e.Callback?.Invoke(r, e);
         }
+
+        private void ViewModel_MessageBoxRequest(object sender, MessageBoxEventArgs e)
+        {
+            e.Show(this);
+        }
+
+        private void ViewModel_SettingsWindowRequest(object sender, EventArgs e)
+        {
+            ViewModel.ShowInfo($"TODO: settings");
+        }
+
+        private void ViewModel_GlobalsWindowRequest(object sender, EventArgs e)
+        {
+            LazyLoadWindow(m_globalsWindow, out m_globalsWindow);
+        }
+
+        private void ViewModel_MapWindowRequest(object sender, EventArgs e)
+        {
+            LazyLoadWindow(m_mapWindow, out m_mapWindow);
+        }
+
+        private void ViewModel_LogWindowRequest(object sender, EventArgs e)
+        {
+            LazyLoadWindow(m_logWindow, out m_logWindow);
+        }
+
+        private void ViewModel_AboutWindowRequest(object sender, EventArgs e)
+        {
+                ViewModel.ShowInfo(
+                    $"{App.Name}\n" +
+                    "(C) 2016-2020 Wes Hampson\n" +
+                    "\n" +
+                   $"Version: {App.Version}\n",
+                    title: "About");
+        }
+
+        private void ViewModel_DestroyAllWindowsRequest(object sender, EventArgs e)
+        {
+            DestroyAllWindows();
+        }
+        
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

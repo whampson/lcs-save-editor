@@ -32,6 +32,7 @@
         <KeyBinding Modifiers="Alt" Key="F4" Command="{Binding FileExitCommand}"/>
         <KeyBinding Key="F1" Command="{Binding HelpAboutCommand}"/>
         <KeyBinding Key="F2" Command="{Binding EditGlobalsCommand}"/>
+        <KeyBinding Key="F3" Command="{Binding ViewMapCommand}"/>
         <KeyBinding Key="F4" Command="{Binding ViewLogCommand}"/>
         <KeyBinding Key="F5" Command="{Binding FileRevertCommand}"/>
     </Window.InputBindings>
@@ -101,7 +102,7 @@
                     InputGestureText="F2"
                     Command="{Binding EditGlobalsCommand}"/>
                 <Separator/>
-                <MenuItem Header="Change File _Type" IsEnabled="{Binding TheEditor.IsFileOpen}">
+                <MenuItem Header="Change File _Type (TODO)" IsEnabled="{Binding TheEditor.IsFileOpen}">
                     <MenuItem
                         Header="_Android"
                         IsChecked="{Binding TheSave.FileFormat.IsAndroid, Mode=OneWay}"
@@ -128,6 +129,11 @@
 
             <MenuItem Header="_View">
                 <MenuItem
+                    Header="Show Collectible _Map"
+                    InputGestureText="F3"
+                    Command="{Binding ViewMapCommand}"/>
+                <Separator/>
+                <MenuItem
                     Header="Show _Log"
                     InputGestureText="F4"
                     Command="{Binding ViewLogCommand}"/>
@@ -139,6 +145,10 @@
                         <MenuItem
                             Header="Load _GXT File..."
                             Command="{Binding DebugLoadGxtFile}"/>
+                        <Separator/>
+                        <MenuItem
+                            Header="_Destroy All Windows"
+                            Command="{Binding DebugDestroyAllWindows}"/>
                         <Separator/>
                         <MenuItem
                             Header="Raise Unhandled _Exception"
@@ -157,7 +167,6 @@
                     Command="{Binding HelpUpdateCommand}"/>
             </MenuItem>
 
-            
         </Menu>
 
         <Grid DockPanel.Dock="Bottom">

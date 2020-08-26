@@ -22,8 +22,10 @@ namespace LCSSaveEditor.GUI.ViewModels
     {
         public event EventHandler SettingsWindowRequest;
         public event EventHandler AboutWindowRequest;
-        public event EventHandler LogWindowRequest;
         public event EventHandler GlobalsWindowRequest;
+        public event EventHandler MapWindowRequest;
+        public event EventHandler LogWindowRequest;
+        public event EventHandler DestroyAllWindowsRequest;
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
 
         private ObservableCollection<TabPageBase> m_tabs;
@@ -184,11 +186,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
                 ShowException(e, "The file could not be opened.");
 
-            #if !DEBUG
+#if !DEBUG
                 return;
-            #else
+#else
                 throw;
-            #endif
+#endif
 
             }
         }
@@ -210,11 +212,11 @@ namespace LCSSaveEditor.GUI.ViewModels
                 ShowException(e, "The file could not be saved.");
                 SetTimedStatusText("Error saving file.", 10, expiredStatus: "Ready.");
 
-            #if !DEBUG
+#if !DEBUG
                 return;
-            #else
+#else
                 throw;
-            #endif
+#endif
             }
         }
 
@@ -548,7 +550,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public ICommand FileOpenRecentCommand => new RelayCommand<string>
         (
-            (x) => { TheSettings.SetLastAccess(x); OpenFile(x);  },
+            (x) => { TheSettings.SetLastAccess(x); OpenFile(x); },
             (_) => TheSettings.RecentFiles.Count > 0
         );
 
@@ -627,6 +629,12 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => SettingsWindowRequest?.Invoke(this, EventArgs.Empty)
         );
 
+        public ICommand ViewMapCommand => new RelayCommand
+        (
+            () => MapWindowRequest?.Invoke(this, EventArgs.Empty),
+            () => TheEditor.IsFileOpen
+        );
+
         public ICommand ViewLogCommand => new RelayCommand
         (
             () => LogWindowRequest?.Invoke(this, EventArgs.Empty)
@@ -647,7 +655,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         (
             () =>
             {
-                ShowFileDialog(FileDialogType.OpenFileDialog, (x,y) =>
+                ShowFileDialog(FileDialogType.OpenFileDialog, (x, y) =>
                 {
                     if (x == true)
                     {
@@ -688,6 +696,11 @@ namespace LCSSaveEditor.GUI.ViewModels
                     }
                 }
             }
+        );
+
+        public ICommand DebugDestroyAllWindows => new RelayCommand
+        (
+            () => DestroyAllWindowsRequest?.Invoke(this, EventArgs.Empty)
         );
 
         #endif

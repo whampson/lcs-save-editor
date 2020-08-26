@@ -8,9 +8,9 @@
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d" 
+    d:DataContext="{d:DesignInstance m:GlobalsWindow}"
     Title="Edit Global Variables"
     Height="500" Width="500"
-    d:DataContext="{d:DesignInstance m:GlobalsWindow}"
     Loaded="Window_Loaded" Closing="Window_Closing"
     IsVisibleChanged="Window_IsVisibleChanged"
     WindowStartupLocation="CenterOwner">

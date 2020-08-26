@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>0.12.0-alpha</Version>
-    <FileVersion>0.12.0.471</FileVersion>
-    <AssemblyVersion>0.12.0.471</AssemblyVersion>
+    <Version>0.13.0-alpha</Version>
+    <FileVersion>0.13.0.562</FileVersion>
+    <AssemblyVersion>0.13.0.562</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>
@@ -15,10 +15,6 @@
     <Description>Grand Theft Auto: Liberty City Stories save file editor.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\ENGLISH.GXT" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
@@ -32,21 +28,85 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\costume00.png" />
+    <None Remove="Resources\costume01.png" />
+    <None Remove="Resources\costume02.png" />
+    <None Remove="Resources\costume03.png" />
+    <None Remove="Resources\costume04.png" />
+    <None Remove="Resources\costume05.png" />
+    <None Remove="Resources\costume06.png" />
+    <None Remove="Resources\costume07.png" />
+    <None Remove="Resources\costume08.png" />
+    <None Remove="Resources\costume09.png" />
+    <None Remove="Resources\costume10.png" />
+    <None Remove="Resources\costume11.png" />
+    <None Remove="Resources\costume12.png" />
+    <None Remove="Resources\costume13.png" />
+    <None Remove="Resources\costume14.png" />
+    <None Remove="Resources\costume15.png" />
+    <None Remove="Resources\ENGLISH.GXT" />
+    <None Remove="Resources\map.png" />
+    <None Remove="Resources\package.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\costume00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\costume15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\ENGLISH.GXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\map.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\package.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\GlobalsWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Views\GlobalsWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-
+  
 </Project>

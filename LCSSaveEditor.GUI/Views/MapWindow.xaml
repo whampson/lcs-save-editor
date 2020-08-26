@@ -1,0 +1,280 @@
+﻿<Window
+    x:Class="LCSSaveEditor.GUI.Views.MapWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance m:MapWindow}"
+    Title="Map"
+    Height="800" Width="1000"
+    Loaded="Window_Loaded" Closing="Window_Closing"
+    IsVisibleChanged="Window_IsVisibleChanged">
+
+    <Window.DataContext>
+        <m:MapWindow 
+            Cursor="Cross"
+            IsShowingLegend="True"
+            IsShowingPackages="True"
+            IsShowingRampages="True"
+            IsShowingStuntJumps="True"
+            PackageColor="#FCFC00"
+            PackageColorCollected="#CACA65"
+            RampageColor="#F02222"
+            RampageColorCollected="#A04747"
+            StuntJumpColor="#34D434"
+            StuntJumpColorCollected="#56A056"/>
+    </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding WindowHideCommand}"/>
+        <KeyBinding Key="D1" Modifiers="Ctrl" Command="{Binding TogglePackagesCommand}"/>
+        <KeyBinding Key="D2" Modifiers="Ctrl" Command="{Binding ToggleRampagesCommand}"/>
+        <KeyBinding Key="D3" Modifiers="Ctrl" Command="{Binding ToggleStuntJumpsCommand}"/>
+        <KeyBinding Key="F2" Command="{Binding ToggleCollectedCommand}"/>
+        <KeyBinding Key="F3" Command="{Binding ToggleLegendCommand}"/>
+        <!--<KeyBinding Key="F5" Command="{Binding ResetMapCommand}"/>-->
+    </Window.InputBindings>
+
+    <Window.Resources>
+        <BitmapImage x:Key="MapImage" UriSource="/LCSSaveEditor.GUI;component/Resources/map.png"/>
+        <Style x:Key="LegendIconStyle" TargetType="Rectangle">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Stroke" Value="Black"/>
+        </Style>
+        <Style x:Key="LegendLabelStyle" TargetType="TextBlock" BasedOn="{StaticResource LabelStyleLeft}">
+            <Setter Property="Margin" Value="0,5,5,5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Map">
+                <MenuItem
+                    Header="Hidden _Packages" InputGestureText="Ctrl+1"
+                    IsCheckable="True" IsChecked="{Binding IsShowingPackages}"
+                    Checked="Packages_Checked" Unchecked="Packages_Unchecked"/>
+                <MenuItem
+                    Header="_Rampages" InputGestureText="Ctrl+2"
+                    IsCheckable="True" IsChecked="{Binding IsShowingRampages}"
+                    Checked="Rampages_Checked" Unchecked="Rampages_Unchecked"/>
+                <MenuItem
+                    Header="Stunt _Jumps" InputGestureText="Ctrl+3"
+                    IsCheckable="True" IsChecked="{Binding IsShowingStuntJumps}"
+                    Checked="StuntJumps_Checked" Unchecked="StuntJumps_Unchecked"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem
+                    Header="Show _Collected Items" InputGestureText="F2"
+                    IsCheckable="True" IsChecked="{Binding IsShowingCollected}"
+                    Checked="IsShowingCollected_Checked" Unchecked="IsShowingCollected_Unchecked"/>
+                <Separator/>
+                <MenuItem
+                    Header="Show _Legend" InputGestureText="F3"
+                    IsCheckable="True" IsChecked="{Binding IsShowingLegend}"/>
+                <!--<MenuItem Header="_Reset Map Position"/>-->
+            </MenuItem>
+            <Separator/>
+        </Menu>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <c:MapControl
+                Grid.Row="0"
+                x:Name="m_map"
+                Focusable="True"
+                Background="LightBlue"
+                Origin="1024,1024"
+                Scale="0.512,-0.512"
+                MaximumZoom="5"
+                MinimumZoom="0.5"
+                InitialZoom="0.5"
+                InitialCenter="0,-175"
+                Image="{StaticResource MapImage}"
+                Center="{Binding CenterOffset}"
+                Zoom="{Binding ZoomLevel}"
+                Cursor="{Binding Cursor}"
+                MouseOverOffset="{Binding MouseOffset}"
+                MouseOverCoords="{Binding MouseCoords}"
+                Overlays="{Binding MapOverlays}"/>
+
+            <StackPanel
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Orientation="Vertical"
+                Visibility="{Binding IsShowingLegend, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.25"/>
+                </StackPanel.Background>
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsShowingSpawnPoint, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Rectangle Style="{StaticResource LegendIconStyle}" Fill="{Binding SpawnPointColor, Converter={StaticResource SolidColorBrushConverter}}"/>
+                    <TextBlock Style="{StaticResource LegendLabelStyle}" Text="Spawn Point" />
+                </StackPanel>
+
+                <StackPanel
+                    Orientation="Vertical"
+                    Visibility="{Binding IsShowingPackages, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Style="{StaticResource LegendIconStyle}" Fill="{Binding PackageColor, Converter={StaticResource SolidColorBrushConverter}}"/>
+                        <TextBlock Style="{StaticResource LegendLabelStyle}" Text="Hidden Package" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel
+                    Orientation="Vertical"
+                    Visibility="{Binding IsShowingRampages, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Style="{StaticResource LegendIconStyle}" Fill="{Binding RampageColor, Converter={StaticResource SolidColorBrushConverter}}"/>
+                        <TextBlock Style="{StaticResource LegendLabelStyle}" Text="Rampage" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel
+                    Orientation="Vertical"
+                    Visibility="{Binding IsShowingStuntJumps, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Style="{StaticResource LegendIconStyle}" Fill="{Binding StuntJumpColor, Converter={StaticResource SolidColorBrushConverter}}"/>
+                        <TextBlock Style="{StaticResource LegendLabelStyle}" Text="Stunt Jump" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+            <StatusBar Grid.Row="1">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="55"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="55"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="55"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="125"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="55"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+
+
+                <StatusBarItem Grid.Column="0">
+                    <!--<TextBlock Text="{Binding StatusText}"/>-->
+                </StatusBarItem>
+
+                <Separator Grid.Column="1"/>
+
+                <StatusBarItem
+                    Grid.Column="2"
+                    HorizontalContentAlignment="Center">
+                    <ToolTipService.ToolTip>
+                        <ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NumPackagesCollected, Mode=OneWay}"/>
+                                <TextBlock Text=" out of "/>
+                                <TextBlock Text="{Binding Source={x:Static m:MapWindow.NumPackages}}"/>
+                                <TextBlock Text=" Hidden Packages collected."/>
+                            </StackPanel>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding NumPackagesCollected, Mode=OneWay}"/>
+                        <TextBlock Grid.Column="1" Text="/"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static m:MapWindow.NumPackages}}"/>
+                    </Grid>
+                </StatusBarItem>
+
+                <Separator Grid.Column="3"/>
+
+                <StatusBarItem
+                    Grid.Column="4"
+                    HorizontalContentAlignment="Center">
+                    <ToolTipService.ToolTip>
+                        <ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NumRampagesCollected, Mode=OneWay}"/>
+                                <TextBlock Text=" out of "/>
+                                <TextBlock Text="{Binding Source={x:Static m:MapWindow.NumRampages}}"/>
+                                <TextBlock Text=" Rampages passed."/>
+                            </StackPanel>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding NumRampagesCollected, Mode=OneWay}"/>
+                        <TextBlock Grid.Column="1" Text="/"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static m:MapWindow.NumRampages}}"/>
+                    </Grid>
+                </StatusBarItem>
+
+                <Separator Grid.Column="5"/>
+
+                <StatusBarItem
+                    Grid.Column="6"
+                    HorizontalContentAlignment="Center">
+                    <ToolTipService.ToolTip>
+                        <ToolTip>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NumStuntJumpsCollected, Mode=OneWay}"/>
+                                <TextBlock Text=" out of "/>
+                                <TextBlock Text="{Binding Source={x:Static m:MapWindow.NumStuntJumps}}"/>
+                                <TextBlock Text=" Unique Stunt Jumps completed."/>
+                            </StackPanel>
+                        </ToolTip>
+                    </ToolTipService.ToolTip>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding NumStuntJumpsCollected, Mode=OneWay}"/>
+                        <TextBlock Grid.Column="1" Text="/"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static m:MapWindow.NumStuntJumps}}"/>
+                    </Grid>
+                </StatusBarItem>
+                <Separator Grid.Column="7"/>
+                <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center" ToolTip="Mouse-over coordinates.">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding MouseCoords.X, StringFormat=F3}"/>
+                        <TextBlock Grid.Column="1" Text="," Margin="0,0,5,0"/>
+                        <TextBlock Grid.Column="2" Text="{Binding MouseCoords.Y, StringFormat=F3}"/>
+                    </Grid>
+                </StatusBarItem>
+                <Separator Grid.Column="9"/>
+                <StatusBarItem Grid.Column="10" HorizontalContentAlignment="Center" ToolTip="Zoom level.">
+                    <TextBlock Text="{Binding ZoomLevel, StringFormat=P0}"/>
+                </StatusBarItem>
+
+            </StatusBar>
+        </Grid>
+    </DockPanel>
+</Window>
