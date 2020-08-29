@@ -18,9 +18,9 @@ namespace LCSSaveEditor.Core
 
         private Dictionary<string, Dictionary<string, string>> m_masterTable;
 
-        public Dictionary<string, string> this[string key]
+        public Dictionary<string, string> this[string tableKey]
         {
-            get { return m_masterTable[key]; }
+            get { return m_masterTable[tableKey]; }
         }
 
         public Dictionary<string, Dictionary<string, string>>.KeyCollection TableNames
