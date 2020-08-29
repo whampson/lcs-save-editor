@@ -28,7 +28,7 @@ namespace LCSSaveEditor.GUI.Controls
             new PropertyMetadata(default(Vector3D)));
 
         public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
-            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker2D),
+            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker),
             new PropertyMetadata(default(Thickness)));
 
         public Thickness GapThickness
