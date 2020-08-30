@@ -20,16 +20,26 @@ namespace LCSSaveEditor.GUI.Controls
     /// </summary>
     public partial class LocationPicker : UserControl
     {
-        public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(Value), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker));
-
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value), typeof(Vector3D), typeof(LocationPicker),
-            new PropertyMetadata(default(Vector3D)));
-
         public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
-            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker),
-            new PropertyMetadata(default(Thickness)));
+            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker));
+
+        public static readonly DependencyProperty XProperty = DependencyProperty.Register(
+            nameof(X), typeof(float), typeof(LocationPicker));
+
+        public static readonly DependencyProperty YProperty = DependencyProperty.Register(
+            nameof(Y), typeof(float), typeof(LocationPicker));
+
+        public static readonly DependencyProperty ZProperty = DependencyProperty.Register(
+            nameof(Z), typeof(float), typeof(LocationPicker));
+
+        public static readonly RoutedEvent XChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(XChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker));
+
+        public static readonly RoutedEvent YChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(YChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker));
+
+        public static readonly RoutedEvent ZChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(ZChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker));
 
         public Thickness GapThickness
         {
@@ -37,26 +47,45 @@ namespace LCSSaveEditor.GUI.Controls
             set { SetValue(GapThicknessProperty, value); }
         }
 
-        public event RoutedEventHandler ValueChanged
+        public float X
         {
-            add { AddHandler(ValueChangedEvent, value); }
-            remove { RemoveHandler(ValueChangedEvent, value); }
+            get { return (float) GetValue(XProperty); }
+            set { SetValue(XProperty, value); }
         }
 
-        public Vector3D Value
+        public float Y
         {
-            get { return (Vector3D) GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (float) GetValue(YProperty); }
+            set { SetValue(YProperty, value); }
+        }
+
+        public float Z
+        {
+            get { return (float) GetValue(ZProperty); }
+            set { SetValue(ZProperty, value); }
+        }
+
+        public event RoutedEventHandler XChanged
+        {
+            add { AddHandler(XChangedEvent, value); }
+            remove { RemoveHandler(XChangedEvent, value); }
+        }
+
+        public event RoutedEventHandler YChanged
+        {
+            add { AddHandler(YChangedEvent, value); }
+            remove { RemoveHandler(YChangedEvent, value); }
+        }
+
+        public event RoutedEventHandler ZChanged
+        {
+            add { AddHandler(ZChangedEvent, value); }
+            remove { RemoveHandler(ZChangedEvent, value); }
         }
 
         public LocationPicker()
         {
             InitializeComponent();
-        }
-
-        private void OnValueChanged(Vector3D oldValue, Vector3D newValue)
-        {
-            RaiseEvent(new PropertyChangedEventArgs<Vector3D>(ValueChangedEvent, oldValue, newValue));
         }
 
         private void X_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -66,9 +95,7 @@ namespace LCSSaveEditor.GUI.Controls
 
             if (oldValue != newValue)
             {
-                OnValueChanged(
-                    new Vector3D() { X = oldValue, Y = Value.Y, Z = Value.Z },
-                    new Vector3D() { X = newValue, Y = Value.Y, Z = Value.Z });
+                RaiseEvent(new PropertyChangedEventArgs<float>(XChangedEvent, oldValue, newValue));
             }
         }
 
@@ -79,9 +106,7 @@ namespace LCSSaveEditor.GUI.Controls
 
             if (oldValue != newValue)
             {
-                OnValueChanged(
-                    new Vector3D() { X = Value.X, Y = oldValue, Z = Value.Z },
-                    new Vector3D() { X = Value.X, Y = newValue, Z = Value.Z });
+                RaiseEvent(new PropertyChangedEventArgs<float>(YChangedEvent, oldValue, newValue));
             }
         }
 
@@ -92,9 +117,7 @@ namespace LCSSaveEditor.GUI.Controls
 
             if (oldValue != newValue)
             {
-                OnValueChanged(
-                    new Vector3D() { X = Value.X, Y = Value.Y, Z = oldValue },
-                    new Vector3D() { X = Value.X, Y = Value.Y, Z = newValue });
+                RaiseEvent(new PropertyChangedEventArgs<float>(ZChangedEvent, oldValue, newValue));
             }
         }
     }

@@ -20,14 +20,20 @@ namespace LCSSaveEditor.GUI.Controls
     /// </summary>
     public partial class LocationPicker2D : UserControl
     {
-        public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(Value), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker2D));
-
-        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
-            nameof(Value), typeof(Vector2D), typeof(LocationPicker2D));
-
         public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
             nameof(GapThickness), typeof(Thickness), typeof(LocationPicker2D));
+
+        public static readonly DependencyProperty XProperty = DependencyProperty.Register(
+            nameof(X), typeof(float), typeof(LocationPicker2D));
+
+        public static readonly DependencyProperty YProperty = DependencyProperty.Register(
+            nameof(Y), typeof(float), typeof(LocationPicker2D));
+
+        public static readonly RoutedEvent XChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(XChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker2D));
+
+        public static readonly RoutedEvent YChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(YChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker2D));
 
         public Thickness GapThickness
         {
@@ -35,26 +41,33 @@ namespace LCSSaveEditor.GUI.Controls
             set { SetValue(GapThicknessProperty, value); }
         }
 
-        public event RoutedEventHandler ValueChanged
+        public float X
         {
-            add { AddHandler(ValueChangedEvent, value); }
-            remove { RemoveHandler(ValueChangedEvent, value); }
+            get { return (float) GetValue(XProperty); }
+            set { SetValue(XProperty, value); }
         }
 
-        public Vector2D Value
+        public float Y
         {
-            get { return (Vector2D) GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (float) GetValue(YProperty); }
+            set { SetValue(YProperty, value); }
+        }
+
+        public event RoutedEventHandler XChanged
+        {
+            add { AddHandler(XChangedEvent, value); }
+            remove { RemoveHandler(XChangedEvent, value); }
+        }
+
+        public event RoutedEventHandler YChanged
+        {
+            add { AddHandler(YChangedEvent, value); }
+            remove { RemoveHandler(YChangedEvent, value); }
         }
 
         public LocationPicker2D()
         {
             InitializeComponent();
-        }
-
-        private void OnValueChanged(Vector2D oldValue, Vector2D newValue)
-        {
-            RaiseEvent(new PropertyChangedEventArgs<Vector2D>(ValueChangedEvent, oldValue, newValue));
         }
 
         private void X_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -64,9 +77,7 @@ namespace LCSSaveEditor.GUI.Controls
 
             if (oldValue != newValue)
             {
-                OnValueChanged(
-                    new Vector2D() { X = oldValue, Y = Value.Y },
-                    new Vector2D() { X = newValue, Y = Value.Y });
+                RaiseEvent(new PropertyChangedEventArgs<float>(XChangedEvent, oldValue, newValue));
             }
         }
 
@@ -77,9 +88,7 @@ namespace LCSSaveEditor.GUI.Controls
 
             if (oldValue != newValue)
             {
-                OnValueChanged(
-                    new Vector2D() { X = Value.X, Y = oldValue },
-                    new Vector2D() { X = Value.X, Y = newValue });
+                RaiseEvent(new PropertyChangedEventArgs<float>(YChangedEvent, oldValue, newValue));
             }
         }
     }

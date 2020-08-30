@@ -20,8 +20,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Text="X:" Style="{StaticResource LabelStyleRight}"/>
         <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,0,5,0" Text="Y:" Style="{StaticResource LabelStyleRight}"/>
-        <xctk:SingleUpDown Grid.Column="1" Grid.Row="0" Value="{Binding Value.X}" ValueChanged="X_ValueChanged"/>
-        <xctk:SingleUpDown Grid.Column="1" Grid.Row="2" Value="{Binding Value.Y}" ValueChanged="Y_ValueChanged"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="0" Value="{Binding X}" ValueChanged="X_ValueChanged"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="2" Value="{Binding Y}" ValueChanged="Y_ValueChanged"/>
         <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="0" Margin="{Binding GapThickness}" Background="Transparent"/>
     </Grid>
 
