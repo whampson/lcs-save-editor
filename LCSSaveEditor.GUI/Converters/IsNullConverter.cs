@@ -19,7 +19,7 @@ namespace LCSSaveEditor.GUI.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotSupportedException("ConvertBack is not supported for this converter.");
+            throw new NotSupportedException($"Cannot convert '{value}' to type {targetType}.");
         }
     }
 }

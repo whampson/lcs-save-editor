@@ -45,7 +45,7 @@ namespace LCSSaveEditor.GUI.Converters
                 }
             }
 
-            return DependencyProperty.UnsetValue;
+            throw new NotSupportedException($"Cannot convert '{value}' to type {targetType}.");
         }
     }
 }

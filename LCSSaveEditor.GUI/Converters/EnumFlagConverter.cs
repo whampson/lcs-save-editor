@@ -4,17 +4,19 @@ using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace LCSSaveEditor.GUI.Converters
 {
-    public class SolidColorBrushConverter : IValueConverter
+    public class EnumFlagConverter : IValueConverter
     {
+        private Enum m_target;
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Color c)
+            if (value is Enum e && parameter is Enum flag)
             {
-                return new SolidColorBrush(c);
+                m_target = e;
+                return e.HasFlag(flag);
             }
 
             return DependencyProperty.UnsetValue;
@@ -22,12 +24,19 @@ namespace LCSSaveEditor.GUI.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is SolidColorBrush b)
+            if (value is bool v && parameter is Enum flag)
             {
-                return b.Color;
-            }
+                int e = EnumToInt(m_target);
+                int f = EnumToInt(flag);
 
+                int result = (v) ? (e | f) : (e & ~f);
+
+                Enum retval = (Enum) Enum.Parse(targetType, result.ToString());
+                return retval;
+            }
             throw new NotSupportedException($"Cannot convert '{value}' to type {targetType}.");
         }
+
+        private static int EnumToInt(Enum e) => (int) (object) e;
     }
 }
