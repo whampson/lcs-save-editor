@@ -39,6 +39,8 @@ namespace LCSSaveEditor.GUI.ViewModels
         public Settings TheSettings => Settings.TheSettings;
         public Gxt TheText => Gxt.TheText;
 
+        public Carcols TheCarcols => Carcols.TheCarcols;
+
         public ObservableCollection<TabPageBase> Tabs
         {
             get { return m_tabs; }
@@ -69,6 +71,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 new WelcomeTab(this),
                 new GeneralTab(this),
+                new GaragesTab(this)
             };
 
             UpdateTitle();
@@ -88,6 +91,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             LoadSettings();
             LoadGxt();
+            LoadCarcols();
             InitializeTabs();
             RefreshTabs(TabUpdateTrigger.WindowLoaded);
         }
@@ -145,6 +149,15 @@ namespace LCSSaveEditor.GUI.ViewModels
             info.Stream.CopyTo(m);
 
             TheText.Load(m.ToArray());
+        }
+
+        public void LoadCarcols()
+        {
+            MemoryStream m = new MemoryStream();
+            var info = Application.GetResourceStream(App.CarcolsResourceUri);
+            info.Stream.CopyTo(m);
+
+            TheCarcols.Load(m.ToArray());
         }
 
         public void OpenFile(string path)

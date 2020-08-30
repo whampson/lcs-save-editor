@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>0.13.0-alpha</Version>
-    <FileVersion>0.13.0.562</FileVersion>
-    <AssemblyVersion>0.13.0.562</AssemblyVersion>
+    <Version>0.14.0-alpha</Version>
+    <FileVersion>0.14.0.684</FileVersion>
+    <AssemblyVersion>0.14.0.684</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>
@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\carcols.dat" />
     <None Remove="Resources\costume00.png" />
     <None Remove="Resources\costume01.png" />
     <None Remove="Resources\costume02.png" />
@@ -50,6 +51,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\carcols.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\costume00.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

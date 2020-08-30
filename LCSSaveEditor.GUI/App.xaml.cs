@@ -23,6 +23,7 @@ namespace LCSSaveEditor.GUI
         public static string Copyright => $"Copyright (C) 2016-2020 {Author}";
         public static string SettingsPath => "settings.json";
         public static Uri GxtResourceUri => new Uri(@"pack://application:,,,/Resources/ENGLISH.GXT");
+        public static Uri CarcolsResourceUri => new Uri(@"pack://application:,,,/Resources/carcols.dat");
 
         public static string Version => Assembly
             .GetExecutingAssembly()

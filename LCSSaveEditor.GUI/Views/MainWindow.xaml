@@ -44,6 +44,9 @@
         <DataTemplate DataType="{x:Type m:GeneralTab}">
             <v:GeneralTab/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type m:GaragesTab}">
+            <v:GaragesTab/>
+        </DataTemplate>
     </Window.Resources>
 
     <DockPanel>

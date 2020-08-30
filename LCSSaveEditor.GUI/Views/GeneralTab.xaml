@@ -8,6 +8,7 @@
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
     xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
     xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
     xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
@@ -44,18 +45,12 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Last Mission:"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Progress:"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Location:"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="Save Time:"/>
                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="5,5,0,0" Style="{StaticResource LabelStyleRight}" Text="File Type:"/>
                     <TextBlock Grid.Row="5" Grid.Column="0" Margin="5,5,0,5" Style="{StaticResource LabelStyleRight}" Text="Script Version:"/>
 
-                    <TextBlock Grid.Row="0" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding LastMissionOnDisplay}">
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="{Binding LastMissionOnDisplay}"/>
-                        </ToolTipService.ToolTip>
-                    </TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding ProgressOnDisplay, StringFormat=P2}"/>
                     <TextBlock Grid.Row="2" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding Location, Converter={StaticResource EnumDescriptionConverter}}"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Margin="5,5,5,0" FontStyle="Italic" Style="{StaticResource LabelStyleLeft}" Text="{Binding SimpleVars.TimeStamp}"/>
@@ -64,7 +59,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Grid.Row="1" Header="Title" IsEnabled="{Binding TheSave.FileFormat.IsMobile}">
+            <GroupBox Grid.Row="1" Header="Title/Last Mission">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -170,17 +165,17 @@
                         <ComboBox
                             Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
                             Style="{StaticResource EnumComboBoxStyle}"
-                            ItemsSource="{e:EnumValueCollection EnumType=m:OnFootCameraMode}"
+                            ItemsSource="{e:EnumValueCollection EnumType=t:OnFootCameraMode}"
                             SelectedItem="{Binding OnFootCameraMode}"/>
                         <ComboBox
                             Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
                             Style="{StaticResource EnumComboBoxStyle}"
-                            ItemsSource="{e:EnumValueCollection EnumType=m:InCarCameraMode}"
+                            ItemsSource="{e:EnumValueCollection EnumType=t:InCarCameraMode}"
                             SelectedItem="{Binding InCarCameraMode}"/>
                         <ComboBox
                             Grid.Row="2" Grid.Column="1" Height="25" Margin="5"
                             Style="{StaticResource EnumComboBoxStyle}"
-                            ItemsSource="{e:EnumValueCollection EnumType=m:PadMode}"
+                            ItemsSource="{e:EnumValueCollection EnumType=t:PadMode}"
                             SelectedItem="{Binding PadMode}"/>
                         <ComboBox
                             Grid.Row="3" Grid.Column="1" Height="25" Margin="5"
@@ -190,7 +185,7 @@
                         <ComboBox
                             Grid.Row="4" Grid.Column="1" Height="25" Margin="5"
                             Style="{StaticResource EnumComboBoxStyle}"
-                            ItemsSource="{e:EnumValueCollection EnumType=m:Language}"
+                            ItemsSource="{e:EnumValueCollection EnumType=t:Language}"
                             SelectedItem="{Binding Language}"/>
                     </Grid>
 
@@ -319,7 +314,7 @@
                 </Grid>
             </GroupBox>
 
-            <GroupBox Grid.Row="1" Header="Map Target">
+            <GroupBox Grid.Row="1" Header="Map Waypoint">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -336,15 +331,16 @@
                         IsChecked="{Binding SimpleVars.TargetIsOn}"/>
                     <c:LocationPicker2D
                         Grid.Row="0" Grid.Column="1" Height="55" Margin="5" GapThickness="2.5"
-                        Value="{Binding SimpleVars.TargetPosition}"
-                        IsEnabled="{Binding SimpleVars.TargetIsOn}"/>
-                    <Button
+                        IsEnabled="{Binding SimpleVars.TargetIsOn}"
+                        X="{Binding SimpleVars.TargetPosition.X}" XChanged="TargetPosition_Changed"
+                        Y="{Binding SimpleVars.TargetPosition.Y}" YChanged="TargetPosition_Changed"/>
+                    <!--<Button
                         Grid.Row="1" Grid.Column="1" Margin="5"
                         Width="96" HorizontalAlignment="Right"
                         IsEnabled="{Binding SimpleVars.TargetIsOn}"
                         Style="{StaticResource ButtonStyle}"
                         Command="{Binding ShowTargetOnMapCommand}"
-                        Content="Show on Map"/>
+                        Content="Show on Map"/>-->
                 </Grid>
             </GroupBox>
 

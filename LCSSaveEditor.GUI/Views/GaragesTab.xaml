@@ -1,0 +1,304 @@
+﻿<v:TabPageBase
+    x:Class="LCSSaveEditor.GUI.Views.GaragesTab"
+    x:TypeArguments="m:GaragesTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
+    xmlns:conv="clr-namespace:LCSSaveEditor.GUI.Converters"
+    xmlns:conv2="clr-namespace:WpfEssentials.Win32.Converters;assembly=WpfEssentials.Win32"
+    xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
+    xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    mc:Ignorable="d" 
+    d:DesignHeight="500" d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance Type=m:GaragesTab}">
+
+    <UserControl.Resources>
+        <conv:ValueConverterGroup x:Key="VehicleNameConverter">
+            <conv:VehicleModelConverter/>
+            <conv2:EnumDescriptionConverter/>
+        </conv:ValueConverterGroup>
+        <conv:EnumFlagConverter x:Key="FlagsConverter"/>
+        <conv:CarColorConverter x:Key="CarColorConverter"/>
+
+        <Style x:Key="CarColorPickerStyle" TargetType="xctk:ColorPicker">
+            <Setter Property="DisplayColorAndName" Value="False"/>
+            <Setter Property="DisplayColorTooltip" Value="False"/>
+            <Setter Property="ShowStandardColors" Value="False"/>
+            <Setter Property="ShowTabHeaders" Value="False"/>
+            <Setter Property="UsingAlphaChannel" Value="False"/>
+            <Setter Property="AvailableColorsHeader" Value="Available Car Colors"/>
+            <Setter Property="AvailableColors" Value="{x:Static t:VehicleInfo.CarColors}"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="175"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox
+            Grid.Row="0" Grid.Column="0" Height="25" Margin="5"
+            Style="{StaticResource EnumComboBoxStyle}"
+            ItemsSource="{e:EnumValueCollection EnumType=t:ZoneLevel}"
+            SelectedItem="{Binding SelectedSafeHouse}"
+            SelectionChanged="SafeHouseComboBox_SelectionChanged"/>
+
+        <ListBox
+            Grid.Row="1" Grid.Column="0" Margin="5"
+            ItemsSource="{Binding GarageContents}"
+            SelectedItem="{Binding SelectedCar}"
+            SelectionChanged="ListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Model, Converter={StaticResource VehicleNameConverter}}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <GroupBox Grid.Row="2" Grid.Column="0" Header="Capacity" Margin="5,0,5,5">
+            <xctk:IntegerUpDown Height="25" Margin="5"/>
+        </GroupBox>
+
+        <GroupBox
+            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="5,-5,5,5"
+            Header="Garage Slot"
+            IsEnabled="{Binding SelectedCar, Converter={StaticResource IsNotNull}}"
+            Style="{StaticResource GroupBoxStyle}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <GroupBox
+                    Grid.Column="0" Grid.Row="0" Margin="5"
+                    Header="Basic Properties"
+                    Style="{StaticResource GroupBoxStyle}">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Vehicle Model:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Radio Station:"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Handling Multiplier:"/>
+                            
+                            <ComboBox
+                                Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
+                                Style="{StaticResource EnumComboBoxStyle}"
+                                ItemsSource="{e:EnumValueCollection EnumType=t:Vehicle}"
+                                SelectedItem="{Binding SelectedCar.Model, Converter={StaticResource VehicleModelConverter}}"/>
+                            <ComboBox
+                                Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
+                                Style="{StaticResource EnumComboBoxStyle}"
+                                ItemsSource="{e:EnumValueCollection EnumType=lcs:RadioStation}"
+                                SelectedItem="{Binding SelectedCar.Radio}"/>
+                            <xctk:SingleUpDown
+                                Grid.Row="2" Grid.Column="1" Height="25" Margin="5"
+                                Value="{Binding SelectedCar.HandlingMultiplier}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Margin="0,5,0,0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Color 1:"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Color 2:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Extra 1:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Extra 2:"/>
+                            <xctk:ColorPicker
+                                Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
+                                Style="{StaticResource CarColorPickerStyle}"
+                                SelectedColor="{Binding SelectedCar.Color1, Converter={StaticResource CarColorConverter}}"/>
+                            <xctk:ColorPicker
+                                Grid.Row="0" Grid.Column="3" Height="25" Margin="5"
+                                Style="{StaticResource CarColorPickerStyle}"
+                                SelectedColor="{Binding SelectedCar.Color2, Converter={StaticResource CarColorConverter}}"/>
+                            <xctk:IntegerUpDown
+                                Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
+                                Value="{Binding SelectedCar.Extra1}"/>
+                            <xctk:IntegerUpDown
+                                Grid.Row="1" Grid.Column="3" Height="25" Margin="5"
+                                Value="{Binding SelectedCar.Extra2}"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox
+                    Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5"
+                    Header="Special Properties"
+                    Style="{StaticResource GroupBoxStyle}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <CheckBox
+                            Grid.Row="0" Grid.Column="0" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.BulletProof}}"
+                            Content="Bullet Proof"
+                            ToolTip="The vehicle is resistant to bullet damage."/>
+                        <CheckBox
+                            Grid.Row="1" Grid.Column="0" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.FireProof}}"
+                            Content="Fire Proof"
+                            ToolTip="The vehicle is resistant to fire damage."/>
+                        <CheckBox
+                            Grid.Row="2" Grid.Column="0" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.ExplosionProof}}"
+                            Content="Explosion Proof"
+                            ToolTip="The vehicle is resistant to explosion damage."/>
+                        <CheckBox
+                            Grid.Row="3" Grid.Column="0" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.CollisionProof}}"
+                            Content="Collision Proof"
+                            ToolTip="The vehicle is resistant to collision damage."/>
+                        <CheckBox
+                            Grid.Row="4" Grid.Column="0" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.MeleeProof}}"
+                            Content="Melee Proof"
+                            ToolTip="The vehicle is resistant to melee damage. (bugged, doesn't work in the game)"/>
+                        <CheckBox
+                            Grid.Row="5" Grid.Column="0" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.PopProof}}"
+                            Content="Pop Proof"
+                            ToolTip="The vehicle's tires can't be popped."/>
+                        <CheckBox
+                            Grid.Row="0" Grid.Column="1" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.TipProof}}"
+                            Content="Tip Proof"
+                            ToolTip="The vehicle won't explode if flipped upside down ONLY if the player is not inside of it."/>
+                        <CheckBox
+                            Grid.Row="1" Grid.Column="1" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.Strong}}"
+                            Content="Strong"
+                            ToolTip="The vehicle can take approximately 4x collision damage."/>
+                        <CheckBox
+                            Grid.Row="2" Grid.Column="1" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.Heavy}}"
+                            Content="Heavy"
+                            ToolTip="The vehicle has more mass."/>
+                        <CheckBox
+                            Grid.Row="3" Grid.Column="1" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.Marked}}"
+                            Content="Marked"
+                            ToolTip="The vehicle won't disappear if left unattended. (marked for mission)"/>
+                        <CheckBox
+                            Grid.Row="4" Grid.Column="1" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.PermanentColor}}"
+                            Content="Permanent Color"
+                            ToolTip="The vehicle can't be resprayed."/>
+                        <CheckBox
+                            Grid.Row="5" Grid.Column="1" Margin="5"
+                            Style="{StaticResource CheckBoxStyle}"
+                            IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.TimeBomb}}"
+                            Content="Time Bomb"
+                            ToolTip="The vehicle is equipped with a time bomb."/>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox
+                    Grid.Row="1" Grid.Column="0" Margin="5"
+                    Header="Orientation"
+                    Style="{StaticResource GroupBoxStyle}">
+                    
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Position:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Angle:"/>
+
+                        <c:LocationPicker
+                            Grid.Row="0" Grid.Column="1" Margin="5"
+                            Height="82.5" GapThickness="2.5"
+                            X="{Binding SelectedCar.Position.X}" XChanged="Position_Changed"
+                            Y="{Binding SelectedCar.Position.Y}" YChanged="Position_Changed"
+                            Z="{Binding SelectedCar.Position.Z}" ZChanged="Position_Changed"/>
+                        <c:LocationPicker
+                            Grid.Row="1" Grid.Column="1" Margin="5"
+                            Height="82.5" GapThickness="2.5"
+                            X="{Binding SelectedCar.Angle.X}" XChanged="Angle_Changed"
+                            Y="{Binding SelectedCar.Angle.Y}" YChanged="Angle_Changed"
+                            Z="{Binding SelectedCar.Angle.Z}" ZChanged="Angle_Changed"/>
+                    </Grid>
+
+                </GroupBox>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+
+</v:TabPageBase>

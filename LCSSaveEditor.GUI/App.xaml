@@ -17,7 +17,7 @@
         <conv:IsZeroConverter x:Key="IsZero" Invert="False"/>
         <conv:IsZeroConverter x:Key="IsNotZero" Invert="True"/>
         <conv:InvertBooleanConverter x:Key="IsFalse" DefaultValue="True"/>
-        <!--<conv:LogicalAndConverter x:Key="LogicalAnd"/>-->
+        <conv:VehicleModelConverter x:Key="VehicleModelConverter"/>
         <conv:SolidColorBrushConverter x:Key="SolidColorBrushConverter"/>
         <conv:VectorConverter x:Key="VectorConverter"/>
         <conv:UInt32Converter x:Key="ToUInt32"/>

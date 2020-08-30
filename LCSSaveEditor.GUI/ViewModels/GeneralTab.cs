@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using GTASaveData.LCS;
 using LCSSaveEditor.Core;
+using LCSSaveEditor.GUI.Types;
 using WpfEssentials.Win32;
 
 namespace LCSSaveEditor.GUI.ViewModels
@@ -12,7 +13,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         private SimpleVariables m_simpleVars;
         private Stats m_stats;
         private string m_saveTitle;
-        private string m_lastMissionPassedName;
         private float m_progress;
 
         public SimpleVariables SimpleVars
@@ -33,21 +33,15 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_saveTitle = value; OnPropertyChanged(); }
         }
 
-        public string LastMissionOnDisplay
-        {
-            get { return m_lastMissionPassedName; }
-            set { m_lastMissionPassedName = value; OnPropertyChanged(); }
-        }
-
         public float ProgressOnDisplay
         {
             get { return m_progress; }
             set { m_progress = value; OnPropertyChanged(); }
         }
 
-        public MapLevel Location
+        public ZoneLevel Location
         {
-            get { return (MapLevel) SimpleVars.CurrentLevel; }
+            get { return (ZoneLevel) SimpleVars.CurrentLevel; }
             set { SimpleVars.CurrentLevel = (int) value; }
         }
 
@@ -146,7 +140,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             base.Update();
 
             OnTitleChanged();
-            OnLastMissionChanged();
             OnProgressChanged();
             OnPropertyChanged(nameof(Location));
             OnPropertyChanged(nameof(GameClock));
@@ -159,26 +152,12 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void OnTitleChanged()
         {
-            string title = "";
-            if (TheSave.FileFormat.IsMobile)
-            {
-                if (!TheWindow.TheText.TryGetValue("MAIN", SimpleVars.LastMissionPassedName, out title))
-                {
-                    title = $"(invalid GXT key: {SimpleVars.LastMissionPassedName})";
-                }
-            }
-
-            SaveTitleOnDisplay = title;
-        }
-
-        private void OnLastMissionChanged()
-        {
             if (!TheWindow.TheText.TryGetValue("MAIN", Stats.LastMissionPassedName, out string title))
             {
                 title = $"(invalid GXT key: {Stats.LastMissionPassedName})";
             }
 
-            LastMissionOnDisplay = title;
+            SaveTitleOnDisplay = title;
         }
 
         private void OnProgressChanged()
@@ -192,11 +171,10 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 case nameof(SimpleVars.LastMissionPassedName):
                     OnTitleChanged();
-                    OnLastMissionChanged();
                     break;
                 case nameof(Stats.ProgressMade):
                 case nameof(Stats.TotalProgressInGame):
-                    OnTitleChanged();
+                    OnProgressChanged();
                     break;
             }
         }
@@ -207,8 +185,8 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 if (r == true)
                 {
-                    TheSave.Name = e.SelectedKey;
-                    OnTitleChanged();
+                    SimpleVars.LastMissionPassedName = e.SelectedKey;
+                    Stats.LastMissionPassedName = e.SelectedKey;
                 }
             })
         );
@@ -237,57 +215,5 @@ namespace LCSSaveEditor.GUI.ViewModels
             WeatherType.Sunny, WeatherType.ExtraSunny, WeatherType.Cloudy, WeatherType.Hurricane,
             WeatherType.Cloudy, WeatherType.Sunny, WeatherType.Sunny, WeatherType.ExtraSunny,
         };
-    }
-
-    public enum OnFootCameraMode
-    {
-        Near = 1,
-        Middle,
-        Far,
-    }
-
-    public enum InCarCameraMode
-    {
-        Bumper,
-        Near,
-        Middle,
-        Far,
-        Tripod,
-        Cinematic,
-    }
-
-    public enum PadMode
-    {
-        [Description("Setup 1")]
-        Setup1,
-
-        [Description("Setup 2")]
-        Setup2,
-    }
-
-    public enum Language
-    {
-        English,
-        French,
-        German,
-        Italian,
-        Spanish,
-        Russian,
-        Japanese,
-    }
-
-    public enum MapLevel
-    {
-        [Description("Liberty City")]
-        None,
-
-        [Description("Portland")]
-        Industrial,
-
-        [Description("Staunton Island")]
-        Commercial,
-
-        [Description("Shoreside Vale")]
-        Suburban
     }
 }
