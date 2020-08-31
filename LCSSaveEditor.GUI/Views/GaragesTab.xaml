@@ -58,8 +58,7 @@
         <ListBox
             Grid.Row="1" Grid.Column="0" Margin="5"
             ItemsSource="{Binding GarageContents}"
-            SelectedItem="{Binding SelectedCar}"
-            SelectionChanged="ListBox_SelectionChanged">
+            SelectedItem="{Binding SelectedCar}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -283,15 +282,11 @@
                         <c:LocationPicker
                             Grid.Row="0" Grid.Column="1" Margin="5"
                             Height="82.5" GapThickness="2.5"
-                            X="{Binding SelectedCar.Position.X}" XChanged="Position_Changed"
-                            Y="{Binding SelectedCar.Position.Y}" YChanged="Position_Changed"
-                            Z="{Binding SelectedCar.Position.Z}" ZChanged="Position_Changed"/>
+                            Value="{Binding SelectedCar.Position}"/>
                         <c:LocationPicker
                             Grid.Row="1" Grid.Column="1" Margin="5"
                             Height="82.5" GapThickness="2.5"
-                            X="{Binding SelectedCar.Angle.X}" XChanged="Angle_Changed"
-                            Y="{Binding SelectedCar.Angle.Y}" YChanged="Angle_Changed"
-                            Z="{Binding SelectedCar.Angle.Z}" ZChanged="Angle_Changed"/>
+                            Value="{Binding SelectedCar.Angle}"/>
                     </Grid>
 
                 </GroupBox>

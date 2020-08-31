@@ -1,17 +1,7 @@
 ﻿using GTASaveData.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit.Core;
 
 namespace LCSSaveEditor.GUI.Controls
 {
@@ -23,22 +13,38 @@ namespace LCSSaveEditor.GUI.Controls
         public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
             nameof(GapThickness), typeof(Thickness), typeof(LocationPicker2D));
 
+        public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
+            nameof(Value), typeof(Vector2D?), typeof(LocationPicker2D),
+            new FrameworkPropertyMetadata(default(Vector2D?),
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                OnValueChanged, OnCoerceValue, false, UpdateSourceTrigger.PropertyChanged));
+
+        public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(ValueChanged), RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<Vector2D?>), typeof(LocationPicker2D));
+
         public static readonly DependencyProperty XProperty = DependencyProperty.Register(
             nameof(X), typeof(float), typeof(LocationPicker2D));
 
         public static readonly DependencyProperty YProperty = DependencyProperty.Register(
             nameof(Y), typeof(float), typeof(LocationPicker2D));
 
-        public static readonly RoutedEvent XChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(XChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker2D));
-
-        public static readonly RoutedEvent YChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(YChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(LocationPicker2D));
+        public event RoutedPropertyChangedEventHandler<Vector2D?> ValueChanged
+        {
+            add { AddHandler(ValueChangedEvent, value); }
+            remove { RemoveHandler(ValueChangedEvent, value); }
+        }
 
         public Thickness GapThickness
         {
             get { return (Thickness) GetValue(GapThicknessProperty); }
             set { SetValue(GapThicknessProperty, value); }
+        }
+
+        public Vector2D? Value
+        {
+            get { return (Vector2D?) GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+
         }
 
         public float X
@@ -53,42 +59,80 @@ namespace LCSSaveEditor.GUI.Controls
             set { SetValue(YProperty, value); }
         }
 
-        public event RoutedEventHandler XChanged
-        {
-            add { AddHandler(XChangedEvent, value); }
-            remove { RemoveHandler(XChangedEvent, value); }
-        }
-
-        public event RoutedEventHandler YChanged
-        {
-            add { AddHandler(YChangedEvent, value); }
-            remove { RemoveHandler(YChangedEvent, value); }
-        }
+        private bool m_suppressValueChanged;
+        private bool m_suppressComponentsChanged;
 
         public LocationPicker2D()
         {
             InitializeComponent();
         }
 
-        private void X_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            float oldValue = (float) (e.OldValue ?? new float());
-            float newValue = (float) (e.NewValue ?? new float());
-
-            if (oldValue != newValue)
+            if (d is LocationPicker2D obj)
             {
-                RaiseEvent(new PropertyChangedEventArgs<float>(XChangedEvent, oldValue, newValue));
+                obj.OnValueChanged((Vector2D?) e.OldValue, (Vector2D?) e.NewValue);
             }
         }
 
-        private void Y_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void OnValueChanged(Vector2D? oldValue, Vector2D? newValue)
         {
-            float oldValue = (float) (e.OldValue ?? new float());
-            float newValue = (float) (e.NewValue ?? new float());
-
-            if (oldValue != newValue)
+            if (!m_suppressValueChanged && newValue.HasValue)
             {
-                RaiseEvent(new PropertyChangedEventArgs<float>(YChangedEvent, oldValue, newValue));
+                m_suppressComponentsChanged = true;
+                try
+                {
+                    X = newValue.Value.X;
+                    Y = newValue.Value.Y;
+                }
+                finally
+                {
+                    m_suppressComponentsChanged = false;
+                }
+                
+            }
+        }
+
+        private static object OnCoerceValue(DependencyObject d, object value)
+        {
+            return value;
+        }
+
+        private void XComponent_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!m_suppressComponentsChanged
+                && e.OldValue is float oldValue
+                && e.NewValue is float newValue
+                && oldValue != newValue)
+            {
+                m_suppressValueChanged = true;
+                try
+                {
+                    Value = new Vector2D(newValue, Y);
+                }
+                finally
+                {
+                    m_suppressValueChanged = false;
+                }
+            }
+        }
+
+        private void YComponent_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (!m_suppressComponentsChanged
+                && e.OldValue is float oldValue
+                && e.NewValue is float newValue
+                && oldValue != newValue)
+            {
+                m_suppressValueChanged = true;
+                try
+                {
+                    Value = new Vector2D(X, newValue);
+                }
+                finally
+                {
+                    m_suppressValueChanged = false;
+                }
             }
         }
     }

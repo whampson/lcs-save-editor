@@ -30,46 +30,5 @@ namespace LCSSaveEditor.GUI.Views
         {
             ViewModel.UpdateCurrentGarage();
         }
-
-        private void Position_Changed(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.SelectedCar != null && e is PropertyChangedEventArgs<float> args)
-            {
-                Vector3D oldValue = ViewModel.SelectedCar.Position;
-                Vector3D newValue = oldValue;
-
-                switch (e.RoutedEvent.Name)
-                {
-                    case nameof(LocationPicker.XChanged): newValue = new Vector3D(args.NewValue, oldValue.Y, oldValue.Z); break;
-                    case nameof(LocationPicker.YChanged): newValue = new Vector3D(oldValue.X, args.NewValue, oldValue.Z); break;
-                    case nameof(LocationPicker.ZChanged): newValue = new Vector3D(oldValue.X, oldValue.Y, args.NewValue); break;
-                }
-
-                if (oldValue != newValue) ViewModel.SelectedCar.Position = newValue;
-            }
-        }
-
-        private void Angle_Changed(object sender, RoutedEventArgs e)
-        {
-            if (ViewModel.SelectedCar != null && e is PropertyChangedEventArgs<float> args)
-            {
-                Vector3D oldValue = ViewModel.SelectedCar.Angle;
-                Vector3D newValue = oldValue;
-
-                switch (e.RoutedEvent.Name)
-                {
-                    case nameof(LocationPicker.XChanged): newValue = new Vector3D(args.NewValue, oldValue.Y, oldValue.Z); break;
-                    case nameof(LocationPicker.YChanged): newValue = new Vector3D(oldValue.X, args.NewValue, oldValue.Z); break;
-                    case nameof(LocationPicker.ZChanged): newValue = new Vector3D(oldValue.X, oldValue.Y, args.NewValue); break;
-                }
-
-                if (oldValue != newValue) ViewModel.SelectedCar.Angle = newValue;
-            }
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //ViewModel.UpdateSlot();
-        }
     }
 }

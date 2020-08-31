@@ -332,8 +332,7 @@
                     <c:LocationPicker2D
                         Grid.Row="0" Grid.Column="1" Height="55" Margin="5" GapThickness="2.5"
                         IsEnabled="{Binding SimpleVars.TargetIsOn}"
-                        X="{Binding SimpleVars.TargetPosition.X}" XChanged="TargetPosition_Changed"
-                        Y="{Binding SimpleVars.TargetPosition.Y}" YChanged="TargetPosition_Changed"/>
+                        Value="{Binding SimpleVars.TargetPosition}"/>
                     <!--<Button
                         Grid.Row="1" Grid.Column="1" Margin="5"
                         Width="96" HorizontalAlignment="Right"

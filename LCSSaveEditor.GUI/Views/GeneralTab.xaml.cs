@@ -27,22 +27,5 @@ namespace LCSSaveEditor.GUI.Views
         {
             InitializeComponent();
         }
-
-        private void TargetPosition_Changed(object sender, RoutedEventArgs e)
-        {
-            //if (ViewModel.SimpleVars.TargetIsOn && e is PropertyChangedEventArgs<float> args)
-            //{
-            //    Vector2D oldValue = ViewModel.SimpleVars.TargetPosition;
-            //    Vector2D newValue = new Vector2D();
-
-            //    switch (e.RoutedEvent.Name)
-            //    {
-            //        case nameof(LocationPicker2D.XChanged): newValue = new Vector2D(args.NewValue, oldValue.Y); break;
-            //        case nameof(LocationPicker2D.YChanged): newValue = new Vector2D(oldValue.X, args.NewValue); break;
-            //    }
-
-            //    if (oldValue != newValue) ViewModel.SimpleVars.TargetPosition = newValue;
-            //}
-        }
     }
 }
