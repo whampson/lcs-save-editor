@@ -45,7 +45,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ComboBox
@@ -70,10 +69,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <GroupBox Grid.Row="2" Grid.Column="0" Header="Capacity" Margin="5,0,5,5">
-            <xctk:IntegerUpDown Height="25" Margin="5"/>
-        </GroupBox>
 
         <GroupBox
             Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="5,-5,5,5"

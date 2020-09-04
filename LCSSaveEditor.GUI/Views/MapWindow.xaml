@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
     xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance m:MapWindow}"
@@ -55,7 +56,7 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Map">
+            <MenuItem Header="_Items">
                 <MenuItem
                     Header="Hidden _Packages" InputGestureText="Ctrl+1"
                     IsCheckable="True" IsChecked="{Binding IsShowingPackages}"
@@ -69,7 +70,7 @@
                     IsCheckable="True" IsChecked="{Binding IsShowingStuntJumps}"
                     Checked="StuntJumps_Checked" Unchecked="StuntJumps_Unchecked"/>
             </MenuItem>
-            <MenuItem Header="_View">
+            <MenuItem Header="_Options">
                 <MenuItem
                     Header="Show _Collected Items" InputGestureText="F2"
                     IsCheckable="True" IsChecked="{Binding IsShowingCollected}"
@@ -186,7 +187,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding NumPackagesCollected, Mode=OneWay}"/>
                                 <TextBlock Text=" out of "/>
-                                <TextBlock Text="{Binding Source={x:Static m:MapWindow.NumPackages}}"/>
+                                <TextBlock Text="{Binding Source={x:Static t:Collectibles.NumPackages}}"/>
                                 <TextBlock Text=" Hidden Packages collected."/>
                             </StackPanel>
                         </ToolTip>
@@ -199,7 +200,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding NumPackagesCollected, Mode=OneWay}"/>
                         <TextBlock Grid.Column="1" Text="/"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static m:MapWindow.NumPackages}}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static t:Collectibles.NumPackages}}"/>
                     </Grid>
                 </StatusBarItem>
 
@@ -213,7 +214,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding NumRampagesCollected, Mode=OneWay}"/>
                                 <TextBlock Text=" out of "/>
-                                <TextBlock Text="{Binding Source={x:Static m:MapWindow.NumRampages}}"/>
+                                <TextBlock Text="{Binding Source={x:Static t:Collectibles.NumRampages}}"/>
                                 <TextBlock Text=" Rampages passed."/>
                             </StackPanel>
                         </ToolTip>
@@ -226,7 +227,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding NumRampagesCollected, Mode=OneWay}"/>
                         <TextBlock Grid.Column="1" Text="/"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static m:MapWindow.NumRampages}}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static t:Collectibles.NumRampages}}"/>
                     </Grid>
                 </StatusBarItem>
 
@@ -240,7 +241,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding NumStuntJumpsCollected, Mode=OneWay}"/>
                                 <TextBlock Text=" out of "/>
-                                <TextBlock Text="{Binding Source={x:Static m:MapWindow.NumStuntJumps}}"/>
+                                <TextBlock Text="{Binding Source={x:Static t:Collectibles.NumStuntJumps}}"/>
                                 <TextBlock Text=" Unique Stunt Jumps completed."/>
                             </StackPanel>
                         </ToolTip>
@@ -253,11 +254,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding NumStuntJumpsCollected, Mode=OneWay}"/>
                         <TextBlock Grid.Column="1" Text="/"/>
-                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static m:MapWindow.NumStuntJumps}}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Source={x:Static t:Collectibles.NumStuntJumps}}"/>
                     </Grid>
                 </StatusBarItem>
                 <Separator Grid.Column="7"/>
-                <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center" ToolTip="Mouse-over coordinates.">
+                <StatusBarItem Grid.Column="8" HorizontalContentAlignment="Center">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -270,7 +271,7 @@
                     </Grid>
                 </StatusBarItem>
                 <Separator Grid.Column="9"/>
-                <StatusBarItem Grid.Column="10" HorizontalContentAlignment="Center" ToolTip="Zoom level.">
+                <StatusBarItem Grid.Column="10" HorizontalContentAlignment="Center">
                     <TextBlock Text="{Binding ZoomLevel, StringFormat=P0}"/>
                 </StatusBarItem>
 

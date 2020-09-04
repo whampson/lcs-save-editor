@@ -33,8 +33,9 @@
         <KeyBinding Key="F1" Command="{Binding HelpAboutCommand}"/>
         <KeyBinding Key="F2" Command="{Binding EditGlobalsCommand}"/>
         <KeyBinding Key="F3" Command="{Binding ViewMapCommand}"/>
-        <KeyBinding Key="F4" Command="{Binding ViewLogCommand}"/>
+        <KeyBinding Key="F4" Command="{Binding ViewStatsCommand}"/>
         <KeyBinding Key="F5" Command="{Binding FileRevertCommand}"/>
+        <KeyBinding Key="F10" Command="{Binding ViewLogCommand}"/>
     </Window.InputBindings>
 
     <Window.Resources>
@@ -46,6 +47,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type m:GaragesTab}">
             <v:GaragesTab/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type m:StatsTab}">
+            <v:StatsTab/>
         </DataTemplate>
     </Window.Resources>
 
@@ -105,7 +109,7 @@
                     InputGestureText="F2"
                     Command="{Binding EditGlobalsCommand}"/>
                 <Separator/>
-                <MenuItem Header="Change File _Type (TODO)" IsEnabled="{Binding TheEditor.IsFileOpen}">
+                <!--<MenuItem Header="Change File _Type (TODO)" IsEnabled="{Binding TheEditor.IsFileOpen}">
                     <MenuItem
                         Header="_Android"
                         IsChecked="{Binding TheSave.FileFormat.IsAndroid, Mode=OneWay}"
@@ -123,7 +127,7 @@
                         IsChecked="{Binding TheSave.FileFormat.IsPSP, Mode=OneWay}"
                         Command="{Binding EditConvertPSPCommand}"/>
                 </MenuItem>
-                <Separator/>
+                <Separator/>-->
                 <MenuItem
                     Header="_Settings"
                     InputGestureText="Ctrl+,"
@@ -132,13 +136,17 @@
 
             <MenuItem Header="_View">
                 <MenuItem
-                    Header="Show Collectible _Map"
+                    Header="Collectible _Map"
                     InputGestureText="F3"
                     Command="{Binding ViewMapCommand}"/>
+                <MenuItem
+                    Header="Stats"
+                    InputGestureText="F4"
+                    Command="{Binding ViewStatsCommand}"/>
                 <Separator/>
                 <MenuItem
-                    Header="Show _Log"
-                    InputGestureText="F4"
+                    Header="_Log"
+                    InputGestureText="F10"
                     Command="{Binding ViewLogCommand}"/>
             </MenuItem>
 
@@ -148,6 +156,9 @@
                         <MenuItem
                             Header="Load _GXT File..."
                             Command="{Binding DebugLoadGxtFile}"/>
+                        <MenuItem
+                            Header="Load _Carcols File..."
+                            Command="{Binding DebugLoadCarcolsFile}"/>
                         <Separator/>
                         <MenuItem
                             Header="_Destroy All Windows"

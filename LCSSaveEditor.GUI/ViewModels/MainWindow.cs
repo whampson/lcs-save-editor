@@ -24,6 +24,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler AboutWindowRequest;
         public event EventHandler GlobalsWindowRequest;
         public event EventHandler MapWindowRequest;
+        public event EventHandler StatsWindowRequest;
         public event EventHandler LogWindowRequest;
         public event EventHandler DestroyAllWindowsRequest;
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
@@ -71,7 +72,8 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 new WelcomeTab(this),
                 new GeneralTab(this),
-                new GaragesTab(this)
+                new GaragesTab(this),
+                new StatsTab(this)
             };
 
             UpdateTitle();
@@ -648,6 +650,12 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => TheEditor.IsFileOpen
         );
 
+        public ICommand ViewStatsCommand => new RelayCommand
+        (
+            () => StatsWindowRequest?.Invoke(this, EventArgs.Empty),
+            () => TheEditor.IsFileOpen
+        );
+
         public ICommand ViewLogCommand => new RelayCommand
         (
             () => LogWindowRequest?.Invoke(this, EventArgs.Empty)
@@ -678,6 +686,20 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         );
 
+        public ICommand DebugLoadCarcolsFile => new RelayCommand
+        (
+            () =>
+            {
+                ShowFileDialog(FileDialogType.OpenFileDialog, (x, y) =>
+                {
+                    if (x == true)
+                    {
+                        TheCarcols.Load(y.FileName);
+                    }
+                });
+            }
+        );
+
         public ICommand DebugRaiseUnhandledException => new RelayCommand
         (
             () =>
@@ -687,7 +709,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
                 switch (func)
                 {
-                    // Any prospecting programers out there? Find the issues with each function!
+                    // Any prospecting programers out there? Find the issue with each function!
                     case 0:
                     {
                         int[] foo = { 0, 1 };

@@ -1,0 +1,350 @@
+﻿<v:TabPageBase
+    x:Class="LCSSaveEditor.GUI.Views.StatsTab"
+    x:TypeArguments="m:StatsTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
+    xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
+    xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    mc:Ignorable="d" 
+    d:DesignHeight="500" d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance Type=m:StatsTab}">
+
+    <ScrollViewer>
+        <Grid
+            v:GridHelper.RowCount="225"
+            v:GridHelper.ColumnCount="2"
+            v:GridHelper.StarColumns="1"
+            Width="500"
+            Margin="5">
+
+            <Grid.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelStyleLeft}">
+                    <Setter Property="Padding" Value="50,5"/>
+                </Style>
+                <Style TargetType="xctk:IntegerUpDown">
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Margin" Value="0,5,50,5"/>
+                </Style>
+                <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Margin" Value="0,5,50,5"/>
+                </Style>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxStyle}">
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="Margin" Value="0,5,50,5"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+
+            <TextBlock Grid.Row="000" Grid.Column="0" Text="People Killed By Player:"/>
+            <TextBlock Grid.Row="001" Grid.Column="0" Text="People Killed By Others:"/>
+            <TextBlock Grid.Row="002" Grid.Column="0" Text="Cars Exploded:"/>
+            <TextBlock Grid.Row="003" Grid.Column="0" Text="Boats Exploded:"/>
+            <TextBlock Grid.Row="004" Grid.Column="0" Text="Tyres Popped:"/>
+            <TextBlock Grid.Row="005" Grid.Column="0" Text="Rounds Fired By Player:"/>
+            <TextBlock Grid.Row="006" Grid.Column="0" Text="PLAYER1 Killed (suicide count):"/>
+            <TextBlock Grid.Row="007" Grid.Column="0" Text="PLAYER2 Killed:"/>
+            <TextBlock Grid.Row="008" Grid.Column="0" Text="PLAYER3 Killed:"/>
+            <TextBlock Grid.Row="009" Grid.Column="0" Text="PLAYER4 Killed:"/>
+            <TextBlock Grid.Row="010" Grid.Column="0" Text="CIVMALE Killed:"/>
+            <TextBlock Grid.Row="011" Grid.Column="0" Text="CIVFEMALE Killed:"/>
+            <TextBlock Grid.Row="012" Grid.Column="0" Text="COP Killed:"/>
+            <TextBlock Grid.Row="013" Grid.Column="0" Text="GANG1 Killed (Leones):"/>
+            <TextBlock Grid.Row="014" Grid.Column="0" Text="GANG2 Killed (Triads):"/>
+            <TextBlock Grid.Row="015" Grid.Column="0" Text="GANG3 Killed (Diablos):"/>
+            <TextBlock Grid.Row="016" Grid.Column="0" Text="GANG4 Killed (Yakuza):"/>
+            <TextBlock Grid.Row="017" Grid.Column="0" Text="GANG5 Killed (Yardies):"/>
+            <TextBlock Grid.Row="018" Grid.Column="0" Text="GANG6 Killed (Colombians):"/>
+            <TextBlock Grid.Row="019" Grid.Column="0" Text="GANG7 Killed (Hoods):"/>
+            <TextBlock Grid.Row="020" Grid.Column="0" Text="GANG8 Killed (Forellis):"/>
+            <TextBlock Grid.Row="021" Grid.Column="0" Text="GANG9 Killed (Sindaccos):"/>
+            <TextBlock Grid.Row="022" Grid.Column="0" Text="EMERGENCY Killed:"/>
+            <TextBlock Grid.Row="023" Grid.Column="0" Text="FIREMAN Killed:"/>
+            <TextBlock Grid.Row="024" Grid.Column="0" Text="CRIMINAL Killed:"/>
+            <TextBlock Grid.Row="025" Grid.Column="0" Text="PEDTYPE19 Killed:"/>
+            <TextBlock Grid.Row="026" Grid.Column="0" Text="PROSTITUTE Killed:"/>
+            <TextBlock Grid.Row="027" Grid.Column="0" Text="SPECIAL Killed:"/>
+            <TextBlock Grid.Row="028" Grid.Column="0" Text="PEDTYPE22 Killed:"/>
+            <TextBlock Grid.Row="029" Grid.Column="0" Text="Helis Destroyed:"/>
+            <TextBlock Grid.Row="030" Grid.Column="0" Text="Progress Made:"/>
+            <TextBlock Grid.Row="031" Grid.Column="0" Text="Total Progress In Game:"/>
+            <TextBlock Grid.Row="032" Grid.Column="0" Text="Kgs Of Explosives Used:"/>
+            <TextBlock Grid.Row="033" Grid.Column="0" Text="Bullets That Hit:"/>
+            <TextBlock Grid.Row="034" Grid.Column="0" Text="Cars Crushed:"/>
+            <TextBlock Grid.Row="035" Grid.Column="0" Text="Heads Popped:"/>
+            <TextBlock Grid.Row="036" Grid.Column="0" Text="Wanted Stars Attained:"/>
+            <TextBlock Grid.Row="037" Grid.Column="0" Text="Wanted Stars Evaded:"/>
+            <TextBlock Grid.Row="038" Grid.Column="0" Text="Times Arrested:"/>
+            <TextBlock Grid.Row="039" Grid.Column="0" Text="Times Died:"/>
+            <TextBlock Grid.Row="040" Grid.Column="0" Text="Days Passed:"/>
+            <TextBlock Grid.Row="041" Grid.Column="0" Text="Safe House Visits:"/>
+            <TextBlock Grid.Row="042" Grid.Column="0" Text="Sprayings:"/>
+            <TextBlock Grid.Row="043" Grid.Column="0" Text="Maximum Jump Distance:"/>
+            <TextBlock Grid.Row="044" Grid.Column="0" Text="Maximum Jump Height:"/>
+            <TextBlock Grid.Row="045" Grid.Column="0" Text="Maximum Jump Flips:"/>
+            <TextBlock Grid.Row="046" Grid.Column="0" Text="Maximum Jump Spins:"/>
+            <TextBlock Grid.Row="047" Grid.Column="0" Text="Best Stunt Jump:"/>
+            <TextBlock Grid.Row="048" Grid.Column="0" Text="Number Of Unique Jumps Found:"/>
+            <TextBlock Grid.Row="049" Grid.Column="0" Text="Total Number Of Unique Jumps:"/>
+            <TextBlock Grid.Row="050" Grid.Column="0" Text="Missions Given:"/>
+            <TextBlock Grid.Row="051" Grid.Column="0" Text="Passengers Dropped Off With Taxi:"/>
+            <TextBlock Grid.Row="052" Grid.Column="0" Text="Money Made With Taxi:"/>
+            <TextBlock Grid.Row="053" Grid.Column="0" Text="Portland Passed:"/>
+            <TextBlock Grid.Row="054" Grid.Column="0" Text="Staunton Passed:"/>
+            <TextBlock Grid.Row="055" Grid.Column="0" Text="Shoreside Passed:"/>
+            <TextBlock Grid.Row="056" Grid.Column="0" Text="Pamphlet Mission Passed:"/>
+            <TextBlock Grid.Row="057" Grid.Column="0" Text="No More Hurricanes:"/>
+            <TextBlock Grid.Row="058" Grid.Column="0" Text="Distance Travelled On Foot (m):"/>
+            <TextBlock Grid.Row="059" Grid.Column="0" Text="Distance Travelled By Car (m):"/>
+            <TextBlock Grid.Row="060" Grid.Column="0" Text="Distance Travelled By Bike (m):"/>
+            <TextBlock Grid.Row="061" Grid.Column="0" Text="Distance Travelled By Boat (m):"/>
+            <!--<TextBlock Grid.Row="062" Grid.Column="0" Text="Distance Travelled By Plane:"/>-->
+            <TextBlock Grid.Row="063" Grid.Column="0" Text="Lives Saved With Ambulance:"/>
+            <TextBlock Grid.Row="064" Grid.Column="0" Text="Criminals Caught:"/>
+            <TextBlock Grid.Row="065" Grid.Column="0" Text="Fires Extinguished:"/>
+            <TextBlock Grid.Row="066" Grid.Column="0" Text="Highest Level Vigilante Mission:"/>
+            <TextBlock Grid.Row="067" Grid.Column="0" Text="Highest Level Ambulance Mission:"/>
+            <TextBlock Grid.Row="068" Grid.Column="0" Text="Highest Level Fire Mission:"/>
+            <TextBlock Grid.Row="069" Grid.Column="0" Text="Photos Taken:"/>
+            <TextBlock Grid.Row="070" Grid.Column="0" Text="Number Kill Frenzies Passed:"/>
+            <TextBlock Grid.Row="071" Grid.Column="0" Text="Max Seconds On Carnage Left:"/>
+            <TextBlock Grid.Row="072" Grid.Column="0" Text="Max Kills On RC Triad:"/>
+            <TextBlock Grid.Row="073" Grid.Column="0" Text="Total Number Kill Frenzies:"/>
+            <TextBlock Grid.Row="074" Grid.Column="0" Text="Total Number Missions:"/>
+            <TextBlock Grid.Row="075" Grid.Column="0" Text="Times Drowned:"/>
+            <TextBlock Grid.Row="076" Grid.Column="0" Text="Seagulls Killed:"/>
+            <TextBlock Grid.Row="077" Grid.Column="0" Text="Weapon Budget:"/>
+            <TextBlock Grid.Row="078" Grid.Column="0" Text="Loan Sharks:"/>
+            <TextBlock Grid.Row="079" Grid.Column="0" Text="Movie Stunts:"/>
+            <TextBlock Grid.Row="080" Grid.Column="0" Text="Pizzas Delivered:"/>
+            <TextBlock Grid.Row="081" Grid.Column="0" Text="Noodles Delivered:"/>
+            <TextBlock Grid.Row="082" Grid.Column="0" Text="Money Made From Tourist:"/>
+            <TextBlock Grid.Row="083" Grid.Column="0" Text="Tourists Taken To Spots:"/>
+            <TextBlock Grid.Row="084" Grid.Column="0" Text="Garbage Pickups:"/>
+            <TextBlock Grid.Row="085" Grid.Column="0" Text="Ice Cream Sold:"/>
+            <TextBlock Grid.Row="086" Grid.Column="0" Text="Top Shooting Range Score:"/>
+            <TextBlock Grid.Row="087" Grid.Column="0" Text="Shooting Rank:"/>
+            <TextBlock Grid.Row="088" Grid.Column="0" Text="Top Scrapyard Challenge Score:"/>
+            <TextBlock Grid.Row="089" Grid.Column="0" Text="Top 9mm Mayhem Score:"/>
+            <TextBlock Grid.Row="090" Grid.Column="0" Text="Top Scooter Shooter Score:"/>
+            <TextBlock Grid.Row="091" Grid.Column="0" Text="Top AWOL Angel Score:"/>
+            <TextBlock Grid.Row="092" Grid.Column="0" Text="Longest Wheelie:"/>
+            <TextBlock Grid.Row="093" Grid.Column="0" Text="Longest Stoppie:"/>
+            <TextBlock Grid.Row="094" Grid.Column="0" Text="Longest 2 Wheel:"/>
+            <TextBlock Grid.Row="095" Grid.Column="0" Text="Longest Wheelie Dist:"/>
+            <TextBlock Grid.Row="096" Grid.Column="0" Text="Longest Stoppie Dist:"/>
+            <TextBlock Grid.Row="097" Grid.Column="0" Text="Longest 2 Wheel Dist:"/>
+            <TextBlock Grid.Row="098" Grid.Column="0" Text="Longest Face Plant Dist:"/>
+            <TextBlock Grid.Row="099" Grid.Column="0" Text="Auto Painting Budget:"/>
+            <TextBlock Grid.Row="100" Grid.Column="0" Text="Property Destroyed:"/>
+            <TextBlock Grid.Row="101" Grid.Column="0" Text="Num Property Owned:"/>
+            <!-- <TextBlock Grid.Row="102" Grid.Column="0" Text="Unlocked Costumes:"/> -->      <!-- TODO -->
+            <TextBlock Grid.Row="103" Grid.Column="0" Text="Bloodring Kills:"/>
+            <TextBlock Grid.Row="104" Grid.Column="0" Text="Bloodring Time:"/>
+            <!--<TextBlock Grid.Row="105" Grid.Column="0" Text="Property Owned:"/>-->
+            <TextBlock Grid.Row="106" Grid.Column="0" Text="Highest Chase Value:"/>
+            <!--<TextBlock Grid.Row="107" Grid.Column="0" Text="Fastest Times:"/>-->
+            <!--<TextBlock Grid.Row="108" Grid.Column="0" Text="Highest Scores:"/>-->
+            <!--<TextBlock Grid.Row="109" Grid.Column="0" Text="Best Positions:"/>-->
+            <TextBlock Grid.Row="110" Grid.Column="0" Text="Kills Since Last Checkpoint:"/>
+            <TextBlock Grid.Row="111" Grid.Column="0" Text="Total Legitimate Kills:"/>
+            <TextBlock Grid.Row="112" Grid.Column="0" Text="Last Mission Passed Name:"/>
+            <TextBlock Grid.Row="113" Grid.Column="0" Text="Cheated Count:"/>
+            <TextBlock Grid.Row="114" Grid.Column="0" Text="Cars Sold:"/>
+            <TextBlock Grid.Row="115" Grid.Column="0" Text="Money Made With Car Sales:"/>
+            <TextBlock Grid.Row="116" Grid.Column="0" Text="Bikes Sold:"/>
+            <TextBlock Grid.Row="117" Grid.Column="0" Text="Money Made With Bike Sales:"/>
+            <TextBlock Grid.Row="118" Grid.Column="0" Text="Number Of Exported Cars:"/>
+            <TextBlock Grid.Row="119" Grid.Column="0" Text="Total Number Of Car Export:"/>
+            <TextBlock Grid.Row="120" Grid.Column="0" Text="Highest Level Slash TV:"/>
+            <TextBlock Grid.Row="121" Grid.Column="0" Text="Money Made With Slash TV:"/>
+            <TextBlock Grid.Row="122" Grid.Column="0" Text="Total Kills On Slash TV:"/>
+            <!--<TextBlock Grid.Row="123" Grid.Column="0" Text="Packages Smuggled:"/>-->
+            <!--<TextBlock Grid.Row="124" Grid.Column="0" Text="Smugglers Wasted:"/>-->
+            <!--<TextBlock Grid.Row="125" Grid.Column="0" Text="Fastest Smuggling Time:"/>-->
+            <!--<TextBlock Grid.Row="126" Grid.Column="0" Text="Money Made In Coach:"/>-->
+            <TextBlock Grid.Row="127" Grid.Column="0" Text="Cash Made Collecting Trash:"/>
+            <TextBlock Grid.Row="128" Grid.Column="0" Text="Hitmen Killed:"/>
+            <TextBlock Grid.Row="129" Grid.Column="0" Text="Highest Guardian Angel Justice Dished:"/>
+            <TextBlock Grid.Row="130" Grid.Column="0" Text="Guardian Angel Missions Passed:"/>
+            <TextBlock Grid.Row="131" Grid.Column="0" Text="Guardian Angel Highest Level (Portland):"/>
+            <TextBlock Grid.Row="132" Grid.Column="0" Text="Guardian Angel Highest Level (Staunton):"/>
+            <TextBlock Grid.Row="133" Grid.Column="0" Text="Guardian Angel Highest Level (Shoreside):"/>
+            <TextBlock Grid.Row="134" Grid.Column="0" Text="Most Time Left Train Race:"/>
+            <TextBlock Grid.Row="135" Grid.Column="0" Text="Best Time Go Go Faggio:"/>
+            <TextBlock Grid.Row="136" Grid.Column="0" Text="Highest Train Cash Earned:"/>
+            <TextBlock Grid.Row="137" Grid.Column="0" Text="Dirt Bike Most Air:"/>
+            <TextBlock Grid.Row="138" Grid.Column="0" Text="Fastest Heli Race Time:"/>
+            <TextBlock Grid.Row="139" Grid.Column="0" Text="Best Heli Race Position:"/>
+            <TextBlock Grid.Row="140" Grid.Column="0" Text="Number Outfit Changes:"/>
+            <TextBlock Grid.Row="141" Grid.Column="0" Text="Best Bandit Lap Times:"/>
+            <TextBlock Grid.Row="142" Grid.Column="0" Text="Best Bandit Positions:"/>
+            <TextBlock Grid.Row="143" Grid.Column="0" Text="Best Street Race Positions:"/>
+            <TextBlock Grid.Row="144" Grid.Column="0" Text="Fastest Street Race Lap Times:"/>
+            <TextBlock Grid.Row="145" Grid.Column="0" Text="Fastest Street Race Times:"/>
+            <TextBlock Grid.Row="146" Grid.Column="0" Text="Fastest Dirt Bike Lap Times:"/>
+            <TextBlock Grid.Row="147" Grid.Column="0" Text="Fastest Dirt Bike Times:"/>
+            <TextBlock Grid.Row="148" Grid.Column="0" Text="Favorite Radio Station List:"/>
+
+            <xctk:IntegerUpDown Grid.Row="000" Grid.Column="1" Value="{Binding Stats.PeopleKilledByPlayer}"/>
+            <xctk:IntegerUpDown Grid.Row="001" Grid.Column="1" Value="{Binding Stats.PeopleKilledByOthers}"/>
+            <xctk:IntegerUpDown Grid.Row="002" Grid.Column="1" Value="{Binding Stats.CarsExploded}"/>
+            <xctk:IntegerUpDown Grid.Row="003" Grid.Column="1" Value="{Binding Stats.BoatsExploded}"/>
+            <xctk:IntegerUpDown Grid.Row="004" Grid.Column="1" Value="{Binding Stats.TyresPopped}"/>
+            <xctk:IntegerUpDown Grid.Row="005" Grid.Column="1" Value="{Binding Stats.RoundsFiredByPlayer}"/>
+            <xctk:IntegerUpDown Grid.Row="006" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[0]}"/>
+            <xctk:IntegerUpDown Grid.Row="007" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[1]}"/>
+            <xctk:IntegerUpDown Grid.Row="008" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[2]}"/>
+            <xctk:IntegerUpDown Grid.Row="009" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[3]}"/>
+            <xctk:IntegerUpDown Grid.Row="010" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[4]}"/>
+            <xctk:IntegerUpDown Grid.Row="011" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[5]}"/>
+            <xctk:IntegerUpDown Grid.Row="012" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[6]}"/>
+            <xctk:IntegerUpDown Grid.Row="013" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[7]}"/>
+            <xctk:IntegerUpDown Grid.Row="014" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[8]}"/>
+            <xctk:IntegerUpDown Grid.Row="015" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[9]}"/>
+            <xctk:IntegerUpDown Grid.Row="016" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[10]}"/>
+            <xctk:IntegerUpDown Grid.Row="017" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[11]}"/>
+            <xctk:IntegerUpDown Grid.Row="018" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[12]}"/>
+            <xctk:IntegerUpDown Grid.Row="019" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[13]}"/>
+            <xctk:IntegerUpDown Grid.Row="020" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[14]}"/>
+            <xctk:IntegerUpDown Grid.Row="021" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[15]}"/>
+            <xctk:IntegerUpDown Grid.Row="022" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[16]}"/>
+            <xctk:IntegerUpDown Grid.Row="023" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[17]}"/>
+            <xctk:IntegerUpDown Grid.Row="024" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[18]}"/>
+            <xctk:IntegerUpDown Grid.Row="025" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[19]}"/>
+            <xctk:IntegerUpDown Grid.Row="026" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[20]}"/>
+            <xctk:IntegerUpDown Grid.Row="027" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[21]}"/>
+            <xctk:IntegerUpDown Grid.Row="028" Grid.Column="1" Value="{Binding Stats.PedsKilledOfThisType[22]}"/>
+            <xctk:IntegerUpDown Grid.Row="029" Grid.Column="1" Value="{Binding Stats.HelisDestroyed}"/>
+            <xctk:IntegerUpDown Grid.Row="030" Grid.Column="1" Value="{Binding Stats.ProgressMade}"/>
+            <xctk:IntegerUpDown Grid.Row="031" Grid.Column="1" Value="{Binding Stats.TotalProgressInGame}"/>
+            <xctk:IntegerUpDown Grid.Row="032" Grid.Column="1" Value="{Binding Stats.KgsOfExplosivesUsed}"/>
+            <xctk:IntegerUpDown Grid.Row="033" Grid.Column="1" Value="{Binding Stats.BulletsThatHit}"/>
+            <xctk:IntegerUpDown Grid.Row="034" Grid.Column="1" Value="{Binding Stats.CarsCrushed}"/>
+            <xctk:IntegerUpDown Grid.Row="035" Grid.Column="1" Value="{Binding Stats.HeadsPopped}"/>
+            <xctk:IntegerUpDown Grid.Row="036" Grid.Column="1" Value="{Binding Stats.WantedStarsAttained}"/>
+            <xctk:IntegerUpDown Grid.Row="037" Grid.Column="1" Value="{Binding Stats.WantedStarsEvaded}"/>
+            <xctk:IntegerUpDown Grid.Row="038" Grid.Column="1" Value="{Binding Stats.TimesArrested}"/>
+            <xctk:IntegerUpDown Grid.Row="039" Grid.Column="1" Value="{Binding Stats.TimesDied}"/>
+            <xctk:IntegerUpDown Grid.Row="040" Grid.Column="1" Value="{Binding Stats.DaysPassed}"/>
+            <xctk:IntegerUpDown Grid.Row="041" Grid.Column="1" Value="{Binding Stats.SafeHouseVisits}"/>
+            <xctk:IntegerUpDown Grid.Row="042" Grid.Column="1" Value="{Binding Stats.Sprayings}"/>
+            <xctk:IntegerUpDown Grid.Row="043" Grid.Column="1" Value="{Binding Stats.MaximumJumpDistance}"/>
+            <xctk:IntegerUpDown Grid.Row="044" Grid.Column="1" Value="{Binding Stats.MaximumJumpHeight}"/>
+            <xctk:IntegerUpDown Grid.Row="045" Grid.Column="1" Value="{Binding Stats.MaximumJumpFlips}"/>
+            <xctk:IntegerUpDown Grid.Row="046" Grid.Column="1" Value="{Binding Stats.MaximumJumpSpins}"/>
+            <xctk:IntegerUpDown Grid.Row="047" Grid.Column="1" Value="{Binding Stats.BestStuntJump}"/>
+            <xctk:IntegerUpDown Grid.Row="048" Grid.Column="1" Value="{Binding Stats.NumberOfUniqueJumpsFound}"/>
+            <xctk:IntegerUpDown Grid.Row="049" Grid.Column="1" Value="{Binding Stats.TotalNumberOfUniqueJumps}"/>
+            <xctk:IntegerUpDown Grid.Row="050" Grid.Column="1" Value="{Binding Stats.MissionsGiven}"/>
+            <xctk:IntegerUpDown Grid.Row="051" Grid.Column="1" Value="{Binding Stats.PassengersDroppedOffWithTaxi}"/>
+            <xctk:IntegerUpDown Grid.Row="052" Grid.Column="1" Value="{Binding Stats.MoneyMadeWithTaxi}"/>
+            <CheckBox           Grid.Row="053" Grid.Column="1" IsChecked="{Binding Stats.IndustrialPassed}"/>
+            <CheckBox           Grid.Row="054" Grid.Column="1" IsChecked="{Binding Stats.CommercialPassed}"/>
+            <CheckBox           Grid.Row="055" Grid.Column="1" IsChecked="{Binding Stats.SuburbanPassed}"/>
+            <CheckBox           Grid.Row="056" Grid.Column="1" IsChecked="{Binding Stats.PamphletMissionPassed}"/>
+            <CheckBox           Grid.Row="057" Grid.Column="1" IsChecked="{Binding Stats.NoMoreHurricanes}"/>
+            <xctk:IntegerUpDown Grid.Row="058" Grid.Column="1" Value="{Binding Stats.DistanceTravelledOnFoot}"/>
+            <xctk:IntegerUpDown Grid.Row="059" Grid.Column="1" Value="{Binding Stats.DistanceTravelledByCar}"/>
+            <xctk:IntegerUpDown Grid.Row="060" Grid.Column="1" Value="{Binding Stats.DistanceTravelledByBike}"/>
+            <xctk:IntegerUpDown Grid.Row="061" Grid.Column="1" Value="{Binding Stats.DistanceTravelledByBoat}"/>
+            <!--<xctk:IntegerUpDown Grid.Row="062" Grid.Column="1" Value="{Binding Stats.DistanceTravelledByPlane}"/>-->
+            <xctk:IntegerUpDown Grid.Row="063" Grid.Column="1" Value="{Binding Stats.LivesSavedWithAmbulance}"/>
+            <xctk:IntegerUpDown Grid.Row="064" Grid.Column="1" Value="{Binding Stats.CriminalsCaught}"/>
+            <xctk:IntegerUpDown Grid.Row="065" Grid.Column="1" Value="{Binding Stats.FiresExtinguished}"/>
+            <xctk:IntegerUpDown Grid.Row="066" Grid.Column="1" Value="{Binding Stats.HighestLevelVigilanteMission}"/>
+            <xctk:IntegerUpDown Grid.Row="067" Grid.Column="1" Value="{Binding Stats.HighestLevelAmbulanceMission}"/>
+            <xctk:IntegerUpDown Grid.Row="068" Grid.Column="1" Value="{Binding Stats.HighestLevelFireMission}"/>
+            <xctk:IntegerUpDown Grid.Row="069" Grid.Column="1" Value="{Binding Stats.PhotosTaken}"/>
+            <xctk:IntegerUpDown Grid.Row="070" Grid.Column="1" Value="{Binding Stats.NumberKillFrenziesPassed}"/>
+            <xctk:IntegerUpDown Grid.Row="071" Grid.Column="1" Value="{Binding Stats.MaxSecondsOnCarnageLeft}"/>
+            <xctk:IntegerUpDown Grid.Row="072" Grid.Column="1" Value="{Binding Stats.MaxKillsOnRcTriad}"/>
+            <xctk:IntegerUpDown Grid.Row="073" Grid.Column="1" Value="{Binding Stats.TotalNumberKillFrenzies}"/>
+            <xctk:IntegerUpDown Grid.Row="074" Grid.Column="1" Value="{Binding Stats.TotalNumberMissions}"/>
+            <xctk:IntegerUpDown Grid.Row="075" Grid.Column="1" Value="{Binding Stats.TimesDrowned}"/>
+            <xctk:IntegerUpDown Grid.Row="076" Grid.Column="1" Value="{Binding Stats.SeagullsKilled}"/>
+            <xctk:IntegerUpDown Grid.Row="077" Grid.Column="1" Value="{Binding Stats.WeaponBudget}"/>
+            <xctk:IntegerUpDown Grid.Row="078" Grid.Column="1" Value="{Binding Stats.LoanSharks}"/>
+            <xctk:IntegerUpDown Grid.Row="079" Grid.Column="1" Value="{Binding Stats.MovieStunts}"/>
+            <xctk:IntegerUpDown Grid.Row="080" Grid.Column="1" Value="{Binding Stats.PizzasDelivered}"/>
+            <xctk:IntegerUpDown Grid.Row="081" Grid.Column="1" Value="{Binding Stats.NoodlesDelivered}"/>
+            <xctk:IntegerUpDown Grid.Row="082" Grid.Column="1" Value="{Binding Stats.MoneyMadeFromTourist}"/>
+            <xctk:IntegerUpDown Grid.Row="083" Grid.Column="1" Value="{Binding Stats.TouristsTakenToSpots}"/>
+            <xctk:IntegerUpDown Grid.Row="084" Grid.Column="1" Value="{Binding Stats.GarbagePickups}"/>
+            <xctk:IntegerUpDown Grid.Row="085" Grid.Column="1" Value="{Binding Stats.IceCreamSold}"/>
+            <xctk:IntegerUpDown Grid.Row="086" Grid.Column="1" Value="{Binding Stats.TopShootingRangeScore}"/>
+            <xctk:IntegerUpDown Grid.Row="087" Grid.Column="1" Value="{Binding Stats.ShootingRank}"/>
+            <xctk:IntegerUpDown Grid.Row="088" Grid.Column="1" Value="{Binding Stats.TopScrapyardChallengeScore}"/>
+            <xctk:IntegerUpDown Grid.Row="089" Grid.Column="1" Value="{Binding Stats.Top9mmMayhemScore}"/>
+            <xctk:IntegerUpDown Grid.Row="090" Grid.Column="1" Value="{Binding Stats.TopScooterShooterScore}"/>
+            <xctk:IntegerUpDown Grid.Row="091" Grid.Column="1" Value="{Binding Stats.TopWichitaWipeoutScore}"/>
+            <xctk:IntegerUpDown Grid.Row="092" Grid.Column="1" Value="{Binding Stats.LongestWheelie}"/>
+            <xctk:IntegerUpDown Grid.Row="093" Grid.Column="1" Value="{Binding Stats.LongestStoppie}"/>
+            <xctk:IntegerUpDown Grid.Row="094" Grid.Column="1" Value="{Binding Stats.Longest2Wheel}"/>
+            <xctk:IntegerUpDown Grid.Row="095" Grid.Column="1" Value="{Binding Stats.LongestWheelieDist}"/>
+            <xctk:IntegerUpDown Grid.Row="096" Grid.Column="1" Value="{Binding Stats.LongestStoppieDist}"/>
+            <xctk:IntegerUpDown Grid.Row="097" Grid.Column="1" Value="{Binding Stats.Longest2WheelDist}"/>
+            <xctk:IntegerUpDown Grid.Row="098" Grid.Column="1" Value="{Binding Stats.LongestFacePlantDist}"/>
+            <xctk:IntegerUpDown Grid.Row="099" Grid.Column="1" Value="{Binding Stats.AutoPaintingBudget}"/>
+            <xctk:IntegerUpDown Grid.Row="100" Grid.Column="1" Value="{Binding Stats.PropertyDestroyed}"/>
+            <xctk:IntegerUpDown Grid.Row="101" Grid.Column="1" Value="{Binding Stats.NumPropertyOwned}"/>
+            <!-- <xctk:IntegerUpDown Grid.Row="102" Grid.Column="1" Value="{Binding Stats.UnlockedCostumes}"/> --> <!-- TODO -->
+            <xctk:IntegerUpDown Grid.Row="103" Grid.Column="1" Value="{Binding Stats.BloodringKills}"/>
+            <xctk:IntegerUpDown Grid.Row="104" Grid.Column="1" Value="{Binding Stats.BloodringTime}"/>
+            <!--<xctk:IntegerUpDown Grid.Row="105" Grid.Column="1" Value="{Binding Stats.PropertyOwned}"/>-->
+            <xctk:IntegerUpDown Grid.Row="106" Grid.Column="1" Value="{Binding Stats.HighestChaseValue}"/>
+            <!--<xctk:IntegerUpDown Grid.Row="107" Grid.Column="1" Value="{Binding Stats.FastestTimes}"/>-->
+            <!--<xctk:IntegerUpDown Grid.Row="108" Grid.Column="1" Value="{Binding Stats.HighestScores}"/>-->
+            <!--<xctk:IntegerUpDown Grid.Row="109" Grid.Column="1" Value="{Binding Stats.BestPositions}"/>-->
+            <xctk:IntegerUpDown Grid.Row="110" Grid.Column="1" Value="{Binding Stats.KillsSinceLastCheckpoint}"/>
+            <xctk:IntegerUpDown Grid.Row="111" Grid.Column="1" Value="{Binding Stats.TotalLegitimateKills}"/>
+            <TextBox            Grid.Row="112" Grid.Column="1" Text="{Binding Stats.LastMissionPassedName}" MaxLength="7"/>
+            <xctk:IntegerUpDown Grid.Row="113" Grid.Column="1" Value="{Binding Stats.CheatedCount}"/>
+            <xctk:IntegerUpDown Grid.Row="114" Grid.Column="1" Value="{Binding Stats.CarsSold}"/>
+            <xctk:IntegerUpDown Grid.Row="115" Grid.Column="1" Value="{Binding Stats.MoneyMadeWithCarSales}"/>
+            <xctk:IntegerUpDown Grid.Row="116" Grid.Column="1" Value="{Binding Stats.BikesSold}"/>
+            <xctk:IntegerUpDown Grid.Row="117" Grid.Column="1" Value="{Binding Stats.MoneyMadeWithBikeSales}"/>
+            <xctk:IntegerUpDown Grid.Row="118" Grid.Column="1" Value="{Binding Stats.NumberOfExportedCars}"/>
+            <xctk:IntegerUpDown Grid.Row="119" Grid.Column="1" Value="{Binding Stats.TotalNumberOfCarExport}"/>
+            <xctk:IntegerUpDown Grid.Row="120" Grid.Column="1" Value="{Binding Stats.HighestLevelSlashTv}"/>
+            <xctk:IntegerUpDown Grid.Row="121" Grid.Column="1" Value="{Binding Stats.MoneyMadeWithSlashTv}"/>
+            <xctk:IntegerUpDown Grid.Row="122" Grid.Column="1" Value="{Binding Stats.TotalKillsOnSlashTv}"/>
+            <!--<xctk:IntegerUpDown Grid.Row="123" Grid.Column="1" Value="{Binding Stats.PackagesSmuggled}"/>-->
+            <!--<xctk:IntegerUpDown Grid.Row="124" Grid.Column="1" Value="{Binding Stats.SmugglersWasted}"/>-->
+            <!--<xctk:IntegerUpDown Grid.Row="125" Grid.Column="1" Value="{Binding Stats.FastestSmugglingTime}"/>-->
+            <!--<xctk:IntegerUpDown Grid.Row="126" Grid.Column="1" Value="{Binding Stats.MoneyMadeInCoach}"/>-->
+            <xctk:IntegerUpDown Grid.Row="127" Grid.Column="1" Value="{Binding Stats.CashMadeCollectingTrash}"/>
+            <xctk:IntegerUpDown Grid.Row="128" Grid.Column="1" Value="{Binding Stats.HitmenKilled}"/>
+            <xctk:IntegerUpDown Grid.Row="129" Grid.Column="1" Value="{Binding Stats.HighestGuardianAngelJusticeDished}"/>
+            <xctk:IntegerUpDown Grid.Row="130" Grid.Column="1" Value="{Binding Stats.GuardianAngelMissionsPassed}"/>
+            <xctk:IntegerUpDown Grid.Row="131" Grid.Column="1" Value="{Binding Stats.GuardianAngelHighestLevelInd}"/>
+            <xctk:IntegerUpDown Grid.Row="132" Grid.Column="1" Value="{Binding Stats.GuardianAngelHighestLevelCom}"/>
+            <xctk:IntegerUpDown Grid.Row="133" Grid.Column="1" Value="{Binding Stats.GuardianAngelHighestLevelSub}"/>
+            <xctk:IntegerUpDown Grid.Row="134" Grid.Column="1" Value="{Binding Stats.MostTimeLeftTrainRace}"/>
+            <xctk:IntegerUpDown Grid.Row="135" Grid.Column="1" Value="{Binding Stats.BestTimeGoGoFaggio}"/>
+            <xctk:IntegerUpDown Grid.Row="136" Grid.Column="1" Value="{Binding Stats.DirtBikeMostAir}"/>
+            <xctk:IntegerUpDown Grid.Row="137" Grid.Column="1" Value="{Binding Stats.HighestTrainCashEarned}"/>
+            <xctk:IntegerUpDown Grid.Row="138" Grid.Column="1" Value="{Binding Stats.FastestHeliRaceTime}"/>
+            <xctk:IntegerUpDown Grid.Row="139" Grid.Column="1" Value="{Binding Stats.BestHeliRacePosition}"/>
+            <xctk:IntegerUpDown Grid.Row="140" Grid.Column="1" Value="{Binding Stats.NumberOutfitChanges}"/>
+            <xctk:IntegerUpDown Grid.Row="141" Grid.Column="1" Value="{Binding Stats.BestBanditLapTimes}"/>
+            <xctk:IntegerUpDown Grid.Row="142" Grid.Column="1" Value="{Binding Stats.BestBanditPositions}"/>
+            <xctk:IntegerUpDown Grid.Row="143" Grid.Column="1" Value="{Binding Stats.BestStreetRacePositions}"/>
+            <xctk:IntegerUpDown Grid.Row="144" Grid.Column="1" Value="{Binding Stats.FastestStreetRaceLapTimes}"/>
+            <xctk:IntegerUpDown Grid.Row="145" Grid.Column="1" Value="{Binding Stats.FastestStreetRaceTimes}"/>
+            <xctk:IntegerUpDown Grid.Row="146" Grid.Column="1" Value="{Binding Stats.FastestDirtBikeLapTimes}"/>
+            <xctk:IntegerUpDown Grid.Row="147" Grid.Column="1" Value="{Binding Stats.FastestDirtBikeTimes}"/>
+            <xctk:IntegerUpDown Grid.Row="148" Grid.Column="1" Value="{Binding Stats.FavoriteRadioStationList}"/>
+
+        </Grid>
+    </ScrollViewer>
+
+
+</v:TabPageBase>

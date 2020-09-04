@@ -31,6 +31,7 @@ namespace LCSSaveEditor.GUI.Views
         private bool m_initializing;
         private GlobalsWindow m_globalsWindow;
         private MapWindow m_mapWindow;
+        private StatsWindow m_statsWindow;
         private LogWindow m_logWindow;
         
         public ViewModels.MainWindow ViewModel
@@ -104,6 +105,7 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.SettingsWindowRequest += ViewModel_SettingsWindowRequest;
             ViewModel.GlobalsWindowRequest += ViewModel_GlobalsWindowRequest;
             ViewModel.MapWindowRequest += ViewModel_MapWindowRequest;
+            ViewModel.StatsWindowRequest += ViewModel_StatsWindowRequest;
             ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
             ViewModel.DestroyAllWindowsRequest += ViewModel_DestroyAllWindowsRequest;
@@ -208,6 +210,11 @@ namespace LCSSaveEditor.GUI.Views
         private void ViewModel_MapWindowRequest(object sender, EventArgs e)
         {
             LazyLoadWindow(m_mapWindow, out m_mapWindow);
+        }
+
+        private void ViewModel_StatsWindowRequest(object sender, EventArgs e)
+        {
+            LazyLoadWindow(m_statsWindow, out m_statsWindow);
         }
 
         private void ViewModel_LogWindowRequest(object sender, EventArgs e)

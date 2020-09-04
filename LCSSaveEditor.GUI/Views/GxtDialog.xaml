@@ -66,7 +66,14 @@
                 <DataGridTextColumn
                     Header="Value"
                     Width="5*"
-                    Binding="{Binding Value}"/>
+                    Binding="{Binding Value}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" Value="{Binding Value}" />
+                            <Setter Property="ToolTipService.InitialShowDelay" Value="1000"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

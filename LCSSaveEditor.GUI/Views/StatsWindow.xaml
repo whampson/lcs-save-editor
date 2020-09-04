@@ -1,0 +1,99 @@
+﻿<Window 
+    x:Class="LCSSaveEditor.GUI.Views.StatsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    mc:Ignorable="d" 
+    d:DataContext="{d:DesignInstance m:StatsWindow}"
+    Title="In-Game Statistics"
+    Height="450" Width="500"
+    Loaded="Window_Loaded" Closing="Window_Closing"
+    IsVisibleChanged="Window_IsVisibleChanged"
+    WindowStartupLocation="CenterOwner">
+
+    <Window.DataContext>
+        <m:StatsWindow/>
+    </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding WindowHideCommand}"/>
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Bottom" Margin="5">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="{Binding CriminalRating.Name}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding CriminalRating.Value}" Padding="0,0,15,0"/>
+        </Grid>
+
+        <Border
+            Grid.Row="1"
+            BorderBrush="Gray"
+            BorderThickness="0,0.25">
+
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Statistics}" Margin="5">
+                    <ItemsControl.ItemTemplate>
+
+                        <DataTemplate DataType="{x:Type m:Stat}">
+                            <Grid>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Height" Value="20"/>
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="{Binding Name}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding Value}"/>
+                            </Grid>
+                        </DataTemplate>
+
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="85"/>
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="1"
+                Margin="5"
+                Content="Close"
+                Command="{Binding WindowHideCommand}"/>
+        </Grid>
+
+    </Grid>
+
+</Window>

@@ -12,8 +12,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         private ZoneLevel m_selectedSafeHouse;
         private StoredCar m_selectedCar;
 
-        // TODO: garage capacity?
-
         public GarageData GarageData
         {
             get { return m_garageData; }

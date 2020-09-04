@@ -50,6 +50,9 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             TheEditor.FileOpened += TheEditor_FileOpened;
             TheEditor.FileClosing += TheEditor_FileClosing;
+
+            RegisterChangeHandlers();
+            UpdateList();
         }
 
         public override void Shutdown()
@@ -58,6 +61,8 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             TheEditor.FileOpened -= TheEditor_FileOpened;
             TheEditor.FileClosing -= TheEditor_FileClosing;
+
+            UnregisterChangeHandlers();
         }
 
         public void UpdateIntValue()
@@ -139,7 +144,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void RegisterChangeHandlers()
         {
-            if (!m_handlersRegistered)
+            if (!m_handlersRegistered && TheSave != null)
             {
                 TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
                 m_handlersRegistered = true;
@@ -148,7 +153,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void UnregisterChangeHandlers()
         {
-            if (m_handlersRegistered)
+            if (m_handlersRegistered && TheSave != null)
             {
                 TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
                 m_handlersRegistered = false;
