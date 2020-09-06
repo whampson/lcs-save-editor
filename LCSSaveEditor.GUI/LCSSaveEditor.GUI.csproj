@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>0.14.0-alpha</Version>
-    <FileVersion>0.14.0.920</FileVersion>
-    <AssemblyVersion>0.14.0.920</AssemblyVersion>
+    <Version>0.15.0-alpha</Version>
+    <FileVersion>0.15.0.920</FileVersion>
+    <AssemblyVersion>0.15.0.920</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>
