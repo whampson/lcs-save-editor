@@ -11,6 +11,7 @@ namespace LCSSaveEditor.GUI.ViewModels
     public class StatsWindow : WindowBase
     {
         private SimpleVariables m_simpleVars;
+        private PlayerInfo m_player;
         private Stats m_stats;
         private ObservableCollection<Stat> m_statsList;
         private Stat m_criminalRating;
@@ -20,6 +21,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             get { return m_simpleVars; }
             set { m_simpleVars = value; OnPropertyChanged(); }
+        }
+
+        public PlayerInfo Player
+        {
+            get { return m_player; }
+            set { m_player = value; OnPropertyChanged(); }
         }
 
         public Stats Stats
@@ -47,6 +54,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             : base()
         {
             SimpleVars = new SimpleVariables();
+            Player = new PlayerInfo();
             Stats = new Stats();
             Statistics = new ObservableCollection<Stat>();
             CriminalRating = new Stat();
@@ -57,6 +65,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             base.Initialize();
 
             SimpleVars = TheSave.SimpleVars;
+            Player = TheSave.PlayerInfo;
             Stats = TheSave.Stats;
 
             TheEditor.FileOpened += TheEditor_FileOpened;
@@ -285,23 +294,23 @@ namespace LCSSaveEditor.GUI.ViewModels
             //if (Stats.NumPropertyOwned > 0) AddStat("PROPOWN", Stats.NumPropertyOwned);  // vc leftover
             //// property owned, VC leftover
             AddStat("CHASE", GetHighestMediaAttentionName());
-            if (Stats.UnlockedCostumes != UnlockedCostumes.None) AddStat("OUTFITS");
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Casual)) AddStat(UnlockedCostumes.Casual.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Leone)) AddStat(UnlockedCostumes.Leone.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Overalls)) AddStat(UnlockedCostumes.Overalls.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.AvengingAngels)) AddStat(UnlockedCostumes.AvengingAngels.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Chauffer)) AddStat(UnlockedCostumes.Chauffer.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Lawyer)) AddStat(UnlockedCostumes.Lawyer.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Tuxedo)) AddStat(UnlockedCostumes.Tuxedo.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.TheKing)) AddStat(UnlockedCostumes.TheKing.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Cox)) AddStat(UnlockedCostumes.Cox.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Underwear)) AddStat(UnlockedCostumes.Underwear.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Hero)) AddStat(UnlockedCostumes.Hero.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Dragon)) AddStat(UnlockedCostumes.Dragon.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Antonio)) AddStat(UnlockedCostumes.Antonio.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Sweats)) AddStat(UnlockedCostumes.Sweats.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Goodfella)) AddStat(UnlockedCostumes.Goodfella.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(UnlockedCostumes.Wiseguy)) AddStat(UnlockedCostumes.Wiseguy.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes != PlayerOutfit.None) AddStat("OUTFITS");
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Casual)) AddStat(PlayerOutfit.Casual.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Leone)) AddStat(PlayerOutfit.Leone.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Overalls)) AddStat(PlayerOutfit.Overalls.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.AvengingAngels)) AddStat(PlayerOutfit.AvengingAngels.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Chauffer)) AddStat(PlayerOutfit.Chauffer.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Lawyer)) AddStat(PlayerOutfit.Lawyer.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Tuxedo)) AddStat(PlayerOutfit.Tuxedo.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.TheKing)) AddStat(PlayerOutfit.TheKing.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Cox)) AddStat(PlayerOutfit.Cox.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Underwear)) AddStat(PlayerOutfit.Underwear.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Hero)) AddStat(PlayerOutfit.Hero.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Dragon)) AddStat(PlayerOutfit.Dragon.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Antonio)) AddStat(PlayerOutfit.Antonio.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Sweats)) AddStat(PlayerOutfit.Sweats.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Goodfella)) AddStat(PlayerOutfit.Goodfella.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Wiseguy)) AddStat(PlayerOutfit.Wiseguy.GetDescription(), gxt: false);
         }
 
         public int GetCriminalRatingNumber()
@@ -647,6 +656,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (!m_handlersRegistered && TheSave != null)
             {
                 SimpleVars.PropertyChanged += Data_PropertyChanged;
+                Player.PropertyChanged += Data_PropertyChanged;
                 Stats.PropertyChanged += Data_PropertyChanged;
                 m_handlersRegistered = true;
             }
@@ -657,6 +667,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (m_handlersRegistered && TheSave != null)
             {
                 SimpleVars.PropertyChanged -= Data_PropertyChanged;
+                Player.PropertyChanged -= Data_PropertyChanged;
                 Stats.PropertyChanged -= Data_PropertyChanged;
                 m_handlersRegistered = false;
             }
@@ -665,6 +676,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileOpened(object sender, EventArgs e)
         {
             SimpleVars = TheSave.SimpleVars;
+            Player = TheSave.PlayerInfo;
             Stats = TheSave.Stats;
 
             RegisterChangeHandlers();

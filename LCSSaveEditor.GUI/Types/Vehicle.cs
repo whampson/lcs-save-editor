@@ -15,7 +15,7 @@ namespace LCSSaveEditor.GUI.Types
 
     public enum Vehicle
     {
-        [Description("(none)")]
+        [Description("(empty)")]
         None,
 
         [Description("Deimos SP")]

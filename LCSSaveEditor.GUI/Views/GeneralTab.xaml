@@ -16,14 +16,14 @@
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:GeneralTab}">
 
-    <Grid Margin="2.5">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Margin="2.5">
+        <Grid Grid.Column="0" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
 
             <GroupBox Grid.Row="0" Header="File Info">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
@@ -60,7 +60,7 @@
             </GroupBox>
 
             <GroupBox Grid.Row="1" Header="Title/Last Mission">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
@@ -83,7 +83,7 @@
             </GroupBox>
 
             <GroupBox Grid.Row="2" Header="Time">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
@@ -131,19 +131,19 @@
             </GroupBox>
         </Grid>
 
-        <Grid Grid.Column="1" Margin="2.5">
+        <Grid Grid.Column="1" Margin="0,5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <GroupBox Grid.Row="0" Header="Game Settings">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Column="0" Margin="0,5">
+                    <Grid Grid.Column="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
@@ -205,7 +205,8 @@
                             Text="Music Volume:"/>
                         <Slider
                             Grid.Column="1" Grid.Row="0" Margin="5"
-                            Minimum="0" Maximum="127" AutoToolTipPlacement="TopLeft"
+                            Minimum="0" Maximum="127"
+                            Style="{StaticResource SliderStyle}"
                             Value="{Binding SimpleVars.MusicVolume}"/>
                         <TextBlock
                             Grid.Column="0" Grid.Row="1" Margin="5"
@@ -213,7 +214,8 @@
                             Text="SFX Volume:"/>
                         <Slider
                             Grid.Column="1" Grid.Row="1" Margin="5"
-                            Minimum="0" Maximum="127" AutoToolTipPlacement="TopLeft"
+                            Minimum="0" Maximum="127"
+                            Style="{StaticResource SliderStyle}"
                             Value="{Binding SimpleVars.SfxVolume}"/>
                         <TextBlock
                             Grid.Column="0" Grid.Row="2" Margin="5"
@@ -224,7 +226,7 @@
                             AutoToolTipPlacement="TopLeft"
                             Value="{Binding SimpleVars.Brightness}">
                             <Slider.Style>
-                                <Style TargetType="Slider">
+                                <Style TargetType="Slider" BasedOn="{StaticResource SliderStyle}">
                                     <Setter Property="Minimum" Value="0"/>
                                     <Setter Property="Maximum" Value="512"/>
                                     <Style.Triggers>
@@ -237,7 +239,7 @@
                         </Slider>
                     </Grid>
 
-                    <Grid Grid.Row="2" Margin="0,5">
+                    <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -285,7 +287,7 @@
             </GroupBox>
         </Grid>
 
-        <Grid Grid.Column="2" Margin="2.5">
+        <Grid Grid.Column="2" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -293,7 +295,7 @@
             </Grid.RowDefinitions>
 
             <GroupBox Grid.Row="0" Header="Weather">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
@@ -315,7 +317,7 @@
             </GroupBox>
 
             <GroupBox Grid.Row="1" Header="Map Waypoint">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
@@ -344,7 +346,7 @@
             </GroupBox>
 
             <GroupBox Grid.Row="2" Header="Misc">
-                <Grid>
+                <Grid Margin="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>

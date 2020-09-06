@@ -72,6 +72,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 new WelcomeTab(this),
                 new GeneralTab(this),
+                new PlayerTab(this),
                 new GaragesTab(this),
                 new StatsTab(this)
             };
@@ -463,12 +464,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             SetDirty();
 
-            if (sender is IEnumerable)
-            {
-                // Ignore collections
-                return;
-            }
-
             var type = sender.GetType();
             var prop = type.GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
             var data = prop.GetValue(sender);
@@ -671,7 +666,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => AboutWindowRequest?.Invoke(this, EventArgs.Empty)
         );
 
-        #if DEBUG
+#if DEBUG
         public ICommand DebugLoadGxtFile => new RelayCommand
         (
             () =>
@@ -731,6 +726,11 @@ namespace LCSSaveEditor.GUI.ViewModels
                     }
                 }
             }
+        );
+
+        public ICommand DebugShowGxtDialog => new RelayCommand
+        (
+            () => ShowGxtDialog((r, e) => { }, allowTableSelection: true, modal: false)
         );
 
         public ICommand DebugDestroyAllWindows => new RelayCommand

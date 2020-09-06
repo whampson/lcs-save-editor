@@ -157,7 +157,7 @@
         Weapon28Ammo,
         Weapon29Ammo,
         // 158 unused
-        PlayerWeaponSlot = 159,
+        PlayerWeapon = 159,
         PlayerWantedLevel,
         PlayerArmor,
         PlayerMoney,

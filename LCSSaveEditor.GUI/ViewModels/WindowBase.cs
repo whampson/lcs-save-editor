@@ -161,12 +161,15 @@ namespace LCSSaveEditor.GUI.ViewModels
             FolderDialogRequest?.Invoke(this, e);
         }
 
-        public void ShowGxtDialog(Action<bool?, GxtDialogEventArgs> callback, string table = "MAIN", bool allowTableSelection = false)
+        public void ShowGxtDialog(Action<bool?, GxtDialogEventArgs> callback,
+            string table = "MAIN", bool allowTableSelection = false,
+            bool modal = true)
         {
             GxtDialogRequest?.Invoke(this, new GxtDialogEventArgs()
             {
                 TableName = table,
                 AllowTableSelection = allowTableSelection,
+                Modal = modal,
                 Callback = callback
             });
         }

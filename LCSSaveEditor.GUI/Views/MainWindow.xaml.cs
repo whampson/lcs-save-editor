@@ -186,10 +186,17 @@ namespace LCSSaveEditor.GUI.Views
             d.ViewModel.TableName = e.TableName;
             d.ViewModel.AllowTableSelection = e.AllowTableSelection;
 
-            bool? r = d.ShowDialog();
-            e.SelectedKey = d.ViewModel.SelectedItem.Key;
-            e.SelectedValue = d.ViewModel.SelectedItem.Value;
-            e.Callback?.Invoke(r, e);
+            if (e.Modal)
+            {
+                bool? r = d.ShowDialog();
+                e.SelectedKey = d.ViewModel.SelectedItem.Key;
+                e.SelectedValue = d.ViewModel.SelectedItem.Value;
+                e.Callback?.Invoke(r, e);
+                return;
+            }
+
+            d.Show();
+            e.Callback?.Invoke(false, e);
         }
 
         private void ViewModel_MessageBoxRequest(object sender, MessageBoxEventArgs e)

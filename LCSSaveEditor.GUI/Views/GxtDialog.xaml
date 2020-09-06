@@ -8,7 +8,7 @@
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance m:GxtDialog}"
-    Title="Selext GXT Entry"
+    Title="Select GXT Entry"
     Height="450" Width="550"
     Loaded="Dialog_Loaded" Closing="Dialog_Closing"
     WindowStartupLocation="CenterOwner">

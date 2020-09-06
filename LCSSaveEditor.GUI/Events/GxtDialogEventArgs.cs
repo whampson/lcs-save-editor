@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LCSSaveEditor.Core;
 
 namespace LCSSaveEditor.GUI.Events
 {
@@ -11,6 +8,7 @@ namespace LCSSaveEditor.GUI.Events
         public bool AllowTableSelection { get; set; }
         public string SelectedKey { get; set; }
         public string SelectedValue { get; set; }
+        public bool Modal { get; set; }
         public Action<bool?, GxtDialogEventArgs> Callback { get; set; }
     }
 }

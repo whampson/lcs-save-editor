@@ -1,0 +1,249 @@
+﻿<v:TabPageBase
+    x:Class="LCSSaveEditor.GUI.Views.PlayerTab"
+    x:TypeArguments="m:PlayerTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
+    xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
+    xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
+    xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
+    xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
+    xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    mc:Ignorable="d" 
+    d:DesignHeight="500" d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance Type=m:PlayerTab}">
+
+    <UserControl.Resources>
+        <BitmapImage x:Key="MapImage" UriSource="/LCSSaveEditor.GUI;component/Resources/map.png"/>
+        <Style TargetType="{x:Type xctk:IntegerUpDown}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+        <Style TargetType="{x:Type Slider}" BasedOn="{StaticResource SliderStyle}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="AutoToolTipPlacement" Value="TopLeft"/>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource EnumComboBoxStyle}">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBoxStyle}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelStyleRight}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <c:TabControlEx
+                Grid.Row="0"
+                Margin="-0.5,2.5,-0.5,-0.5"
+                Style="{StaticResource TabControlStyle}"
+                IsSynchronizedWithCurrentItem="True">
+
+            <c:TabControlEx.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title, Mode=OneWay}"/>
+                </DataTemplate>
+            </c:TabControlEx.ItemTemplate>
+
+            <TabItem Header="Info" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.67*"/>
+                        <ColumnDefinition Width="1.33*"/>
+                        <ColumnDefinition Width="1.67*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DockPanel Grid.Column="0" LastChildFill="False">
+                        <GroupBox Header="Outfit" Margin="5">
+                            <DockPanel>
+                                <Grid DockPanel.Dock="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox
+                                        Grid.Column="0"
+                                        ItemsSource="{e:EnumValueCollection EnumType=lcs:PlayerOutfit, StartIndex=1}"
+                                        SelectedIndex="{Binding CurrentOutfit}"
+                                        SelectionChanged="CurrentOutfitImage_SelectionChanged"/>
+                                    <CheckBox
+                                        Grid.Column="1" Margin="5"
+                                        Style="{StaticResource CheckBoxStyle}"
+                                        Content="Unlocked"/>
+                                </Grid>
+                                <Viewbox
+                                    Stretch="Uniform"
+                                    Margin="5"
+                                    VerticalAlignment="Top">
+                                    <Image
+                                        Source="{Binding CurrentOutfitImage,
+                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:PlayerTab}}}"/>
+                                </Viewbox>
+                            </DockPanel>
+                        </GroupBox>
+                    </DockPanel>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <GroupBox Grid.Row="0" Margin="0,5" Header="Health, Armor, and Money">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Max Health:"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Max Armor:"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Armor:"/>
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Money:"/>
+
+                                <xctk:IntegerUpDown
+                                    Grid.Row="0" Grid.Column="1"
+                                    Minimum="0" Maximum="255"
+                                    Value="{Binding TheSave.PlayerInfo.MaxHealth}"/>
+                                <xctk:IntegerUpDown
+                                    Grid.Row="1" Grid.Column="1"
+                                    Minimum="0" Maximum="255"
+                                    Value="{Binding TheSave.PlayerInfo.MaxArmor}"/>
+                                <Slider
+                                    Grid.Row="2" Grid.Column="1"
+                                    Minimum="0" Maximum="{Binding TheSave.PlayerInfo.MaxArmor}"
+                                    Value="{Binding Armor}"/>
+                                <xctk:IntegerUpDown
+                                    Grid.Row="4" Grid.Column="1"
+                                    Value="{Binding Money}"/>
+                            </Grid>
+                        </GroupBox>
+
+                        <GroupBox Grid.Row="1" Margin="0,-5,0,5" Header="Perks">
+                            <StackPanel Orientation="Vertical" Margin="5">
+                                <CheckBox
+                                    IsChecked="{Binding TheSave.PlayerInfo.InfiniteSprint}"
+                                    Content="Infinite Sprint"/>
+                                <CheckBox
+                                    IsChecked="{Binding TheSave.PlayerInfo.FireProof}"
+                                    Content="Fire Proof"/>
+                                <CheckBox
+                                    IsChecked="{Binding TheSave.PlayerInfo.FastReload}"
+                                    Content="Fast Reload"/>
+                                <CheckBox
+                                    IsChecked="{Binding TheSave.Garages.FreeResprays}"
+                                    Content="Free Resprays"/>
+                                <CheckBox
+                                    IsChecked="{Binding TheSave.Garages.FreeBombs}"
+                                    Content="Free Bombs"/>
+                                    <CheckBox
+                                    IsChecked="{Binding TheSave.PlayerInfo.GetOutOfHospitalFree}"
+                                    Content="Free Hospital Visit"/>
+                                <CheckBox
+                                    IsChecked="{Binding TheSave.PlayerInfo.GetOutOfJailFree}"
+                                    Content="Free Police Station Visit"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+
+                    <GroupBox Grid.Column="2" Margin="5" Header="Weapons">
+                        <Grid Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot0Weapons}" SelectedItem="{Binding Slot0Weapon}"/>
+                            <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot1Weapons}" SelectedItem="{Binding Slot1Weapon}" IsEnabled="{Binding Slot1Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot2Weapons}" SelectedItem="{Binding Slot2Weapon}" IsEnabled="{Binding Slot2Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="3" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot3Weapons}" SelectedItem="{Binding Slot3Weapon}" IsEnabled="{Binding Slot3Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="4" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot4Weapons}" SelectedItem="{Binding Slot4Weapon}" IsEnabled="{Binding Slot4Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="5" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot5Weapons}" SelectedItem="{Binding Slot5Weapon}" IsEnabled="{Binding Slot5Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="6" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot6Weapons}" SelectedItem="{Binding Slot6Weapon}" IsEnabled="{Binding Slot6Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="7" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot7Weapons}" SelectedItem="{Binding Slot7Weapon}" IsEnabled="{Binding Slot7Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="8" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot8Weapons}" SelectedItem="{Binding Slot8Weapon}" IsEnabled="{Binding Slot8Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="9" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot9Weapons}" SelectedItem="{Binding Slot9Weapon}" IsEnabled="{Binding Slot9Ammo, Converter={StaticResource IsNotZero}}"/>
+
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Slot1Ammo}" Minimum="0" Maximum="1"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Value="{Binding Slot2Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Value="{Binding Slot3Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Value="{Binding Slot4Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Value="{Binding Slot5Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="1" Value="{Binding Slot6Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Slot7Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" Value="{Binding Slot8Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" Value="{Binding Slot9Ammo}" Minimum="0"/>
+
+                            <!--<TextBlock Grid.Row="10" Grid.Column="0" Margin="5,20,5,0" Style="{StaticResource LabelStyleLeft}" Text="Current Weapon:" VerticalAlignment="Bottom"/>-->
+                            <!--<ComboBox Grid.Row="11" Grid.Column="0" Height="25" Margin="5" Style="{StaticResource EnumComboBoxStyle}" ItemsSource="{Binding WeaponInventory}"/>-->
+
+                        </Grid>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Spawn Point" Style="{StaticResource TabItemStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Column="0" Header="Map" Margin="5">
+                        <c:MapControl
+                            Margin="5"
+                            x:Name="m_map"
+                            Focusable="True"
+                            Background="LightBlue"
+                            Origin="1024,1024"
+                            Scale="0.512,-0.512"
+                            MaximumZoom="5"
+                            MinimumZoom="0.275"
+                            InitialZoom="0.275"
+                            InitialCenter="0,-175"
+                            Cursor="Cross"
+                            Image="{StaticResource MapImage}"
+                            Center="{Binding CenterOffset}"
+                            Zoom="{Binding ZoomLevel}"
+                            MouseOverOffset="{Binding MouseOffset}"
+                            MouseOverCoords="{Binding MouseCoords}"
+                            Overlays="{Binding MapOverlays}"/>
+                    </GroupBox>
+
+                </Grid>
+            </TabItem>
+
+        </c:TabControlEx>
+    </Grid>
+
+</v:TabPageBase>
