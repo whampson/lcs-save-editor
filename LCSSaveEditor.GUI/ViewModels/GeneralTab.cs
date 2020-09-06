@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Input;
 using GTASaveData.LCS;
@@ -92,12 +93,13 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public OnFootCameraMode OnFootCameraMode
         {
-            get { return (OnFootCameraMode) SimpleVars.CameraModeOnFoot; }
+            get { return (OnFootCameraMode) TheEditor.GetGlobal(GlobalVariable.CameraModeOnFoot); }
             set
             {
                 SimpleVars.CameraModeOnFoot = (float) value;
                 TheEditor.SetGlobal(GlobalVariable.CameraModeOnFoot, (int) value);
-                OnPropertyChanged(); }
+                // OnPropertyChanged called in GlobalVariables_CollectionChanged
+            }
         }
 
         public InCarCameraMode InCarCameraMode
@@ -125,6 +127,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             SimpleVars.PropertyChanged += Data_PropertyChanged;
             Stats.PropertyChanged += Data_PropertyChanged;
+            TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
         }
 
         public override void Unload()
@@ -133,6 +136,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             SimpleVars.PropertyChanged -= Data_PropertyChanged;
             Stats.PropertyChanged -= Data_PropertyChanged;
+            TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
         }
 
         public override void Update()
@@ -176,6 +180,26 @@ namespace LCSSaveEditor.GUI.ViewModels
                 case nameof(Stats.TotalProgressInGame):
                     OnProgressChanged();
                     break;
+            }
+        }
+
+        private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < e.NewItems.Count; i++)
+            {
+                int index = e.NewStartingIndex + i;
+                GlobalVariable g = TheEditor.GetGlobalId(index);
+                switch (g)
+                {
+                    case GlobalVariable.CameraModeOnFoot:
+                        OnPropertyChanged(nameof(OnFootCameraMode));
+                        break;
+                }
             }
         }
 

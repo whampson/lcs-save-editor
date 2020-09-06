@@ -162,21 +162,12 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Replace:
-                {
-                    GlobalVariableInfo item = (ShowSavedOnly)
+            GlobalVariableInfo item = (ShowSavedOnly)
                         ? Globals.Where(x => x.Index == e.NewStartingIndex).FirstOrDefault()
                         : Globals[e.NewStartingIndex];
 
-                    item.IntValue = TheEditor.GetGlobal(item.Index);
-                    item.FloatValue = TheEditor.GetGlobalAsFloat(item.Index);
-                    break;
-                }
-                default:
-                    break;
-            }
+            item.IntValue = TheEditor.GetGlobal(item.Index);
+            item.FloatValue = TheEditor.GetGlobalAsFloat(item.Index);
         }
 
         private void TheEditor_FileOpened(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Types;
@@ -75,7 +76,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             RefreshStats();
         }
 
-        private void Data_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void Data_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             RefreshStats();
         }

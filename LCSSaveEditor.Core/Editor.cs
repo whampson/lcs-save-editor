@@ -1,6 +1,7 @@
 ﻿using GTASaveData;
 using GTASaveData.LCS;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
@@ -60,6 +61,9 @@ namespace LCSSaveEditor.Core
         public Editor()
         { }
 
+        public static IEnumerable<GlobalVariable> GlobalVariableIDs =>
+            Enum.GetValues(typeof(GlobalVariable)) as IEnumerable<GlobalVariable>;
+
         public ScriptVersion GetScriptVersion()
         {
             switch (ActiveFile.Scripts.MainScriptSize)
@@ -85,6 +89,11 @@ namespace LCSSaveEditor.Core
 
         public int GetIndexOfGlobal(GlobalVariable g)
         {
+            if (g == GlobalVariable.Null)
+            {
+                return -1;
+            }
+
             int index = (int) g;
             if (!IsMobileScript())
             {
@@ -101,6 +110,22 @@ namespace LCSSaveEditor.Core
             return index;
         }
 
+        public GlobalVariable GetGlobalId(int index)
+        {
+            if (!IsMobileScript() && index >= 7)
+            {
+                index++;
+            }
+
+            GlobalVariable g = (GlobalVariable) index;
+            if (GlobalVariableIDs.Contains(g))
+            {
+                return g;
+            }
+
+            return GlobalVariable.Null;
+        }
+
         public int GetGlobal(GlobalVariable g)
         {
             return GetGlobal(GetIndexOfGlobal(g));
@@ -113,12 +138,16 @@ namespace LCSSaveEditor.Core
         public int GetGlobal(int index)
         {
             if (!IsFileOpen) throw NoFileOpen();
+            if (index < 0) throw BadGlobalVariable(index);
+
             return ActiveFile.Scripts.GetGlobal(index);
         }
 
         public float GetGlobalAsFloat(int index)
         {
             if (!IsFileOpen) throw NoFileOpen();
+            if (index < 0) throw BadGlobalVariable(index);
+
             return ActiveFile.Scripts.GetGlobalAsFloat(index);
         }
 
@@ -135,12 +164,16 @@ namespace LCSSaveEditor.Core
         public void SetGlobal(int index, int value)
         {
             if (!IsFileOpen) throw NoFileOpen();
+            if (index < 0) throw BadGlobalVariable(index);
+
             ActiveFile.Scripts.SetGlobal(index, value);
         }
 
         public void SetGlobal(int index, float value)
         {
             if (!IsFileOpen) throw NoFileOpen();
+            if (index < 0) throw BadGlobalVariable(index);
+
             ActiveFile.Scripts.SetGlobal(index, value);
         }
 
@@ -277,14 +310,19 @@ namespace LCSSaveEditor.Core
             Log.Info("File saved successfully.");
             FileSaved?.Invoke(this, EventArgs.Empty);
         }
+        #endregion
 
+        #region Exceptions
         private InvalidDataException BadSaveData()
         {
             throw new InvalidDataException("The file is not a valid GTA:LCS save file!");
         }
-        #endregion
 
-        #region Exceptions
+        private IndexOutOfRangeException BadGlobalVariable(int index)
+        {
+            throw new IndexOutOfRangeException($"Invalid global variable: {index}");
+        }
+
         private InvalidOperationException FileAlreadyOpened()
         {
             return new InvalidOperationException("A file is already open!");

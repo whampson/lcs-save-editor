@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>0.15.0-alpha</Version>
-    <FileVersion>0.15.0.920</FileVersion>
-    <AssemblyVersion>0.15.0.920</AssemblyVersion>
+    <FileVersion>0.15.0.932</FileVersion>
+    <AssemblyVersion>0.15.0.932</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>

@@ -2,6 +2,8 @@
 {
     public enum GlobalVariable
     {
+        Null,           // not a variable, default value
+
         // saved global variables
 
         InitFlag = 6,
