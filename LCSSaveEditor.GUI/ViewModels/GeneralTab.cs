@@ -185,21 +185,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.NewItems == null)
+            switch (TheEditor.GetGlobalId(e.NewStartingIndex))
             {
-                return;
-            }
-
-            for (int i = 0; i < e.NewItems.Count; i++)
-            {
-                int index = e.NewStartingIndex + i;
-                GlobalVariable g = TheEditor.GetGlobalId(index);
-                switch (g)
-                {
-                    case GlobalVariable.CameraModeOnFoot:
-                        OnPropertyChanged(nameof(OnFootCameraMode));
-                        break;
-                }
+                case GlobalVariable.CameraModeOnFoot:
+                    OnPropertyChanged(nameof(OnFootCameraMode));
+                    break;
             }
         }
 

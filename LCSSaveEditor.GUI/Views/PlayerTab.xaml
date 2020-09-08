@@ -183,28 +183,28 @@
                             </Grid.RowDefinitions>
 
                             <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot0Weapons}" SelectedItem="{Binding Slot0Weapon}"/>
-                            <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot1Weapons}" SelectedItem="{Binding Slot1Weapon}" IsEnabled="{Binding Slot1Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot2Weapons}" SelectedItem="{Binding Slot2Weapon}" IsEnabled="{Binding Slot2Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="3" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot3Weapons}" SelectedItem="{Binding Slot3Weapon}" IsEnabled="{Binding Slot3Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="4" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot4Weapons}" SelectedItem="{Binding Slot4Weapon}" IsEnabled="{Binding Slot4Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="5" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot5Weapons}" SelectedItem="{Binding Slot5Weapon}" IsEnabled="{Binding Slot5Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="6" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot6Weapons}" SelectedItem="{Binding Slot6Weapon}" IsEnabled="{Binding Slot6Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="7" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot7Weapons}" SelectedItem="{Binding Slot7Weapon}" IsEnabled="{Binding Slot7Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="8" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot8Weapons}" SelectedItem="{Binding Slot8Weapon}" IsEnabled="{Binding Slot8Ammo, Converter={StaticResource IsNotZero}}"/>
-                            <ComboBox Grid.Row="9" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot9Weapons}" SelectedItem="{Binding Slot9Weapon}" IsEnabled="{Binding Slot9Ammo, Converter={StaticResource IsNotZero}}"/>
+                            <ComboBox Grid.Row="1" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot1Weapons}" SelectedItem="{Binding Slot1Weapon}" SelectionChanged="Slot1_WeaponChanged"/>
+                            <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot2Weapons}" SelectedItem="{Binding Slot2Weapon}" SelectionChanged="Slot2_WeaponChanged"/>
+                            <ComboBox Grid.Row="3" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot3Weapons}" SelectedItem="{Binding Slot3Weapon}" SelectionChanged="Slot3_WeaponChanged"/>
+                            <ComboBox Grid.Row="4" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot4Weapons}" SelectedItem="{Binding Slot4Weapon}" SelectionChanged="Slot4_WeaponChanged"/>
+                            <ComboBox Grid.Row="5" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot5Weapons}" SelectedItem="{Binding Slot5Weapon}" SelectionChanged="Slot5_WeaponChanged"/>
+                            <ComboBox Grid.Row="6" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot6Weapons}" SelectedItem="{Binding Slot6Weapon}" SelectionChanged="Slot6_WeaponChanged"/>
+                            <ComboBox Grid.Row="7" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot7Weapons}" SelectedItem="{Binding Slot7Weapon}" SelectionChanged="Slot7_WeaponChanged"/>
+                            <ComboBox Grid.Row="8" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot8Weapons}" SelectedItem="{Binding Slot8Weapon}" SelectionChanged="Slot8_WeaponChanged"/>
+                            <ComboBox Grid.Row="9" Grid.Column="0" ItemsSource="{x:Static m:PlayerTab.Slot9Weapons}" SelectedItem="{Binding Slot9Weapon}" SelectionChanged="Slot9_WeaponChanged"/>
 
-                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Slot1Ammo}" Minimum="0" Maximum="1"/>
-                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Value="{Binding Slot2Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Value="{Binding Slot3Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Value="{Binding Slot4Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Value="{Binding Slot5Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="1" Value="{Binding Slot6Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Slot7Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" Value="{Binding Slot8Ammo}" Minimum="0"/>
-                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" Value="{Binding Slot9Ammo}" Minimum="0"/>
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Slot1Ammo}" Minimum="0" Maximum="1" ValueChanged="Slot1_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Value="{Binding Slot2Ammo}" Minimum="0"  ValueChanged="Slot2_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="3" Grid.Column="1" Value="{Binding Slot3Ammo}" Minimum="0"  ValueChanged="Slot3_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Value="{Binding Slot4Ammo}" Minimum="0"  ValueChanged="Slot4_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="5" Grid.Column="1" Value="{Binding Slot5Ammo}" Minimum="0"  ValueChanged="Slot5_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="6" Grid.Column="1" Value="{Binding Slot6Ammo}" Minimum="0"  ValueChanged="Slot6_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="7" Grid.Column="1" Value="{Binding Slot7Ammo}" Minimum="0"  ValueChanged="Slot7_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="8" Grid.Column="1" Value="{Binding Slot8Ammo}" Minimum="0"  ValueChanged="Slot8_AmmoChanged"/>
+                            <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" Value="{Binding Slot9Ammo}" Minimum="0"  ValueChanged="Slot9_AmmoChanged"/>
 
-                            <!--<TextBlock Grid.Row="10" Grid.Column="0" Margin="5,20,5,0" Style="{StaticResource LabelStyleLeft}" Text="Current Weapon:" VerticalAlignment="Bottom"/>-->
-                            <!--<ComboBox Grid.Row="11" Grid.Column="0" Height="25" Margin="5" Style="{StaticResource EnumComboBoxStyle}" ItemsSource="{Binding WeaponInventory}"/>-->
+                            <TextBlock Grid.Row="10" Grid.Column="0" Margin="5,20,5,0" Style="{StaticResource LabelStyleLeft}" Text="Current Weapon:" VerticalAlignment="Bottom"/>
+                            <ComboBox Grid.Row="11" Grid.Column="0" ItemsSource="{Binding Inventory}" SelectedItem="{Binding CurrentWeapon}"/>
 
                         </Grid>
                     </GroupBox>

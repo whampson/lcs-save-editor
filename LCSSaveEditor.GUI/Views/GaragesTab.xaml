@@ -71,7 +71,7 @@
         </ListBox>
 
         <GroupBox
-            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="5,-5,5,5"
+            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0,-5,5,5"
             Header="Garage Slot"
             IsEnabled="{Binding SelectedCar, Converter={StaticResource IsNotNull}}"
             Style="{StaticResource GroupBoxStyle}">
@@ -87,7 +87,7 @@
                 </Grid.RowDefinitions>
 
                 <GroupBox
-                    Grid.Column="0" Grid.Row="0" Margin="5"
+                    Grid.Column="0" Grid.Row="0" Margin="5,5,2.5,5"
                     Header="Basic Properties"
                     Style="{StaticResource GroupBoxStyle}">
 
@@ -111,7 +111,7 @@
                             <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Vehicle Model:"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Radio Station:"/>
                             <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Handling Multiplier:"/>
-                            
+
                             <ComboBox
                                 Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
                                 Style="{StaticResource EnumComboBoxStyle}"
@@ -165,7 +165,38 @@
                 </GroupBox>
 
                 <GroupBox
-                    Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="5"
+                    Grid.Row="1" Grid.Column="0" Margin="5,0,2.5,5"
+                    Header="Orientation"
+                    Style="{StaticResource GroupBoxStyle}">
+                    
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Position:"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Angle:"/>
+
+                        <c:LocationPicker
+                            Grid.Row="0" Grid.Column="1" Margin="5"
+                            Height="82.5" GapThickness="2.5"
+                            Value="{Binding SelectedCar.Position}"/>
+                        <c:LocationPicker
+                            Grid.Row="1" Grid.Column="1" Margin="5"
+                            Height="82.5" GapThickness="2.5"
+                            Value="{Binding SelectedCar.Angle}"/>
+                    </Grid>
+
+                </GroupBox>
+
+                <GroupBox
+                    Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="2.5,5,5,5"
                     Header="Special Properties"
                     Style="{StaticResource GroupBoxStyle}">
 
@@ -255,37 +286,6 @@
                             Content="Time Bomb"
                             ToolTip="The vehicle is equipped with a time bomb."/>
                     </Grid>
-                </GroupBox>
-
-                <GroupBox
-                    Grid.Row="1" Grid.Column="0" Margin="5"
-                    Header="Orientation"
-                    Style="{StaticResource GroupBoxStyle}">
-                    
-                    <Grid>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Position:"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Angle:"/>
-
-                        <c:LocationPicker
-                            Grid.Row="0" Grid.Column="1" Margin="5"
-                            Height="82.5" GapThickness="2.5"
-                            Value="{Binding SelectedCar.Position}"/>
-                        <c:LocationPicker
-                            Grid.Row="1" Grid.Column="1" Margin="5"
-                            Height="82.5" GapThickness="2.5"
-                            Value="{Binding SelectedCar.Angle}"/>
-                    </Grid>
-
                 </GroupBox>
 
             </Grid>
