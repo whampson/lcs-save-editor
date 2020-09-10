@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Threading;
 using WpfEssentials;
 
 namespace LCSSaveEditor.Core
@@ -63,6 +64,8 @@ namespace LCSSaveEditor.Core
 
         public static IEnumerable<GlobalVariable> GlobalVariableIDs =>
             Enum.GetValues(typeof(GlobalVariable)) as IEnumerable<GlobalVariable>;
+
+        // TODO: move to separate 'Globals' class?
 
         public ScriptVersion GetScriptVersion()
         {
@@ -161,6 +164,11 @@ namespace LCSSaveEditor.Core
             SetGlobal(GetIndexOfGlobal(g), value);
         }
 
+        public void SetGlobal(GlobalVariable g, bool value)
+        {
+            SetGlobal(GetIndexOfGlobal(g), value ? 1 : 0);
+        }
+
         public void SetGlobal(int index, int value)
         {
             if (!IsFileOpen) throw NoFileOpen();
@@ -176,7 +184,6 @@ namespace LCSSaveEditor.Core
 
             ActiveFile.Scripts.SetGlobal(index, value);
         }
-
 
         #region File I/O
         public void ChangeFileFormat(FileFormat newFormat)

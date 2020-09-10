@@ -295,23 +295,23 @@ namespace LCSSaveEditor.GUI.ViewModels
             //if (Stats.NumPropertyOwned > 0) AddStat("PROPOWN", Stats.NumPropertyOwned);  // vc leftover
             //// property owned, VC leftover
             AddStat("CHASE", GetHighestMediaAttentionName());
-            if (Stats.UnlockedCostumes != PlayerOutfit.None) AddStat("OUTFITS");
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Casual)) AddStat(PlayerOutfit.Casual.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Leone)) AddStat(PlayerOutfit.Leone.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Overalls)) AddStat(PlayerOutfit.Overalls.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.AvengingAngels)) AddStat(PlayerOutfit.AvengingAngels.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Chauffer)) AddStat(PlayerOutfit.Chauffer.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Lawyer)) AddStat(PlayerOutfit.Lawyer.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Tuxedo)) AddStat(PlayerOutfit.Tuxedo.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.TheKing)) AddStat(PlayerOutfit.TheKing.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Cox)) AddStat(PlayerOutfit.Cox.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Underwear)) AddStat(PlayerOutfit.Underwear.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Hero)) AddStat(PlayerOutfit.Hero.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Dragon)) AddStat(PlayerOutfit.Dragon.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Antonio)) AddStat(PlayerOutfit.Antonio.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Sweats)) AddStat(PlayerOutfit.Sweats.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Goodfella)) AddStat(PlayerOutfit.Goodfella.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfit.Wiseguy)) AddStat(PlayerOutfit.Wiseguy.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes != PlayerOutfitFlags.None) AddStat("OUTFITS");
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Casual)) AddStat(PlayerOutfit.Casual.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Leone)) AddStat(PlayerOutfit.Leone.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Overalls)) AddStat(PlayerOutfit.Overalls.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.AvengingAngels)) AddStat(PlayerOutfit.AvengingAngels.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Chauffer)) AddStat(PlayerOutfit.Chauffer.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Lawyer)) AddStat(PlayerOutfit.Lawyer.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Tuxedo)) AddStat(PlayerOutfit.Tuxedo.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.TheKing)) AddStat(PlayerOutfit.TheKing.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Cox)) AddStat(PlayerOutfit.Cox.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Underwear)) AddStat(PlayerOutfit.Underwear.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Hero)) AddStat(PlayerOutfit.Hero.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Dragon)) AddStat(PlayerOutfit.Dragon.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Antonio)) AddStat(PlayerOutfit.Antonio.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Sweats)) AddStat(PlayerOutfit.Sweats.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Goodfella)) AddStat(PlayerOutfit.Goodfella.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Wiseguy)) AddStat(PlayerOutfit.Wiseguy.GetDescription(), gxt: false);
         }
 
         public int GetCriminalRatingNumber()

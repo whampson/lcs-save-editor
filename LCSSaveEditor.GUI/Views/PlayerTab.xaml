@@ -65,24 +65,25 @@
                                 <Grid DockPanel.Dock="Top">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <!--<ColumnDefinition Width="Auto"/>-->
                                     </Grid.ColumnDefinitions>
                                     <ComboBox
                                         Grid.Column="0"
-                                        ItemsSource="{e:EnumValueCollection EnumType=lcs:PlayerOutfit, StartIndex=1}"
-                                        SelectedIndex="{Binding CurrentOutfit}"
+                                        ItemsSource="{e:EnumValueCollection EnumType=lcs:PlayerOutfit}"
+                                        SelectedItem="{Binding Outfit}"
                                         SelectionChanged="CurrentOutfitImage_SelectionChanged"/>
-                                    <CheckBox
+                                    <!--<CheckBox
                                         Grid.Column="1" Margin="5"
                                         Style="{StaticResource CheckBoxStyle}"
-                                        Content="Unlocked"/>
+                                        IsChecked="{Binding IsOutfitUnlocked}"
+                                        Content="Unlocked"/>-->
                                 </Grid>
                                 <Viewbox
                                     Stretch="Uniform"
                                     Margin="5"
                                     VerticalAlignment="Top">
                                     <Image
-                                        Source="{Binding CurrentOutfitImage,
+                                        Source="{Binding OutfitImage,
                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type v:PlayerTab}}}"/>
                                 </Viewbox>
                             </DockPanel>
@@ -204,7 +205,7 @@
                             <xctk:IntegerUpDown Grid.Row="9" Grid.Column="1" Value="{Binding Slot9Ammo}" Minimum="0"  ValueChanged="Slot9_AmmoChanged"/>
 
                             <TextBlock Grid.Row="10" Grid.Column="0" Margin="5,20,5,0" Style="{StaticResource LabelStyleLeft}" Text="Current Weapon:" VerticalAlignment="Bottom"/>
-                            <ComboBox Grid.Row="11" Grid.Column="0" ItemsSource="{Binding Inventory}" SelectedItem="{Binding CurrentWeapon}"/>
+                            <ComboBox Grid.Row="11" Grid.Column="0" ItemsSource="{Binding Inventory}" SelectedItem="{Binding Weapon}"/>
 
                         </Grid>
                     </GroupBox>
@@ -215,11 +216,11 @@
             <TabItem Header="Spawn Point" Style="{StaticResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <GroupBox Grid.Column="0" Header="Map" Margin="5">
+                    <GroupBox Grid.Column="0" Header="Map" Margin="5,5,2.5,5">
                         <c:MapControl
                             Margin="5"
                             x:Name="m_map"
@@ -238,6 +239,40 @@
                             MouseOverOffset="{Binding MouseOffset}"
                             MouseOverCoords="{Binding MouseCoords}"
                             Overlays="{Binding MapOverlays}"/>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="1" Header="Spawn Point" Margin="2.5,5,5,5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Orientation="Vertical">
+                                <c:LocationPicker
+                                    Height="95" Margin="5,10,5,5"
+                                    GapThickness="5"
+                                    Value="{Binding SpawnPoint}"/>
+                                <Separator Background="Transparent" Height="10"/>
+                                <TextBlock
+                                    Margin="5,5,5,0"
+                                    Style="{StaticResource LabelStyleLeft}" 
+                                    Text="Location Preset:"/>
+                                <ComboBox/>
+                            </StackPanel>
+
+                            <Grid Grid.Row="2" VerticalAlignment="Bottom">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource LabelStyleLeft}"  Text="{Binding MouseCoords.X, StringFormat=F3}"/>
+                                <TextBlock Grid.Column="1" Style="{StaticResource LabelStyleLeft}"  Text="," Margin="0,0,5,0"/>
+                                <TextBlock Grid.Column="2" Style="{StaticResource LabelStyleLeft}"  Text="{Binding MouseCoords.Y, StringFormat=F3}"/>
+                            </Grid>
+                        </Grid>
                     </GroupBox>
 
                 </Grid>

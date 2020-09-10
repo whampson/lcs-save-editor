@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Types;
 using LCSSaveEditor.GUI.ViewModels;
@@ -25,13 +26,13 @@ namespace LCSSaveEditor.GUI.Views
     /// </summary>
     public partial class PlayerTab : TabPageBase<PlayerTabViewModel>
     {
-        public static readonly DependencyProperty CurrentOutfitImageProperty = DependencyProperty.Register(
-            nameof(CurrentOutfitImage), typeof(BitmapImage), typeof(PlayerTab));
+        public static readonly DependencyProperty OutfitImageProperty = DependencyProperty.Register(
+            nameof(OutfitImage), typeof(BitmapImage), typeof(PlayerTab));
 
-        public BitmapImage CurrentOutfitImage
+        public BitmapImage OutfitImage
         {
-            get { return (BitmapImage) GetValue(CurrentOutfitImageProperty); }
-            set { SetValue(CurrentOutfitImageProperty, value); }
+            get { return (BitmapImage) GetValue(OutfitImageProperty); }
+            set { SetValue(OutfitImageProperty, value); }
         }
 
         public PlayerTab()
@@ -39,8 +40,15 @@ namespace LCSSaveEditor.GUI.Views
             InitializeComponent();
         }
 
-        private void LoadOutfitImage(int id)
+        private void OnOutfitChanged()
         {
+            LoadOutfitImage(ViewModel.Outfit);
+            ViewModel.UpdateOutfit();
+        }
+
+        private void LoadOutfitImage(PlayerOutfit o)
+        {
+            int id = (int) o;
             if (OutfitUris.Count > id)
             {
                 BitmapImage img = new BitmapImage();
@@ -48,11 +56,11 @@ namespace LCSSaveEditor.GUI.Views
                 img.DecodePixelWidth = 420;
                 img.UriSource = new Uri(OutfitUris[id]);
                 img.EndInit();
-                CurrentOutfitImage = img;
+                OutfitImage = img;
             }
             else
             {
-                CurrentOutfitImage = null;
+                OutfitImage = null;
             }
         }
 
@@ -152,7 +160,7 @@ namespace LCSSaveEditor.GUI.Views
             }
         }
 
-        private void CurrentOutfitImage_SelectionChanged(object sender, SelectionChangedEventArgs e) => LoadOutfitImage(ViewModel.CurrentOutfit);
+        private void CurrentOutfitImage_SelectionChanged(object sender, SelectionChangedEventArgs e) => OnOutfitChanged();
 
         private void Slot1_AmmoChanged(object sender, RoutedPropertyChangedEventArgs<object> e) => OnSlotAmmoChaged(1);
         private void Slot2_AmmoChanged(object sender, RoutedPropertyChangedEventArgs<object> e) => OnSlotAmmoChaged(2);

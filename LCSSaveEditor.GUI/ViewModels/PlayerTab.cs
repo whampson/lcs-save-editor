@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using GTASaveData.LCS;
+using GTASaveData.Types;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Types;
 
@@ -10,9 +18,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 {
     public class PlayerTab : TabPageBase
     {
+        public static readonly Point MapOrigin = new Point(1024, 1024);
+        public static readonly Point MapScale = new Point(0.512, -0.512);
+
         private bool m_isReadingWeaponSlot;
         private bool m_isWritingWeaponSlot;
-        private bool m_isWritingCurrentWeapon;
         private bool m_suppressWritingSelectedWeapon;
         private Weapon? m_currentWeapon;
         private Weapon? m_slot0Weapon;
@@ -35,17 +45,42 @@ namespace LCSSaveEditor.GUI.ViewModels
         private int m_slot8Ammo;
         private int m_slot9Ammo;
         private ObservableCollection<Weapon?> m_inventory;
+        private ObservableCollection<UIElement> m_mapOverlays;
+        private Point m_centerOffset;
+        private Point m_mouseOffset;
+        private Point m_mouseCoords;
+        private double m_zoomLevel;
 
-        public int CurrentOutfit
+        public bool IsOutfitUnlocked
         {
-            get { return TheEditor.GetGlobal(GlobalVariable.PlayerCostume); }
-            set { TheEditor.SetGlobal(GlobalVariable.PlayerCostume, value); }
+            get { return TheEditor.GetGlobal(GlobalVariable.Outfit1Unlocked + (int) Outfit) != 0; }
+            set
+            {
+                int outfit = (int) Outfit;
+                if (value)
+                {
+                    TheEditor.SetGlobal(GlobalVariable.Outfit1Unlocked + outfit, true);
+                    TheSave.Stats.UnlockedCostumes |= (PlayerOutfitFlags) (1 << outfit);
+                }
+                else
+                {
+                    TheEditor.SetGlobal(GlobalVariable.Outfit1Unlocked + outfit, false);
+                    TheSave.Stats.UnlockedCostumes &= ~((PlayerOutfitFlags) (1 << outfit));
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public PlayerOutfit Outfit
+        {
+            get { return (PlayerOutfit) TheEditor.GetGlobal(GlobalVariable.PlayerOutfit); }
+            set { TheEditor.SetGlobal(GlobalVariable.PlayerOutfit, (int) value); OnPropertyChanged(); }
         }
 
         public int Armor
         {
             get { return TheEditor.GetGlobal(GlobalVariable.PlayerArmor); }
-            set { TheEditor.SetGlobal(GlobalVariable.PlayerArmor, value); }
+            set { TheEditor.SetGlobal(GlobalVariable.PlayerArmor, value); OnPropertyChanged(); }
         }
 
         public int Money
@@ -56,13 +91,36 @@ namespace LCSSaveEditor.GUI.ViewModels
                 TheSave.PlayerInfo.Money = value;
                 TheSave.PlayerInfo.MoneyOnScreen = value;
                 TheEditor.SetGlobal(GlobalVariable.PlayerMoney, value);
+                OnPropertyChanged();
             }
         }
 
-        public Weapon? CurrentWeapon
+        public Weapon? Weapon
         {
             get { return m_currentWeapon; }
             set { m_currentWeapon = value; WriteSelectedWeapon(); OnPropertyChanged(); }
+        }
+
+        public Vector3D SpawnPoint
+        {
+            get
+            {
+                return new Vector3D()
+                {
+                    X = TheEditor.GetGlobalAsFloat(GlobalVariable.PlayerX),
+                    Y = TheEditor.GetGlobalAsFloat(GlobalVariable.PlayerY),
+                    Z = TheEditor.GetGlobalAsFloat(GlobalVariable.PlayerZ),
+                };
+            }
+
+            set
+            {
+                TheEditor.SetGlobal(GlobalVariable.PlayerX, value.X);
+                TheEditor.SetGlobal(GlobalVariable.PlayerY, value.Y);
+                TheEditor.SetGlobal(GlobalVariable.PlayerZ, value.Z);
+                UpdateSpawnPoint();
+                OnPropertyChanged();
+            }
         }
 
 
@@ -186,10 +244,42 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_inventory = value; OnPropertyChanged(); }
         }
 
+        public ObservableCollection<UIElement> MapOverlays
+        {
+            get { return m_mapOverlays; }
+            set { m_mapOverlays = value; OnPropertyChanged(); }
+        }
+
+        public Point CenterOffset
+        {
+            get { return m_centerOffset; }
+            set { m_centerOffset = value; OnPropertyChanged(); }
+        }
+
+        public Point MouseOffset
+        {
+            get { return m_mouseOffset; }
+            set { m_mouseOffset = value; OnPropertyChanged(); }
+        }
+
+        public Point MouseCoords
+        {
+            get { return m_mouseCoords; }
+            set { m_mouseCoords = value; OnPropertyChanged(); }
+        }
+
+        public double ZoomLevel
+        {
+            get { return m_zoomLevel; }
+            set { m_zoomLevel = value; OnPropertyChanged(); }
+        }
+
+
         public PlayerTab(MainWindow window)
             : base("Player", TabPageVisibility.WhenFileIsOpen, window)
         {
             Inventory = new ObservableCollection<Weapon?>();
+            MapOverlays = new ObservableCollection<UIElement>();
         }
 
         public override void Load()
@@ -197,22 +287,10 @@ namespace LCSSaveEditor.GUI.ViewModels
             base.Load();
 
             m_suppressWritingSelectedWeapon = true;
-            CurrentWeapon = (Weapon?) TheEditor.GetGlobal(GlobalVariable.PlayerWeapon);
+            Weapon = (Weapon?) TheEditor.GetGlobal(GlobalVariable.PlayerWeapon);
             m_suppressWritingSelectedWeapon = false;
 
             TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
-        }
-
-        public override void Unload()
-        {
-            base.Unload();
-
-            TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
-        }
-
-        public override void Update()
-        {
-            base.Update();
 
             ReadSlot(0);
             ReadSlot(1);
@@ -225,16 +303,80 @@ namespace LCSSaveEditor.GUI.ViewModels
             ReadSlot(8);
             ReadSlot(9);
             UpdateInventory();
+            UpdateOutfit();
+            UpdateSpawnPoint();
+
+            OnPropertyChanged(nameof(Armor));
+            OnPropertyChanged(nameof(Money));
+            OnPropertyChanged(nameof(Weapon));
+            OnPropertyChanged(nameof(SpawnPoint));
         }
 
-        private void ReadSlot(int index)
+        public override void Unload()
+        {
+            base.Unload();
+
+            TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
+        }
+
+        public void UpdateSpawnPoint()
+        {
+            MapOverlays.Clear();
+            MapOverlays.Add(MakeTargetSprite(SpawnPoint.Get2DComponent(), scale: 32));
+        }
+
+        private UIElement MakeTargetSprite(Vector2D loc,
+            int scale = 4, string toolTip = null)
+        {
+            const double Size = 4;
+            double actualSize = Size * scale;
+
+            BitmapImage bmp = new BitmapImage();
+            bmp.BeginInit();
+            bmp.UriSource = new Uri(@"pack://application:,,,/Resources/target.png");
+            bmp.EndInit();
+
+            Image img = new Image()
+            {
+                Source = bmp,
+                Width = bmp.Width,
+                Height = bmp.Height,
+                ToolTip = toolTip
+            };
+
+            ApplyBlipTransform(img, loc, actualSize);
+            return img;
+        }
+
+        private static void ApplyBlipTransform(FrameworkElement e, Vector2D loc,
+            double size = 1)
+        {
+            double centerX = size / 2;
+            double centerY = size;
+            double scaleX = size / e.Width;
+            double scaleY = size / e.Width;
+
+            Point p = new Point()
+            {
+                X = (loc.X * MapScale.X) + MapOrigin.X,
+                Y = (loc.Y * MapScale.Y) + MapOrigin.Y,
+            };
+            Matrix m = Matrix.Identity;
+            m.OffsetX = p.X - centerX;
+            m.OffsetY = p.Y - centerY;
+            m.ScalePrepend(scaleX, scaleY);
+
+            e.RenderTransform = new MatrixTransform(m);
+        }
+
+        public void ReadSlot(int index)
         {
             m_isReadingWeaponSlot = true;
 
             if (index == 0)
             {
-                bool hasBrassKnuckles = TheEditor.GetGlobal(WeaponVars[Weapon.BrassKnuckles]) != 0;
-                Slot0Weapon = (hasBrassKnuckles) ? Weapon.BrassKnuckles : Weapon.Fists;
+                bool hasBrassKnuckles = TheEditor.GetGlobal(WeaponVars[Types.Weapon.BrassKnuckles]) != 0;
+                Slot0Weapon = (hasBrassKnuckles) ? Types.Weapon.BrassKnuckles : Types.Weapon.Fists;
                 goto Cleanup;
             }
 
@@ -283,7 +425,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             m_isReadingWeaponSlot = false;
         }
 
-        private void WriteSlot(int index)
+        public void WriteSlot(int index)
         {
             IReadOnlyList<Weapon> slotWeapons;
             Weapon? weapon;
@@ -298,7 +440,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (index == 0)
             {
-                TheEditor.SetGlobal(WeaponVars[Weapon.BrassKnuckles], (Slot0Weapon == Weapon.BrassKnuckles) ? 1 : 0);
+                TheEditor.SetGlobal(WeaponVars[Types.Weapon.BrassKnuckles], (Slot0Weapon == Types.Weapon.BrassKnuckles) ? 1 : 0);
                 goto Cleanup;
             }
 
@@ -339,9 +481,17 @@ namespace LCSSaveEditor.GUI.ViewModels
             m_isWritingWeaponSlot = false;
         }
 
+        private void WriteSelectedWeapon()
+        {
+            if (!m_suppressWritingSelectedWeapon)
+            {
+                TheEditor.SetGlobal(GlobalVariable.PlayerWeapon, (int) (Weapon ?? Types.Weapon.Fists));
+            }
+        }
+
         public void UpdateInventory()
         {
-            if (!CurrentWeapon.HasValue || !WeaponSlots.TryGetValue(CurrentWeapon.Value, out int selectedSlot))
+            if (!Weapon.HasValue || !WeaponSlots.TryGetValue(Weapon.Value, out int selectedSlot))
             {
                 selectedSlot = -1;
             }
@@ -373,24 +523,20 @@ namespace LCSSaveEditor.GUI.ViewModels
                 if (!m_isWritingWeaponSlot)
                 {
                     m_suppressWritingSelectedWeapon = true;
-                    CurrentWeapon = w;
+                    Weapon = w;
                     m_suppressWritingSelectedWeapon = false;
                 }
                 else
                 {
-                    CurrentWeapon = w;
+                    Weapon = w;
                 }
             }
         }
 
-        private void WriteSelectedWeapon()
+        public void UpdateOutfit()
         {
-            if (!m_suppressWritingSelectedWeapon)
-            {
-                m_isWritingCurrentWeapon = true;
-                TheEditor.SetGlobal(GlobalVariable.PlayerWeapon, (int) (CurrentWeapon ?? Weapon.Fists));
-                m_isWritingCurrentWeapon = false;
-            }
+            OnPropertyChanged(nameof(IsOutfitUnlocked));
+            OnPropertyChanged(nameof(Outfit));
         }
 
         private void GlobalVariables_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -399,8 +545,31 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             switch (g)
             {
-                case GlobalVariable.PlayerCostume:
-                    OnPropertyChanged(nameof(CurrentOutfit));
+                case GlobalVariable.PlayerX:
+                case GlobalVariable.PlayerY:
+                case GlobalVariable.PlayerZ:
+                    OnPropertyChanged(nameof(SpawnPoint));
+                    break;
+                case GlobalVariable.Outfit1Unlocked:
+                case GlobalVariable.Outfit2Unlocked:
+                case GlobalVariable.Outfit3Unlocked:
+                case GlobalVariable.Outfit4Unlocked:
+                case GlobalVariable.Outfit5Unlocked:
+                case GlobalVariable.Outfit6Unlocked:
+                case GlobalVariable.Outfit7Unlocked:
+                case GlobalVariable.Outfit8Unlocked:
+                case GlobalVariable.Outfit9Unlocked:
+                case GlobalVariable.Outfit10Unlocked:
+                case GlobalVariable.Outfit11Unlocked:
+                case GlobalVariable.Outfit12Unlocked:
+                case GlobalVariable.Outfit13Unlocked:
+                case GlobalVariable.Outfit14Unlocked:
+                case GlobalVariable.Outfit15Unlocked:
+                case GlobalVariable.Outfit16Unlocked:
+                    OnPropertyChanged(nameof(IsOutfitUnlocked));
+                    break;
+                case GlobalVariable.PlayerOutfit:
+                    OnPropertyChanged(nameof(Outfit));
                     break;
                 case GlobalVariable.PlayerArmor:
                     OnPropertyChanged(nameof(Armor));
@@ -408,13 +577,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                 case GlobalVariable.PlayerMoney:
                     OnPropertyChanged(nameof(Money));
                     break;
-            }
-
-            if (m_isWritingCurrentWeapon) return;
-            switch (g)
-            {
                 case GlobalVariable.PlayerWeapon:
-                    OnPropertyChanged(nameof(CurrentWeapon));
+                    OnPropertyChanged(nameof(Weapon));
                     break;
             }
 
@@ -479,151 +643,153 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public static IReadOnlyList<Weapon> Slot0Weapons = new List<Weapon>()
         {
-            Weapon.Fists,
-            Weapon.BrassKnuckles,
+            Types.Weapon.Fists,
+            Types.Weapon.BrassKnuckles,
         };
 
         public static IReadOnlyList<Weapon> Slot1Weapons = new List<Weapon>()
         {
-            Weapon.Chisel,
-            Weapon.Axe,
-            Weapon.HockeyStick,
-            Weapon.NightStick,
-            Weapon.BaseballBat,
-            Weapon.Cleaver,
-            Weapon.Katana,
-            Weapon.Knife,
-            Weapon.Machete,
-            Weapon.Chainsaw
+            Types.Weapon.Chisel,
+            Types.Weapon.Axe,
+            Types.Weapon.HockeyStick,
+            Types.Weapon.NightStick,
+            Types.Weapon.BaseballBat,
+            Types.Weapon.Cleaver,
+            Types.Weapon.Katana,
+            Types.Weapon.Knife,
+            Types.Weapon.Machete,
+            Types.Weapon.Chainsaw
         };
 
         public static IReadOnlyList<Weapon> Slot2Weapons = new List<Weapon>()
         {
-            Weapon.Molotovs,
-            Weapon.Grenades,
-            Weapon.RemoteGrenades,
-            Weapon.TearGas,
+            Types.Weapon.Molotovs,
+            Types.Weapon.Grenades,
+            Types.Weapon.RemoteGrenades,
+            Types.Weapon.TearGas,
         };
 
         public static IReadOnlyList<Weapon> Slot3Weapons = new List<Weapon>()
         {
-            Weapon.Pistol,
-            Weapon.Python,
+            Types.Weapon.Pistol,
+            Types.Weapon.Python,
         };
 
         public static IReadOnlyList<Weapon> Slot4Weapons = new List<Weapon>()
         {
-            Weapon.Shotgun,
-            Weapon.StubbyShotgun,
-            Weapon.Spas12,
+            Types.Weapon.Shotgun,
+            Types.Weapon.StubbyShotgun,
+            Types.Weapon.Spas12,
         };
 
         public static IReadOnlyList<Weapon> Slot5Weapons = new List<Weapon>()
         {
-            Weapon.Tec9,
-            Weapon.Mac10,
-            Weapon.MP5,
-            Weapon.MicroSMG
+            Types.Weapon.Tec9,
+            Types.Weapon.Mac10,
+            Types.Weapon.MP5,
+            Types.Weapon.MicroSMG
         };
 
         public static IReadOnlyList<Weapon> Slot6Weapons = new List<Weapon>()
         {
-            Weapon.AK,
-            Weapon.M4,
+            Types.Weapon.AK,
+            Types.Weapon.M4,
         };
 
         public static IReadOnlyList<Weapon> Slot7Weapons = new List<Weapon>()
         {
-            Weapon.FlameThrower,
-            Weapon.RocketLauncher,
-            Weapon.Minigun,
-            Weapon.M60,
+            Types.Weapon.FlameThrower,
+            Types.Weapon.RocketLauncher,
+            Types.Weapon.Minigun,
+            Types.Weapon.M60,
         };
 
         public static IReadOnlyList<Weapon> Slot8Weapons = new List<Weapon>()
         {
-            Weapon.Sniper,
-            Weapon.LaserSniper,
+            Types.Weapon.Sniper,
+            Types.Weapon.LaserSniper,
         };
 
         public static IReadOnlyList<Weapon> Slot9Weapons = new List<Weapon>()
         {
-            Weapon.Camera,
+            Types.Weapon.Camera,
         };
 
         public static IReadOnlyDictionary<Weapon, int> WeaponSlots = new Dictionary<Weapon, int>()
         {
-            { Weapon.Fists, 0 },
-            { Weapon.BrassKnuckles, 0 },
-            { Weapon.Chisel, 1 },
-            { Weapon.Axe, 1 },
-            { Weapon.HockeyStick, 1 },
-            { Weapon.NightStick, 1 },
-            { Weapon.BaseballBat, 1 },
-            { Weapon.Cleaver, 1 },
-            { Weapon.Katana, 1 },
-            { Weapon.Knife, 1 },
-            { Weapon.Machete, 1 },
-            { Weapon.Chainsaw, 1 },
-            { Weapon.Grenades, 2 },
-            { Weapon.Molotovs, 2 },
-            { Weapon.TearGas, 2 },
-            { Weapon.RemoteGrenades, 2 },
-            { Weapon.Pistol, 3 },
-            { Weapon.Python, 3 },
-            { Weapon.Shotgun, 4 },
-            { Weapon.Spas12, 4 },
-            { Weapon.StubbyShotgun, 4 },
-            { Weapon.Tec9, 5 },
-            { Weapon.Mac10, 5 },
-            { Weapon.MicroSMG, 5 },
-            { Weapon.MP5, 5 },
-            { Weapon.AK, 6 },
-            { Weapon.M4, 6 },
-            { Weapon.RocketLauncher, 7 },
-            { Weapon.M60, 7 },
-            { Weapon.FlameThrower, 7 },
-            { Weapon.Minigun, 7 },
-            { Weapon.Sniper, 8 },
-            { Weapon.LaserSniper, 8 },
-            { Weapon.Camera, 9 },
+            { Types.Weapon.Fists, 0 },
+            { Types.Weapon.BrassKnuckles, 0 },
+            { Types.Weapon.Chisel, 1 },
+            { Types.Weapon.Axe, 1 },
+            { Types.Weapon.HockeyStick, 1 },
+            { Types.Weapon.NightStick, 1 },
+            { Types.Weapon.BaseballBat, 1 },
+            { Types.Weapon.Cleaver, 1 },
+            { Types.Weapon.Katana, 1 },
+            { Types.Weapon.Knife, 1 },
+            { Types.Weapon.Machete, 1 },
+            { Types.Weapon.Chainsaw, 1 },
+            { Types.Weapon.Grenades, 2 },
+            { Types.Weapon.Molotovs, 2 },
+            { Types.Weapon.TearGas, 2 },
+            { Types.Weapon.RemoteGrenades, 2 },
+            { Types.Weapon.Pistol, 3 },
+            { Types.Weapon.Python, 3 },
+            { Types.Weapon.Shotgun, 4 },
+            { Types.Weapon.Spas12, 4 },
+            { Types.Weapon.StubbyShotgun, 4 },
+            { Types.Weapon.Tec9, 5 },
+            { Types.Weapon.Mac10, 5 },
+            { Types.Weapon.MicroSMG, 5 },
+            { Types.Weapon.MP5, 5 },
+            { Types.Weapon.AK, 6 },
+            { Types.Weapon.M4, 6 },
+            { Types.Weapon.RocketLauncher, 7 },
+            { Types.Weapon.M60, 7 },
+            { Types.Weapon.FlameThrower, 7 },
+            { Types.Weapon.Minigun, 7 },
+            { Types.Weapon.Sniper, 8 },
+            { Types.Weapon.LaserSniper, 8 },
+            { Types.Weapon.Camera, 9 },
         };
 
         public static IReadOnlyDictionary<Weapon, GlobalVariable> WeaponVars = new Dictionary<Weapon, GlobalVariable>()
         {
-            { Weapon.Camera, GlobalVariable.Weapon36Ammo },
-            { Weapon.BrassKnuckles, GlobalVariable.Weapon1Ammo },
-            { Weapon.Chisel, GlobalVariable.Weapon2Ammo },
-            { Weapon.Axe, GlobalVariable.Weapon7Ammo },
-            { Weapon.HockeyStick, GlobalVariable.Weapon3Ammo },
-            { Weapon.NightStick, GlobalVariable.Weapon4Ammo },
-            { Weapon.BaseballBat, GlobalVariable.Weapon6Ammo },
-            { Weapon.Cleaver, GlobalVariable.Weapon8Ammo },
-            { Weapon.Katana, GlobalVariable.Weapon10Ammo },
-            { Weapon.Knife, GlobalVariable.Weapon5Ammo },
-            { Weapon.Machete, GlobalVariable.Weapon9Ammo },
-            { Weapon.Chainsaw, GlobalVariable.Weapon11Ammo },
-            { Weapon.Grenades, GlobalVariable.Weapon12Ammo },
-            { Weapon.Molotovs, GlobalVariable.Weapon15Ammo },
-            { Weapon.TearGas, GlobalVariable.Weapon14Ammo },
-            { Weapon.RemoteGrenades, GlobalVariable.Weapon13Ammo },
-            { Weapon.Pistol, GlobalVariable.Weapon17Ammo },
-            { Weapon.Python, GlobalVariable.Weapon18Ammo },
-            { Weapon.Shotgun, GlobalVariable.Weapon19Ammo },
-            { Weapon.Spas12, GlobalVariable.Weapon20Ammo },
-            { Weapon.StubbyShotgun, GlobalVariable.Weapon21Ammo },
-            { Weapon.Tec9, GlobalVariable.Weapon22Ammo },
-            { Weapon.Mac10, GlobalVariable.Weapon23Ammo },
-            { Weapon.MicroSMG, GlobalVariable.Weapon24Ammo },
-            { Weapon.MP5, GlobalVariable.Weapon25Ammo },
-            { Weapon.AK, GlobalVariable.Weapon27Ammo },
-            { Weapon.M4, GlobalVariable.Weapon26Ammo },
-            { Weapon.RocketLauncher, GlobalVariable.Weapon30Ammo },
-            { Weapon.M60, GlobalVariable.Weapon32Ammo },
-            { Weapon.FlameThrower, GlobalVariable.Weapon31Ammo },
-            { Weapon.Minigun, GlobalVariable.Weapon33Ammo },
-            { Weapon.Sniper, GlobalVariable.Weapon28Ammo },
-            { Weapon.LaserSniper, GlobalVariable.Weapon29Ammo },
+            { Types.Weapon.Camera, GlobalVariable.Weapon36Ammo },
+            { Types.Weapon.BrassKnuckles, GlobalVariable.Weapon1Ammo },
+            { Types.Weapon.Chisel, GlobalVariable.Weapon2Ammo },
+            { Types.Weapon.Axe, GlobalVariable.Weapon7Ammo },
+            { Types.Weapon.HockeyStick, GlobalVariable.Weapon3Ammo },
+            { Types.Weapon.NightStick, GlobalVariable.Weapon4Ammo },
+            { Types.Weapon.BaseballBat, GlobalVariable.Weapon6Ammo },
+            { Types.Weapon.Cleaver, GlobalVariable.Weapon8Ammo },
+            { Types.Weapon.Katana, GlobalVariable.Weapon10Ammo },
+            { Types.Weapon.Knife, GlobalVariable.Weapon5Ammo },
+            { Types.Weapon.Machete, GlobalVariable.Weapon9Ammo },
+            { Types.Weapon.Chainsaw, GlobalVariable.Weapon11Ammo },
+            { Types.Weapon.Grenades, GlobalVariable.Weapon12Ammo },
+            { Types.Weapon.Molotovs, GlobalVariable.Weapon15Ammo },
+            { Types.Weapon.TearGas, GlobalVariable.Weapon14Ammo },
+            { Types.Weapon.RemoteGrenades, GlobalVariable.Weapon13Ammo },
+            { Types.Weapon.Pistol, GlobalVariable.Weapon17Ammo },
+            { Types.Weapon.Python, GlobalVariable.Weapon18Ammo },
+            { Types.Weapon.Shotgun, GlobalVariable.Weapon19Ammo },
+            { Types.Weapon.Spas12, GlobalVariable.Weapon20Ammo },
+            { Types.Weapon.StubbyShotgun, GlobalVariable.Weapon21Ammo },
+            { Types.Weapon.Tec9, GlobalVariable.Weapon22Ammo },
+            { Types.Weapon.Mac10, GlobalVariable.Weapon23Ammo },
+            { Types.Weapon.MicroSMG, GlobalVariable.Weapon24Ammo },
+            { Types.Weapon.MP5, GlobalVariable.Weapon25Ammo },
+            { Types.Weapon.AK, GlobalVariable.Weapon27Ammo },
+            { Types.Weapon.M4, GlobalVariable.Weapon26Ammo },
+            { Types.Weapon.RocketLauncher, GlobalVariable.Weapon30Ammo },
+            { Types.Weapon.M60, GlobalVariable.Weapon32Ammo },
+            { Types.Weapon.FlameThrower, GlobalVariable.Weapon31Ammo },
+            { Types.Weapon.Minigun, GlobalVariable.Weapon33Ammo },
+            { Types.Weapon.Sniper, GlobalVariable.Weapon28Ammo },
+            { Types.Weapon.LaserSniper, GlobalVariable.Weapon29Ammo },
         };
+
+        public static IReadOnlyList<PlayerOutfit> Outfits = Enum.GetValues(typeof(PlayerOutfit)) as IReadOnlyList<PlayerOutfit>;
     }
 }
