@@ -39,7 +39,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <c:TabControlEx
+        <!--<c:TabControlEx
                 Grid.Row="0"
                 Margin="-0.5,2.5,-0.5,-0.5"
                 Style="{StaticResource TabControlStyle}"
@@ -49,9 +49,9 @@
                 <DataTemplate>
                     <TextBlock Text="{Binding Title, Mode=OneWay}"/>
                 </DataTemplate>
-            </c:TabControlEx.ItemTemplate>
+            </c:TabControlEx.ItemTemplate>-->
 
-            <TabItem Header="Info" Style="{StaticResource TabItemStyle}">
+            <!--<TabItem Header="Info" Style="{StaticResource TabItemStyle}">-->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.67*"/>
@@ -211,9 +211,9 @@
                     </GroupBox>
 
                 </Grid>
-            </TabItem>
+            <!--</TabItem>-->
 
-            <TabItem Header="Spawn Point" Style="{StaticResource TabItemStyle}">
+            <!--<TabItem Header="Spawn Point" Style="{StaticResource TabItemStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
@@ -254,12 +254,35 @@
                                     Height="95" Margin="5,10,5,5"
                                     GapThickness="5"
                                     Value="{Binding SpawnPoint}"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Heading:"/>
+                                    <Slider
+                                        Grid.Column="1" VerticalAlignment="Center" AutoToolTipPlacement="None"
+                                        Minimum="0" Maximum="359"
+                                        LargeChange="90" SmallChange="15"
+                                        Value="{Binding SpawnHeading}"/>
+                                    <xctk:IntegerUpDown
+                                        Grid.Column="2" ShowButtonSpinner="False"
+                                        Minimum="0" Maximum="359"
+                                        Value="{Binding SpawnHeading}" />
+                                </Grid>
                                 <Separator Background="Transparent" Height="10"/>
                                 <TextBlock
                                     Margin="5,5,5,0"
                                     Style="{StaticResource LabelStyleLeft}" 
-                                    Text="Location Preset:"/>
-                                <ComboBox/>
+                                    Text="Interior:"/>
+                                <ComboBox
+                                    SelectedIndex="{Binding SpawnInterior}">
+                                    --><!--<ComboBoxItem>None</ComboBoxItem>
+                                    <ComboBoxItem>Portland Safehouse</ComboBoxItem>
+                                    <ComboBoxItem>Staunton Island Safehouse</ComboBoxItem>
+                                    <ComboBoxItem>Shoreside Vale Safehouse</ComboBoxItem>--><!--
+                                </ComboBox>
                             </StackPanel>
 
                             <Grid Grid.Row="2" VerticalAlignment="Bottom">
@@ -276,9 +299,9 @@
                     </GroupBox>
 
                 </Grid>
-            </TabItem>
+            </TabItem>-->
 
-        </c:TabControlEx>
+        <!--</c:TabControlEx>-->
     </Grid>
 
 </v:TabPageBase>

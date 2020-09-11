@@ -35,8 +35,8 @@
         <KeyBinding Key="D1" Modifiers="Ctrl" Command="{Binding TogglePackagesCommand}"/>
         <KeyBinding Key="D2" Modifiers="Ctrl" Command="{Binding ToggleRampagesCommand}"/>
         <KeyBinding Key="D3" Modifiers="Ctrl" Command="{Binding ToggleStuntJumpsCommand}"/>
-        <KeyBinding Key="F2" Command="{Binding ToggleCollectedCommand}"/>
-        <KeyBinding Key="F3" Command="{Binding ToggleLegendCommand}"/>
+        <!--<KeyBinding Key="F2" Command="{Binding ToggleCollectedCommand}"/>-->
+        <!--<KeyBinding Key="F3" Command="{Binding ToggleLegendCommand}"/>-->
         <!--<KeyBinding Key="F5" Command="{Binding ResetMapCommand}"/>-->
     </Window.InputBindings>
 
@@ -72,12 +72,12 @@
             </MenuItem>
             <MenuItem Header="_Options">
                 <MenuItem
-                    Header="Show _Collected Items" InputGestureText="F2"
+                    Header="Show _Collected Items"
                     IsCheckable="True" IsChecked="{Binding IsShowingCollected}"
                     Checked="IsShowingCollected_Checked" Unchecked="IsShowingCollected_Unchecked"/>
                 <Separator/>
                 <MenuItem
-                    Header="Show _Legend" InputGestureText="F3"
+                    Header="Show _Legend"
                     IsCheckable="True" IsChecked="{Binding IsShowingLegend}"/>
                 <!--<MenuItem Header="_Reset Map Position"/>-->
             </MenuItem>

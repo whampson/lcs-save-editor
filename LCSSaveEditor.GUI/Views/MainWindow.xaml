@@ -96,10 +96,10 @@
                     InputGestureText="Ctrl+W"
                     Command="{Binding FileCloseCommand}"/>
                 <Separator/>
-                <MenuItem
+                <!--<MenuItem
                     Header="_Transfer Data..."
                     Command="{Binding FileTransferDataCommand}"/>
-                <Separator/>
+                <Separator/>-->
                 <MenuItem
                     Header="E_xit"
                     InputGestureText="Alt+F4"
@@ -111,7 +111,7 @@
                     Header="_Global Variables"
                     InputGestureText="F2"
                     Command="{Binding EditGlobalsCommand}"/>
-                <Separator/>
+                <!--<Separator/>-->
                 <!--<MenuItem Header="Change File _Type (TODO)" IsEnabled="{Binding TheEditor.IsFileOpen}">
                     <MenuItem
                         Header="_Android"
@@ -131,10 +131,10 @@
                         Command="{Binding EditConvertPSPCommand}"/>
                 </MenuItem>
                 <Separator/>-->
-                <MenuItem
+                <!--<MenuItem
                     Header="_Settings"
                     InputGestureText="Ctrl+,"
-                    Command="{Binding EditSettingsCommand}"/>
+                    Command="{Binding EditSettingsCommand}"/>-->
             </MenuItem>
 
             <MenuItem Header="_View">
@@ -179,12 +179,13 @@
 
             <MenuItem Header="_Help">
                 <MenuItem
+                    Header="Check for _Updates"
+                    Command="{Binding HelpUpdateCommand}"/>
+                <Separator/>
+                <MenuItem
                     Header="_About"
                     InputGestureText="F1"
                     Command="{Binding HelpAboutCommand}"/>
-                <MenuItem
-                    Header="Check for _Updates"
-                    Command="{Binding HelpUpdateCommand}"/>
             </MenuItem>
 
         </Menu>

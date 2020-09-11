@@ -51,26 +51,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         private Point m_mouseCoords;
         private double m_zoomLevel;
 
-        public bool IsOutfitUnlocked
-        {
-            get { return TheEditor.GetGlobal(GlobalVariable.Outfit1Unlocked + (int) Outfit) != 0; }
-            set
-            {
-                int outfit = (int) Outfit;
-                if (value)
-                {
-                    TheEditor.SetGlobal(GlobalVariable.Outfit1Unlocked + outfit, true);
-                    TheSave.Stats.UnlockedCostumes |= (PlayerOutfitFlags) (1 << outfit);
-                }
-                else
-                {
-                    TheEditor.SetGlobal(GlobalVariable.Outfit1Unlocked + outfit, false);
-                    TheSave.Stats.UnlockedCostumes &= ~((PlayerOutfitFlags) (1 << outfit));
-                }
-                OnPropertyChanged();
-            }
-        }
-
         public PlayerOutfit Outfit
         {
             get { return (PlayerOutfit) TheEditor.GetGlobal(GlobalVariable.PlayerOutfit); }
@@ -101,6 +81,10 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_currentWeapon = value; WriteSelectedWeapon(); OnPropertyChanged(); }
         }
 
+        // 1 Portland: 1138.803 -242.4054 22.0082
+        // 2 Staunton: 272.1489 -417.604 60.1342 
+        // 3 Shorside: -845.29 304.41 40.95
+
         public Vector3D SpawnPoint
         {
             get
@@ -123,6 +107,17 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         }
 
+        public int SpawnHeading
+        {
+            get { return (int) TheEditor.GetGlobalAsFloat(GlobalVariable.PlayerHeading); }
+            set { TheEditor.SetGlobal(GlobalVariable.PlayerHeading, (float) value); OnPropertyChanged(); }
+        }
+
+        public int SpawnInterior
+        {
+            get { return (int) TheEditor.GetGlobal(GlobalVariable.CurrentInterior); }
+            set { TheEditor.SetGlobal(GlobalVariable.CurrentInterior, value); OnPropertyChanged(); }
+        }
 
         public int Slot1Ammo
         {
@@ -323,6 +318,8 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             MapOverlays.Clear();
             MapOverlays.Add(MakeTargetSprite(SpawnPoint.Get2DComponent(), scale: 32));
+            OnPropertyChanged(nameof(SpawnHeading));
+            OnPropertyChanged(nameof(SpawnInterior));
         }
 
         private UIElement MakeTargetSprite(Vector2D loc,
@@ -535,7 +532,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void UpdateOutfit()
         {
-            OnPropertyChanged(nameof(IsOutfitUnlocked));
             OnPropertyChanged(nameof(Outfit));
         }
 
@@ -549,24 +545,6 @@ namespace LCSSaveEditor.GUI.ViewModels
                 case GlobalVariable.PlayerY:
                 case GlobalVariable.PlayerZ:
                     OnPropertyChanged(nameof(SpawnPoint));
-                    break;
-                case GlobalVariable.Outfit1Unlocked:
-                case GlobalVariable.Outfit2Unlocked:
-                case GlobalVariable.Outfit3Unlocked:
-                case GlobalVariable.Outfit4Unlocked:
-                case GlobalVariable.Outfit5Unlocked:
-                case GlobalVariable.Outfit6Unlocked:
-                case GlobalVariable.Outfit7Unlocked:
-                case GlobalVariable.Outfit8Unlocked:
-                case GlobalVariable.Outfit9Unlocked:
-                case GlobalVariable.Outfit10Unlocked:
-                case GlobalVariable.Outfit11Unlocked:
-                case GlobalVariable.Outfit12Unlocked:
-                case GlobalVariable.Outfit13Unlocked:
-                case GlobalVariable.Outfit14Unlocked:
-                case GlobalVariable.Outfit15Unlocked:
-                case GlobalVariable.Outfit16Unlocked:
-                    OnPropertyChanged(nameof(IsOutfitUnlocked));
                     break;
                 case GlobalVariable.PlayerOutfit:
                     OnPropertyChanged(nameof(Outfit));
