@@ -359,35 +359,31 @@
                         Grid.Row="0" Grid.Column="0"
                         Margin="5"
                         Content="Taxi Boost Jump"
+                        ToolTip="Causes taxis to jump in the air when the horn is pressed."
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding SimpleVars.AllTaxisHaveNitro}"/>
                     <CheckBox
                         Grid.Row="1" Grid.Column="0"
                         Margin="5"
                         Content="Cheated Flag"
+                        ToolTip="Enables a warning about cheats being activated when saving the game."
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding SimpleVars.HasPlayerCheated}"/>
                     <CheckBox
                         Grid.Row="0" Grid.Column="1"
                         Margin="5"
                         Content="Blur Filter"
+                        ToolTip="Enables a color filter that darkens and blurs the graphics a bit."
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding SimpleVars.BlurOn}"/>
                     <CheckBox
                         Grid.Row="1" Grid.Column="1"
                         Margin="5"
-                        IsChecked="{Binding Stats.PamphletMissionPassed}">
-                        <CheckBox.Style>
-                            <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxStyle}">
-                                <Setter Property="Content" Value="No Leaflets"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding TheSave.FileFormat.IsMobile}" Value="True">
-                                        <Setter Property="Content" Value="BITE Leaflets"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </CheckBox.Style>
-                    </CheckBox>
+                        Content="BITE Leaflets"
+                        ToolTip="Causes the BITE leaflets from Vice City to be seen amidst the rubbish in the streets."
+                        Style="{StaticResource CheckBoxStyle}"
+                        IsChecked="{Binding Stats.PamphletMissionPassed}"/>
+
                 </Grid>
             </GroupBox>
         </Grid>

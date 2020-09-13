@@ -21,9 +21,11 @@ namespace LCSSaveEditor.GUI.Views
             Loaded += View_Loaded;
         }
 
-        public Editor TheEditor => ViewModel.TheWindow.TheEditor;
-        public LCSSave TheSave => ViewModel.TheWindow.TheSave;
-        public Settings TheSettings => ViewModel.TheWindow.TheSettings;
+        public Editor TheEditor => Editor.TheEditor;
+        public LCSSave TheSave => TheEditor.ActiveFile;
+        public Settings TheSettings => Settings.TheSettings;
+        public Gxt TheText => Gxt.TheText;
+        public Carcols TheCarcols => Carcols.TheCarcols;
 
         private void View_Loaded(object sender, RoutedEventArgs e)
         {

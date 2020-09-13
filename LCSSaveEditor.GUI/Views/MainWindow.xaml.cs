@@ -5,6 +5,7 @@ using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,16 +26,14 @@ namespace LCSSaveEditor.GUI.Views
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : WindowBase
     {
-        private bool m_initialized;
-        private bool m_initializing;
         private GlobalsWindow m_globalsWindow;
         private MapWindow m_mapWindow;
         private StatsWindow m_statsWindow;
         private LogWindow m_logWindow;
         
-        public ViewModels.MainWindow ViewModel
+        public new ViewModels.MainWindow ViewModel
         {
             get { return (ViewModels.MainWindow) DataContext; }
             set { DataContext = value; }
@@ -42,66 +41,12 @@ namespace LCSSaveEditor.GUI.Views
 
         public MainWindow()
         {
-            m_initializing = true;
             InitializeComponent();
         }
 
-        private T CreateWindow<T>() where T : Window, new()
+        protected override void WindowLoaded()
         {
-            return new T() { Owner = this };
-        }
-
-        private void LazyLoadWindow<T>(T window, out T outWindow) where T : Window, new()
-        {
-            if (window != null && window.IsVisible)
-            {
-                window.Focus();
-                outWindow = window;
-                return;
-            }
-            
-            if (window == null)
-            {
-                window = new T() { Owner = this };
-            }
-            
-            window.Show();
-            outWindow = window;
-        }
-
-        private void DestroyAllWindows()
-        {
-            if (m_globalsWindow != null)
-            {
-                m_globalsWindow.HideOnClose = false;
-                m_globalsWindow.Close();
-                m_globalsWindow = null;
-            }
-
-            if (m_mapWindow != null)
-            {
-                m_mapWindow.HideOnClose = false;
-                m_mapWindow.Close();
-                m_mapWindow = null;
-            }
-
-            if (m_logWindow != null)
-            {
-                m_logWindow.HideOnClose = false;
-                m_logWindow.Close();
-                m_logWindow = null;
-            }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (m_initialized) return;
-
-            ViewModel.Initialize();
-            ViewModel.FileDialogRequest += ViewModel_FileDialogRequest;
-            ViewModel.FolderDialogRequest += ViewModel_FolderDialogRequest;
-            ViewModel.GxtDialogRequest += ViewModel_GxtDialogRequest;
-            ViewModel.MessageBoxRequest += ViewModel_MessageBoxRequest;
+            base.WindowLoaded();
             ViewModel.SettingsWindowRequest += ViewModel_SettingsWindowRequest;
             ViewModel.GlobalsWindowRequest += ViewModel_GlobalsWindowRequest;
             ViewModel.MapWindowRequest += ViewModel_MapWindowRequest;
@@ -109,12 +54,9 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
             ViewModel.DestroyAllWindowsRequest += ViewModel_DestroyAllWindowsRequest;
-
-            m_initializing = false;
-            m_initialized = true;
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        protected override void WindowClosing(CancelEventArgs e)
         {
             if (ViewModel.IsDirty)
             {
@@ -123,21 +65,63 @@ namespace LCSSaveEditor.GUI.Views
                 return;
             }
 
-            ViewModel.Shutdown();
-            ViewModel.FileDialogRequest -= ViewModel_FileDialogRequest;
-            ViewModel.FolderDialogRequest -= ViewModel_FolderDialogRequest;
-            ViewModel.GxtDialogRequest -= ViewModel_GxtDialogRequest;
-            ViewModel.MessageBoxRequest -= ViewModel_MessageBoxRequest;
+            base.WindowClosing(e);
             ViewModel.SettingsWindowRequest -= ViewModel_SettingsWindowRequest;
             ViewModel.GlobalsWindowRequest -= ViewModel_GlobalsWindowRequest;
             ViewModel.MapWindowRequest -= ViewModel_MapWindowRequest;
             ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
             ViewModel.DestroyAllWindowsRequest -= ViewModel_DestroyAllWindowsRequest;
-
             DestroyAllWindows();
+        }
 
-            m_initialized = false;
+        private void LazyLoadWindow<T>(T window, out T outWindow) where T : ChildWindowBase, new()
+        {
+            if (window != null && window.IsVisible)
+            {
+                window.Focus();
+                outWindow = window;
+                return;
+            }
+
+
+            if (window == null)
+            {
+                window = new T() { Owner = this };
+                window.ViewModel.OpenFileRequest += ViewModel.OpenFileRequest_Handler;
+                window.ViewModel.SaveFileRequest += ViewModel.SaveFileRequest_Handler;
+                window.ViewModel.CloseFileRequest += ViewModel.CloseFileRequest_Handler;
+                window.ViewModel.RevertFileRequest += ViewModel.RevertFileRequest_Handler;
+            }
+
+            outWindow = window;
+            window.Show();
+        }
+
+        private void DestroyWindow<T>(T window) where T : ChildWindowBase
+        {
+            if (window != null)
+            {
+                window.HideOnClose = false;
+                window.Close();
+                window.ViewModel.OpenFileRequest -= ViewModel.OpenFileRequest_Handler;
+                window.ViewModel.SaveFileRequest -= ViewModel.SaveFileRequest_Handler;
+                window.ViewModel.CloseFileRequest -= ViewModel.CloseFileRequest_Handler;
+                window.ViewModel.RevertFileRequest -= ViewModel.RevertFileRequest_Handler;
+            }
+        }
+
+        private void DestroyAllWindows()
+        {
+            DestroyWindow(m_globalsWindow);
+            DestroyWindow(m_mapWindow);
+            DestroyWindow(m_logWindow);
+            DestroyWindow(m_statsWindow);
+
+            m_globalsWindow = null;
+            m_mapWindow = null;
+            m_logWindow = null;
+            m_statsWindow = null;
         }
 
         private void Window_Drop(object sender, DragEventArgs e)
@@ -160,49 +144,7 @@ namespace LCSSaveEditor.GUI.Views
                 return;
             }
         }
-
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            ViewModel.CheckForExternalChanges();
-        }
-
-        private void ViewModel_FileDialogRequest(object sender, FileDialogEventArgs e)
-        {
-            e.ShowDialog(this);
-        }
-
-        private void ViewModel_FolderDialogRequest(object sender, FileDialogEventArgs e)
-        {
-            VistaFolderBrowserDialog d = new VistaFolderBrowserDialog();
-            bool? r = d.ShowDialog(this);
-
-            e.FileName = d.SelectedPath;
-            e.Callback?.Invoke(r, e);
-        }
-
-        private void ViewModel_GxtDialogRequest(object sender, GxtDialogEventArgs e)
-        {
-            GxtDialog d = new GxtDialog() { Owner = this };
-            d.ViewModel.TableName = e.TableName;
-            d.ViewModel.AllowTableSelection = e.AllowTableSelection;
-
-            if (e.Modal)
-            {
-                bool? r = d.ShowDialog();
-                e.SelectedKey = d.ViewModel.SelectedItem.Key;
-                e.SelectedValue = d.ViewModel.SelectedItem.Value;
-                e.Callback?.Invoke(r, e);
-                return;
-            }
-
-            d.Show();
-            e.Callback?.Invoke(false, e);
-        }
-
-        private void ViewModel_MessageBoxRequest(object sender, MessageBoxEventArgs e)
-        {
-            e.Show(this);
-        }
+        
 
         private void ViewModel_SettingsWindowRequest(object sender, EventArgs e)
         {
@@ -244,10 +186,9 @@ namespace LCSSaveEditor.GUI.Views
             DestroyAllWindows();
         }
         
-
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (m_initializing || !(e.OriginalSource is TabControl))
+            if (IsWindowInitializing || !(e.OriginalSource is TabControl))
             {
                 return;
             }

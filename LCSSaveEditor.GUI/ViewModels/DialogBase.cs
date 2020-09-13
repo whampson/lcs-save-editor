@@ -1,7 +1,5 @@
 ﻿using LCSSaveEditor.GUI.Events;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using WpfEssentials.Win32;
 

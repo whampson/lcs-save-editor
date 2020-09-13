@@ -1,4 +1,4 @@
-﻿<Window
+﻿<v:DialogBase
     x:Class="LCSSaveEditor.GUI.Views.GxtDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,7 +10,7 @@
     d:DataContext="{d:DesignInstance m:GxtDialog}"
     Title="Select GXT Entry"
     Height="450" Width="550"
-    Loaded="Dialog_Loaded" Closing="Dialog_Closing"
+    Loaded="Window_Loaded" Closing="Window_Closing"
     WindowStartupLocation="CenterOwner">
 
     <Window.DataContext>
@@ -111,4 +111,4 @@
 
     </Grid>
 
-</Window>
+</v:DialogBase>

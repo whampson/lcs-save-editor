@@ -7,16 +7,9 @@ namespace LCSSaveEditor.GUI.ViewModels
 {
     public class GaragesTab : TabPageBase
     {
-        private GarageData m_garageData;
         private List<StoredCar> m_garageContents;
         private ZoneLevel m_selectedSafeHouse;
         private StoredCar m_selectedCar;
-
-        public GarageData GarageData
-        {
-            get { return m_garageData; }
-            set { m_garageData = value; OnPropertyChanged(); }
-        }
 
         public List<StoredCar> GarageContents
         {
@@ -43,17 +36,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             SelectedSafeHouse = ZoneLevel.Industrial;
         }
 
-        public override void Load()
-        {
-            base.Load();
-            GarageData = TheWindow.TheSave.Garages;
-        }
-
-        public override void Unload()
-        {
-            base.Unload();
-        }
-
         public override void Update()
         {
             base.Update();
@@ -64,11 +46,10 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             switch (SelectedSafeHouse)
             {
-                case ZoneLevel.Industrial: GarageContents = GarageData.StoredCarsPortland.ToList(); break;
-                case ZoneLevel.Commercial: GarageContents = GarageData.StoredCarsStaunton.ToList(); break;
-                case ZoneLevel.Suburban: GarageContents = GarageData.StoredCarsShoreside.ToList(); break;
+                case ZoneLevel.Industrial: GarageContents = Garages.StoredCarsPortland.ToList(); break;
+                case ZoneLevel.Commercial: GarageContents = Garages.StoredCarsStaunton.ToList(); break;
+                case ZoneLevel.Suburban: GarageContents = Garages.StoredCarsShoreside.ToList(); break;
             }
         }
-
     }
 }

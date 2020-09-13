@@ -11,22 +11,8 @@ namespace LCSSaveEditor.GUI.ViewModels
 {
     public class GeneralTab : TabPageBase
     {
-        private SimpleVariables m_simpleVars;
-        private Stats m_stats;
         private string m_saveTitle;
         private float m_progress;
-
-        public SimpleVariables SimpleVars
-        {
-            get { return m_simpleVars; }
-            set { m_simpleVars = value; OnPropertyChanged(); }
-        }
-
-        public Stats Stats
-        {
-            get { return m_stats; }
-            set { m_stats = value; OnPropertyChanged(); }
-        }
 
         public string SaveTitleOnDisplay
         {
@@ -122,12 +108,9 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             base.Load();
 
-            SimpleVars = TheWindow.TheSave.SimpleVars;
-            Stats = TheWindow.TheSave.Stats;
-
             SimpleVars.PropertyChanged += Data_PropertyChanged;
             Stats.PropertyChanged += Data_PropertyChanged;
-            TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+            Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
         }
 
         public override void Unload()
@@ -136,7 +119,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             SimpleVars.PropertyChanged -= Data_PropertyChanged;
             Stats.PropertyChanged -= Data_PropertyChanged;
-            TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
+            Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
         }
 
         public override void Update()

@@ -19,9 +19,9 @@ namespace LCSSaveEditor.GUI.Views
     /// <summary>
     /// Interaction logic for GxtDialog.xaml
     /// </summary>
-    public partial class GxtDialog : Window
+    public partial class GxtDialog : DialogBase
     {
-        public ViewModels.GxtDialog ViewModel
+        public new ViewModels.GxtDialog ViewModel
         {
             get { return (ViewModels.GxtDialog) DataContext; }
             set { DataContext = value; }
@@ -30,22 +30,6 @@ namespace LCSSaveEditor.GUI.Views
         public GxtDialog()
         {
             InitializeComponent();
-        }
-
-        private void Dialog_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.DialogCloseRequest += ViewModel_DialogCloseRequest;
-        }
-
-        private void Dialog_Closing(object sender, CancelEventArgs e)
-        {
-            ViewModel.DialogCloseRequest -= ViewModel_DialogCloseRequest;
-        }
-
-        private void ViewModel_DialogCloseRequest(object sender, DialogCloseEventArgs e)
-        {
-            DialogResult = e.DialogResult;
-            Close();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

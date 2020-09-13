@@ -120,14 +120,14 @@
                                 <xctk:IntegerUpDown
                                     Grid.Row="0" Grid.Column="1"
                                     Minimum="0" Maximum="255"
-                                    Value="{Binding TheSave.PlayerInfo.MaxHealth}"/>
+                                    Value="{Binding PlayerInfo.MaxHealth}"/>
                                 <xctk:IntegerUpDown
                                     Grid.Row="1" Grid.Column="1"
                                     Minimum="0" Maximum="255"
-                                    Value="{Binding TheSave.PlayerInfo.MaxArmor}"/>
+                                    Value="{Binding PlayerInfo.MaxArmor}"/>
                                 <Slider
                                     Grid.Row="2" Grid.Column="1"
-                                    Minimum="0" Maximum="{Binding TheSave.PlayerInfo.MaxArmor}"
+                                    Minimum="0" Maximum="{Binding PlayerInfo.MaxArmor}"
                                     Value="{Binding Armor}"/>
                                 <xctk:IntegerUpDown
                                     Grid.Row="4" Grid.Column="1"
@@ -138,25 +138,25 @@
                         <GroupBox Grid.Row="1" Margin="0,-5,0,5" Header="Perks">
                             <StackPanel Orientation="Vertical" Margin="5">
                                 <CheckBox
-                                    IsChecked="{Binding TheSave.PlayerInfo.InfiniteSprint}"
+                                    IsChecked="{Binding PlayerInfo.InfiniteSprint}"
                                     Content="Infinite Sprint"/>
                                 <CheckBox
-                                    IsChecked="{Binding TheSave.PlayerInfo.FireProof}"
+                                    IsChecked="{Binding PlayerInfo.FireProof}"
                                     Content="Fire Proof"/>
                                 <CheckBox
-                                    IsChecked="{Binding TheSave.PlayerInfo.FastReload}"
+                                    IsChecked="{Binding PlayerInfo.FastReload}"
                                     Content="Fast Reload"/>
                                 <CheckBox
-                                    IsChecked="{Binding TheSave.Garages.FreeResprays}"
+                                    IsChecked="{Binding Garages.FreeResprays}"
                                     Content="Free Resprays"/>
                                 <CheckBox
-                                    IsChecked="{Binding TheSave.Garages.FreeBombs}"
+                                    IsChecked="{Binding Garages.FreeBombs}"
                                     Content="Free Bombs"/>
                                     <CheckBox
-                                    IsChecked="{Binding TheSave.PlayerInfo.GetOutOfHospitalFree}"
+                                    IsChecked="{Binding PlayerInfo.GetOutOfHospitalFree}"
                                     Content="Free Hospital Visit"/>
                                 <CheckBox
-                                    IsChecked="{Binding TheSave.PlayerInfo.GetOutOfJailFree}"
+                                    IsChecked="{Binding PlayerInfo.GetOutOfJailFree}"
                                     Content="Free Police Station Visit"/>
                             </StackPanel>
                         </GroupBox>

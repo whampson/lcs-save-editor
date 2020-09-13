@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using WpfEssentials;
 using WpfEssentials.Win32;
 
@@ -20,6 +21,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 {
     public class MainWindow : WindowBase
     {
+        public event EventHandler<TabUpdateEventArgs> TabUpdate;
         public event EventHandler SettingsWindowRequest;
         public event EventHandler AboutWindowRequest;
         public event EventHandler GlobalsWindowRequest;
@@ -27,20 +29,15 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler StatsWindowRequest;
         public event EventHandler LogWindowRequest;
         public event EventHandler DestroyAllWindowsRequest;
-        public event EventHandler<TabUpdateEventArgs> TabUpdate;
 
         private ObservableCollection<TabPageBase> m_tabs;
-        private int m_selectedTabIndex;
+        private readonly DispatcherTimer m_timer;
         private bool m_isRevertingFile;
         private bool m_isDirty;
-        private bool m_suppressExternalChangesCheck;
-
-        public Editor TheEditor => Editor.TheEditor;
-        public LCSSave TheSave => TheEditor.ActiveFile;
-        public Settings TheSettings => Settings.TheSettings;
-        public Gxt TheText => Gxt.TheText;
-
-        public Carcols TheCarcols => Carcols.TheCarcols;
+        private int m_selectedTabIndex;
+        private int m_timerTick;
+        private string m_currentStatusText;
+        private string m_permanentStatusText;
 
         public ObservableCollection<TabPageBase> Tabs
         {
@@ -54,20 +51,21 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_selectedTabIndex = value; OnPropertyChanged(); }
         }
 
+        public string StatusText
+        {
+            get { return m_currentStatusText; }
+            private set { m_currentStatusText = value; OnPropertyChanged(); }
+        }
+
         public bool IsDirty
         {
             get { return m_isDirty; }
-            set { m_isDirty = value; OnPropertyChanged(); }
-        }
-
-        public bool SuppressExternalChangesCheck
-        {
-            get { return m_suppressExternalChangesCheck; }
-            set { m_suppressExternalChangesCheck = value; OnPropertyChanged(); }
+            private set { m_isDirty = value; OnPropertyChanged(); }
         }
 
         public MainWindow()
         {
+            m_timer = new DispatcherTimer();
             Tabs = new ObservableCollection<TabPageBase>
             {
                 new WelcomeTab(this),
@@ -76,14 +74,18 @@ namespace LCSSaveEditor.GUI.ViewModels
                 new GaragesTab(this),
                 new StatsTab(this)
             };
-
-            UpdateTitle();
         }
 
-        #region Window Actions
         public override void Initialize()
         {
             base.Initialize();
+
+            m_timer.Tick += StatusTimer_Tick;
+
+            OpenFileRequest += OpenFileRequest_Handler;
+            SaveFileRequest += SaveFileRequest_Handler;
+            RevertFileRequest += RevertFileRequest_Handler;
+            CloseFileRequest += CloseFileRequest_Handler;
 
             TheEditor.FileOpening += TheEditor_FileOpening;
             TheEditor.FileOpened += TheEditor_FileOpened;
@@ -96,12 +98,20 @@ namespace LCSSaveEditor.GUI.ViewModels
             LoadGxt();
             LoadCarcols();
             InitializeTabs();
+            UpdateTitle();
             RefreshTabs(TabUpdateTrigger.WindowLoaded);
         }
 
         public override void Shutdown()
         {
             base.Shutdown();
+
+            m_timer.Tick -= StatusTimer_Tick;
+
+            OpenFileRequest -= OpenFileRequest_Handler;
+            SaveFileRequest -= SaveFileRequest_Handler;
+            RevertFileRequest -= RevertFileRequest_Handler;
+            CloseFileRequest -= CloseFileRequest_Handler;
 
             TheEditor.FileOpening -= TheEditor_FileOpening;
             TheEditor.FileOpened -= TheEditor_FileOpened;
@@ -133,7 +143,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void LoadSettings()
         {
-            // Load settings file
             if (File.Exists(App.SettingsPath))
             {
                 TheSettings.LoadSettings(App.SettingsPath);
@@ -163,11 +172,18 @@ namespace LCSSaveEditor.GUI.ViewModels
             TheCarcols.Load(m.ToArray());
         }
 
-        public void OpenFile(string path)
+        public void RefreshTabs(TabUpdateTrigger trigger)
+        {
+            TabUpdate?.Invoke(this, new TabUpdateEventArgs(trigger));
+            SelectedTabIndex = Tabs.IndexOf(Tabs.Where(x => x.IsVisible).FirstOrDefault());
+        }
+
+        #region File I/O Handlers
+        public void OpenFileRequest_Handler(object sender, FileIOEventArgs e)
         {
             if (TheEditor.IsFileOpen)
             {
-                if (IsDirty)
+                if (IsDirty && !e.SuppressPrompting)
                 {
                     PromptSaveChanges((r) =>
                     {
@@ -189,18 +205,18 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             try
             {
-                TheEditor.OpenFile(path);
+                TheEditor.OpenFile(e.Path);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Log.Exception(e);
-                if (e is InvalidDataException)
+                Log.Exception(ex);
+                if (ex is InvalidDataException)
                 {
                     ShowError("The file is not a valid GTA:LCS save file.");
                     return;
                 }
 
-                ShowException(e, "The file could not be opened.");
+                ShowException(ex, "The file could not be opened.");
 
 #if !DEBUG
                 return;
@@ -211,21 +227,16 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         }
 
-        public void SaveFile()
-        {
-            SaveFile(TheSettings.MostRecentFile);
-        }
-
-        public void SaveFile(string path)
+        public void SaveFileRequest_Handler(object sender, FileIOEventArgs e)
         {
             try
             {
-                TheEditor.SaveFile(path);
+                TheEditor.SaveFile(e.Path);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Log.Exception(e);
-                ShowException(e, "The file could not be saved.");
+                Log.Exception(ex);
+                ShowException(ex, "The file could not be saved.");
                 SetTimedStatusText("Error saving file.", 10, expiredStatus: "Ready.");
 
 #if !DEBUG
@@ -236,9 +247,9 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         }
 
-        public void RevertFile()
+        public void RevertFileRequest_Handler(object sender, FileIOEventArgs e)
         {
-            if (IsDirty)
+            if (IsDirty && !e.SuppressPrompting)
             {
                 PromptConfirmRevert((r) =>
                 {
@@ -265,9 +276,9 @@ namespace LCSSaveEditor.GUI.ViewModels
             m_isRevertingFile = false;
         }
 
-        public void CloseFile()
+        public void CloseFileRequest_Handler(object sender, FileIOEventArgs e)
         {
-            if (IsDirty)
+            if (IsDirty && !e.SuppressPrompting)
             {
                 PromptSaveChanges((r) =>
                 {
@@ -288,41 +299,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             TheEditor.CloseFile();
         }
 
-        public void RefreshTabs(TabUpdateTrigger trigger)
-        {
-            TabUpdate?.Invoke(this, new TabUpdateEventArgs(trigger));
-            SelectedTabIndex = Tabs.IndexOf(Tabs.Where(x => x.IsVisible).FirstOrDefault());
-        }
-
-        public void CheckForExternalChanges()
-        {
-            if (!TheEditor.IsFileOpen || SuppressExternalChangesCheck)
-            {
-                return;
-            }
-
-            DateTime lastWriteTime = File.GetLastWriteTime(TheSettings.MostRecentFile);
-            if (lastWriteTime != TheEditor.LastWriteTime)
-            {
-                Log.Info("External changes detected.");
-                PromptExternalChangesDetected((r) =>
-                {
-                    if (r == MessageBoxResult.Yes)
-                    {
-                        ClearDirty();
-                        RevertFile();
-                    }
-                    else if (r == MessageBoxResult.No)
-                    {
-                        SuppressExternalChangesCheck = true;
-                    }
-                });
-            }
-        }
-
-        #endregion
-
-        #region Window Event Handlers
         private void TheEditor_FileOpening(object sender, string e)
         {
             if (!m_isRevertingFile)
@@ -334,8 +310,8 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileOpened(object sender, EventArgs e)
         {
             SuppressExternalChangesCheck = false;
-            UpdateTitle();
 
+            UpdateTitle();
             RegisterDirtyHandlers(TheSave);
             OnPropertyChanged(nameof(TheSave));
 
@@ -363,7 +339,10 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheEditor_FileClosed(object sender, EventArgs e)
         {
+            SuppressExternalChangesCheck = false;
+
             ClearDirty();
+            UpdateTitle();
             OnPropertyChanged(nameof(TheSave));
             SetTimedStatusText("File closed.", expiredStatus: "Ready.");
         }
@@ -383,6 +362,52 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             ClearDirty();
             SetTimedStatusText("File saved.", expiredStatus: "Ready.");
+        }
+        #endregion
+
+        #region Status Text
+        public void SetStatusText(string status)
+        {
+            if (m_timer.IsEnabled)
+            {
+                m_timer.Stop();
+            }
+
+            StatusText = status;
+            m_permanentStatusText = status;
+        }
+
+        public void SetTimedStatusText(string status,
+            int duration = 5,   // seconds
+            string expiredStatus = null)
+        {
+            if (expiredStatus == null)
+            {
+                expiredStatus = m_permanentStatusText;
+            }
+
+            if (m_timer.IsEnabled)
+            {
+                m_timer.Stop();
+                m_currentStatusText = expiredStatus;
+            }
+
+            m_permanentStatusText = expiredStatus;
+            StatusText = status;
+            m_timerTick = duration;
+            m_timer.Interval = TimeSpan.FromSeconds(1);
+            m_timer.Start();
+        }
+
+        private void StatusTimer_Tick(object sender, EventArgs e)
+        {
+            if (m_timerTick <= 0)
+            {
+                m_timer.Stop();
+                StatusText = m_permanentStatusText;
+            }
+
+            m_timerTick--;
         }
         #endregion
 
@@ -475,7 +500,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             var type = sender.GetType().GetGenericArguments()[0];
             var name = type.Name;
 
-            if (sender == TheSave.Scripts.GlobalVariables)
+            if (sender == Scripts.GlobalVariables)
             {
                 name = "Scripts.Globals";
             }
@@ -547,61 +572,17 @@ namespace LCSSaveEditor.GUI.ViewModels
         }
         #endregion
 
-        #region Commands
-        public ICommand FileOpenCommand => new RelayCommand
-        (
-            () => ShowFileDialog(FileDialogType.OpenFileDialog, (r, e) =>
-            {
-                if (r != true) return;
-                TheSettings.SetLastAccess(e.FileName);
-                OpenFile(e.FileName);
-            })
-        );
-
+        #region Window Commands
         public ICommand FileOpenRecentCommand => new RelayCommand<string>
         (
             (x) => { TheSettings.SetLastAccess(x); OpenFile(x); },
             (_) => TheSettings.RecentFiles.Count > 0
         );
 
-        public ICommand FileSaveCommand => new RelayCommand
-        (
-            () => SaveFile(),
-            () => TheEditor.IsFileOpen
-        );
-
-        public ICommand FileSaveAsCommand => new RelayCommand
-        (
-            () => ShowFileDialog(FileDialogType.SaveFileDialog, (r, e) =>
-            {
-                if (r != true) return;
-                TheSettings.SetLastAccess(e.FileName);
-                SaveFile(e.FileName);
-            }),
-            () => TheEditor.IsFileOpen
-        );
-
-        public ICommand FileCloseCommand => new RelayCommand
-        (
-            () => CloseFile(),
-            () => TheEditor.IsFileOpen
-        );
-
-        public ICommand FileRevertCommand => new RelayCommand
-        (
-            () => RevertFile(),
-            () => TheEditor.IsFileOpen
-        );
-
         public ICommand FileTransferDataCommand => new RelayCommand
         (
             () => ShowInfo("TODO: transfer data dialog"),
             () => TheEditor.IsFileOpen
-        );
-
-        public ICommand FileExitCommand => new RelayCommand
-        (
-            () => Application.Current.MainWindow.Close()
         );
 
         public ICommand EditGlobalsCommand => new RelayCommand
@@ -738,7 +719,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => DestroyAllWindowsRequest?.Invoke(this, EventArgs.Empty)
         );
 
-        #endif
+#endif
         #endregion
     }
 }

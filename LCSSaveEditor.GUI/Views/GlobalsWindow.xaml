@@ -1,4 +1,4 @@
-﻿<Window
+﻿<v:ChildWindowBase
     x:Class="LCSSaveEditor.GUI.Views.GlobalsWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,6 +12,7 @@
     Title="Edit Global Variables"
     Height="500" Width="500"
     Loaded="Window_Loaded" Closing="Window_Closing"
+    Activated="Window_Activated"
     IsVisibleChanged="Window_IsVisibleChanged"
     WindowStartupLocation="CenterOwner">
 
@@ -20,6 +21,12 @@
     </Window.DataContext>
 
     <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="O" Command="{Binding FileOpenCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="S" Command="{Binding FileSaveCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="W" Command="{Binding FileCloseCommand}"/>
+        <KeyBinding Modifiers="Ctrl+Shift" Key="S" Command="{Binding FileSaveAsCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding FileRevertCommand}"/>
+
         <KeyBinding Key="Esc" Command="{Binding WindowHideCommand}"/>
     </Window.InputBindings>
 
@@ -110,4 +117,4 @@
         </Grid>
     </Grid>
 
-</Window>
+</v:ChildWindowBase>

@@ -254,19 +254,19 @@
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.TipProof}}"
                             Content="Tip Proof"
-                            ToolTip="The vehicle won't explode if flipped upside down ONLY if the player is not inside of it."/>
+                            ToolTip="The vehicle won't explode if flipped upside down, but ONLY if the player is not inside of it."/>
                         <CheckBox
                             Grid.Row="1" Grid.Column="1" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.Strong}}"
                             Content="Strong"
-                            ToolTip="The vehicle can take approximately 4x collision damage."/>
+                            ToolTip="The vehicle can take approximately 4x more collision damage."/>
                         <CheckBox
                             Grid.Row="2" Grid.Column="1" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.Heavy}}"
                             Content="Heavy"
-                            ToolTip="The vehicle has more mass."/>
+                            ToolTip="The vehicle has much more mass."/>
                         <CheckBox
                             Grid.Row="3" Grid.Column="1" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
@@ -278,13 +278,13 @@
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.PermanentColor}}"
                             Content="Permanent Color"
-                            ToolTip="The vehicle can't be resprayed."/>
+                            ToolTip="The vehicle's color won't change when resprayed."/>
                         <CheckBox
                             Grid.Row="5" Grid.Column="1" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SelectedCar.Flags, Converter={StaticResource FlagsConverter}, ConverterParameter={x:Static lcs:StoredCarFlags.TimeBomb}}"
                             Content="Time Bomb"
-                            ToolTip="The vehicle is equipped with a time bomb."/>
+                            ToolTip="The vehicle is equipped with a time bomb. (activate using the FIRE button)"/>
                     </Grid>
                 </GroupBox>
 

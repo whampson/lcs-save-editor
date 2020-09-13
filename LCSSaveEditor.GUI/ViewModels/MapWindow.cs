@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Drawing.Printing;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks.Dataflow;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Types;
 using WpfEssentials;
@@ -19,60 +14,7 @@ using WpfEssentials.Win32;
 
 namespace LCSSaveEditor.GUI.ViewModels
 {
-    public enum BlipType
-    {
-        Package,
-        Rampage,
-        StuntJump
-    }
-
-    public class CollectibleBlip : ObservableObject
-    {
-        private BlipType m_type;
-        private int m_index;
-        private Point m_coords;
-        private bool m_isCollected;
-        private bool isEnabled;
-        private UIElement m_sprite;
-
-        public BlipType Type
-        {
-            get { return m_type; }
-            set { m_type = value; OnPropertyChanged(); }
-        }
-
-        public int Index
-        {
-            get { return m_index; }
-            set { m_index = value; OnPropertyChanged(); }
-        }
-
-        public Point Coords
-        {
-            get { return m_coords; }
-            set { m_coords = value; OnPropertyChanged(); }
-        }
-
-        public bool IsCollected
-        {
-            get { return m_isCollected; }
-            set { m_isCollected = value; OnPropertyChanged(); }
-        }
-
-        public bool IsEnabled
-        {
-            get { return isEnabled; }
-            set { isEnabled = value; OnPropertyChanged(); }
-        }
-
-        public UIElement Sprite
-        {
-            get { return m_sprite; }
-            set { m_sprite = value; OnPropertyChanged(); }
-        }
-    }
-
-    public class MapWindow : WindowBase
+    public class MapWindow : ChildWindowBase
     {
         public static readonly Point Origin = new Point(1024, 1024);
         public static readonly Point Scale = new Point(0.512, -0.512);
@@ -219,9 +161,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_stuntJumpColorCollected = value; OnPropertyChanged(); }
         }
 
-        public Editor TheEditor => Editor.TheEditor;
-        public LCSSave TheSave => Editor.TheEditor.ActiveFile;
-
         public int NumPackagesCollected
         {
             get
@@ -302,7 +241,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (!m_handlersRegistered && TheSave != null)
             {
-                TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+                Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
                 m_handlersRegistered = true;
             }
         }
@@ -311,7 +250,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (m_handlersRegistered && TheSave != null)
             {
-                TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
+                Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
                 m_handlersRegistered = false;
             }
         }
@@ -550,10 +489,86 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         }
 
-        public ICommand TogglePackagesCommand => new RelayCommand(() => IsShowingPackages = !IsShowingPackages);
-        public ICommand ToggleRampagesCommand => new RelayCommand(() => IsShowingRampages = !IsShowingRampages);
-        public ICommand ToggleStuntJumpsCommand => new RelayCommand(() => IsShowingStuntJumps = !IsShowingStuntJumps);
-        public ICommand ToggleLegendCommand => new RelayCommand(() => IsShowingLegend = !IsShowingLegend);
-        public ICommand ToggleCollectedCommand => new RelayCommand(() => IsShowingCollected = !IsShowingCollected);
+        public ICommand TogglePackagesCommand => new RelayCommand
+        (
+            () => IsShowingPackages = !IsShowingPackages,
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand ToggleRampagesCommand => new RelayCommand
+        (
+            () => IsShowingRampages = !IsShowingRampages,
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand ToggleStuntJumpsCommand => new RelayCommand
+        (
+            () => IsShowingStuntJumps = !IsShowingStuntJumps,
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand ToggleCollectedCommand => new RelayCommand
+        (
+            () => IsShowingCollected = !IsShowingCollected,
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand ToggleLegendCommand => new RelayCommand
+        (
+            () => IsShowingLegend = !IsShowingLegend
+        );
+    }
+
+    public class CollectibleBlip : ObservableObject
+    {
+        private BlipType m_type;
+        private int m_index;
+        private Point m_coords;
+        private bool m_isCollected;
+        private bool isEnabled;
+        private UIElement m_sprite;
+
+        public BlipType Type
+        {
+            get { return m_type; }
+            set { m_type = value; OnPropertyChanged(); }
+        }
+
+        public int Index
+        {
+            get { return m_index; }
+            set { m_index = value; OnPropertyChanged(); }
+        }
+
+        public Point Coords
+        {
+            get { return m_coords; }
+            set { m_coords = value; OnPropertyChanged(); }
+        }
+
+        public bool IsCollected
+        {
+            get { return m_isCollected; }
+            set { m_isCollected = value; OnPropertyChanged(); }
+        }
+
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set { isEnabled = value; OnPropertyChanged(); }
+        }
+
+        public UIElement Sprite
+        {
+            get { return m_sprite; }
+            set { m_sprite = value; OnPropertyChanged(); }
+        }
+    }
+
+    public enum BlipType
+    {
+        Package,
+        Rampage,
+        StuntJump
     }
 }

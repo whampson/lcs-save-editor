@@ -16,59 +16,33 @@ namespace LCSSaveEditor.GUI.Views
     /// <summary>
     /// Interaction logic for StatsWindow.xaml
     /// </summary>
-    public partial class StatsWindow : Window
+    public partial class StatsWindow : ChildWindowBase
     {
-        //private bool m_suppressChangeHandlers;
-
-        public ViewModels.StatsWindow ViewModel
+        public new ViewModels.StatsWindow ViewModel
         {
             get { return (ViewModels.StatsWindow) DataContext; }
             set { DataContext = value; }
         }
 
-        public bool HideOnClose { get; set; }
-
         public StatsWindow()
         {
             InitializeComponent();
-            HideOnClose = true;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        protected override void WindowLoaded()
         {
-            ViewModel.Initialize();
-            ViewModel.WindowHideRequest += ViewModel_WindowHideRequest;
-            ViewModel.RegisterChangeHandlers();
+            base.WindowLoaded();
+
             ViewModel.RefreshStats();
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        protected override void WindowVisibleChanged(bool isVisible)
         {
-            if (HideOnClose)
+            base.WindowVisibleChanged(isVisible);
+
+            if (isVisible)
             {
-                e.Cancel = true;
-                Hide();
-                return;
-            }
-
-            ViewModel.Shutdown();
-            ViewModel.UnregisterChangeHandlers();
-            ViewModel.WindowHideRequest -= ViewModel_WindowHideRequest;
-        }
-
-        private void ViewModel_WindowHideRequest(object sender, EventArgs e)
-        {
-            Hide();
-        }
-
-        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is bool isVisible)
-            {
-                if (isVisible)
-                {
-                    ViewModel.RefreshStats();
-                }
+                ViewModel.RefreshStats();
             }
         }
     }

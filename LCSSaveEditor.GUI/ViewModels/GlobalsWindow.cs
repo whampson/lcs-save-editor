@@ -1,6 +1,4 @@
-﻿using GTASaveData.LCS;
-using LCSSaveEditor.Core;
-using Newtonsoft.Json.Bson;
+﻿using LCSSaveEditor.Core;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -9,7 +7,7 @@ using WpfEssentials;
 
 namespace LCSSaveEditor.GUI.ViewModels
 {
-    public class GlobalsWindow : WindowBase
+    public class GlobalsWindow : ChildWindowBase
     {
         private ObservableCollection<GlobalVariableInfo> m_globals;
         private GlobalVariableInfo m_selectedItem;
@@ -33,9 +31,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             get { return m_showSavedOnly; }
             set { m_showSavedOnly = value; OnPropertyChanged(); }
         }
-
-        public Editor TheEditor => Editor.TheEditor;
-        public LCSSave TheSave => Editor.TheEditor.ActiveFile;
 
         public GlobalsWindow()
             : base()
@@ -95,13 +90,16 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             Globals.Clear();
 
-            if (ShowSavedOnly)
+            if (TheEditor.IsFileOpen)
             {
-                PopulateSavedVariables();
-            }
-            else
-            {
-                PopulateAllVariables();
+                if (ShowSavedOnly)
+                {
+                    PopulateSavedVariables();
+                }
+                else
+                {
+                    PopulateAllVariables();
+                }
             }
         }
 
@@ -146,7 +144,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (!m_handlersRegistered && TheSave != null)
             {
-                TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+                Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
                 m_handlersRegistered = true;
             }
         }
@@ -155,7 +153,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (m_handlersRegistered && TheSave != null)
             {
-                TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
+                Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
                 m_handlersRegistered = false;
             }
         }

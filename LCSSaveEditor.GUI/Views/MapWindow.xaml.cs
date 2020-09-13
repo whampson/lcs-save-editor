@@ -18,57 +18,23 @@ namespace LCSSaveEditor.GUI.Views
     /// <summary>
     /// Interaction logic for MapWindow.xaml
     /// </summary>
-    public partial class MapWindow : Window
+    public partial class MapWindow : ChildWindowBase
     {
-        public ViewModels.MapWindow ViewModel
+        public new ViewModels.MapWindow ViewModel
         {
             get { return (ViewModels.MapWindow) DataContext; }
             set { DataContext = value; }
         }
-
-        public bool HideOnClose { get; set; }
-
         public MapWindow()
         {
             InitializeComponent();
             HideOnClose = true;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        protected override void WindowLoaded()
         {
-            ViewModel.Initialize();
-            ViewModel.WindowHideRequest += ViewModel_WindowHideRequest;
-            ViewModel.RegisterChangeHandlers();
-        }
-
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            if (HideOnClose)
-            {
-                e.Cancel = true;
-                Hide();
-                return;
-            }
-
-            ViewModel.Shutdown();
-            ViewModel.WindowHideRequest -= ViewModel_WindowHideRequest;
-            ViewModel.UnregisterChangeHandlers();
-        }
-
-        private void ViewModel_WindowHideRequest(object sender, EventArgs e)
-        {
-            Hide();
-        }
-
-        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is bool isVisible)
-            {
-                if (isVisible)
-                {
-                    // TODO: update
-                }
-            }
+            base.WindowLoaded();
+            m_map.Reset();
         }
 
         private void Packages_Checked(object sender, RoutedEventArgs e)

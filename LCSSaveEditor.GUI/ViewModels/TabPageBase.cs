@@ -1,15 +1,12 @@
-﻿using GTASaveData.LCS;
-using LCSSaveEditor.Core;
-using LCSSaveEditor.GUI.Events;
+﻿using LCSSaveEditor.GUI.Events;
 using System;
-using WpfEssentials;
 
 namespace LCSSaveEditor.GUI.ViewModels
 {
     /// <summary>
     /// The view model base for tab pages.
     /// </summary>
-    public abstract class TabPageBase : ObservableObject
+    public abstract class TabPageBase : ViewModelBase
     {
         public event EventHandler Initializing;
         public event EventHandler Loading;
@@ -59,10 +56,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         /// </summary>
         public MainWindow TheWindow { get; }
 
-        public Editor TheEditor => TheWindow.TheEditor;
-        public LCSSave TheSave => TheWindow.TheSave;
-        public Settings TheSettings => TheWindow.TheSettings;
-
         /// <summary>
         /// Creates a new <see cref="BaseTabPage"/> instance.
         /// </summary>
@@ -101,9 +94,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             Loading?.Invoke(this, EventArgs.Empty);
 
-            OnPropertyChanged(nameof(TheEditor));
             OnPropertyChanged(nameof(TheSave));
-            OnPropertyChanged(nameof(TheSettings));
+            OnPropertyChanged(nameof(SimpleVars));
+            OnPropertyChanged(nameof(Scripts));
+            OnPropertyChanged(nameof(Garages));
+            OnPropertyChanged(nameof(PlayerInfo));
+            OnPropertyChanged(nameof(Stats));
         }
 
         /// <summary>
@@ -141,7 +137,6 @@ namespace LCSSaveEditor.GUI.ViewModels
                     break;
             }
         }
-
     }
 
     /// <summary>

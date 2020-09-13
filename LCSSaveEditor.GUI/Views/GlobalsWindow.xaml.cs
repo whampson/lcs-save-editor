@@ -21,59 +21,34 @@ namespace LCSSaveEditor.GUI.Views
     /// <summary>
     /// Interaction logic for GlobalsWindow.xaml
     /// </summary>
-    public partial class GlobalsWindow : Window
+    public partial class GlobalsWindow : ChildWindowBase
     {
         private bool m_suppressChangeHandlers;
 
-        public ViewModels.GlobalsWindow ViewModel
+        public new ViewModels.GlobalsWindow ViewModel
         {
             get { return (ViewModels.GlobalsWindow) DataContext; }
             set { DataContext = value; }
         }
 
-        public bool HideOnClose { get; set; }
-
         public GlobalsWindow()
         {
             InitializeComponent();
-            HideOnClose = true;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        protected override void WindowLoaded()
         {
-            ViewModel.Initialize();
-            ViewModel.WindowHideRequest += ViewModel_WindowHideRequest;
-            ViewModel.RegisterChangeHandlers();
+            base.WindowLoaded();
             ViewModel.UpdateList();
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        protected override void WindowVisibleChanged(bool isVisible)
         {
-            if (HideOnClose)
+            base.WindowVisibleChanged(isVisible);
+
+            if (isVisible)
             {
-                e.Cancel = true;
-                Hide();
-                return;
-            }
-
-            ViewModel.Shutdown();
-            ViewModel.UnregisterChangeHandlers();
-            ViewModel.WindowHideRequest -= ViewModel_WindowHideRequest;
-        }
-
-        private void ViewModel_WindowHideRequest(object sender, EventArgs e)
-        {
-            Hide();
-        }
-
-        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is bool isVisible)
-            {
-                if (isVisible)
-                {
-                    ViewModel.UpdateList();
-                }
+                ViewModel.UpdateList();
             }
         }
 

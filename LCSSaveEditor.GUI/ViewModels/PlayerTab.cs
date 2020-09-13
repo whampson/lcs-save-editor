@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GTASaveData.LCS;
@@ -68,8 +66,8 @@ namespace LCSSaveEditor.GUI.ViewModels
             get { return TheEditor.GetGlobal(GlobalVariable.PlayerMoney); }
             set
             {
-                TheSave.PlayerInfo.Money = value;
-                TheSave.PlayerInfo.MoneyOnScreen = value;
+                PlayerInfo.Money = value;
+                PlayerInfo.MoneyOnScreen = value;
                 TheEditor.SetGlobal(GlobalVariable.PlayerMoney, value);
                 OnPropertyChanged();
             }
@@ -285,7 +283,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             Weapon = (Weapon?) TheEditor.GetGlobal(GlobalVariable.PlayerWeapon);
             m_suppressWritingSelectedWeapon = false;
 
-            TheSave.Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
+            Scripts.GlobalVariables.CollectionChanged += GlobalVariables_CollectionChanged;
 
             ReadSlot(0);
             ReadSlot(1);
@@ -311,7 +309,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             base.Unload();
 
-            TheSave.Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
+            Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
         }
 
         public void UpdateSpawnPoint()

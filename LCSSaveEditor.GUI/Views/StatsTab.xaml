@@ -166,10 +166,10 @@
             <TextBlock Grid.Row="120" Grid.Column="0" Text="Highest Level Slash TV:"/>
             <TextBlock Grid.Row="121" Grid.Column="0" Text="Money Made With Slash TV:"/>
             <TextBlock Grid.Row="122" Grid.Column="0" Text="Total Kills On Slash TV:"/>
-            <!--<TextBlock Grid.Row="123" Grid.Column="0" Text="Packages Smuggled:"/>-->
-            <!--<TextBlock Grid.Row="124" Grid.Column="0" Text="Smugglers Wasted:"/>-->
-            <!--<TextBlock Grid.Row="125" Grid.Column="0" Text="Fastest Smuggling Time:"/>-->
-            <!--<TextBlock Grid.Row="126" Grid.Column="0" Text="Money Made In Coach:"/>-->
+            <TextBlock Grid.Row="123" Grid.Column="0" Text="Packages Smuggled:"/>
+            <TextBlock Grid.Row="124" Grid.Column="0" Text="Smugglers Wasted:"/>
+            <TextBlock Grid.Row="125" Grid.Column="0" Text="Fastest Smuggling Time:"/>
+            <TextBlock Grid.Row="126" Grid.Column="0" Text="Money Made In Coach:"/>
             <TextBlock Grid.Row="127" Grid.Column="0" Text="Cash Made Collecting Trash:"/>
             <TextBlock Grid.Row="128" Grid.Column="0" Text="Hitmen Killed:"/>
             <TextBlock Grid.Row="129" Grid.Column="0" Text="Highest Guardian Angel Justice Dished:"/>
@@ -316,10 +316,10 @@
             <xctk:IntegerUpDown Grid.Row="120" Grid.Column="1" Value="{Binding Stats.HighestLevelSlashTv}"/>
             <xctk:IntegerUpDown Grid.Row="121" Grid.Column="1" Value="{Binding Stats.MoneyMadeWithSlashTv}"/>
             <xctk:IntegerUpDown Grid.Row="122" Grid.Column="1" Value="{Binding Stats.TotalKillsOnSlashTv}"/>
-            <!--<xctk:IntegerUpDown Grid.Row="123" Grid.Column="1" Value="{Binding Stats.PackagesSmuggled}"/>-->
-            <!--<xctk:IntegerUpDown Grid.Row="124" Grid.Column="1" Value="{Binding Stats.SmugglersWasted}"/>-->
-            <!--<xctk:IntegerUpDown Grid.Row="125" Grid.Column="1" Value="{Binding Stats.FastestSmugglingTime}"/>-->
-            <!--<xctk:IntegerUpDown Grid.Row="126" Grid.Column="1" Value="{Binding Stats.MoneyMadeInCoach}"/>-->
+            <xctk:IntegerUpDown Grid.Row="123" Grid.Column="1" Value="{Binding Stats.PackagesSmuggled}"/>
+            <xctk:IntegerUpDown Grid.Row="124" Grid.Column="1" Value="{Binding Stats.SmugglersWasted}"/>
+            <xctk:IntegerUpDown Grid.Row="125" Grid.Column="1" Value="{Binding Stats.FastestSmugglingTime}"/>
+            <xctk:IntegerUpDown Grid.Row="126" Grid.Column="1" Value="{Binding Stats.MoneyMadeInCoach}"/>
             <xctk:IntegerUpDown Grid.Row="127" Grid.Column="1" Value="{Binding Stats.CashMadeCollectingTrash}"/>
             <xctk:IntegerUpDown Grid.Row="128" Grid.Column="1" Value="{Binding Stats.HitmenKilled}"/>
             <xctk:IntegerUpDown Grid.Row="129" Grid.Column="1" Value="{Binding Stats.HighestGuardianAngelJusticeDished}"/>

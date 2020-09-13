@@ -1,40 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Types;
 using WpfEssentials;
-using WpfEssentials.Extensions;
 
 namespace LCSSaveEditor.GUI.ViewModels
 {
-    public class StatsWindow : WindowBase
+    public class StatsWindow : ChildWindowBase
     {
-        private SimpleVariables m_simpleVars;
-        private PlayerInfo m_player;
-        private Stats m_stats;
         private ObservableCollection<Stat> m_statsList;
         private Stat m_criminalRating;
         private bool m_handlersRegistered;
-
-        public SimpleVariables SimpleVars
-        {
-            get { return m_simpleVars; }
-            set { m_simpleVars = value; OnPropertyChanged(); }
-        }
-
-        public PlayerInfo Player
-        {
-            get { return m_player; }
-            set { m_player = value; OnPropertyChanged(); }
-        }
-
-        public Stats Stats
-        {
-            get { return m_stats; }
-            set { m_stats = value; OnPropertyChanged(); }
-        }
 
         public ObservableCollection<Stat> Statistics
         {
@@ -47,16 +26,9 @@ namespace LCSSaveEditor.GUI.ViewModels
             get { return m_criminalRating; }
             set { m_criminalRating = value; OnPropertyChanged(); }
         }
-
-        public Editor TheEditor => Editor.TheEditor;
-        public LCSSave TheSave => Editor.TheEditor.ActiveFile;
-
         public StatsWindow()
             : base()
         {
-            SimpleVars = new SimpleVariables();
-            Player = new PlayerInfo();
-            Stats = new Stats();
             Statistics = new ObservableCollection<Stat>();
             CriminalRating = new Stat();
         }
@@ -64,10 +36,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         public override void Initialize()
         {
             base.Initialize();
-
-            SimpleVars = TheSave.SimpleVars;
-            Player = TheSave.PlayerInfo;
-            Stats = TheSave.Stats;
 
             TheEditor.FileOpened += TheEditor_FileOpened;
             TheEditor.FileClosing += TheEditor_FileClosing;
@@ -78,7 +46,33 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void Data_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RefreshStats();
+            if (sender == SimpleVars)
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(SimpleVariables.TimeInMilliseconds):
+                    case nameof(SimpleVariables.Language):
+                        RefreshStats();
+                        break;
+                    case nameof(SimpleVariables.HasPlayerCheated):
+                        UpdateCriminalRating(GetCriminalRatingNumber());
+                        break;
+                }
+            }
+            else if (sender == PlayerInfo)
+            {
+                switch (e.PropertyName)
+                {
+                    case nameof(PlayerInfo.Money):
+                    case nameof(PlayerInfo.MoneyOnScreen):
+                        UpdateCriminalRating(GetCriminalRatingNumber());
+                        break;
+                }
+            }
+            else if (sender == Stats)
+            {
+                RefreshStats();
+            }
         }
 
         public override void Shutdown()
@@ -95,8 +89,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             Statistics.Clear();
 
-            int rating = GetCriminalRatingNumber();
-            CriminalRating = MakeStat("CRIMRA", $"{GetCriminalRatingString(rating)} ({rating})");
+            UpdateCriminalRating(GetCriminalRatingNumber());
 
             AddStat("PER_COM", Stats.ProgressMade / Stats.TotalProgressInGame, percentage: true);
             AddStat("NMISON", Stats.MissionsGiven);
@@ -181,48 +174,48 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (Stats.GuardianAngelHighestLevelInd > 0 ||
                 Stats.GuardianAngelHighestLevelCom > 0 ||
                 Stats.GuardianAngelHighestLevelSub > 0) AddStat("GDA_HL");
-            if (Stats.GuardianAngelHighestLevelInd > 0) AddStat("IND_ZON", $"\t{Stats.GuardianAngelHighestLevelInd}");
-            if (Stats.GuardianAngelHighestLevelCom > 0) AddStat("COM_ZON", $"\t{Stats.GuardianAngelHighestLevelCom}");
-            if (Stats.GuardianAngelHighestLevelSub > 0) AddStat("SUB_ZON", $"\t{Stats.GuardianAngelHighestLevelSub}");
+            if (Stats.GuardianAngelHighestLevelInd > 0) AddStat("IND_ZON", $"\t{Stats.GuardianAngelHighestLevelInd}", indentLevel: 1);
+            if (Stats.GuardianAngelHighestLevelCom > 0) AddStat("COM_ZON", $"\t{Stats.GuardianAngelHighestLevelCom}", indentLevel: 1);
+            if (Stats.GuardianAngelHighestLevelSub > 0) AddStat("SUB_ZON", $"\t{Stats.GuardianAngelHighestLevelSub}", indentLevel: 1);
             if (Stats.MostTimeLeftTrainRace > 0) AddStat("FSTTRT", TimeSpan.FromSeconds(Stats.MostTimeLeftTrainRace));
             if (Stats.BestHeliRacePosition != int.MaxValue) AddStat("BHLPOS", Stats.BestHeliRacePosition);
             AddStat("TMSOUT", Stats.NumberOutfitChanges);
             if (Stats.BestBanditPositions[0] != 0x7FFFFFFF ||
                 Stats.BestBanditPositions[1] != 0x7FFFFFFF ||
                 Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("BNDRACE");
-            if (Stats.BestBanditPositions[0] != 0x7FFFFFFF) AddStat("BNDRAC0");
-            if (Stats.BestBanditPositions[0] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestBanditPositions[0]);
-            if (Stats.BestBanditPositions[0] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.BestBanditLapTimes[0]));
-            if (Stats.BestBanditPositions[1] != 0x7FFFFFFF) AddStat("BNDRAC1");
-            if (Stats.BestBanditPositions[1] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestBanditPositions[1]);
-            if (Stats.BestBanditPositions[1] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.BestBanditLapTimes[1]));
-            if (Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("BNDRAC2");
-            if (Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestBanditPositions[2]);
-            if (Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.BestBanditLapTimes[2]));
+            if (Stats.BestBanditPositions[0] != 0x7FFFFFFF) AddStat("BNDRAC0", indentLevel: 1);
+            if (Stats.BestBanditPositions[0] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestBanditPositions[0], indentLevel: 2);
+            if (Stats.BestBanditPositions[0] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.BestBanditLapTimes[0]), indentLevel: 2);
+            if (Stats.BestBanditPositions[1] != 0x7FFFFFFF) AddStat("BNDRAC1", indentLevel: 1);
+            if (Stats.BestBanditPositions[1] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestBanditPositions[1], indentLevel: 2);
+            if (Stats.BestBanditPositions[1] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.BestBanditLapTimes[1]), indentLevel: 2);
+            if (Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("BNDRAC2", indentLevel: 1);
+            if (Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestBanditPositions[2], indentLevel: 2);
+            if (Stats.BestBanditPositions[2] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.BestBanditLapTimes[2]), indentLevel: 2);
             if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("BSRPS0");
-            if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[0]);
-            if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[0]));
-            if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[0]));
+            if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[0], indentLevel: 1);
+            if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[0]), indentLevel: 1);
+            if (Stats.BestStreetRacePositions[0] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[0]), indentLevel: 1);
             if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("BSRPS1");
-            if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[1]);
-            if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[1]));
-            if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[1]));
+            if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[1], indentLevel: 1);
+            if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[1]), indentLevel: 1);
+            if (Stats.BestStreetRacePositions[1] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[1]), indentLevel: 1);
             if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("BSRPS2");
-            if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[2]);
-            if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[2]));
-            if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[2]));
+            if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[2], indentLevel: 1);
+            if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[2]), indentLevel: 1);
+            if (Stats.BestStreetRacePositions[2] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[2]), indentLevel: 1);
             if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("BSRPS3");
-            if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[3]);
-            if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[3]));
-            if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[3]));
+            if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[3], indentLevel: 1);
+            if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[3]), indentLevel: 1);
+            if (Stats.BestStreetRacePositions[3] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[3]), indentLevel: 1);
             if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("BSRPS4");
-            if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[4]);
-            if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[4]));
-            if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[4]));
+            if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[4], indentLevel: 1);
+            if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[4]), indentLevel: 1);
+            if (Stats.BestStreetRacePositions[4] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[4]), indentLevel: 1);
             if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("BSRPS5");
-            if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[5]);
-            if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[5]));
-            if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[5]));
+            if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("DBIKEBP", Stats.BestStreetRacePositions[5], indentLevel: 1);
+            if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestStreetRaceLapTimes[5]), indentLevel: 1);
+            if (Stats.BestStreetRacePositions[5] != 0x7FFFFFFF) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestStreetRaceTimes[5]), indentLevel: 1);
             if (Stats.FastestDirtBikeLapTimes[0] > 0 ||
                 Stats.FastestDirtBikeLapTimes[1] > 0 ||
                 Stats.FastestDirtBikeLapTimes[2] > 0 ||
@@ -233,37 +226,37 @@ namespace LCSSaveEditor.GUI.ViewModels
                 Stats.FastestDirtBikeLapTimes[7] > 0 ||
                 Stats.FastestDirtBikeLapTimes[8] > 0 ||
                 Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKEHE");
-            if (Stats.FastestDirtBikeLapTimes[0] > 0) AddStat("DBIKE0");
-            if (Stats.FastestDirtBikeLapTimes[0] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[0]));
-            if (Stats.FastestDirtBikeLapTimes[0] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[0]));
-            if (Stats.FastestDirtBikeLapTimes[1] > 0) AddStat("DBIKE1");
-            if (Stats.FastestDirtBikeLapTimes[1] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[1]));
-            if (Stats.FastestDirtBikeLapTimes[1] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[1]));
-            if (Stats.FastestDirtBikeLapTimes[2] > 0) AddStat("DBIKE2");
-            if (Stats.FastestDirtBikeLapTimes[2] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[2]));
-            if (Stats.FastestDirtBikeLapTimes[2] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[2]));
-            if (Stats.FastestDirtBikeLapTimes[3] > 0) AddStat("DBIKE3");
-            if (Stats.FastestDirtBikeLapTimes[3] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[3]));
-            if (Stats.FastestDirtBikeLapTimes[3] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[3]));
-            if (Stats.FastestDirtBikeLapTimes[4] > 0) AddStat("DBIKE4");
-            if (Stats.FastestDirtBikeLapTimes[4] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[4]));
-            if (Stats.FastestDirtBikeLapTimes[4] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[4]));
-            if (Stats.FastestDirtBikeLapTimes[5] > 0) AddStat("DBIKE5");
-            if (Stats.FastestDirtBikeLapTimes[5] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[5]));
-            if (Stats.FastestDirtBikeLapTimes[5] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[5]));
-            if (Stats.FastestDirtBikeLapTimes[6] > 0) AddStat("DBIKE6");
-            if (Stats.FastestDirtBikeLapTimes[6] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[6]));
-            if (Stats.FastestDirtBikeLapTimes[6] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[6]));
-            if (Stats.FastestDirtBikeLapTimes[7] > 0) AddStat("DBIKE7");
-            if (Stats.FastestDirtBikeLapTimes[7] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[7]));
-            if (Stats.FastestDirtBikeLapTimes[7] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[7]));
-            if (Stats.FastestDirtBikeLapTimes[8] > 0) AddStat("DBIKE8");
-            if (Stats.FastestDirtBikeLapTimes[8] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[8]));
-            if (Stats.FastestDirtBikeLapTimes[8] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[8]));
-            if (Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKE9");
-            if (Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[9]));
-            if (Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[9]));
-            if (Stats.DirtBikeMostAir > 0) AddStat("DBIKEAI", Stats.DirtBikeMostAir);                                                           // TODO: these values are bacckwards
+            if (Stats.FastestDirtBikeLapTimes[0] > 0) AddStat("DBIKE0", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[0] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[0]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[0] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[0]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[1] > 0) AddStat("DBIKE1", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[1] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[1]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[1] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[1]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[2] > 0) AddStat("DBIKE2", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[2] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[2]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[2] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[2]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[3] > 0) AddStat("DBIKE3", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[3] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[3]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[3] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[3]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[4] > 0) AddStat("DBIKE4", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[4] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[4]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[4] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[4]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[5] > 0) AddStat("DBIKE5", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[5] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[5]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[5] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[5]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[6] > 0) AddStat("DBIKE6", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[6] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[6]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[6] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[6]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[7] > 0) AddStat("DBIKE7", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[7] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[7]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[7] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[7]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[8] > 0) AddStat("DBIKE8", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[8] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[8]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[8] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[8]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKE9", indentLevel: 1);
+            if (Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKEFL", TimeSpan.FromSeconds(Stats.FastestDirtBikeLapTimes[9]), indentLevel: 2);
+            if (Stats.FastestDirtBikeLapTimes[9] > 0) AddStat("DBIKEFT", TimeSpan.FromSeconds(Stats.FastestDirtBikeTimes[9]), indentLevel: 2);
+            if (Stats.DirtBikeMostAir > 0) AddStat("DBIKEAI", Stats.DirtBikeMostAir);
             if (Stats.BestTimeGoGoFaggio > 0) AddStat("FEST_GO", TimeSpan.FromSeconds(Stats.BestTimeGoGoFaggio));       // bugged stat
             if (Stats.MovieStunts > 0) AddStat("ST_MOVI", Stats.MovieStunts);     // beta vc leftover
             if (Stats.PhotosTaken > 0) AddStat("ST_PHOT", Stats.PhotosTaken);
@@ -293,25 +286,30 @@ namespace LCSSaveEditor.GUI.ViewModels
             AddStat("ST_AUTO", Stats.AutoPaintingBudget, money: true);
             AddStat("ST_DAMA", Stats.PropertyDestroyed, money: true);
             //if (Stats.NumPropertyOwned > 0) AddStat("PROPOWN", Stats.NumPropertyOwned);  // vc leftover
-            //// property owned, VC leftover
+            // property owned, VC leftover
             AddStat("CHASE", GetHighestMediaAttentionName());
             if (Stats.UnlockedCostumes != PlayerOutfitFlags.None) AddStat("OUTFITS");
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Casual)) AddStat(PlayerOutfit.Casual.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Leone)) AddStat(PlayerOutfit.Leone.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Overalls)) AddStat(PlayerOutfit.Overalls.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.AvengingAngels)) AddStat(PlayerOutfit.AvengingAngels.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Chauffer)) AddStat(PlayerOutfit.Chauffer.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Lawyer)) AddStat(PlayerOutfit.Lawyer.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Tuxedo)) AddStat(PlayerOutfit.Tuxedo.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.TheKing)) AddStat(PlayerOutfit.TheKing.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Cox)) AddStat(PlayerOutfit.Cox.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Underwear)) AddStat(PlayerOutfit.Underwear.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Hero)) AddStat(PlayerOutfit.Hero.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Dragon)) AddStat(PlayerOutfit.Dragon.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Antonio)) AddStat(PlayerOutfit.Antonio.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Sweats)) AddStat(PlayerOutfit.Sweats.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Goodfella)) AddStat(PlayerOutfit.Goodfella.GetDescription(), gxt: false);
-            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Wiseguy)) AddStat(PlayerOutfit.Wiseguy.GetDescription(), gxt: false);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Casual)) AddStat("OUTF_00", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Leone)) AddStat("OUTF_01", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Overalls)) AddStat("OUTF_02", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.AvengingAngels)) AddStat("OUTF_03", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Chauffer)) AddStat("OUTF_04", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Lawyer)) AddStat("OUTF_05", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Tuxedo)) AddStat("OUTF_06", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.TheKing)) AddStat("OUTF_07", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Cox)) AddStat("OUTF_08", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Underwear)) AddStat("OUTF_09", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Hero)) AddStat("OUTF_10", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Dragon)) AddStat("OUTF_11", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Antonio)) AddStat("OUTF_12", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Sweats)) AddStat("OUTF_13", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Goodfella)) AddStat("OUTF_14", indentLevel: 1);
+            if (Stats.UnlockedCostumes.HasFlag(PlayerOutfitFlags.Wiseguy)) AddStat("OUTF_15", indentLevel: 1);
+        }
+
+        private void UpdateCriminalRating(int rating)
+        {
+            CriminalRating = MakeStat("CRIMRA", $"{GetCriminalRatingString(rating)} ({rating})");
         }
 
         public int GetCriminalRatingNumber()
@@ -596,18 +594,19 @@ namespace LCSSaveEditor.GUI.ViewModels
             return Gxt.TheText["MAIN"]["CHASE21"];
         }
 
-        private void AddStat(string name, TimeSpan value)
+        private void AddStat(string name, TimeSpan value,
+            int indentLevel = 0)
         {
             string time = "";
             if ((int) value.TotalHours > 0) time += $"{(int) value.TotalHours}:";
             time += $"{value.Minutes:D2}";
             time += $":{value.Seconds:D2}";
 
-            AddStat(name, time);
+            AddStat(name, time, indentLevel);
         }
 
         private void AddStat(string name, float value,
-            bool percentage = false, bool money = false)
+            int indentLevel = 0, bool percentage = false, bool money = false)
         {
             if (float.IsNaN(value))
             {
@@ -616,29 +615,32 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (percentage)
             {
-                AddStat(name, $"{value:P2}");
+                AddStat(name, $"{value:P2}", indentLevel);
             }
             else if (money)
             {
-                AddStat(name, $"${value:F2}");
+                AddStat(name, $"${value:F2}", indentLevel);
             }
             else
             {
-                AddStat(name, $"{value:F2}");
+                AddStat(name, $"{value:F2}", indentLevel);
             }
         }
 
-        private void AddStat(string name, int value)
+        private void AddStat(string name, int value,
+            int indentLevel = 0)
         {
-            AddStat(name, $"{value}");
+            AddStat(name, $"{value}", indentLevel);
         }
 
-        private void AddStat(string name, string value = "", bool gxt = true)
+        private void AddStat(string name, string value = "",
+            int indentLevel = 0, bool gxt = true)
         {
-            Statistics.Add(MakeStat(name, value, gxt));
+            Statistics.Add(MakeStat(name, value, indentLevel, gxt));
         }
 
-        private Stat MakeStat(string name, string value, bool gxt = true)
+        private Stat MakeStat(string name, string value,
+            int indentLevel = 0, bool gxt = true)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -647,9 +649,18 @@ namespace LCSSaveEditor.GUI.ViewModels
             else if (gxt)
             {
                 Gxt.TheText.TryGetValue("MAIN", name, out name);
+                if (name.StartsWith('~'))
+                {
+                    // Filter-out GXT color token (e.g '~w~')
+                    int i = 1;
+                    while (name[i++] != '~') { }
+
+                    Debug.Assert(i < name.Length);
+                    name = name.Substring(i);
+                }
             }
 
-            return new Stat() { Name = name, Value = value };
+            return new Stat() { Name = name, Value = value, IndentLevel = indentLevel };
         }
 
         public void RegisterChangeHandlers()
@@ -657,7 +668,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (!m_handlersRegistered && TheSave != null)
             {
                 SimpleVars.PropertyChanged += Data_PropertyChanged;
-                Player.PropertyChanged += Data_PropertyChanged;
+                PlayerInfo.PropertyChanged += Data_PropertyChanged;
                 Stats.PropertyChanged += Data_PropertyChanged;
                 m_handlersRegistered = true;
             }
@@ -668,7 +679,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (m_handlersRegistered && TheSave != null)
             {
                 SimpleVars.PropertyChanged -= Data_PropertyChanged;
-                Player.PropertyChanged -= Data_PropertyChanged;
+                PlayerInfo.PropertyChanged -= Data_PropertyChanged;
                 Stats.PropertyChanged -= Data_PropertyChanged;
                 m_handlersRegistered = false;
             }
@@ -676,10 +687,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void TheEditor_FileOpened(object sender, EventArgs e)
         {
-            SimpleVars = TheSave.SimpleVars;
-            Player = TheSave.PlayerInfo;
-            Stats = TheSave.Stats;
-
             RegisterChangeHandlers();
             RefreshStats();
         }
@@ -687,6 +694,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileClosing(object sender, EventArgs e)
         {
             UnregisterChangeHandlers();
+            UpdateCriminalRating(0);
             Statistics.Clear();
         }
     }
@@ -695,6 +703,7 @@ namespace LCSSaveEditor.GUI.ViewModels
     {
         private string m_name;
         private string m_value;
+        private int m_indentLevel;
 
         public string Name
         {
@@ -705,6 +714,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             get { return m_value; }
             set { m_value = value; OnPropertyChanged(); }
+        }
+
+        public int IndentLevel
+        {
+            get { return m_indentLevel; }
+            set { m_indentLevel = value; OnPropertyChanged(); }
         }
     }
 }

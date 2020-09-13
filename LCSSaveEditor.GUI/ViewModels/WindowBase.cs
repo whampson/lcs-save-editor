@@ -1,28 +1,26 @@
-﻿using LCSSaveEditor.Core;
-using LCSSaveEditor.GUI.Events;
-using System;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Threading;
-using WpfEssentials;
+using LCSSaveEditor.Core;
+using LCSSaveEditor.GUI.Events;
 using WpfEssentials.Win32;
 
 namespace LCSSaveEditor.GUI.ViewModels
 {
-    public class WindowBase : ObservableObject
+    public class WindowBase : ViewModelBase
     {
-        public event EventHandler WindowHideRequest;
-        public event EventHandler WindowCloseRequest;
         public event EventHandler<MessageBoxEventArgs> MessageBoxRequest;
         public event EventHandler<FileDialogEventArgs> FileDialogRequest;
         public event EventHandler<FileDialogEventArgs> FolderDialogRequest;
         public event EventHandler<GxtDialogEventArgs> GxtDialogRequest;
+        public event EventHandler<FileIOEventArgs> OpenFileRequest;
+        public event EventHandler<FileIOEventArgs> SaveFileRequest;
+        public event EventHandler<FileIOEventArgs> CloseFileRequest;
+        public event EventHandler<FileIOEventArgs> RevertFileRequest;
 
-        private readonly DispatcherTimer m_timer;
-        private int m_timerTick;
-        private string m_currentStatusText;
-        private string m_permanentStatusText;
         private string m_title;
+        private bool m_suppressExternalChangesCheck;
 
         public string Title
         {
@@ -30,71 +28,74 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_title = value; OnPropertyChanged(); }
         }
 
-        public string StatusText
+        public bool SuppressExternalChangesCheck
         {
-            get { return m_currentStatusText; }
-            private set { m_currentStatusText = value; OnPropertyChanged(); }
+            get { return m_suppressExternalChangesCheck; }
+            set { m_suppressExternalChangesCheck = value; OnPropertyChanged(); }
         }
 
         public WindowBase()
-        {
-            m_timer = new DispatcherTimer();
-        }
+        { }
 
         public virtual void Initialize()
-        {
-            m_timer.Tick += StatusTimer_Tick;
-        }
+        { }
 
         public virtual void Shutdown()
+        { }
+
+        #region Window-Global Functions
+        public void OpenFile(string path)
         {
-            m_timer.Tick -= StatusTimer_Tick;
+            OpenFileRequest?.Invoke(this, new FileIOEventArgs() { Path = path });
         }
 
-        public void SetStatusText(string status)
+        public void SaveFile()
         {
-            if (m_timer.IsEnabled)
-            {
-                m_timer.Stop();
-            }
-
-            StatusText = status;
-            m_permanentStatusText = status;
+            SaveFile(TheSettings.MostRecentFile);
         }
 
-        public void SetTimedStatusText(string status,
-            int duration = 5,   // seconds
-            string expiredStatus = null)
+        public void SaveFile(string path)
         {
-            if (expiredStatus == null)
-            {
-                expiredStatus = m_permanentStatusText;
-            }
-
-            if (m_timer.IsEnabled)
-            {
-                m_timer.Stop();
-                m_currentStatusText = expiredStatus;
-            }
-
-            m_permanentStatusText = expiredStatus;
-            StatusText = status;
-            m_timerTick = duration;
-            m_timer.Interval = TimeSpan.FromSeconds(1);
-            m_timer.Start();
+            SaveFileRequest?.Invoke(this, new FileIOEventArgs() { Path = path });
         }
 
-        private void StatusTimer_Tick(object sender, EventArgs e)
+        public void RevertFile()
         {
-            if (m_timerTick <= 0)
-            {
-                m_timer.Stop();
-                StatusText = m_permanentStatusText;
-            }
-
-            m_timerTick--;
+            RevertFileRequest?.Invoke(this, new FileIOEventArgs());
         }
 
+        public void CloseFile()
+        {
+            CloseFileRequest?.Invoke(this, new FileIOEventArgs());
+        }
+        
+        public void CheckForExternalChanges()
+        {
+            if (!TheEditor.IsFileOpen || SuppressExternalChangesCheck)
+            {
+                return;
+            }
+
+            DateTime lastWriteTime = File.GetLastWriteTime(TheSettings.MostRecentFile);
+            if (lastWriteTime != TheEditor.LastWriteTime)
+            {
+                Log.Info("External changes detected.");
+                PromptExternalChangesDetected((r) =>
+                {
+                    if (r == MessageBoxResult.Yes)
+                    {
+                        RevertFileRequest?.Invoke(this, new FileIOEventArgs() { SuppressPrompting = true });
+                    }
+                    else if (r == MessageBoxResult.No)
+                    {
+                        SuppressExternalChangesCheck = true;
+                    }
+                });
+            }
+        }
+        #endregion
+
+        #region Dialog Functions
         public void ShowInfo(string text, string title = "Information")
         {
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
@@ -173,15 +174,52 @@ namespace LCSSaveEditor.GUI.ViewModels
                 Callback = callback
             });
         }
+        #endregion
 
-        public ICommand WindowHideCommand => new RelayCommand
+        #region Window-Global Commands
+        public ICommand FileOpenCommand => new RelayCommand
         (
-            () => WindowHideRequest?.Invoke(this, EventArgs.Empty)
+            () => ShowFileDialog(FileDialogType.OpenFileDialog, (r, e) =>
+            {
+                if (r != true) return;
+                TheSettings.SetLastAccess(e.FileName);
+                OpenFile(e.FileName);
+            })
         );
 
-        public ICommand WindowCloseCommand => new RelayCommand
+        public ICommand FileSaveCommand => new RelayCommand
         (
-            () => WindowCloseRequest?.Invoke(this, EventArgs.Empty)
+            () => SaveFile(),
+            () => TheEditor.IsFileOpen
         );
+
+        public ICommand FileSaveAsCommand => new RelayCommand
+        (
+            () => ShowFileDialog(FileDialogType.SaveFileDialog, (r, e) =>
+            {
+                if (r != true) return;
+                TheSettings.SetLastAccess(e.FileName);
+                SaveFile(e.FileName);
+            }),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand FileCloseCommand => new RelayCommand
+        (
+            () => CloseFile(),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand FileRevertCommand => new RelayCommand
+        (
+            () => RevertFile(),
+            () => TheEditor.IsFileOpen
+        );
+
+        public ICommand FileExitCommand => new RelayCommand
+        (
+            () => Application.Current.MainWindow.Close()
+        );
+        #endregion
     }
 }
