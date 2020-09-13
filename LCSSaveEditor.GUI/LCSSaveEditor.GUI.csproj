@@ -4,16 +4,17 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>0.15.0-alpha</Version>
-    <FileVersion>0.15.0.1108</FileVersion>
-    <AssemblyVersion>0.15.0.1108</AssemblyVersion>
-    <AssemblyName>LcsSaveEditor.GUI</AssemblyName>
-    <Product>LcsSaveEditor</Product>
+    <Version>0.16.0-alpha</Version>
+    <FileVersion>0.16.0.1132</FileVersion>
+    <AssemblyVersion>0.16.0.1132</AssemblyVersion>
+    <AssemblyName>LcsSaveEditor</AssemblyName>
+    <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
+    <Product>GTA:LCS Save Editor</Product>
     <Authors>Wes Hampson</Authors>
-    <Company>Wes Hampson</Company>
-    <Copyright>(C) 2016-2020 Wes Hampson. All Rights Reserved.</Copyright>
+    <Copyright>(C) 2016-2020 Wes Hampson.</Copyright>
     <Description>Grand Theft Auto: Liberty City Stories save file editor.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,7 +47,6 @@
     <None Remove="Resources\costume15.png" />
     <None Remove="Resources\ENGLISH.GXT" />
     <None Remove="Resources\map.png" />
-    <None Remove="Resources\package.png" />
     <None Remove="Resources\target.png" />
   </ItemGroup>
 
@@ -119,12 +119,15 @@
     <Resource Include="Resources\map.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\package.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\target.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\package.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
 </Project>
