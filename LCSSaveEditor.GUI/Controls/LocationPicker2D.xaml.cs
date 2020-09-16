@@ -8,11 +8,8 @@ namespace LCSSaveEditor.GUI.Controls
     /// <summary>
     /// Interaction logic for LocationPicker2D.xaml
     /// </summary>
-    public partial class LocationPicker2D : UserControl
+    public partial class LocationPicker2D : LocationPickerBase
     {
-        public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
-            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker2D));
-
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(Vector2D?), typeof(LocationPicker2D),
             new FrameworkPropertyMetadata(default(Vector2D?),
@@ -32,12 +29,6 @@ namespace LCSSaveEditor.GUI.Controls
         {
             add { AddHandler(ValueChangedEvent, value); }
             remove { RemoveHandler(ValueChangedEvent, value); }
-        }
-
-        public Thickness GapThickness
-        {
-            get { return (Thickness) GetValue(GapThicknessProperty); }
-            set { SetValue(GapThicknessProperty, value); }
         }
 
         public Vector2D? Value

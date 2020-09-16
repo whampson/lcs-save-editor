@@ -1,11 +1,11 @@
-﻿<UserControl
+﻿<c:LocationPickerBase
     x:Class="LCSSaveEditor.GUI.Controls.LocationPicker2D"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:c="clr-namespace:LCSSaveEditor.GUI.Controls"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     mc:Ignorable="d">
 
     <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type c:LocationPicker2D}}}">
@@ -18,11 +18,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,5,0" Text="X:" Style="{StaticResource LabelStyleRight}"/>
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="0,0,5,0" Text="Y:" Style="{StaticResource LabelStyleRight}"/>
-        <xctk:SingleUpDown Grid.Column="1" Grid.Row="0" Value="{Binding X}" ValueChanged="XComponent_ValueChanged"/>
-        <xctk:SingleUpDown Grid.Column="1" Grid.Row="2" Value="{Binding Y}" ValueChanged="YComponent_ValueChanged"/>
-        <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="0" Margin="{Binding GapThickness}" Background="Transparent"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="{Binding VerticalGap}" Text="X:" Style="{StaticResource LabelStyleRight}"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="{Binding VerticalGap}" Text="Y:" Style="{StaticResource LabelStyleRight}"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="0" ValueChanged="XComponent_ValueChanged" Value="{Binding X}" FormatString="{Binding FormatString}" Style="{StaticResource SingleUpDownStyle}"/>
+        <xctk:SingleUpDown Grid.Column="1" Grid.Row="2" ValueChanged="YComponent_ValueChanged" Value="{Binding Y}" FormatString="{Binding FormatString}" Style="{StaticResource SingleUpDownStyle}"/>
+        <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Height="0" Margin="{Binding HorizontalGap}" Background="Transparent"/>
     </Grid>
 
-</UserControl>
+</c:LocationPickerBase>

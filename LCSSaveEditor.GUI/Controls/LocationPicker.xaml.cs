@@ -8,11 +8,8 @@ namespace LCSSaveEditor.GUI.Controls
     /// <summary>
     /// Interaction logic for LocationPicker.xaml
     /// </summary>
-    public partial class LocationPicker : UserControl
+    public partial class LocationPicker : LocationPickerBase
     {
-        public static readonly DependencyProperty GapThicknessProperty = DependencyProperty.Register(
-            nameof(GapThickness), typeof(Thickness), typeof(LocationPicker));
-
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(
             nameof(Value), typeof(Vector3D?), typeof(LocationPicker),
             new FrameworkPropertyMetadata(default(Vector3D?),
@@ -37,17 +34,10 @@ namespace LCSSaveEditor.GUI.Controls
             remove { RemoveHandler(ValueChangedEvent, value); }
         }
 
-        public Thickness GapThickness
-        {
-            get { return (Thickness) GetValue(GapThicknessProperty); }
-            set { SetValue(GapThicknessProperty, value); }
-        }
-
         public Vector3D? Value
         {
             get { return (Vector3D?) GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
-
         }
 
         public float X
