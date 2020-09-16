@@ -28,7 +28,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         public event EventHandler MapWindowRequest;
         public event EventHandler StatsWindowRequest;
         public event EventHandler LogWindowRequest;
-        public event EventHandler DestroyAllWindowsRequest;
 
         private ObservableCollection<TabPageBase> m_tabs;
         private readonly DispatcherTimer m_timer;
@@ -491,8 +490,12 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             var type = sender.GetType();
             var prop = type.GetProperty(e.PropertyName, BindingFlags.Public | BindingFlags.Instance);
-            var data = prop.GetValue(sender);
-            Log.Info($"PropertyChanged: {type.Name}.{e.PropertyName} = {data}");
+            if (prop.GetIndexParameters().Length == 0)
+            {
+                // Only deal with non-indexer properties
+                var data = prop.GetValue(sender);
+                Log.Info($"PropertyChanged: {type.Name}.{e.PropertyName} = {data}");
+            }
         }
 
         private void TheSave_CollectionDirty(object sender, NotifyCollectionChangedEventArgs e)
@@ -714,6 +717,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             () => ShowGxtDialog((r, e) => { }, allowTableSelection: true, modal: false)
         );
 
+        public event EventHandler DestroyAllWindowsRequest;
         public ICommand DebugDestroyAllWindows => new RelayCommand
         (
             () => DestroyAllWindowsRequest?.Invoke(this, EventArgs.Empty)
