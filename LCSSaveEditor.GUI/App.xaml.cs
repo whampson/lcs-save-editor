@@ -53,7 +53,7 @@ namespace LCSSaveEditor.GUI
             var exeVer = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
             var gtaLibVer = Assembly.GetAssembly(typeof(SaveData)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
             var lcsLibVer = Assembly.GetAssembly(typeof(LCSSave)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
-            Log.Info($"File version = {exeVer}");
+            Log.Info($"Save Editor version = {exeVer}");
             Log.Info($"GTASaveData.Core version = {gtaLibVer}");
             Log.Info($"GTASaveData.LCS version = {lcsLibVer}");
 
