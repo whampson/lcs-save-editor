@@ -11,7 +11,7 @@
     xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
     xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
     xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:GeneralTab}">
@@ -102,7 +102,7 @@
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Clock:"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Minute Length (ms):"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Total Time Played:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Time Played (ms):"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Global Timer:"/>
                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Frame Counter:"/>
 
@@ -110,15 +110,21 @@
                         Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
                         Format="Custom" FormatString="HH:mm"
                         Minimum="00:00" Maximum="23:59"
+                        DefaultValue="00:00" DisplayDefaultValueOnEmptyText="True"
                         Value="{Binding GameClock}"/>
                     <xctk:LongUpDown
                         Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
                         Style="{StaticResource UnsignedIntegerUpDownStyle}"
                         Value="{Binding SimpleVars.MillisecondsPerGameMinute}"/>
-                    <xctk:TimeSpanUpDown
+                    <xctk:LongUpDown
+                        Grid.Row="2" Grid.Column="1" Height="25" Margin="5"
+                        Style="{StaticResource UnsignedIntegerUpDownStyle}"
+                        Value="{Binding SimpleVars.TimeInMilliseconds}"/>
+                    <!--<xctk:TimeSpanUpDown
                         Grid.Row="2" Grid.Column="1" Height="25" Margin="5"
                         FractionalSecondsDigitsCount="3"
-                        Value="{Binding TotalTimePlayed}"/>
+                        DefaultValue="0" DisplayDefaultValueOnEmptyText="True"
+                        Value="{Binding TotalTimePlayed}"/>--> <!-- Buggy; crashes if hour part deleted. -->
                     <xctk:LongUpDown
                         Grid.Row="3" Grid.Column="1" Height="25" Margin="5"
                         Style="{StaticResource UnsignedIntegerUpDownStyle}"
