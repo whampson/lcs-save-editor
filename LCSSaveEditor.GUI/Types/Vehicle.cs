@@ -22,7 +22,7 @@ namespace LCSSaveEditor.GUI.Types
         SPIDER = 130,
         
         [Description("Landstalker")]
-        LANDSTK = 131,
+        LANDSTAL = 131,
         
         [Description("Idaho")]
         IDAHO = 132,
@@ -37,16 +37,16 @@ namespace LCSSaveEditor.GUI.Types
         PEREN = 135,
         
         [Description("Sentinel")]
-        SENTINL = 136,
+        SENTINEL = 136,
         
         [Description("Patriot")]
         PATRIOT = 137,
         
         [Description("Firetruck")]
-        FIRETRK = 138,
+        FIRETRUK = 138,
         
         [Description("Trashmaster")]
-        TRASHM = 139,
+        TRASH = 139,
         
         [Description("Stretch")]
         STRETCH = 140,
@@ -55,7 +55,7 @@ namespace LCSSaveEditor.GUI.Types
         MANANA = 141,
         
         [Description("Infernus")]
-        INFERNS = 142,
+        INFERNUS = 142,
         
         [Description("Blista")]
         BLISTA = 143,
@@ -76,10 +76,10 @@ namespace LCSSaveEditor.GUI.Types
         FBICAR = 148,
         
         [Description("Moonbeam")]
-        MOONBM = 149,
+        MOONBEAM = 149,
         
         [Description("Esperanto")]
-        ESPERAN = 150,
+        ESPERANT = 150,
         
         [Description("Taxi")]
         TAXI = 151,
@@ -91,22 +91,22 @@ namespace LCSSaveEditor.GUI.Types
         BOBCAT = 153,
         
         [Description("Mr Whoopee")]
-        WHOOPEE = 154,
+        MRWHOOP = 154,
         
         [Description("BF Injection")]
-        BFINJC = 155,
+        BFINJECT = 155,
         
         [Description("Hearse")]
         HEARSE = 156,
         
         [Description("Police")]
-        POLICAR = 157,
+        POLICE = 157,
         
         [Description("Enforcer")]
-        ENFORCR = 158,
+        ENFORCER = 158,
         
         [Description("Securicar")]
-        SECURI = 159,
+        SECURICA = 159,
         
         [Description("Banshee")]
         BANSHEE = 160,
@@ -118,7 +118,7 @@ namespace LCSSaveEditor.GUI.Types
         RHINO = 162,
         
         [Description("Barracks OL")]
-        BARRCKS = 163,
+        BARRACKS = 163,
         
         [Description("Dodo")]
         DODO = 164,
@@ -130,13 +130,13 @@ namespace LCSSaveEditor.GUI.Types
         CABBIE = 166,
         
         [Description("Stallion")]
-        STALION = 167,
+        STALLION = 167,
         
         [Description("Rumpo")]
         RUMPO = 168,
         
         [Description("RC Bandit")]
-        RCBANDT = 169,
+        RCBANDIT = 169,
         
         [Description("Triad Fish Van")]
         BELLYUP = 170,
@@ -145,22 +145,22 @@ namespace LCSSaveEditor.GUI.Types
         MRWONGS = 171,
         
         [Description("Leone Sentinel")]
-        MAFIACR = 172,
+        MAFIA = 172,
         
         [Description("Yardie Lobo")]
-        YARDICR = 173,
+        YARDIE = 173,
         
         [Description("Yakuza Stinger")]
-        YAKUZCR = 174,
+        YAKUZA = 174,
         
         [Description("Diablo Stallion")]
-        DIABLCR = 175,
+        DIABLOS = 175,
         
         [Description("Cartel Cruiser")]
-        COLOMCR = 176,
+        COLUMB = 176,
         
         [Description("Hoods Rumpo XL")]
-        HOODSCR = 177,
+        HOODS = 177,
         
         [Description("Panlantic")]
         PANLANT = 178,
@@ -172,7 +172,7 @@ namespace LCSSaveEditor.GUI.Types
         YANKEE = 180,
         
         [Description("Bickle'76")]
-        BORGNIN = 181,
+        BORGNINE = 181,
         
         [Description("TOYZ")]
         TOYZ = 182,
@@ -192,20 +192,21 @@ namespace LCSSaveEditor.GUI.Types
         [Description("V8 Ghost")]
         ESPRIT = 187,
         
-        [Description("Barracks OL (Cargo)")]
-        BARRACK = 188,
+        [Description("Barracks OL (Ammo Truck)")]
+        AMMOTRUK = 188,
         
         [Description("Thunder-Rodd")]
         HOTROD = 189,
         
         [Description("Sindacco Argento")]
-        SINDACO = 190,
+        SINDACCO_CAR = 190,
         
         [Description("Forelli ExSess")]
-        FORELLI = 191,
-        
-        //FERRY = 192,
-        
+        FORELLI_CAR = 191,
+
+        [Description("Ferry")]
+        FERRY = 192,
+
         [Description("Ghost")]
         GHOST = 193,
         
@@ -216,26 +217,31 @@ namespace LCSSaveEditor.GUI.Types
         REEFER = 195,
         
         [Description("Predator")]
-        PREDATR = 196,
-        
-        // TRAIN = 197,
-        
-        // HELI = 198,
-        
-        // HELI = 199,
-        
-        // AEROPL = 200,
-        
-        // DODO = 201,
-        
+        PREDATOR = 196,
+
+        [Description("Train")]
+        TRAIN = 197,
+
+        [Description("Helicopter (Escape)")]
+        ESCAPE = 198,
+
+        [Description("Helicopter (Chopper)")]
+        CHOPPER = 199,
+
+        [Description("Aeroplane")]
+        AIRTRAIN = 200,
+
+        [Description("DeadDodo")]
+        DEADDODO = 201,
+
         [Description("Angel")]
         ANGEL = 202,
         
         [Description("Pizzaboy")]
-        PIZZABO = 203,
+        PIZZABOY = 203,
         
         [Description("Noodleboy")]
-        NOODLBO = 204,
+        NOODLEBOY = 204,
         
         [Description("PCJ-600")]
         PCJ600 = 205,
@@ -250,20 +256,22 @@ namespace LCSSaveEditor.GUI.Types
         ANGEL2 = 208,
         
         [Description("Manchez")]
-        SANCH2 = 209,
+        SANCHEZ2 = 209,
         
         [Description("Sanchez")]
         SANCHEZ = 210,
-        
-        // RCGOBLI = 211,
-        
-        // RCRAIDE = 212,
-        
+
+        [Description("RC Goblin")]
+        RCGOBLIN = 211,
+
+        [Description("RC Raider")]
+        RCRAIDER = 212,
+
         [Description("Hunter")]
         HUNTER = 213,
         
         [Description("Maverick")]
-        MAVERIC = 214,
+        MAVERICK = 214,
         
         [Description("Police Maverick")]
         POLMAV = 215,
