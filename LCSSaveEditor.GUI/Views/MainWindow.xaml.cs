@@ -53,7 +53,9 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.StatsWindowRequest += ViewModel_StatsWindowRequest;
             ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
+#if DEBUG
             ViewModel.DestroyAllWindowsRequest += ViewModel_DestroyAllWindowsRequest;
+#endif
         }
 
         protected override void WindowClosing(CancelEventArgs e)
@@ -71,7 +73,9 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.MapWindowRequest -= ViewModel_MapWindowRequest;
             ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
+#if DEBUG
             ViewModel.DestroyAllWindowsRequest -= ViewModel_DestroyAllWindowsRequest;
+#endif
             DestroyAllWindows();
         }
 
@@ -181,11 +185,13 @@ namespace LCSSaveEditor.GUI.Views
                     title: "About");
         }
 
+#if DEBUG
         private void ViewModel_DestroyAllWindowsRequest(object sender, EventArgs e)
         {
             DestroyAllWindows();
         }
-        
+#endif
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsWindowInitializing || !(e.OriginalSource is TabControl))
