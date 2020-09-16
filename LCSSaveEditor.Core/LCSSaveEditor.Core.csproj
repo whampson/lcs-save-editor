@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>0.16.0-alpha</Version>
-    <FileVersion>0.16.0.224</FileVersion>
-    <AssemblyVersion>0.16.0.224</AssemblyVersion>
+    <FileVersion>0.16.0.248</FileVersion>
+    <AssemblyVersion>0.16.0.248</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.Core</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>
@@ -16,15 +16,15 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="WpfEssentials" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\gta-save-data\GTASaveData.LCS\GTASaveData.LCS.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="WpfEssentials">
-      <HintPath>..\..\WpfEssentials\WpfEssentials\bin\Debug\netstandard2.0\WpfEssentials.dll</HintPath>
+    <Reference Include="GTASaveData.Core">
+      <HintPath>..\..\gta-save-data\GTASaveData.LCS\bin\Debug\netstandard2.0\GTASaveData.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GTASaveData.LCS">
+      <HintPath>..\..\gta-save-data\GTASaveData.LCS\bin\Debug\netstandard2.0\GTASaveData.LCS.dll</HintPath>
     </Reference>
   </ItemGroup>
 
