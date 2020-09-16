@@ -49,13 +49,13 @@ namespace LCSSaveEditor.Core
             set { m_lastFileAccessed = value; OnPropertyChanged(); }
         }
 
-        public string SaveDirectory
+        public string WelcomeDirectory
         {
             get { return m_saveDir; }
             set { m_saveDir = value; OnPropertyChanged(); }
         }
 
-        public bool SaveDirectoryRecursiveSearch
+        public bool WelcomeRecursiveSearch
         {
             get { return m_saveDirRecursiveSearch; }
             set { m_saveDirRecursiveSearch = value; OnPropertyChanged(); }
