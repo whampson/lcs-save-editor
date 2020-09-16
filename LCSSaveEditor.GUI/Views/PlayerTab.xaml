@@ -256,7 +256,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Heading:"/>
                                     <Slider
-                                        Grid.Column="1" Margin="5"
+                                        Grid.Column="1" Margin="0,5"
                                         Style="{StaticResource SliderStyle}" AutoToolTipPlacement="None"
                                         Minimum="0" Maximum="360"
                                         SmallChange="30" LargeChange="90"
