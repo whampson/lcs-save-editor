@@ -16,6 +16,10 @@
         <KeyBinding Key="F5" Command="{Binding SearchToggleCommand}"/>
     </UserControl.InputBindings>
 
+    <UserControl.Resources>
+        <BitmapImage x:Key="BannerLogo" UriSource="/Resources/logo.png"/>
+    </UserControl.Resources>
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -24,17 +28,15 @@
             <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="115"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock
+        <Image
             Grid.Column="1" Grid.Row="0"
-            Text="Liberty City Stories Save Editor"
+            Source="{StaticResource BannerLogo}"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="50"
-            FontFamily="Impact"/>
+            VerticalAlignment="Center"/>
 
         <GroupBox
             Grid.Column="1" Grid.Row="1"
