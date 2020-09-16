@@ -14,10 +14,8 @@ namespace LCSSaveEditor.Core
         private int m_recentFilesCapacity;
         private string m_lastDirAccessed;
         private string m_lastFileAccessed;
-        private string m_saveDir;
-        private bool m_saveDirRecursiveSearch;
-        private bool m_autoDetectFileType;
-        private FileFormat m_forcedFileType;
+        private string m_welcomeDir;
+        private bool m_welcomeRecurse;
         private bool m_updateTimeStamp;
 
         public ObservableCollection<string> RecentFiles
@@ -43,6 +41,7 @@ namespace LCSSaveEditor.Core
             get { return m_lastDirAccessed; }
             set { m_lastDirAccessed = value; OnPropertyChanged(); }
         }
+
         public string LastFileAccessed
         {
             get { return m_lastFileAccessed; }
@@ -51,27 +50,14 @@ namespace LCSSaveEditor.Core
 
         public string WelcomeDirectory
         {
-            get { return m_saveDir; }
-            set { m_saveDir = value; OnPropertyChanged(); }
+            get { return m_welcomeDir; }
+            set { m_welcomeDir = value; OnPropertyChanged(); }
         }
 
         public bool WelcomeRecursiveSearch
         {
-            get { return m_saveDirRecursiveSearch; }
-            set { m_saveDirRecursiveSearch = value; OnPropertyChanged(); }
-        }
-
-
-        public bool AutoDetectFileType
-        {
-            get { return m_autoDetectFileType; }
-            set { m_autoDetectFileType = value; OnPropertyChanged(); }
-        }
-
-        public FileFormat ForcedFileType
-        {
-            get { return m_forcedFileType; }
-            set { m_forcedFileType = value; OnPropertyChanged(); }
+            get { return m_welcomeRecurse; }
+            set { m_welcomeRecurse = value; OnPropertyChanged(); }
         }
 
         public bool UpdateTimeStampOnSave
@@ -91,32 +77,32 @@ namespace LCSSaveEditor.Core
         {
             m_recentFiles = new ObservableCollection<string>();
             m_recentFilesCapacity = DefaultRecentFilesCapacity;
-            AutoDetectFileType = true;
+            UpdateTimeStampOnSave = true;
         }
 
         public void AddRecentFile(string path)
         {
-            int index = m_recentFiles.IndexOf(path);
+            int index = RecentFiles.IndexOf(path);
             if (index == 0)
             {
                 return;
             }
             if (index != -1)
             {
-                m_recentFiles.Move(index, 0);
+                RecentFiles.Move(index, 0);
                 return;
             }
 
-            m_recentFiles.Insert(0, path);
-            while (m_recentFiles.Count > m_recentFilesCapacity)
+            RecentFiles.Insert(0, path);
+            while (RecentFiles.Count > RecentFilesCapacity)
             {
-                m_recentFiles.RemoveAt(m_recentFilesCapacity);
+                RecentFiles.RemoveAt(RecentFilesCapacity);
             }
         }
 
         public void ClearRecentFiles()
         {
-            m_recentFiles.Clear();
+            RecentFiles.Clear();
         }
 
         public void SetLastAccess(string path)

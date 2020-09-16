@@ -231,10 +231,8 @@ namespace LCSSaveEditor.Core
             if (IsFileOpen) throw FileAlreadyOpened();
 
             OnFileOpening(path);
-            m_activeFile = ((TheSettings.AutoDetectFileType)
-                ? SaveData.Load<LCSSave>(path)
-                : SaveData.Load<LCSSave>(path, TheSettings.ForcedFileType))
-                ?? throw BadSaveData();
+            // TODO: option to override file format autodetection
+            m_activeFile = SaveData.Load<LCSSave>(path) ?? throw BadSaveData();
             TheSettings.AddRecentFile(path);
             LastWriteTime = File.GetLastWriteTime(path);
             ScriptVersion = GetScriptVersion();
