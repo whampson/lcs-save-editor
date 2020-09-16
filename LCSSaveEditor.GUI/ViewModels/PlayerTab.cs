@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Xps.Serialization;
 using GTASaveData.LCS;
 using GTASaveData.Types;
 using LCSSaveEditor.Core;
@@ -18,6 +20,10 @@ namespace LCSSaveEditor.GUI.ViewModels
     {
         public static readonly Point MapOrigin = new Point(1024, 1024);
         public static readonly Point MapScale = new Point(0.512, -0.512);
+        public static readonly Vector3D PortlandSpawnPoint = new Vector3D(1138.803f, -242.4054f, 22.0082f);
+        public static readonly Vector3D StauntonSpawnPoint = new Vector3D(272.1489f, -417.604f, 60.1342f);
+        public static readonly Vector3D ShoresideSpawnPoint = new Vector3D(-845.29f, 304.41f, 40.95f);
+        public const int SpawnPointTolerance = 10;
 
         private bool m_isReadingWeaponSlot;
         private bool m_isWritingWeaponSlot;
@@ -48,6 +54,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private Point m_mouseOffset;
         private Point m_mouseCoords;
         private double m_zoomLevel;
+        private SafeHouse? m_safeHouse;
 
         public PlayerOutfit Outfit
         {
@@ -79,9 +86,12 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_currentWeapon = value; WriteSelectedWeapon(); OnPropertyChanged(); }
         }
 
-        // 1 Portland: 1138.803 -242.4054 22.0082
-        // 2 Staunton: 272.1489 -417.604 60.1342 
-        // 3 Shorside: -845.29 304.41 40.95
+
+        public SafeHouse? SpawnInterior
+        {
+            get { return m_safeHouse; }
+            set { m_safeHouse = value; OnPropertyChanged(); }
+        }
 
         public Vector3D SpawnPoint
         {
@@ -100,7 +110,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                 TheEditor.SetGlobal(GlobalVariable.PlayerX, value.X);
                 TheEditor.SetGlobal(GlobalVariable.PlayerY, value.Y);
                 TheEditor.SetGlobal(GlobalVariable.PlayerZ, value.Z);
-                UpdateSpawnPoint();
+                UpdateSpawnPointMarker();
+                UpdateSpawnPointInterior();
                 OnPropertyChanged();
             }
         }
@@ -109,12 +120,6 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             get { return (int) TheEditor.GetGlobalAsFloat(GlobalVariable.PlayerHeading); }
             set { TheEditor.SetGlobal(GlobalVariable.PlayerHeading, (float) value); OnPropertyChanged(); }
-        }
-
-        public int SpawnInterior
-        {
-            get { return (int) TheEditor.GetGlobal(GlobalVariable.CurrentInterior); }
-            set { TheEditor.SetGlobal(GlobalVariable.CurrentInterior, value); OnPropertyChanged(); }
         }
 
         public int Slot1Ammo
@@ -297,12 +302,15 @@ namespace LCSSaveEditor.GUI.ViewModels
             ReadSlot(9);
             UpdateInventory();
             UpdateOutfit();
-            UpdateSpawnPoint();
+            UpdateSpawnPointMarker();
+            UpdateSpawnPointInterior();
 
             OnPropertyChanged(nameof(Armor));
             OnPropertyChanged(nameof(Money));
             OnPropertyChanged(nameof(Weapon));
             OnPropertyChanged(nameof(SpawnPoint));
+            OnPropertyChanged(nameof(SpawnHeading));
+            OnPropertyChanged(nameof(SpawnInterior));
         }
 
         public override void Unload()
@@ -312,12 +320,50 @@ namespace LCSSaveEditor.GUI.ViewModels
             Scripts.GlobalVariables.CollectionChanged -= GlobalVariables_CollectionChanged;
         }
 
-        public void UpdateSpawnPoint()
+        public void UpdateSpawnPointMarker()
         {
             MapOverlays.Clear();
             MapOverlays.Add(MakeTargetSprite(SpawnPoint.Get2DComponent(), scale: 32));
-            OnPropertyChanged(nameof(SpawnHeading));
-            OnPropertyChanged(nameof(SpawnInterior));
+        }
+
+        public void UpdateSpawnPointInterior()
+        {
+            // TODO: check interior number too
+            if (Vector3D.Distance(SpawnPoint, PortlandSpawnPoint) < SpawnPointTolerance)
+            {
+                SpawnInterior = SafeHouse.Portland;
+            }
+            else if (Vector3D.Distance(SpawnPoint, StauntonSpawnPoint) < SpawnPointTolerance)
+            {
+                SpawnInterior = SafeHouse.Staunton;
+            }
+            else if (Vector3D.Distance(SpawnPoint, ShoresideSpawnPoint) < SpawnPointTolerance)
+            {
+                SpawnInterior = SafeHouse.Shoreside;
+            }
+            else
+            {
+                SpawnInterior = null;
+            }
+        }
+
+        public void SetSpawnPointInterior()
+        {
+            switch (SpawnInterior)
+            {
+                case SafeHouse.Portland:
+                    SpawnPoint = PortlandSpawnPoint;
+                    TheEditor.SetGlobal(GlobalVariable.CurrentInterior, (int) SafeHouse.Portland);
+                    break;
+                case SafeHouse.Staunton:
+                    SpawnPoint = StauntonSpawnPoint;
+                    TheEditor.SetGlobal(GlobalVariable.CurrentInterior, (int) SafeHouse.Staunton);
+                    break;
+                case SafeHouse.Shoreside:
+                    SpawnPoint = ShoresideSpawnPoint;
+                    TheEditor.SetGlobal(GlobalVariable.CurrentInterior, (int) SafeHouse.Shoreside);
+                    break;
+            }
         }
 
         private UIElement MakeTargetSprite(Vector2D loc,
@@ -767,5 +813,17 @@ namespace LCSSaveEditor.GUI.ViewModels
         };
 
         public static IReadOnlyList<PlayerOutfit> Outfits = Enum.GetValues(typeof(PlayerOutfit)) as IReadOnlyList<PlayerOutfit>;
+    }
+
+    public enum SafeHouse
+    {
+        [Description("Portland")]
+        Portland = 1,
+
+        [Description("Staunton Island")]
+        Staunton,
+
+        [Description("Shoreside Vale")]
+        Shoreside
     }
 }

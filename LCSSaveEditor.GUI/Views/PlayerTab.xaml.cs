@@ -170,6 +170,11 @@ namespace LCSSaveEditor.GUI.Views
             }
         }
 
+        private void SpawnInterior_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.SetSpawnPointInterior();
+        }
+
         private void CurrentOutfitImage_SelectionChanged(object sender, SelectionChangedEventArgs e) => OnOutfitChanged();
 
         private void Slot1_AmmoChanged(object sender, RoutedPropertyChangedEventArgs<object> e) => OnSlotAmmoChaged(1);
