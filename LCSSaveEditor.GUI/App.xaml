@@ -6,7 +6,7 @@
     xmlns:ctrl="clr-namespace:LCSSaveEditor.GUI.Controls"
     xmlns:conv="clr-namespace:LCSSaveEditor.GUI.Converters"
     xmlns:wpfe="clr-namespace:WpfEssentials.Win32.Converters;assembly=WpfEssentials.Win32"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     Startup="Application_Startup">
 
     <Application.Resources>
@@ -107,10 +107,21 @@
             <Setter Property="SmallChange" Value="10"/>
             <Setter Property="LargeChange" Value="50"/>
             <Setter Property="AutoToolTipPlacement" Value="TopLeft"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
 
         <!-- UpDowns -->
+        <Style x:Key="SingleUpDownStyle" TargetType="xctk:SingleUpDown">
+            <Setter Property="DefaultValue" Value="0"/>
+            <Setter Property="DisplayDefaultValueOnEmptyText" Value="True"/>
+        </Style>
+        <Style x:Key="IntegerUpDownStyle" TargetType="xctk:IntegerUpDown">
+            <Setter Property="DefaultValue" Value="0"/>
+            <Setter Property="DisplayDefaultValueOnEmptyText" Value="True"/>
+        </Style>
         <Style x:Key="UnsignedIntegerUpDownStyle" TargetType="xctk:LongUpDown">
+            <Setter Property="DefaultValue" Value="0"/>
+            <Setter Property="DisplayDefaultValueOnEmptyText" Value="True"/>
             <Setter Property="Minimum" Value="0"/>
             <Setter Property="Maximum" Value="4294967295"/>
         </Style>
