@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     mc:Ignorable="d" 
     d:DataContext="{d:DesignInstance m:StatsWindow}"
     Title="In-Game Statistics"

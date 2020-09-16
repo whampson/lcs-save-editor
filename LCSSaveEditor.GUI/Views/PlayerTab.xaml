@@ -11,14 +11,14 @@
     xmlns:t="clr-namespace:LCSSaveEditor.GUI.Types"
     xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
     xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:PlayerTab}">
 
     <UserControl.Resources>
         <BitmapImage x:Key="MapImage" UriSource="/LCSSaveEditor.GUI;component/Resources/map.png"/>
-        <Style TargetType="{x:Type xctk:IntegerUpDown}">
+        <Style TargetType="{x:Type xctk:IntegerUpDown}" BasedOn="{StaticResource IntegerUpDownStyle}">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Height" Value="25"/>
         </Style>

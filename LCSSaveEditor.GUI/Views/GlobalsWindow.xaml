@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:v="clr-namespace:LCSSaveEditor.GUI.Views"
     xmlns:m="clr-namespace:LCSSaveEditor.GUI.ViewModels"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     mc:Ignorable="d" 
     d:DataContext="{d:DesignInstance m:GlobalsWindow}"
     Title="Edit Global Variables"
