@@ -25,7 +25,7 @@ namespace LCSSaveEditor.GUI.Views
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (ViewModel.SelectedItem != null)
+            if (ViewModel.SelectedFile != null)
             {
                 ViewModel.OpenSelectedItem();
             }

@@ -5,9 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Configuration;
+using System.DirectoryServices.ActiveDirectory;
 using System.IO;
+using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Forms;
 using System.Windows.Input;
+using WpfEssentials;
 using WpfEssentials.Win32;
 
 namespace LCSSaveEditor.GUI.ViewModels
@@ -15,23 +21,33 @@ namespace LCSSaveEditor.GUI.ViewModels
     public class WelcomeTab : TabPageBase
     {
         private BackgroundWorker m_lukeFileWalker;
-        private ObservableCollection<ListItem> m_listItems;
-        private ListItem m_selectedItem;
+        private ObservableCollection<SaveFileInfo> m_saveFiles;
+        private SaveFileInfo m_selectedFile;
         private bool m_openedOnce;
         private bool m_isSearching;
         private bool m_searchPending;
         private bool m_cancelPending;
 
-        public string SelectedDirectory
+        private static string AppendTrailingSlash(string path)
         {
-            get { return TheSettings.SaveDirectory; }
-            set { TheSettings.SaveDirectory = value; OnPropertyChanged(); }
+            if (path != null && !path.EndsWith('\\'))
+            {
+                path += "\\";
+            }
+
+            return path;
         }
 
-        public bool SearchSubDirectories
+        public string SelectedDirectory
         {
-            get { return TheSettings.SaveDirectoryRecursiveSearch; }
-            set { TheSettings.SaveDirectoryRecursiveSearch = value; OnPropertyChanged(); }
+            get { return AppendTrailingSlash(TheSettings.WelcomeDirectory); }
+            set { TheSettings.WelcomeDirectory = AppendTrailingSlash(value); OnPropertyChanged(); }
+        }
+
+        public bool RecursiveSearch
+        {
+            get { return TheSettings.WelcomeRecursiveSearch; }
+            set { TheSettings.WelcomeRecursiveSearch = value; OnPropertyChanged(); }
         }
 
         public BackgroundWorker SearchWorker
@@ -40,16 +56,16 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_lukeFileWalker = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<ListItem> ListItems
+        public ObservableCollection<SaveFileInfo> SaveFiles
         {
-            get { return m_listItems; }
-            private set { m_listItems = value; OnPropertyChanged(); }
+            get { return m_saveFiles; }
+            private set { m_saveFiles = value; OnPropertyChanged(); }
         }
 
-        public ListItem SelectedItem
+        public SaveFileInfo SelectedFile
         {
-            get { return m_selectedItem; }
-            set { m_selectedItem = value; OnPropertyChanged(); }
+            get { return m_selectedFile; }
+            set { m_selectedFile = value; OnPropertyChanged(); }
         }
 
         public bool SearchPending
@@ -73,7 +89,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public WelcomeTab(MainWindow window)
             : base("Welcome", TabPageVisibility.WhenFileIsClosed, window)
         {
-            ListItems = new ObservableCollection<ListItem>();
+            SaveFiles = new ObservableCollection<SaveFileInfo>();
             SearchWorker = new BackgroundWorker
             {
                 WorkerSupportsCancellation = true,
@@ -110,13 +126,28 @@ namespace LCSSaveEditor.GUI.ViewModels
                 m_openedOnce = true;
             }
             OnPropertyChanged(nameof(SelectedDirectory));
-            OnPropertyChanged(nameof(SearchSubDirectories));
+            OnPropertyChanged(nameof(RecursiveSearch));
         }
 
         public override void Unload()
         {
             base.Unload();
             CancelSearch();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            for (int i = 0; i < SaveFiles.Count; i++)
+            {
+                SaveFileInfo.TryGetInfo(SaveFiles[i].Path, out SaveFileInfo newInfo);
+                SaveFiles[i] = newInfo;
+            }
         }
 
         public void Search()
@@ -131,11 +162,11 @@ namespace LCSSaveEditor.GUI.ViewModels
             SearchPending = false;
             if (Directory.Exists(SelectedDirectory))
             {
-                ListItems.Clear();
+                SaveFiles.Clear();
                 SearchWorker.RunWorkerAsync();
                 IsSearching = true;
 
-                Log.Info($"Searching for GTA:LCS save files...{(SearchSubDirectories ? " (recursive)" : "")}");
+                Log.Info($"Searching for GTA:LCS save files...{(RecursiveSearch ? " (recursive)" : "")}");
             }
         }
 
@@ -152,9 +183,9 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             CancelSearch();
 
-            if (SelectedItem != null)
+            if (SelectedFile != null)
             {
-                TheEditor.OpenFile(SelectedItem.Path);
+                TheEditor.OpenFile(SelectedFile.Path);
             }
         }
 
@@ -170,7 +201,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void FileWalker_DoWork(object sender, DoWorkEventArgs e)
         {
-            SearchOption o = (SearchSubDirectories) ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+            SearchOption o = (RecursiveSearch) ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             IEnumerable<string> files = Directory.EnumerateFiles(SelectedDirectory, "*.*", o);
 
             string currDir;
@@ -188,41 +219,21 @@ namespace LCSSaveEditor.GUI.ViewModels
                 if (currDir != lastDir)
                 {
                     lastDir = currDir;
-                    TheWindow.SetStatusText($"Searching {currDir}...");   // TODO: path shortening func
+                    TheWindow.SetStatusText(@$"Searching {currDir}\...");   // TODO: path shortening func
                 }
-                if (Editor.TryOpenFile(path, out LCSSave saveFile))
+
+                if (SaveFileInfo.TryGetInfo(path, out SaveFileInfo info))
                 {
-                    string lastMissionPassedKey = saveFile.Stats.LastMissionPassedName;
-                    if (!TheWindow.TheText.TryGetValue("MAIN", lastMissionPassedKey, out string title))
-                    {
-                        title = $"(invalid GXT key: {lastMissionPassedKey})";
-                    }
-
-                    saveFile.SimpleVars.TimeStamp.TryGetDateTime(out DateTime timeStamp);
-                    if (!saveFile.FileFormat.IsPS2)
-                    {
-                        timeStamp = File.GetLastWriteTime(path);
-                    }
-
-                    ListItem item = new ListItem()
-                    {
-                        SaveFile = saveFile,
-                        Path = path,
-                        FileType = saveFile.FileFormat,
-                        LastModified = timeStamp,
-                        Title = title
-                    };
-
-                    SearchWorker.ReportProgress(-1, item);
+                    SearchWorker.ReportProgress(-1, info);
                 }
             }
         }
 
         private void FileWalker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (e.UserState is ListItem item)
+            if (e.UserState is SaveFileInfo info)
             {
-                ListItems.Add(item);
+                SaveFiles.Add(info);
             }
         }
 
@@ -240,17 +251,16 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (e.Error != null)
             {
-                if (e.Error is UnauthorizedAccessException)
+                Log.Exception(e.Error);
+                if (!(e.Error is UnauthorizedAccessException ex))
                 {
-                    Log.Exception(e.Error);
-                }
-                else
-                {
+#if DEBUG
                     // Re-throw and preserve stack trace
                     ExceptionDispatchInfo.Capture(e.Error).Throw();
+#endif
                 }
 
-                Log.Info($"Search completed with errors. Found {ListItems.Count} save files.");
+                Log.Info($"Search completed with errors. Found {SaveFiles.Count} save files.");
                 TheWindow.SetTimedStatusText("Search completed with errors. See the log for details.", expiredStatus: "Ready.");
                 return;
             }
@@ -261,7 +271,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 return;
             }
 
-            Log.Info($"Search completed. Found {ListItems.Count} save files.");
+            Log.Info($"Search completed. Found {SaveFiles.Count} save files.");
             TheWindow.SetTimedStatusText("Search completed.", expiredStatus: "Ready.");
         }
         #endregion
@@ -275,22 +285,97 @@ namespace LCSSaveEditor.GUI.ViewModels
         public ICommand OpenCommand => new RelayCommand
         (
             () => OpenSelectedItem(),
-            () => SelectedItem != null
+            () => SelectedFile != null
         );
 
         public ICommand BrowseCommand => new RelayCommand
         (
             () => TheWindow.ShowFolderDialog(FileDialogType.OpenFileDialog, FolderDialogRequested_Callback)
         );
+
+        public ICommand RefreshCommand => new RelayCommand
+        (
+            () => Refresh()
+        );
         #endregion
 
-        public class ListItem
+        public class SaveFileInfo : ObservableObject
         {
-            public LCSSave SaveFile { get; set; }
-            public string Path { get; set; }
-            public string Title { get; set; }
-            public DateTime LastModified { get; set; }
-            public FileFormat FileType { get; set; }
+            private LCSSave m_saveFile;
+            private string m_path;
+            private string m_title;
+            private DateTime m_lastModified;
+            private FileFormat m_fileType;
+
+            public LCSSave SaveFile
+            {
+                get { return m_saveFile; }
+                set { m_saveFile = value; OnPropertyChanged(); }
+            }
+
+            public string Path
+            {
+                get { return m_path; }
+                set { m_path = value; OnPropertyChanged(); }
+            }
+
+            public string Title
+            {
+                get { return m_title; }
+                set { m_title = value; OnPropertyChanged(); }
+            }
+
+            public DateTime LastModified
+            {
+                get { return m_lastModified; }
+                set { m_lastModified = value; OnPropertyChanged(); }
+            }
+
+            public FileFormat FileType
+            {
+                get { return m_fileType; }
+                set { m_fileType = value; OnPropertyChanged(); }
+            }
+
+            public static bool TryGetInfo(string path, out SaveFileInfo info)
+            {
+                if (Editor.TryOpenFile(path, out LCSSave saveFile))
+                {
+                    string lastMissionPassedKey = saveFile.Stats.LastMissionPassedName;
+                    if (!Gxt.TheText.TryGetValue("MAIN", lastMissionPassedKey, out string title))
+                    {
+                        title = $"(invalid GXT key: {lastMissionPassedKey})";
+                    }
+
+                    saveFile.SimpleVars.TimeStamp.TryGetDateTime(out DateTime timeStamp);
+                    if (!saveFile.FileFormat.IsPS2)
+                    {
+                        timeStamp = File.GetLastWriteTime(path);
+                    }
+
+                    info = new SaveFileInfo()
+                    {
+                        SaveFile = saveFile,
+                        Path = path,
+                        FileType = saveFile.FileFormat,
+                        LastModified = timeStamp,
+                        Title = title
+                    };
+
+                    return true;
+                }
+
+                info = new SaveFileInfo()
+                {
+                    SaveFile = null,
+                    Path = path,
+                    FileType = FileFormat.Default,
+                    LastModified = DateTime.MinValue,
+                    Title = "(invalid save file)"
+                };
+
+                return false;
+            }
         }
     }
 }

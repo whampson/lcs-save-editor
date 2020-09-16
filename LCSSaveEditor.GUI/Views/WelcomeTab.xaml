@@ -28,13 +28,14 @@
             <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="115"/>
+            <RowDefinition Height="125"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Image
             Grid.Column="1" Grid.Row="0"
             Source="{StaticResource BannerLogo}"
+            Margin="0,10,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>
 
@@ -55,8 +56,8 @@
                     Grid.Row="0"
                     Margin="5"
                     HorizontalContentAlignment="Stretch"
-                    ItemsSource="{Binding ListItems}"
-                    SelectedItem="{Binding SelectedItem}"
+                    ItemsSource="{Binding SaveFiles}"
+                    SelectedItem="{Binding SelectedFile}"
                     MouseDoubleClick="ListBox_MouseDoubleClick">
 
                     <ListBox.Style>
@@ -114,6 +115,7 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -123,21 +125,20 @@
                         Grid.Column="0"
                         Margin="5"
                         Content="Browse..."
+                        ToolTip="Select your GTA:LCS save file folder."
+                        ToolTipService.InitialShowDelay="1000"
                         Style="{StaticResource ButtonStyle}"
                         Command="{Binding BrowseCommand}"/>
-                    <CheckBox
-                        Grid.Column="1"
-                        Margin="5"
-                        VerticalAlignment="Center"
-                        Content="Search Subfolders"
-                        IsChecked="{Binding SearchSubDirectories}"/>
+
                     <Button
-                        Grid.Column="3"
+                        Grid.Column="1"
                         Margin="5"
                         Command="{Binding SearchToggleCommand}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
                                 <Setter Property="Content" Value="Search"/>
+                                <Setter Property="ToolTip" Value="Search the selected folder for GTA:LCS save files."/>
+                                <Setter Property="ToolTipService.InitialShowDelay" Value="1000"/>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSearching}" Value="True">
                                         <Setter Property="Content" Value="Cancel Search"/>
@@ -147,12 +148,33 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Button
+
+                    <CheckBox
                         Grid.Column="2"
                         Margin="5"
+                        VerticalAlignment="Center"
+                        Content="Recursive Search"
+                        ToolTip="Search subdirectories for save files."
+                        ToolTipService.InitialShowDelay="1000"
+                        IsChecked="{Binding RecursiveSearch}"/>
+
+                    <Button
+                        Grid.Column="3"
+                        Margin="5"
                         Content="Open"
+                        ToolTip="Open the selected file for editing."
+                        ToolTipService.InitialShowDelay="1000"
                         Style="{StaticResource ButtonStyle}"
                         Command="{Binding OpenCommand}"/>
+
+                    <Button
+                        Grid.Column="4"
+                        Margin="5"
+                        Content="Refresh"
+                        ToolTip="Re-load the files in the list."
+                        ToolTipService.InitialShowDelay="1000"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding RefreshCommand}"/>
 
                 </Grid>
 
