@@ -30,5 +30,10 @@ namespace LCSSaveEditor.GUI.Views
         {
             ViewModel.UpdateCurrentGarage();
         }
+
+        private void Model_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.CheckProblematicVehicle();
+        }
     }
 }

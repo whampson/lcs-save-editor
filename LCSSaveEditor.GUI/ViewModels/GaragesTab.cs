@@ -10,6 +10,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private List<StoredCar> m_garageContents;
         private ZoneLevel m_selectedSafeHouse;
         private StoredCar m_selectedCar;
+        private bool m_isProblematic;
 
         public List<StoredCar> GarageContents
         {
@@ -27,6 +28,12 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             get { return m_selectedCar; }
             set { m_selectedCar = value; OnPropertyChanged(); }
+        }
+
+        public bool IsProblematicVehicle
+        {
+            get { return m_isProblematic; }
+            set { m_isProblematic = value; OnPropertyChanged(); }
         }
 
         public GaragesTab(MainWindow window)
@@ -50,6 +57,19 @@ namespace LCSSaveEditor.GUI.ViewModels
                 case ZoneLevel.Commercial: GarageContents = Garages.StoredCarsStaunton.ToList(); break;
                 case ZoneLevel.Suburban: GarageContents = Garages.StoredCarsShoreside.ToList(); break;
             }
+        }
+
+        public void CheckProblematicVehicle()
+        {
+            IsProblematicVehicle = SelectedCar != null &&
+               (SelectedCar.Model == (int) Vehicle.FERRY ||
+                SelectedCar.Model == (int) Vehicle.TRAIN ||
+                SelectedCar.Model == (int) Vehicle.ESCAPE ||
+                SelectedCar.Model == (int) Vehicle.CHOPPER ||
+                SelectedCar.Model == (int) Vehicle.AIRTRAIN ||
+                SelectedCar.Model == (int) Vehicle.RCBANDIT ||
+                SelectedCar.Model == (int) Vehicle.RCGOBLIN ||
+                SelectedCar.Model == (int) Vehicle.RCRAIDER);
         }
     }
 }
