@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>0.16.0-alpha</Version>
-    <FileVersion>0.16.0.1132</FileVersion>
-    <AssemblyVersion>0.16.0.1132</AssemblyVersion>
+    <FileVersion>0.16.0.1220</FileVersion>
+    <AssemblyVersion>0.16.0.1220</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>
@@ -14,120 +14,92 @@
     <Copyright>(C) 2016-2020 Wes Hampson.</Copyright>
     <Description>Grand Theft Auto: Liberty City Stories save file editor.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MiqM.Xceed.Wpf.Toolkit.NETCore" Version="3.5.1.3" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.86" />
     <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
+    <PackageReference Include="WpfEssentials.Win32" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LCSSaveEditor.Core\LCSSaveEditor.Core.csproj" />
-    <ProjectReference Include="..\..\gta-save-data\GTASaveData.LCS\GTASaveData.LCS.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\carcols.dat" />
-    <None Remove="Resources\costume00.png" />
-    <None Remove="Resources\costume01.png" />
-    <None Remove="Resources\costume02.png" />
-    <None Remove="Resources\costume03.png" />
-    <None Remove="Resources\costume04.png" />
-    <None Remove="Resources\costume05.png" />
-    <None Remove="Resources\costume06.png" />
-    <None Remove="Resources\costume07.png" />
-    <None Remove="Resources\costume08.png" />
-    <None Remove="Resources\costume09.png" />
-    <None Remove="Resources\costume10.png" />
-    <None Remove="Resources\costume11.png" />
-    <None Remove="Resources\costume12.png" />
-    <None Remove="Resources\costume13.png" />
-    <None Remove="Resources\costume14.png" />
-    <None Remove="Resources\costume15.png" />
-    <None Remove="Resources\ENGLISH.GXT" />
-    <None Remove="Resources\map.png" />
-    <None Remove="Resources\target.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="WpfEssentials">
-      <HintPath>..\..\WpfEssentials\WpfEssentials\bin\Debug\netstandard2.0\WpfEssentials.dll</HintPath>
-      <Private>true</Private>
+    <Reference Include="GTASaveData.Core">
+      <HintPath>..\..\gta-save-data\GTASaveData.LCS\bin\Debug\netstandard2.0\GTASaveData.Core.dll</HintPath>
     </Reference>
-    <Reference Include="WpfEssentials.Win32">
-      <HintPath>..\..\WpfEssentials\WpfEssentials.Win32\bin\Debug\netcoreapp3.0\WpfEssentials.Win32.dll</HintPath>
-      <Private>true</Private>
+    <Reference Include="GTASaveData.LCS">
+      <HintPath>..\..\gta-save-data\GTASaveData.LCS\bin\Debug\netstandard2.0\GTASaveData.LCS.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\carcols.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume00.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume01.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume02.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume03.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume04.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume05.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume06.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume07.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume08.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume09.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume10.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume11.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume12.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume13.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume14.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\costume15.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\ENGLISH.GXT">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\logo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\map.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\target.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Resources\package.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    </Resource>
   </ItemGroup>
   
 </Project>
