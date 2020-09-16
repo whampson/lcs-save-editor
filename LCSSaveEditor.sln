@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LCSSaveEditor.Core", "LCSSa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LCSSaveEditor.GUI", "LCSSaveEditor.GUI\LCSSaveEditor.GUI.csproj", "{06956268-0DCE-4522-A408-0498B8852B93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTASaveData.LCS", "..\gta-save-data\GTASaveData.LCS\GTASaveData.LCS.csproj", "{1CA0B84B-583E-43E4-9EE9-AA72DF293150}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GTASaveData.Core", "..\gta-save-data\GTASaveData.Core\GTASaveData.Core.csproj", "{4E5CBF0A-4D01-4886-A0A0-B0F9F4B1B5CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
