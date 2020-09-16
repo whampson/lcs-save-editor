@@ -71,6 +71,11 @@ namespace LCSSaveEditor.GUI.Views
             bool weaponNeedsUpdate;
             int ammo;
 
+            if (ViewModel == null)
+            {
+                return;
+            }
+
             switch (index)
             {
                 case 1: weapons = PlayerTabViewModel.Slot1Weapons; oldWeapon = ViewModel.Slot1Weapon; ammo = ViewModel.Slot1Ammo; break;
@@ -120,6 +125,11 @@ namespace LCSSaveEditor.GUI.Views
             Weapon? weapon;
             int ammo, oldAmmo;
             bool ammoNeedsUpdate;
+
+            if (ViewModel == null)
+            {
+                return;
+            }
 
             switch (index)
             {
