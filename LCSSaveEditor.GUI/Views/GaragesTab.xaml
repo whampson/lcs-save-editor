@@ -13,7 +13,7 @@
     xmlns:conv2="clr-namespace:WpfEssentials.Win32.Converters;assembly=WpfEssentials.Win32"
     xmlns:e="clr-namespace:WpfEssentials.Win32.Extensions;assembly=WpfEssentials.Win32"
     xmlns:lcs="clr-namespace:GTASaveData.LCS;assembly=GTASaveData.LCS"
-    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="500" d:DesignWidth="800"
     d:DataContext="{d:DesignInstance Type=m:GaragesTab}">
@@ -110,7 +110,7 @@
 
                             <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Vehicle Model:"/>
                             <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Radio Station:"/>
-                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Handling Multiplier:"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Traction Ratio:"/>
 
                             <ComboBox
                                 Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
@@ -124,7 +124,9 @@
                                 SelectedItem="{Binding SelectedCar.Radio}"/>
                             <xctk:SingleUpDown
                                 Grid.Row="2" Grid.Column="1" Height="25" Margin="5"
-                                Value="{Binding SelectedCar.HandlingMultiplier}"/>
+                                Style="{StaticResource SingleUpDownStyle}" FormatString="F" 
+                                Value="{Binding SelectedCar.Traction}" DefaultValue="1"
+                                ToolTip="Affects the steering radius and tire grip. (bikes only)"/>
                         </Grid>
 
                         <Grid Grid.Row="1" Margin="0,5,0,0">
@@ -154,11 +156,13 @@
                                 SelectedColor="{Binding SelectedCar.Color2, Converter={StaticResource CarColorConverter}}"/>
                             <xctk:IntegerUpDown
                                 Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
-                                Minimum="-1"
+                                Style="{StaticResource IntegerUpDownStyle}"
+                                Minimum="-1" DefaultValue="-1"
                                 Value="{Binding SelectedCar.Extra1}"/>
                             <xctk:IntegerUpDown
                                 Grid.Row="1" Grid.Column="3" Height="25" Margin="5"
-                                Minimum="-1"
+                                Style="{StaticResource IntegerUpDownStyle}"
+                                Minimum="-1" DefaultValue="-1"
                                 Value="{Binding SelectedCar.Extra2}"/>
                         </Grid>
                     </Grid>
@@ -172,25 +176,70 @@
                     <Grid>
 
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="65"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Position:"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" VerticalAlignment="Top" Text="Angle:"/>
+                        <!--<TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Position:"/>-->
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Heading:"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Style="{StaticResource LabelStyleRight}" Text="Pitch:"/>
 
                         <c:LocationPicker
-                            Grid.Row="0" Grid.Column="1" Margin="5"
-                            Height="82.5" GapThickness="2.5"
+                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                            Margin="5" Padding="45,0,0,0" Height="82.5"
+                            HorizontalGap="2.5" VerticalGap="0,0,10,0"
                             Value="{Binding SelectedCar.Position}"/>
-                        <c:LocationPicker
-                            Grid.Row="1" Grid.Column="1" Margin="5"
-                            Height="82.5" GapThickness="2.5"
-                            Value="{Binding SelectedCar.Angle}"/>
+
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider
+                                Grid.Column="0" Margin="5"
+                                Style="{StaticResource SliderStyle}" AutoToolTipPlacement="None"
+                                Minimum="0" Maximum="360"
+                                SmallChange="30" LargeChange="90"
+                                Value="{Binding SelectedCar.Heading}"
+                                ToolTip="The direction the vehicle is pointing.&#x0a;0 = north, 90 = east, 180 = south, 270 = west"/>
+                            <xctk:IntegerUpDown
+                                Grid.Column="2" Margin="5,5"
+                                Width="35" Height="25"
+                                Style="{StaticResource IntegerUpDownStyle}"
+                                TextAlignment="Center" 
+                                Increment="5" ShowButtonSpinner="False"
+                                Minimum="0" Maximum="360"
+                                Value="{Binding SelectedCar.Heading}"
+                                ToolTip="The direction the vehicle is pointing.&#x0a;0 = north, 90 = east, 180 = south, 270 = west"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider
+                                Grid.Column="0" Margin="5"
+                                Style="{StaticResource SliderStyle}" AutoToolTipPlacement="None"
+                                Minimum="-90" Maximum="90"
+                                SmallChange="15" LargeChange="45"
+                                Value="{Binding SelectedCar.Pitch}"
+                                ToolTip="The vehicle's up-down pitch angle."/>
+                            <xctk:IntegerUpDown
+                                Grid.Column="2" Margin="5,5"
+                                Width="35" Height="25"
+                                Style="{StaticResource IntegerUpDownStyle}"
+                                TextAlignment="Center" 
+                                Increment="5" ShowButtonSpinner="False"
+                                Minimum="-89" Maximum="89"
+                                Value="{Binding SelectedCar.Pitch}"
+                                ToolTip="The vehicle's up-down pitch angle."/>
+                        </Grid>
                     </Grid>
 
                 </GroupBox>
