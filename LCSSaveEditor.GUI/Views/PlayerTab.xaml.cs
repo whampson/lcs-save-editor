@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,10 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GTASaveData.LCS;
+using GTASaveData.Types;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Types;
 using LCSSaveEditor.GUI.ViewModels;
-
+using WpfEssentials.Win32;
 using PlayerTabViewModel = LCSSaveEditor.GUI.ViewModels.PlayerTab;
 
 namespace LCSSaveEditor.GUI.Views
@@ -35,9 +37,35 @@ namespace LCSSaveEditor.GUI.Views
             set { SetValue(OutfitImageProperty, value); }
         }
 
+        private Point m_mouseClickCoords;
+
         public PlayerTab()
         {
             InitializeComponent();
+        }
+
+        public ICommand SpawnHereCommand => new RelayCommand
+        (
+            () =>
+            {
+                Vector3D oldSpawn = ViewModel.SpawnPoint;
+                ViewModel.SpawnPoint = new Vector3D()
+                {
+                    X = (float) m_mouseClickCoords.X,
+                    Y = (float) m_mouseClickCoords.Y,
+                    Z = oldSpawn.Z
+                };
+            }
+        );
+
+        public ICommand ResetMapCommand => new RelayCommand
+        (
+            () => m_map.Reset()
+        );
+
+        private void Map_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            m_mouseClickCoords = ViewModel.MouseCoords;
         }
 
         private void OnOutfitChanged()

@@ -14,7 +14,8 @@
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
     mc:Ignorable="d" 
     d:DesignHeight="500" d:DesignWidth="800"
-    d:DataContext="{d:DesignInstance Type=m:PlayerTab}">
+    d:DataContext="{d:DesignInstance Type=m:PlayerTab}"
+    x:Name="m_thePlayerTab">
 
     <UserControl.Resources>
         <BitmapImage x:Key="MapImage" UriSource="/Resources/map.png"/>
@@ -44,12 +45,6 @@
                 Margin="-0.5,2.5,-0.5,-0.5"
                 Style="{StaticResource TabControlStyle}"
                 IsSynchronizedWithCurrentItem="True">
-
-            <c:TabControlEx.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Title, Mode=OneWay}"/>
-                </DataTemplate>
-            </c:TabControlEx.ItemTemplate>
 
             <TabItem Header="Info" Style="{StaticResource TabItemStyle}">
                 <Grid>
@@ -228,11 +223,25 @@
                             InitialCenter="0,-175"
                             Cursor="Cross"
                             Image="{StaticResource MapImage}"
-                            Center="{Binding CenterOffset}"
-                            Zoom="{Binding ZoomLevel}"
-                            MouseOverOffset="{Binding MouseOffset}"
                             MouseOverCoords="{Binding MouseCoords}"
-                            Overlays="{Binding MapOverlays}"/>
+                            MouseDown="Map_MouseDown"
+                            Overlays="{Binding MapOverlays}"
+                            Tag="{Binding ElementName=m_thePlayerTab}">
+
+                            <c:MapControl.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem
+                                        Header="Spawn Here"
+                                        Command="{Binding PlacementTarget.Tag.SpawnHereCommand,
+                                            RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                    <Separator/>
+                                    <MenuItem
+                                        Header="Reset Map"
+                                        Command="{Binding PlacementTarget.Tag.ResetMapCommand,
+                                            RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                                </ContextMenu>
+                            </c:MapControl.ContextMenu>
+                        </c:MapControl>
                     </GroupBox>
 
                     <GroupBox Grid.Column="1" Header="Spawn Point" Margin="2.5,5,5,5">

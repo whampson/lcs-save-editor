@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Xps.Serialization;
 using GTASaveData.LCS;
 using GTASaveData.Types;
 using LCSSaveEditor.Core;
@@ -23,7 +22,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         public static readonly Vector3D PortlandSpawnPoint = new Vector3D(1138.803f, -242.4054f, 22.0082f);
         public static readonly Vector3D StauntonSpawnPoint = new Vector3D(272.1489f, -417.604f, 60.1342f);
         public static readonly Vector3D ShoresideSpawnPoint = new Vector3D(-845.29f, 304.41f, 40.95f);
-        public const int SpawnPointTolerance = 10;
+        public const int SpawnPointTolerance = 20;
 
         private bool m_isReadingWeaponSlot;
         private bool m_isWritingWeaponSlot;
@@ -50,11 +49,9 @@ namespace LCSSaveEditor.GUI.ViewModels
         private int m_slot9Ammo;
         private ObservableCollection<Weapon?> m_inventory;
         private ObservableCollection<UIElement> m_mapOverlays;
-        private Point m_centerOffset;
-        private Point m_mouseOffset;
         private Point m_mouseCoords;
-        private double m_zoomLevel;
         private SafeHouse? m_safeHouse;
+        private bool m_isUpdatingSpawnInterior;
 
         public PlayerOutfit Outfit
         {
@@ -248,28 +245,10 @@ namespace LCSSaveEditor.GUI.ViewModels
             set { m_mapOverlays = value; OnPropertyChanged(); }
         }
 
-        public Point CenterOffset
-        {
-            get { return m_centerOffset; }
-            set { m_centerOffset = value; OnPropertyChanged(); }
-        }
-
-        public Point MouseOffset
-        {
-            get { return m_mouseOffset; }
-            set { m_mouseOffset = value; OnPropertyChanged(); }
-        }
-
         public Point MouseCoords
         {
             get { return m_mouseCoords; }
             set { m_mouseCoords = value; OnPropertyChanged(); }
-        }
-
-        public double ZoomLevel
-        {
-            get { return m_zoomLevel; }
-            set { m_zoomLevel = value; OnPropertyChanged(); }
         }
 
 
@@ -328,16 +307,22 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public void UpdateSpawnPointInterior()
         {
-            // TODO: check interior number too
-            if (Vector3D.Distance(SpawnPoint, PortlandSpawnPoint) < SpawnPointTolerance)
+            m_isUpdatingSpawnInterior = true;
+
+            SafeHouse sf = (SafeHouse) TheEditor.GetGlobal(GlobalVariable.CurrentInterior);
+            float indDistance = Vector3D.Distance(SpawnPoint, PortlandSpawnPoint);
+            float comDistance = Vector3D.Distance(SpawnPoint, StauntonSpawnPoint);
+            float subDistance = Vector3D.Distance(SpawnPoint, ShoresideSpawnPoint);
+
+            if (sf == SafeHouse.Portland && indDistance < SpawnPointTolerance)
             {
                 SpawnInterior = SafeHouse.Portland;
             }
-            else if (Vector3D.Distance(SpawnPoint, StauntonSpawnPoint) < SpawnPointTolerance)
+            else if (sf == SafeHouse.Staunton && comDistance < SpawnPointTolerance)
             {
                 SpawnInterior = SafeHouse.Staunton;
             }
-            else if (Vector3D.Distance(SpawnPoint, ShoresideSpawnPoint) < SpawnPointTolerance)
+            else if (sf == SafeHouse.Shoreside && subDistance < SpawnPointTolerance)
             {
                 SpawnInterior = SafeHouse.Shoreside;
             }
@@ -345,23 +330,33 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 SpawnInterior = null;
             }
+
+            m_isUpdatingSpawnInterior = false;
         }
 
         public void SetSpawnPointInterior()
         {
+            if (m_isUpdatingSpawnInterior)
+            {
+                return;
+            }
+
             switch (SpawnInterior)
             {
                 case SafeHouse.Portland:
-                    SpawnPoint = PortlandSpawnPoint;
                     TheEditor.SetGlobal(GlobalVariable.CurrentInterior, (int) SafeHouse.Portland);
+                    SpawnPoint = PortlandSpawnPoint;
+                    SpawnHeading = 180;
                     break;
                 case SafeHouse.Staunton:
-                    SpawnPoint = StauntonSpawnPoint;
                     TheEditor.SetGlobal(GlobalVariable.CurrentInterior, (int) SafeHouse.Staunton);
+                    SpawnPoint = StauntonSpawnPoint;
+                    SpawnHeading = 180;
                     break;
                 case SafeHouse.Shoreside:
-                    SpawnPoint = ShoresideSpawnPoint;
                     TheEditor.SetGlobal(GlobalVariable.CurrentInterior, (int) SafeHouse.Shoreside);
+                    SpawnPoint = ShoresideSpawnPoint;
+                    SpawnHeading = 180;
                     break;
             }
         }

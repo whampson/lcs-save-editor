@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>0.16.0-alpha</Version>
-    <FileVersion>0.16.0.254</FileVersion>
-    <AssemblyVersion>0.16.0.254</AssemblyVersion>
+    <FileVersion>0.16.0.255</FileVersion>
+    <AssemblyVersion>0.16.0.255</AssemblyVersion>
     <AssemblyName>LcsSaveEditor.Core</AssemblyName>
     <Product>LcsSaveEditor</Product>
     <Authors>Wes Hampson</Authors>
