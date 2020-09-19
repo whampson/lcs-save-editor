@@ -36,12 +36,14 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private ObservableCollection<TabPageBase> m_tabs;
         private readonly DispatcherTimer m_timer;
+        private Stopwatch m_stopwatch;
+        private long m_timerTick;
         private bool m_isRevertingFile;
         private bool m_isDirty;
         private int m_selectedTabIndex;
-        private int m_timerTick;
         private string m_currentStatusText;
-        private string m_permanentStatusText;
+        private string m_expiredStatus;
+        private bool m_showMotd;
 
         public ObservableCollection<TabPageBase> Tabs
         {
@@ -67,9 +69,20 @@ namespace LCSSaveEditor.GUI.ViewModels
             private set { m_isDirty = value; OnPropertyChanged(); }
         }
 
+        public bool ShowMotd
+        {
+            get { return m_showMotd; }
+            set { m_showMotd = value; OnPropertyChanged(); }
+        }
+
+        public string IdleStatus => (ShowMotd) ? MessageOfTheDay : "Ready.";
+
+        private string MessageOfTheDay => "Welcome to the GTA:LCS Save Editor!";    // TODO: game quotes?
+
         public MainWindow()
         {
             m_timer = new DispatcherTimer();
+            m_stopwatch = new Stopwatch();
             Tabs = new ObservableCollection<TabPageBase>
             {
                 new WelcomeTab(this),
@@ -106,6 +119,9 @@ namespace LCSSaveEditor.GUI.ViewModels
             InitializeTabs();
             UpdateTitle();
             RefreshTabs(TabUpdateTrigger.WindowLoaded);
+
+            ShowMotd = true;
+            SetStatusText(IdleStatus);
         }
 
         public override void Shutdown()
@@ -161,6 +177,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 return;
             }
 
+            SetTimedStatusText("Update available!", duration: 10);
             PromptYesNo(
                 () => InstallUpdate(updateInfo),
                 $"An update is available!\n\n" +
@@ -181,7 +198,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 {
                     if (e.ProgressPercentage > oldPercentage)
                     {
-                        StatusText = $"Downloading update... {e.ProgressPercentage}%";
+                        SetStatusText($"Downloading update... {e.ProgressPercentage}%");
                         oldPercentage = e.ProgressPercentage;
                     }
                     if (e.ProgressPercentage % 10 == 0)
@@ -192,7 +209,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 (o, e) =>
                 {
                     Log.Info($"Download complete.");
-                    StatusText = $"Download complete. Ready to install.";
+                    SetStatusText($"Download complete. Ready to install.");
 
                     PromptOkCancel(
                         "Download complete. Click 'OK' to install.",
@@ -248,7 +265,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void InstallUpdate_Cancel()
         {
             Log.Info("Installation cancelled.");
-            SetTimedStatusText("Installation cancelled.", expiredStatus: "Ready.");
+            SetTimedStatusText("Installation cancelled.", duration: 5);
         }
 
         #region File I/O Handlers
@@ -310,7 +327,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 Log.Exception(ex);
                 ShowException(ex, "The file could not be saved.");
-                SetTimedStatusText("Error saving file.", 10, expiredStatus: "Ready.");
+                SetTimedStatusText("Error saving file.", duration: 10);
 
 #if !DEBUG
                 return;
@@ -391,11 +408,11 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (!m_isRevertingFile)
             {
                 RefreshTabs(TabUpdateTrigger.FileOpened);
-                SetTimedStatusText("File opened.", expiredStatus: "Ready.");
+                SetTimedStatusText("File opened.");
             }
             else
             {
-                SetTimedStatusText("File reverted.", expiredStatus: "Ready.");
+                SetTimedStatusText("File reverted.");
             }
         }
 
@@ -417,7 +434,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             ClearDirty();
             UpdateTitle();
             OnPropertyChanged(nameof(TheSave));
-            SetTimedStatusText("File closed.", expiredStatus: "Ready.");
+            SetTimedStatusText("File closed.");
         }
 
         private void TheEditor_FileSaving(object sender, string e)
@@ -434,7 +451,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             SuppressExternalChangesCheck = false;
 
             ClearDirty();
-            SetTimedStatusText("File saved.", expiredStatus: "Ready.");
+            SetTimedStatusText("File saved.");
         }
         #endregion
 
@@ -447,16 +464,16 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
 
             StatusText = status;
-            m_permanentStatusText = status;
+            m_expiredStatus = status;
         }
 
         public void SetTimedStatusText(string status,
-            int duration = 5,   // seconds
+            double duration = 2.5,   // seconds
             string expiredStatus = null)
         {
             if (expiredStatus == null)
             {
-                expiredStatus = m_permanentStatusText;
+                expiredStatus = IdleStatus;
             }
 
             if (m_timer.IsEnabled)
@@ -465,22 +482,23 @@ namespace LCSSaveEditor.GUI.ViewModels
                 m_currentStatusText = expiredStatus;
             }
 
-            m_permanentStatusText = expiredStatus;
+            m_expiredStatus = expiredStatus;
             StatusText = status;
-            m_timerTick = duration;
-            m_timer.Interval = TimeSpan.FromSeconds(1);
+            m_timerTick = (int) (duration * 1000);
+            m_timer.Interval = TimeSpan.FromMilliseconds(1);
+
+            m_stopwatch.Reset();
             m_timer.Start();
+            m_stopwatch.Start();
         }
 
         private void StatusTimer_Tick(object sender, EventArgs e)
         {
-            if (m_timerTick <= 0)
+            if (m_stopwatch.ElapsedMilliseconds >= m_timerTick)
             {
                 m_timer.Stop();
-                StatusText = m_permanentStatusText;
+                StatusText = m_expiredStatus;
             }
-
-            m_timerTick--;
         }
         #endregion
 

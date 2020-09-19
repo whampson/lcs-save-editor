@@ -116,23 +116,38 @@ namespace LCSSaveEditor.GUI.ViewModels
         public override void Load()
         {
             base.Load();
-            if (!m_openedOnce)
+            
+            if (string.IsNullOrEmpty(SelectedDirectory))
             {
-                if (string.IsNullOrEmpty(SelectedDirectory))
-                {
-                    SelectedDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                }
-                Search();
-                m_openedOnce = true;
+                SelectedDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             }
-            OnPropertyChanged(nameof(SelectedDirectory));
-            OnPropertyChanged(nameof(RecursiveSearch));
+
+            if (SaveFiles.Count == 0 && TheSettings.WelcomeList.Count > 0)
+            {
+                for (int i = TheSettings.WelcomeList.Count - 1; i >= 0; i--)
+                {
+                    string path = TheSettings.WelcomeList[i];
+                    if (!SaveFileInfo.TryGetInfo(path, out SaveFileInfo info))
+                    {
+                        TheSettings.WelcomeList.RemoveAt(i);
+                        continue;
+                    }
+                    SaveFiles.Add(info);
+                }
+            }
+            else if (!m_openedOnce)
+            {
+                Search();   // Only search on launch
+            }
+
+            m_openedOnce = true;    
         }
 
         public override void Unload()
         {
             base.Unload();
             CancelSearch();
+            TheWindow.ShowMotd = false;
         }
 
         public override void Update()
@@ -162,7 +177,9 @@ namespace LCSSaveEditor.GUI.ViewModels
             SearchPending = false;
             if (Directory.Exists(SelectedDirectory))
             {
+                TheSettings.WelcomeList.Clear();
                 SaveFiles.Clear();
+
                 SearchWorker.RunWorkerAsync();
                 IsSearching = true;
 
@@ -233,6 +250,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             if (e.UserState is SaveFileInfo info)
             {
+                TheSettings.WelcomeList.Add(info.Path);
                 SaveFiles.Add(info);
             }
         }
@@ -245,7 +263,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             if (e.Cancelled)
             {
                 Log.Info("Search cancelled.");
-                TheWindow.SetTimedStatusText("Search cancelled.", expiredStatus: "Ready.");
+                TheWindow.SetTimedStatusText("Search cancelled.");
                 return;
             }
 
@@ -261,7 +279,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 }
 
                 Log.Info($"Search completed with errors. Found {SaveFiles.Count} save files.");
-                TheWindow.SetTimedStatusText("Search completed with errors. See the log for details.", expiredStatus: "Ready.");
+                TheWindow.SetTimedStatusText("Search completed with errors. See the log for details.");
                 return;
             }
 
@@ -272,7 +290,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
 
             Log.Info($"Search completed. Found {SaveFiles.Count} save files.");
-            TheWindow.SetTimedStatusText("Search completed.", expiredStatus: "Ready.");
+            TheWindow.SetTimedStatusText("Search completed.");
         }
         #endregion
 
@@ -295,7 +313,11 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public ICommand RefreshCommand => new RelayCommand
         (
-            () => Refresh()
+            () =>
+            {
+                Refresh();
+                TheWindow.SetTimedStatusText("File list refreshed.");
+            }
         );
         #endregion
 

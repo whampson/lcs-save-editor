@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Interop;
 using LCSSaveEditor.GUI.Events;
 
 namespace LCSSaveEditor.GUI.Views
@@ -25,7 +26,10 @@ namespace LCSSaveEditor.GUI.Views
 
         private void ViewModel_DialogCloseRequest(object sender, DialogCloseEventArgs e)
         {
-            DialogResult = e.DialogResult;
+            if (ComponentDispatcher.IsThreadModal)
+            {
+                DialogResult = e.DialogResult;
+            }
             Close();
         }
     }

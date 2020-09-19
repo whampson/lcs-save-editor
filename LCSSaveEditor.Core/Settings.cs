@@ -11,14 +11,51 @@ namespace LCSSaveEditor.Core
     {
         public const int DefaultRecentFilesCapacity = 10;
 
-        private ObservableCollection<string> m_recentFiles;
-        private int m_recentFilesCapacity;
         private string m_lastDirAccessed;
         private string m_lastFileAccessed;
+        private bool m_setTimeStamp;
         private string m_welcomeDir;
         private bool m_welcomeRecurse;
-        private bool m_setTimeStamp;
+        private ObservableCollection<string> m_welcomeList;
+        private ObservableCollection<string> m_recentFiles;
+        private int m_recentFilesCapacity;
         private UpdaterSettings m_updater;
+
+        public string LastDirectoryAccessed
+        {
+            get { return m_lastDirAccessed; }
+            set { m_lastDirAccessed = value; OnPropertyChanged(); }
+        }
+
+        public string LastFileAccessed
+        {
+            get { return m_lastFileAccessed; }
+            set { m_lastFileAccessed = value; OnPropertyChanged(); }
+        }
+
+        public bool UpdateFileTimeStamp
+        {
+            get { return m_setTimeStamp; }
+            set { m_setTimeStamp = value; OnPropertyChanged(); }
+        }
+
+        public string WelcomeDirectory
+        {
+            get { return m_welcomeDir; }
+            set { m_welcomeDir = value; OnPropertyChanged(); }
+        }
+
+        public bool WelcomeRecursiveSearch
+        {
+            get { return m_welcomeRecurse; }
+            set { m_welcomeRecurse = value; OnPropertyChanged(); }
+        }
+
+        public ObservableCollection<string> WelcomeList
+        {
+            get { return m_welcomeList; }
+            set { m_welcomeList = value; OnPropertyChanged(); }
+        }
 
         public ObservableCollection<string> RecentFiles
         {
@@ -38,36 +75,6 @@ namespace LCSSaveEditor.Core
             set { m_recentFilesCapacity = value; OnPropertyChanged(); }
         }
 
-        public string LastDirectoryAccessed
-        {
-            get { return m_lastDirAccessed; }
-            set { m_lastDirAccessed = value; OnPropertyChanged(); }
-        }
-
-        public string LastFileAccessed
-        {
-            get { return m_lastFileAccessed; }
-            set { m_lastFileAccessed = value; OnPropertyChanged(); }
-        }
-
-        public string WelcomeDirectory
-        {
-            get { return m_welcomeDir; }
-            set { m_welcomeDir = value; OnPropertyChanged(); }
-        }
-
-        public bool WelcomeRecursiveSearch
-        {
-            get { return m_welcomeRecurse; }
-            set { m_welcomeRecurse = value; OnPropertyChanged(); }
-        }
-
-        public bool UpdateFileTimeStamp
-        {
-            get { return m_setTimeStamp; }
-            set { m_setTimeStamp = value; OnPropertyChanged(); }
-        }
-
         public UpdaterSettings Updater
         {
             get { return m_updater; }
@@ -83,6 +90,7 @@ namespace LCSSaveEditor.Core
 
         public Settings()
         {
+            WelcomeList = new ObservableCollection<string>();
             RecentFiles = new ObservableCollection<string>();
             RecentFilesCapacity = DefaultRecentFilesCapacity;
             UpdateFileTimeStamp = true;
