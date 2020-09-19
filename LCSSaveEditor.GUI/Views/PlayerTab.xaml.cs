@@ -63,9 +63,16 @@ namespace LCSSaveEditor.GUI.Views
             () => m_map.Reset()
         );
 
-        private void Map_MouseDown(object sender, MouseButtonEventArgs e)
+        protected override void OnInitialize()
         {
-            m_mouseClickCoords = ViewModel.MouseCoords;
+            base.OnInitialize();
+            ViewModel.IsInitializing = false;
+        }
+
+        protected override void OnLoad()
+        {
+            base.OnLoad();
+            ViewModel.IsInitializing = false;
         }
 
         private void OnOutfitChanged()
@@ -198,9 +205,17 @@ namespace LCSSaveEditor.GUI.Views
             }
         }
 
+        private void Map_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            m_mouseClickCoords = ViewModel.MouseCoords;
+        }
+
         private void SpawnInterior_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.SetSpawnPointInterior();
+            if (!ViewModel.IsInitializing)
+            {
+                ViewModel.SetSpawnPointInterior();
+            }
         }
 
         private void CurrentOutfitImage_SelectionChanged(object sender, SelectionChangedEventArgs e) => OnOutfitChanged();

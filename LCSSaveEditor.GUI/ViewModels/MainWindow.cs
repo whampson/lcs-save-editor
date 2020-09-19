@@ -656,7 +656,6 @@ namespace LCSSaveEditor.GUI.ViewModels
                 {
                     for (int i = 0; i < e.OldItems.Count; i++)
                     {
-                        var data = e.OldItems[i];
                         Log.Info($"PropertyChanged: deleted {name}[{e.OldStartingIndex + i}]");
                     }
                     break;

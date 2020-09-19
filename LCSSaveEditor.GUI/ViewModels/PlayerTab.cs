@@ -53,6 +53,8 @@ namespace LCSSaveEditor.GUI.ViewModels
         private SafeHouse? m_safeHouse;
         private bool m_isUpdatingSpawnInterior;
 
+        public bool IsInitializing { get; set; }
+
         public PlayerOutfit Outfit
         {
             get { return (PlayerOutfit) TheEditor.GetGlobal(GlobalVariable.PlayerOutfit); }
@@ -261,6 +263,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public override void Load()
         {
+            IsInitializing = true;
             base.Load();
 
             m_suppressWritingSelectedWeapon = true;
@@ -289,7 +292,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             OnPropertyChanged(nameof(Weapon));
             OnPropertyChanged(nameof(SpawnPoint));
             OnPropertyChanged(nameof(SpawnHeading));
-            OnPropertyChanged(nameof(SpawnInterior));
         }
 
         public override void Unload()
