@@ -14,7 +14,8 @@
     Height="800" Width="1000"
     Loaded="Window_Loaded" Closing="Window_Closing"
     Activated="Window_Activated"
-    IsVisibleChanged="Window_IsVisibleChanged">
+    IsVisibleChanged="Window_IsVisibleChanged"
+    x:Name="m_theMapWindow">
 
     <Window.DataContext>
         <m:MapWindow 
@@ -114,7 +115,17 @@
                 Cursor="{Binding Cursor}"
                 MouseOverOffset="{Binding MouseOffset}"
                 MouseOverCoords="{Binding MouseCoords}"
-                Overlays="{Binding MapOverlays}"/>
+                Overlays="{Binding MapOverlays}"
+                Tag="{Binding ElementName=m_theMapWindow}">
+                <c:MapControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem
+                            Header="Reset Map"
+                            Command="{Binding PlacementTarget.Tag.ResetMapCommand,
+                                RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                    </ContextMenu>
+                </c:MapControl.ContextMenu>
+            </c:MapControl>
 
             <StackPanel
                 HorizontalAlignment="Right"

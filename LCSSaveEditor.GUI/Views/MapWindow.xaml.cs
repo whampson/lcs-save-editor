@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LCSSaveEditor.GUI.ViewModels;
+using WpfEssentials.Win32;
 
 namespace LCSSaveEditor.GUI.Views
 {
@@ -25,11 +26,17 @@ namespace LCSSaveEditor.GUI.Views
             get { return (ViewModels.MapWindow) DataContext; }
             set { DataContext = value; }
         }
+
         public MapWindow()
         {
             InitializeComponent();
             HideOnClose = true;
         }
+
+        public ICommand ResetMapCommand => new RelayCommand
+        (
+            () => m_map.Reset()
+        );
 
         protected override void WindowLoaded()
         {
