@@ -7,7 +7,7 @@ namespace LCSSaveEditor.Core
 {
     public class Gxt
     {
-        public static Gxt TheText { get; private set; }
+        public static Gxt TheText { get; }
 
         static Gxt()
         {

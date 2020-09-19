@@ -6,7 +6,7 @@
 
         // saved global variables
 
-        InitFlag = 6,
+        IntroMissionPassed = 6,
         _UnknownFlag, // mobile only
         PlayerX,
         PlayerY,

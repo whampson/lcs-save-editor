@@ -6,24 +6,19 @@ namespace LCSSaveEditor.Core
 {
     public class Carcols
     {
-        public static Carcols TheCarcols { get; private set; }
+        public static Carcols TheCarcols { get; }
 
         static Carcols()
         {
             TheCarcols = new Carcols();
         }
 
-        private List<Color> m_colors;
-
         public Carcols()
         {
-            m_colors = new List<Color>();
+            Colors = new List<Color>();
         }
 
-        public List<Color> Colors
-        {
-            get { return m_colors; }
-        }
+        public List<Color> Colors { get; }
 
         public void Load(string path)
         {
@@ -51,7 +46,7 @@ namespace LCSSaveEditor.Core
                         int.TryParse(rgb[1], out int g);
                         int.TryParse(rgb[2], out int b);
 
-                        m_colors.Add(Color.FromArgb(r, g, b));
+                        Colors.Add(Color.FromArgb(r, g, b));
                         count++;
                     }
 

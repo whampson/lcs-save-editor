@@ -52,15 +52,12 @@ namespace LCSSaveEditor.Core
 
         public static Settings TheSettings => Settings.TheSettings;
 
-        public static Editor TheEditor { get; private set; }
+        public static Editor TheEditor { get; }
 
         static Editor()
         {
             TheEditor = new Editor();
         }
-
-        public Editor()
-        { }
 
         public static IEnumerable<GlobalVariable> GlobalVariableIDs =>
             Enum.GetValues(typeof(GlobalVariable)) as IEnumerable<GlobalVariable>;
@@ -75,7 +72,7 @@ namespace LCSSaveEditor.Core
                 case 274312: return ScriptVersion.iOS;
                 case 272710: return ScriptVersion.PS2;
                 case 270081: return ScriptVersion.PSP;
-                default: return ScriptVersion.None;
+                default: return ScriptVersion.Unknown;
             }
         }
 

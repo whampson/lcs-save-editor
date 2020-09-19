@@ -2,7 +2,7 @@
 {
     public enum ScriptVersion
     {
-        None,
+        Unknown,
         Android,
         iOS,
         PS2,

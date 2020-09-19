@@ -1,14 +1,11 @@
 ﻿using GTASaveData;
 using GTASaveData.LCS;
 using LCSSaveEditor.Core;
-using LCSSaveEditor.GUI.Utils;
 using LCSSaveEditor.GUI.Views;
-using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,7 +36,7 @@ namespace LCSSaveEditor.GUI
             .GetName()
             .Name;
 
-        public static Version AssemblyVersion => new Version(
+        public static Version AssemblyFileVersion => new Version(
             Assembly
             .GetExecutingAssembly()
             .GetCustomAttribute<AssemblyFileVersionAttribute>()
@@ -136,7 +133,7 @@ namespace LCSSaveEditor.GUI
 
             string gtaLibVer = Assembly.GetAssembly(typeof(SaveData)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
             string lcsLibVer = Assembly.GetAssembly(typeof(LCSSave)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
-            Log.Info($"Save Editor EXE version = {AssemblyVersion}");
+            Log.Info($"Save Editor EXE version = {AssemblyFileVersion}");
             Log.Info($"GTASaveData.Core version = {gtaLibVer}");
             Log.Info($"GTASaveData.LCS version = {lcsLibVer}");
 
