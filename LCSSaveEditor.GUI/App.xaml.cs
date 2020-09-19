@@ -3,6 +3,7 @@ using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Utils;
 using LCSSaveEditor.GUI.Views;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -72,7 +73,7 @@ namespace LCSSaveEditor.GUI
         {
             if (File.Exists(SettingsPath))
             {
-                Settings.TheSettings.LoadSettings(App.SettingsPath);
+                Settings.LoadSettings(SettingsPath);
             }
         }
 
@@ -159,7 +160,6 @@ namespace LCSSaveEditor.GUI
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            Log.Info("Exiting...");
             SaveSettings();
         }
 

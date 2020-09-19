@@ -36,9 +36,12 @@ namespace LCSSaveEditor.Core
             {
                 using (StreamReader buf = new StreamReader(m))
                 {
+                    Log.Info("Loading carcols...");
+
                     string line;
                     while (buf.ReadLine().Trim() != "col") { }
 
+                    int count = 0;
                     while ((line = buf.ReadLine().Trim()) != "end")
                     {
                         if (string.IsNullOrEmpty(line)) continue;
@@ -49,7 +52,10 @@ namespace LCSSaveEditor.Core
                         int.TryParse(rgb[2], out int b);
 
                         m_colors.Add(Color.FromArgb(r, g, b));
+                        count++;
                     }
+
+                    Log.Info($"Loaded {count} car colors.");
                 }
             }
         }

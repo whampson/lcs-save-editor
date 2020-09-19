@@ -124,16 +124,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (SaveFiles.Count == 0 && TheSettings.WelcomeList.Count > 0)
             {
-                for (int i = TheSettings.WelcomeList.Count - 1; i >= 0; i--)
-                {
-                    string path = TheSettings.WelcomeList[i];
-                    if (!SaveFileInfo.TryGetInfo(path, out SaveFileInfo info))
-                    {
-                        TheSettings.WelcomeList.RemoveAt(i);
-                        continue;
-                    }
-                    SaveFiles.Add(info);
-                }
+                PopulateList();
             }
             else if (!m_openedOnce)
             {
@@ -193,6 +184,28 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 SearchWorker.CancelAsync();
                 CancelPending = true;
+            }
+        }
+
+        public void PopulateList()
+        {
+            List<string> toRemove = new List<string>();
+            foreach (string path in TheSettings.WelcomeList)
+            {
+                if (!SaveFileInfo.TryGetInfo(path, out SaveFileInfo info))
+                {
+                    toRemove.Add(path);
+                    continue;
+                }
+                SaveFiles.Add(info);
+            }
+
+            if (toRemove.Count > 0)
+            {
+                foreach (string path in toRemove)
+                {
+                    TheSettings.WelcomeList.Remove(path);
+                }
             }
         }
 

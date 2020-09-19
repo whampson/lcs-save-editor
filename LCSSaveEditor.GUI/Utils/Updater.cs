@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using LCSSaveEditor.Core;
-using Newtonsoft.Json;
+using LCSSaveEditor.Core.Helpers;
 
 namespace LCSSaveEditor.GUI.Utils
 {
@@ -26,7 +26,7 @@ namespace LCSSaveEditor.GUI.Utils
             await using var contentStream = resp.GetResponseStream();
             using StreamReader contentReader = new StreamReader(contentStream);
 
-            if (!TryParseJson(contentReader.ReadToEnd(), out GitHubRelease[] releaseInfo))
+            if (!JsonHelper.TryParseJson(contentReader.ReadToEnd(), out GitHubRelease[] releaseInfo))
             {
                 Log.Error("Response is not a valid GitHub Release JSON object.");
                 return new GitHubRelease[0];
@@ -198,18 +198,6 @@ namespace LCSSaveEditor.GUI.Utils
 
                 return resp;
             }
-        }
-
-        private static bool TryParseJson<T>(string json, out T result)
-        {
-            bool success = true;
-            var settings = new JsonSerializerSettings
-            {
-                Error = (o, e) => { success = false; e.ErrorContext.Handled = true; }
-            };
-
-            result = JsonConvert.DeserializeObject<T>(json, settings);
-            return success;
         }
     }
 }

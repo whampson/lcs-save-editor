@@ -1,4 +1,5 @@
 ﻿using GTASaveData;
+using LCSSaveEditor.Core.Helpers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,14 +82,14 @@ namespace LCSSaveEditor.Core
             set { m_updater = value; OnPropertyChanged(); }
         }
 
-        public static Settings TheSettings { get; }
+        public static Settings TheSettings { get; private set; }
 
         static Settings()
         {
             TheSettings = new Settings();
         }
 
-        public Settings()
+        private Settings()
         {
             WelcomeList = new ObservableCollection<string>();
             RecentFiles = new ObservableCollection<string>();
@@ -138,14 +139,35 @@ namespace LCSSaveEditor.Core
             }
         }
 
-        public void LoadSettings(string path)
+        public static void LoadSettings(string path)
         {
-            string settingsJson = File.ReadAllText(path);
-            JsonConvert.PopulateObject(settingsJson, this);
+            Log.Info("Loading settings...");
+
+            string json = File.ReadAllText(path);
+            var settings = new JsonSerializerSettings
+            {
+                Error = (o, e) =>
+                {
+                    Log.Exception(e.ErrorContext.Error);
+                    e.ErrorContext.Handled = true;
+                }
+            };
+
+            Settings newSettings = JsonConvert.DeserializeObject<Settings>(json, settings);
+            if (newSettings != null)
+            {
+                TheSettings = newSettings;
+            }
+            else
+            {
+                Log.Error("Unable to load settings. Defaults will be used.");
+            }
         }
 
         public void SaveSettings(string path)
         {
+            Log.Info("Saving settings...");
+
             string settingsJson = JsonConvert.SerializeObject(this, Formatting.Indented);
             File.WriteAllText(path, settingsJson);
         }
