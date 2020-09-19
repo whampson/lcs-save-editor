@@ -278,7 +278,6 @@ namespace LCSSaveEditor.Core
             Log.Info("File opened successfully.");
             Log.Info("File Info:");
             Log.Info($"        Type = {ActiveFile.FileFormat}");
-            Log.Info($"        Name = {ActiveFile.Name}");
             Log.Info($"  Time Stamp = {ActiveFile.TimeStamp}");
             Log.Info($"    Progress = {(ActiveFile.Stats.ProgressMade / ActiveFile.Stats.TotalProgressInGame):P2}");
             Log.Info($"Last Mission = {ActiveFile.Stats.LastMissionPassedName}");

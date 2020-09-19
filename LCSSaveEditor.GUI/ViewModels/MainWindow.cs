@@ -601,7 +601,43 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             if (sender == Scripts.GlobalVariables)
             {
-                name = "Scripts.Globals";
+                name = $"{nameof(Scripts)}.Globals";
+            }
+            else if (sender == Stats.PedsKilledOfThisType)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.PedsKilledOfThisType)}";
+            }
+            else if (sender == Stats.BestBanditLapTimes)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.BestBanditLapTimes)}";
+            }
+            else if (sender == Stats.BestBanditPositions)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.BestBanditPositions)}";
+            }
+            else if (sender == Stats.BestStreetRacePositions)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.BestStreetRacePositions)}";
+            }
+            else if (sender == Stats.FastestStreetRaceLapTimes)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.FastestStreetRaceLapTimes)}";
+            }
+            else if (sender == Stats.FastestStreetRaceTimes)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.FastestStreetRaceTimes)}";
+            }
+            else if (sender == Stats.FastestDirtBikeLapTimes)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.FastestDirtBikeLapTimes)}";
+            }
+            else if (sender == Stats.FastestDirtBikeTimes)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.FastestDirtBikeTimes)}";
+            }
+            else if (sender == Stats.FavoriteRadioStationList)
+            {
+                name = $"{nameof(Stats)}.{nameof(Stats.FavoriteRadioStationList)}";
             }
 
             switch (e.Action)

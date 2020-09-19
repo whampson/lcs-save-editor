@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using GTASaveData.LCS;
@@ -73,6 +74,11 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 RefreshStats();
             }
+        }
+
+        private void Data_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RefreshStats();
         }
 
         public override void Shutdown()
@@ -518,7 +524,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             int radio = -1;
             float maxListenTime = float.MinValue;
 
-            for (int i = 0; i < Stats.NumRadioStations; i++)
+            for (int i = 0; i < Stats.FavoriteRadioStationList.Count; i++)
             {
                 float listenTime = Stats.FavoriteRadioStationList[i];
                 if (listenTime > maxListenTime)
@@ -670,6 +676,15 @@ namespace LCSSaveEditor.GUI.ViewModels
                 SimpleVars.PropertyChanged += Data_PropertyChanged;
                 PlayerInfo.PropertyChanged += Data_PropertyChanged;
                 Stats.PropertyChanged += Data_PropertyChanged;
+                Stats.PedsKilledOfThisType.CollectionChanged += Data_CollectionChanged;
+                Stats.BestBanditLapTimes.CollectionChanged += Data_CollectionChanged;
+                Stats.BestBanditPositions.CollectionChanged += Data_CollectionChanged;
+                Stats.BestStreetRacePositions.CollectionChanged += Data_CollectionChanged;
+                Stats.FastestStreetRaceLapTimes.CollectionChanged += Data_CollectionChanged;
+                Stats.FastestStreetRaceTimes.CollectionChanged += Data_CollectionChanged;
+                Stats.FastestDirtBikeLapTimes.CollectionChanged += Data_CollectionChanged;
+                Stats.FastestDirtBikeTimes.CollectionChanged += Data_CollectionChanged;
+                Stats.FavoriteRadioStationList.CollectionChanged += Data_CollectionChanged;
                 m_handlersRegistered = true;
             }
         }
@@ -681,6 +696,15 @@ namespace LCSSaveEditor.GUI.ViewModels
                 SimpleVars.PropertyChanged -= Data_PropertyChanged;
                 PlayerInfo.PropertyChanged -= Data_PropertyChanged;
                 Stats.PropertyChanged -= Data_PropertyChanged;
+                Stats.PedsKilledOfThisType.CollectionChanged -= Data_CollectionChanged;
+                Stats.BestBanditLapTimes.CollectionChanged -= Data_CollectionChanged;
+                Stats.BestBanditPositions.CollectionChanged -= Data_CollectionChanged;
+                Stats.BestStreetRacePositions.CollectionChanged -= Data_CollectionChanged;
+                Stats.FastestStreetRaceLapTimes.CollectionChanged -= Data_CollectionChanged;
+                Stats.FastestStreetRaceTimes.CollectionChanged -= Data_CollectionChanged;
+                Stats.FastestDirtBikeLapTimes.CollectionChanged -= Data_CollectionChanged;
+                Stats.FastestDirtBikeTimes.CollectionChanged -= Data_CollectionChanged;
+                Stats.FavoriteRadioStationList.CollectionChanged -= Data_CollectionChanged;
                 m_handlersRegistered = false;
             }
         }

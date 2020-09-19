@@ -13,7 +13,7 @@
     d:DataContext="{d:DesignInstance Type=m:WelcomeTab}">
 
     <UserControl.InputBindings>
-        <KeyBinding Key="F5" Command="{Binding SearchToggleCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding RefreshCommand}"/>
     </UserControl.InputBindings>
 
     <UserControl.Resources>
