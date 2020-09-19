@@ -8,6 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.Core.Helpers;
+using Semver;
 
 namespace LCSSaveEditor.GUI.Utils
 {
@@ -46,41 +47,33 @@ namespace LCSSaveEditor.GUI.Utils
                 return null;
             }
 
-            bool preReleaseRing = UpdaterSettings.PreReleaseRing;
             GitHubRelease latest = releases[0];
-            string newVersionFull = latest.Tag;
-
-            if (newVersionFull.StartsWith("v"))
-            {
-                newVersionFull = newVersionFull.Substring(1);
-            }
-
-            string newVersion = newVersionFull;
-            if (newVersion.Contains("-"))
-            {
-                int dash = newVersion.IndexOf("-");
-                newVersion = newVersion.Substring(0, dash);
-            }
-
-            if (!Version.TryParse(newVersion, out Version newAssemblyVersion))
-            {
-                Log.Error($"Release version '{newVersion}' is not of the correct format.");
-                return null;
-            }
-
             if (latest.Assets.Length == 0)
             {
                 Log.Error("Release does not include any assets!");
                 return null;
             }
 
-            if (newAssemblyVersion <= App.AssemblyVersion || latest.IsPreRelease && !preReleaseRing)
+            string newVersionString = latest.Tag;
+            if (newVersionString.StartsWith("v"))
+            {
+                newVersionString = newVersionString.Substring(1);
+            }
+
+            SemVersion curVersion = SemVersion.Parse(App.Version);
+            if (!SemVersion.TryParse(newVersionString, out SemVersion newVersion))
+            {
+                Log.Error($"Release version '{newVersionString}' is not of the correct format.");
+                return null;
+            }
+
+            if (newVersion <= curVersion || latest.IsPreRelease && !UpdaterSettings.PreReleaseRing)
             {
                 Log.Info("No updates available.");
                 return null;
             }
 
-            Log.Info($"Version {newVersionFull} available!");
+            Log.Info($"Version {newVersionString} available!");
             return latest;
         }
 
