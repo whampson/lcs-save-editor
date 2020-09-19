@@ -171,9 +171,13 @@ namespace LCSSaveEditor.GUI.ViewModels
         public async void CheckForUpdates(bool popupIfNoneFound = false)
         {
             GitHubRelease updateInfo = await Updater.CheckForUpdate();
-            if (updateInfo == null && popupIfNoneFound)
+
+            if (updateInfo == null)
             {
-                ShowInfo("No updates available.", "Updater");
+                if (popupIfNoneFound)
+                {
+                    ShowInfo("No updates available.", "Updater");
+                }
                 return;
             }
 

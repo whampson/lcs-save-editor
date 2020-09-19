@@ -17,12 +17,22 @@ namespace LCSSaveEditor.GUI.Utils
 
         public static async Task<GitHubRelease[]> GetReleaseInfo()
         {
-            using var resp = await GitHubApiGet("https://api.github.com/repos/whampson/pigeon-locator/releases");
-            JsonSerializer jsonSerializer = new JsonSerializer();
+            using var resp = await GitHubApiGet("https://api.github.com/repos/whampson/lcs-save-editor/releases");
+            if (resp.StatusCode == HttpStatusCode.OK)
+            {
+                return new GitHubRelease[0];
+            }
 
             await using var contentStream = resp.GetResponseStream();
             using StreamReader contentReader = new StreamReader(contentStream);
-            return (GitHubRelease[]) jsonSerializer.Deserialize(contentReader, typeof(GitHubRelease[]));
+
+            if (!TryParseJson(contentReader.ReadToEnd(), out GitHubRelease[] releaseInfo))
+            {
+                Log.Error("Response is not a valid GitHub Release JSON object.");
+                return new GitHubRelease[0];
+            }
+
+            return releaseInfo;
         }
 
         public static async Task<GitHubRelease> CheckForUpdate()
@@ -174,13 +184,32 @@ namespace LCSSaveEditor.GUI.Utils
 
         private static async Task<HttpWebResponse> GetHttpResponse(HttpWebRequest req)
         {
-            HttpWebResponse resp = (HttpWebResponse) await req.GetResponseAsync();
-            if (resp.StatusCode != HttpStatusCode.OK)
+            try
             {
-                Log.Info($"HTTP {req.Method} returned {resp.StatusCode}");
+                return (HttpWebResponse) await req.GetResponseAsync();
             }
+            catch (WebException e)
+            {
+                var resp = e.Response as HttpWebResponse;
+                if (resp.StatusCode != HttpStatusCode.OK)
+                {
+                    Log.Error($"HTTP {req.Method} returned {(int) resp.StatusCode} ({resp.StatusDescription}).");
+                }
 
-            return resp;
+                return resp;
+            }
+        }
+
+        private static bool TryParseJson<T>(string json, out T result)
+        {
+            bool success = true;
+            var settings = new JsonSerializerSettings
+            {
+                Error = (o, e) => { success = false; e.ErrorContext.Handled = true; }
+            };
+
+            result = JsonConvert.DeserializeObject<T>(json, settings);
+            return success;
         }
     }
 }
