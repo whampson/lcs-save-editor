@@ -219,7 +219,7 @@ namespace LCSSaveEditor.GUI.Views
 
                 ViewModel.ClearDirty();
                 ViewModel.CloseFile();
-                Application.Current.Shutdown();
+                App.ExitApp();
             }
         }
     }

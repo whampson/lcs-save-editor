@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -93,6 +94,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 });
             }
         }
+
         #endregion
 
         #region Dialog Functions
@@ -118,6 +120,41 @@ namespace LCSSaveEditor.GUI.ViewModels
         {
             text += $"\n\n{e.GetType().Name}: {e.Message}";
             ShowError(text, title);
+        }
+
+        public void PromptOkCancel(string message,
+            string title = "Accept?",
+            MessageBoxImage image = MessageBoxImage.Question,
+            Action okCallback = null,
+            Action cancelCallback = null)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
+                message,
+                title: title,
+                icon: image,
+                buttons: MessageBoxButton.OKCancel,
+                callback: (r) =>
+                {
+                    if (r == MessageBoxResult.OK)
+                    {
+                        okCallback?.Invoke();
+                    }
+                    if (r == MessageBoxResult.Cancel)
+                    {
+                        cancelCallback?.Invoke();
+                    }
+                }));
+        }
+
+        public void PromptYesNo(Action yesCallback, string message,
+            string title = "Yes or No?", MessageBoxImage image = MessageBoxImage.Question)
+        {
+            MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
+                message,
+                title: title,
+                icon: image,
+                buttons: MessageBoxButton.YesNo,
+                callback: (r) => { if (r == MessageBoxResult.Yes) yesCallback?.Invoke(); }));
         }
 
         public void PromptSaveChanges(Action<MessageBoxResult> callback)

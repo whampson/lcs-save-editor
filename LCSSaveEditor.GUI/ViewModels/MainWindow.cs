@@ -2,16 +2,21 @@
 using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Events;
+using LCSSaveEditor.GUI.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using WpfEssentials;
@@ -93,9 +98,11 @@ namespace LCSSaveEditor.GUI.ViewModels
             TheEditor.FileSaving += TheEditor_FileSaving;
             TheEditor.FileSaved += TheEditor_FileSaved;
 
-            LoadSettings();
-            LoadGxt();
-            LoadCarcols();
+            if (TheSettings.Updater.CheckForUpdatesAtStartup)
+            {
+                CheckForUpdates();
+            }
+
             InitializeTabs();
             UpdateTitle();
             RefreshTabs(TabUpdateTrigger.WindowLoaded);
@@ -121,7 +128,6 @@ namespace LCSSaveEditor.GUI.ViewModels
 
             RefreshTabs(TabUpdateTrigger.WindowClosing);
             ShutdownTabs();
-            SaveSettings();
         }
 
         private void InitializeTabs()
@@ -140,41 +146,109 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
         }
 
-        public void LoadSettings()
-        {
-            if (File.Exists(App.SettingsPath))
-            {
-                TheSettings.LoadSettings(App.SettingsPath);
-            }
-        }
-
-        public void SaveSettings()
-        {
-            TheSettings.SaveSettings(App.SettingsPath);
-        }
-
-        public void LoadGxt()
-        {
-            MemoryStream m = new MemoryStream();
-            var info = Application.GetResourceStream(App.GxtResourceUri);
-            info.Stream.CopyTo(m);
-
-            TheText.Load(m.ToArray());
-        }
-
-        public void LoadCarcols()
-        {
-            MemoryStream m = new MemoryStream();
-            var info = Application.GetResourceStream(App.CarcolsResourceUri);
-            info.Stream.CopyTo(m);
-
-            TheCarcols.Load(m.ToArray());
-        }
-
         public void RefreshTabs(TabUpdateTrigger trigger)
         {
             TabUpdate?.Invoke(this, new TabUpdateEventArgs(trigger));
             SelectedTabIndex = Tabs.IndexOf(Tabs.Where(x => x.IsVisible).FirstOrDefault());
+        }
+
+        public async void CheckForUpdates(bool popupIfNoneFound = false)
+        {
+            GitHubRelease updateInfo = await Updater.CheckForUpdate();
+            if (updateInfo == null && popupIfNoneFound)
+            {
+                ShowInfo("No updates available.", "Updater");
+                return;
+            }
+
+            PromptYesNo(
+                () => InstallUpdate(updateInfo),
+                $"An update is available!\n\n" +
+                $"Version: {updateInfo.Name}\n" +
+                $"Release Date: {updateInfo.Date}\n\n" +
+                $"Release Notes:\n" +
+                $"{updateInfo.Notes}\n\n" +
+                $"Would you like to download the update?",
+                title: "Updater",
+                image: MessageBoxImage.Information);
+        }
+
+        public void InstallUpdate(GitHubRelease updateInfo)
+        {
+            int oldPercentage = 0;
+            Updater.DownloadUpdatePackage(updateInfo,
+                (o, e) =>
+                {
+                    if (e.ProgressPercentage > oldPercentage)
+                    {
+                        StatusText = $"Downloading update... {e.ProgressPercentage}%";
+                        oldPercentage = e.ProgressPercentage;
+                    }
+                    if (e.ProgressPercentage % 10 == 0)
+                    {
+                        Log.Info($"Download progress: {e.ProgressPercentage}%");
+                    }
+                },
+                (o, e) =>
+                {
+                    Log.Info($"Download complete.");
+                    StatusText = $"Download complete. Ready to install.";
+
+                    PromptOkCancel(
+                        "Download complete. Click 'OK' to install.",
+                        title: "Install Pending",
+                        okCallback: () => InstallUpdate_Confirm(e.UserState as string),
+                        cancelCallback: () => InstallUpdate_Cancel());
+                }
+            );
+        }
+
+        private void InstallUpdate_Confirm(string pkgPath)
+        {
+            if (IsDirty)
+            {
+                bool cancelled = false;
+                PromptSaveChanges((r) =>
+                {
+                    if (r != MessageBoxResult.Cancel)
+                    {
+                        if (r == MessageBoxResult.Yes)
+                        {
+                            SaveFile();
+                        }
+
+                        ClearDirty();
+                        CloseFile();
+                        return;
+                    }
+
+                    InstallUpdate_Cancel();
+                    cancelled = true;
+                });
+
+                if (cancelled)
+                {
+                    return;
+                }
+            }
+
+            string newExe = Updater.InstallUpdatePackage(pkgPath);
+            if (newExe == null)
+            {
+                Log.Info($"Installation failed.");
+                ShowError("Installation failed! See the log for details.");
+                return;
+            }
+
+            Log.Info($"Launching '{newExe}'...");
+            Process.Start(newExe);
+            App.ExitApp();
+        }
+
+        private void InstallUpdate_Cancel()
+        {
+            Log.Info("Installation cancelled.");
+            SetTimedStatusText("Installation cancelled.", expiredStatus: "Ready.");
         }
 
         #region File I/O Handlers
@@ -349,7 +423,7 @@ namespace LCSSaveEditor.GUI.ViewModels
         private void TheEditor_FileSaving(object sender, string e)
         {
             SetStatusText("Saving file...");
-            if (!TheSave.FileFormat.IsPS2 || TheSettings.UpdateTimeStampOnSave)
+            if (!TheSave.FileFormat.IsPS2 || TheSettings.UpdateFileTimeStamp)
             {
                 TheSave.TimeStamp = DateTime.Now;
             }
@@ -642,7 +716,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public ICommand HelpUpdateCommand => new RelayCommand
         (
-            () => ShowInfo("TODO: updater")
+            () => CheckForUpdates(popupIfNoneFound: true)
         );
 
         public ICommand HelpAboutCommand => new RelayCommand

@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>0.16.0-alpha</Version>
-    <FileVersion>0.16.0.1275</FileVersion>
-    <AssemblyVersion>0.16.0.1275</AssemblyVersion>
+    <FileVersion>0.16.0.1380</FileVersion>
+    <AssemblyVersion>0.16.0.1380</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>
@@ -15,6 +15,11 @@
     <Description>Grand Theft Auto: Liberty City Stories save file editor.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <Configurations>Debug;Release;Release-Standalone</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Standalone|AnyCPU'">
+    <DefineConstants>TRACE;STANDALONE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

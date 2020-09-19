@@ -1,5 +1,6 @@
 ﻿using GTASaveData;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using WpfEssentials;
@@ -16,7 +17,8 @@ namespace LCSSaveEditor.Core
         private string m_lastFileAccessed;
         private string m_welcomeDir;
         private bool m_welcomeRecurse;
-        private bool m_updateTimeStamp;
+        private bool m_setTimeStamp;
+        private UpdaterSettings m_updater;
 
         public ObservableCollection<string> RecentFiles
         {
@@ -60,13 +62,19 @@ namespace LCSSaveEditor.Core
             set { m_welcomeRecurse = value; OnPropertyChanged(); }
         }
 
-        public bool UpdateTimeStampOnSave
+        public bool UpdateFileTimeStamp
         {
-            get { return m_updateTimeStamp; }
-            set { m_updateTimeStamp = value; OnPropertyChanged(); }
+            get { return m_setTimeStamp; }
+            set { m_setTimeStamp = value; OnPropertyChanged(); }
         }
 
-        public static Settings TheSettings { get; private set; }
+        public UpdaterSettings Updater
+        {
+            get { return m_updater; }
+            set { m_updater = value; OnPropertyChanged(); }
+        }
+
+        public static Settings TheSettings { get; }
 
         static Settings()
         {
@@ -75,9 +83,10 @@ namespace LCSSaveEditor.Core
 
         public Settings()
         {
-            m_recentFiles = new ObservableCollection<string>();
-            m_recentFilesCapacity = DefaultRecentFilesCapacity;
-            UpdateTimeStampOnSave = true;
+            RecentFiles = new ObservableCollection<string>();
+            RecentFilesCapacity = DefaultRecentFilesCapacity;
+            UpdateFileTimeStamp = true;
+            Updater = new UpdaterSettings();
         }
 
         public void AddRecentFile(string path)
@@ -131,6 +140,36 @@ namespace LCSSaveEditor.Core
         {
             string settingsJson = JsonConvert.SerializeObject(this, Formatting.Indented);
             File.WriteAllText(path, settingsJson);
+        }
+    }
+
+    public class UpdaterSettings
+    {
+        public bool CheckForUpdatesAtStartup { get; set; }
+        public bool PreReleaseRing { get; set; }
+        public bool StandaloneRing { get; set; }
+        public bool CleanupAfterUpdate { get; set; }
+        public List<string> CleanupList { get; set; }
+
+        public UpdaterSettings()
+        {
+            CheckForUpdatesAtStartup = true;
+            CleanupList = new List<string>();
+        }
+
+        public bool ShouldSerializeStandaloneRing()
+        {
+            return StandaloneRing != false;
+        }
+
+        public bool ShouldSerializeCleanupAfterUpdate()
+        {
+            return CleanupAfterUpdate != false;
+        }
+
+        public bool ShouldSerializeCleanupList()
+        {
+            return CleanupList.Count > 0;
         }
     }
 }

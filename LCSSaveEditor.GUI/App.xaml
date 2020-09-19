@@ -7,7 +7,7 @@
     xmlns:conv="clr-namespace:LCSSaveEditor.GUI.Converters"
     xmlns:wpfe="clr-namespace:WpfEssentials.Win32.Converters;assembly=WpfEssentials.Win32"
     xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=DotNetProjects.Wpf.Extended.Toolkit"
-    Startup="Application_Startup">
+    Startup="Application_Startup" Exit="Application_Exit">
 
     <Application.Resources>
 
