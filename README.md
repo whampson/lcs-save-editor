@@ -1,7 +1,6 @@
 # GTA:LCS Save Editor
 💾 This tool allows you to edit Grand Theft Auto: Liberty City Stories save files.
 
-
 ![](https://i.imgur.com/vW3wRov.png)
 
 ## Features
@@ -15,12 +14,11 @@
     more! You can even spawn unused vehicles like the Maverick or Hunter.
   - A stats editor/viewer that lets you change any statistic in the game as
     well as preview how that change will look in the in-game Stats menu.
-  - A global variables editor that gives you total control of the game state.
+  - A global variables editor that gives you total control of the game state. 
   - A collectible map to help you find remaining Hidden Packages, Rampages, and
     Unique Stunt Jumps.
-  - Edit many other aspects of the game, including game settings, weather, time
-    scale, and even some unused features to spice up your Liberty City
-    experience.
+  - Edit many other aspects of the game, including game settings, weather, time,
+    and even some unused features to spice up your Liberty City experience.
 
 ## System Requirements
   - Windows PC
@@ -29,6 +27,11 @@
 You may also choose to run the standalone version of this tool, which includes
 the .NET runtime bundled inside the executable, but at the cost of a much larger
 file size.
+
+## Download
+Head over to the
+[releases page](https://github.com/whampson/lcs-save-editor/issues) to download
+the latest version!
 
 ## Support
 Questions? Comments? Suggestions? Bugs? 🐛🐜  
