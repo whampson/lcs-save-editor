@@ -1,16 +1,8 @@
 # GTA:LCS Save Editor
-This tool allows you to edit Grand Theft Auto: Liberty City Stories save files.
-💾
+💾 This tool allows you to edit Grand Theft Auto: Liberty City Stories save files.
 
-![](https://i.imgur.com/BsOjyoT.png)
-![](https://i.imgur.com/FmSZjoN.png)
+
 ![](https://i.imgur.com/vW3wRov.png)
-![](https://i.imgur.com/aGZY5he.png)
-![](https://i.imgur.com/fXYwMKs.png)
-![](https://i.imgur.com/UR6rOnI.png)
-![](https://i.imgur.com/zKEoly4.png)
-![](https://i.imgur.com/heyHfb1.png)
-![](https://i.imgur.com/RFfTUkL.png)
 
 ## Features
   - All versions of the game are supported: PS2, PSP, Android, and iOS.
@@ -31,6 +23,7 @@ This tool allows you to edit Grand Theft Auto: Liberty City Stories save files.
     experience.
 
 ## System Requirements
+  - Windows PC
   - [.NET Core Runtime](https://dotnet.microsoft.com/download/dotnet-core)
 
 You may also choose to run the standalone version of this tool, which includes
@@ -61,6 +54,16 @@ providing save files and other information for research and testing.
 *20 September 2020*
 
   - Initial release
+
+## Additional Screenshots
+![](https://i.imgur.com/BsOjyoT.png)
+![](https://i.imgur.com/FmSZjoN.png)
+![](https://i.imgur.com/aGZY5he.png)
+![](https://i.imgur.com/fXYwMKs.png)
+![](https://i.imgur.com/UR6rOnI.png)
+![](https://i.imgur.com/RFfTUkL.png)
+![](https://i.imgur.com/zKEoly4.png)
+![](https://i.imgur.com/heyHfb1.png)
 
 ## Legal
 Copyright (C) 2016-2020 Wes Hampson
