@@ -30,7 +30,7 @@ file size.
 
 ## Download
 Head over to the
-[releases page](https://github.com/whampson/lcs-save-editor/issues) to download
+[releases page](https://github.com/whampson/lcs-save-editor/releases) to download
 the latest version!
 
 ## Support
