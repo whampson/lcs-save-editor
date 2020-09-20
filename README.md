@@ -35,7 +35,7 @@ the latest version!
 
 ## Support
 Questions? Comments? Suggestions? Bugs? 🐛🐜  
-👉 [Open an issue](https://github.com/whampson/lcs-save-editor/issues) on
+👉 [Open an issue](https://github.com/whampson/lcs-save-editor/releases) on
 GitHub.  
 👉 Visit the
 [official GTAForums topic](https://gtaforums.com/index.php?showtopic=847469) and
