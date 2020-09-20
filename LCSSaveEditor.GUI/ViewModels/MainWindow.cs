@@ -212,8 +212,23 @@ namespace LCSSaveEditor.GUI.ViewModels
                 },
                 (o, e) =>
                 {
+                    if (e.Cancelled)
+                    {
+                        Log.Info($"Download cancelled.");
+                        SetStatusText($"Download cancelled.");
+                        return;
+                    }
+                    else if (e.Error != null)
+                    {
+                        Log.Error(e.Error);
+                        Log.Info("Download failed.");
+                        ShowError($"Download failed! See the log for details.");
+                        SetTimedStatusText($"Download failed! See the log for details.", duration: 10);
+                        return;
+                    }
+
                     Log.Info($"Download complete.");
-                    SetStatusText($"Download complete. Ready to install.");
+                    SetTimedStatusText($"Download complete. Ready to install.", duration: 10);
 
                     PromptOkCancel(
                         "Download complete. Click 'OK' to install.",
@@ -258,6 +273,7 @@ namespace LCSSaveEditor.GUI.ViewModels
             {
                 Log.Info($"Installation failed.");
                 ShowError("Installation failed! See the log for details.");
+                SetTimedStatusText("Installation failed! See the log for details.", duration: 10);
                 return;
             }
 
