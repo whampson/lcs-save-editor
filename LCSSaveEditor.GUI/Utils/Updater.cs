@@ -16,10 +16,12 @@ namespace LCSSaveEditor.GUI.Utils
     {
         public static UpdaterSettings UpdaterSettings => Settings.TheSettings.Updater;
 
+        public static bool IsDownloadInProgress { get; private set; }
+
         public static async Task<GitHubRelease[]> GetReleaseInfo()
         {
             using var resp = await GitHubApiGet("https://api.github.com/repos/whampson/lcs-save-editor/releases");
-            if (resp.StatusCode == HttpStatusCode.OK)
+            if (resp.StatusCode != HttpStatusCode.OK)
             {
                 return new GitHubRelease[0];
             }
@@ -77,10 +79,15 @@ namespace LCSSaveEditor.GUI.Utils
             return latest;
         }
 
-        public static void DownloadUpdatePackage(GitHubRelease update,
+        public static bool DownloadUpdatePackage(GitHubRelease update,
             DownloadProgressChangedEventHandler downloadProgressChangedHandler = null,
             AsyncCompletedEventHandler downloadCompletedHandler = null)
         {
+            if (IsDownloadInProgress)
+            {
+                return false;
+            }
+
             Log.Info("Downloading update...");
 
             string downloadDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -109,10 +116,27 @@ namespace LCSSaveEditor.GUI.Utils
             Log.Info($"Download progress: 0%");
 
             string destPath = Path.Combine(downloadDir, pkg.Name);
+            
             using WebClient wc = new WebClient();
-            if (downloadProgressChangedHandler != null) wc.DownloadProgressChanged += downloadProgressChangedHandler;
-            if (downloadProgressChangedHandler != null) wc.DownloadFileCompleted += downloadCompletedHandler;
+            wc.DownloadFileCompleted += DownloadFileCompleted;
+            if (downloadCompletedHandler != null)
+            {
+                wc.DownloadFileCompleted += downloadCompletedHandler;
+            }
+            if (downloadProgressChangedHandler != null)
+            {
+                wc.DownloadProgressChanged += downloadProgressChangedHandler;
+            }
+
             wc.DownloadFileAsync(new Uri(pkg.Url), destPath, destPath);
+            
+            IsDownloadInProgress = true;
+            return true;
+        }
+
+        private static void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            IsDownloadInProgress = false;
         }
 
         public static string InstallUpdatePackage(string pkgPath)
@@ -147,22 +171,17 @@ namespace LCSSaveEditor.GUI.Utils
             string oldExeBak = oldExe + ".bak";
             string newExe = Path.Combine(Path.GetDirectoryName(oldExe), newExeName);
 
-            if (File.Exists(oldExeBak))
-            {
-                File.Delete(oldExeBak);
-            }
-            if (File.Exists(newExe))
-            {
-                File.Delete(newExe);
-            }
-
-            File.Move(oldExe, oldExeBak);
+            File.Move(oldExe, oldExeBak, true);
             File.Copy(newExeDownloadPath, newExe);
 
-            Settings.TheSettings.Updater.CleanupAfterUpdate = true;
-            Settings.TheSettings.Updater.CleanupList.Add(oldExeBak);
+            UpdaterSettings.CleanupAfterUpdate = true;
+            UpdaterSettings.CleanupList.Add(oldExeBak);
+            if (oldExe != newExe)
+            {
+                UpdaterSettings.CleanupList.Add(oldExe);
+            }
 
-            return newExeDownloadPath;
+            return newExe;
         }
 
         private static async Task<HttpWebResponse> GitHubApiGet(string url)

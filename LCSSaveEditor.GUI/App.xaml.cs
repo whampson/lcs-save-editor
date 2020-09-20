@@ -103,11 +103,15 @@ namespace LCSSaveEditor.GUI
             {
                 Log.Info("Cleaning up old version files...");
                 s.CleanupAfterUpdate = false;
+
+                int count = 0; 
                 while (s.CleanupList.Count > 0)
                 {
                     try
                     {
                         File.Delete(s.CleanupList[0]);
+                        Log.Info($"Deleted {s.CleanupList[0]}");
+                        count++;
                     }
                     catch (Exception e)
                     {
@@ -123,6 +127,8 @@ namespace LCSSaveEditor.GUI
 
                     s.CleanupList.RemoveAt(0);
                 }
+
+                Log.Info(string.Format("Cleaned up {0} file{1}.", count, count != 1 ? "s" : ""));
             }
         }
 
@@ -163,6 +169,13 @@ namespace LCSSaveEditor.GUI
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             SaveSettings();
+            Log.Info("Exiting...");
+
+            if (Settings.TheSettings.WriteLogOnClose)
+            {
+                string logFile = $"{AssemblyName}_{DateTime.Now:yyyyMMddHHmmss}.log";
+                File.WriteAllText(logFile, LogText);
+            }
         }
 
         private void Application_UnhandledException(object sender, UnhandledExceptionEventArgs e)

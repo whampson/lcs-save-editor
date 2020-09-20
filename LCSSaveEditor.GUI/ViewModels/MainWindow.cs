@@ -170,8 +170,13 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         public async void CheckForUpdates(bool popupIfNoneFound = false)
         {
-            GitHubRelease updateInfo = await Updater.CheckForUpdate();
+            if (Updater.IsDownloadInProgress)
+            {
+                ShowInfo("An update is in progress!", "Updater");
+                return;
+            }
 
+            GitHubRelease updateInfo = await Updater.CheckForUpdate();
             if (updateInfo == null)
             {
                 if (popupIfNoneFound)
@@ -185,29 +190,35 @@ namespace LCSSaveEditor.GUI.ViewModels
             PromptYesNo(
                 () => InstallUpdate(updateInfo),
                 $"An update is available!\n\n" +
-                $"Version: {updateInfo.Name}\n" +
+                $"Version: {updateInfo.Tag}\n" +
                 $"Release Date: {updateInfo.Date}\n\n" +
                 $"Release Notes:\n" +
                 $"{updateInfo.Notes}\n\n" +
                 $"Would you like to download the update?",
-                title: "Updater",
+                title: "Update Available",
                 image: MessageBoxImage.Information);
         }
 
         public void InstallUpdate(GitHubRelease updateInfo)
         {
+            if (Updater.IsDownloadInProgress)
+            {
+                ShowInfo("An update is in progress!", "Updater");
+                return;
+            }
+
             int oldPercentage = 0;
             Updater.DownloadUpdatePackage(updateInfo,
                 (o, e) =>
                 {
                     if (e.ProgressPercentage > oldPercentage)
                     {
+                        if (e.ProgressPercentage % 10 == 0)
+                        {
+                            Log.Info($"Download progress: {e.ProgressPercentage}%");
+                        }
                         SetStatusText($"Downloading update... {e.ProgressPercentage}%");
                         oldPercentage = e.ProgressPercentage;
-                    }
-                    if (e.ProgressPercentage % 10 == 0)
-                    {
-                        Log.Info($"Download progress: {e.ProgressPercentage}%");
                     }
                 },
                 (o, e) =>
