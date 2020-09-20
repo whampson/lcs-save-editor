@@ -20,6 +20,7 @@ namespace LCSSaveEditor.Core
         private ObservableCollection<string> m_welcomeList;
         private ObservableCollection<string> m_recentFiles;
         private int m_recentFilesCapacity;
+        private bool m_writeLogOnClose;
         private UpdaterSettings m_updater;
 
         public string LastDirectoryAccessed
@@ -74,6 +75,12 @@ namespace LCSSaveEditor.Core
         {
             get { return m_recentFilesCapacity; }
             set { m_recentFilesCapacity = value; OnPropertyChanged(); }
+        }
+
+        public bool WriteLogOnClose
+        {
+            get { return m_writeLogOnClose; }
+            set { m_writeLogOnClose = value; OnPropertyChanged(); }
         }
 
         public UpdaterSettings Updater
@@ -171,6 +178,8 @@ namespace LCSSaveEditor.Core
             string settingsJson = JsonConvert.SerializeObject(this, Formatting.Indented);
             File.WriteAllText(path, settingsJson);
         }
+
+        public bool ShouldSerializeWriteLogOnClose() => WriteLogOnClose != false;
     }
 
     public class UpdaterSettings
@@ -187,19 +196,8 @@ namespace LCSSaveEditor.Core
             CleanupList = new List<string>();
         }
 
-        public bool ShouldSerializeStandaloneRing()
-        {
-            return StandaloneRing != false;
-        }
-
-        public bool ShouldSerializeCleanupAfterUpdate()
-        {
-            return CleanupAfterUpdate != false;
-        }
-
-        public bool ShouldSerializeCleanupList()
-        {
-            return CleanupList.Count > 0;
-        }
+        public bool ShouldSerializeStandaloneRing() => StandaloneRing != false;
+        public bool ShouldSerializeCleanupAfterUpdate() => CleanupAfterUpdate != false;
+        public bool ShouldSerializeCleanupList() => CleanupList.Count > 0;
     }
 }
