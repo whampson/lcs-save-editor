@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance m:AboutDialog}"
     Title="About"
-    Height="450" Width="550"
+    Height="450" Width="600"
     Loaded="Window_Loaded" Closing="Window_Closing"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize">
@@ -124,8 +124,10 @@
                             Check out this project on
                             <Hyperlink NavigateUri="{x:Static g:App.ProjectUrl}">GitHub</Hyperlink>.
                             <LineBreak/>
-                            Help fund my caffeine addiction by
-                            <Hyperlink NavigateUri="{x:Static g:App.AuthorDonateUrl}">buying me a coffee</Hyperlink>!
+                            <LineBreak/>
+                            If you like my work,
+                            <Hyperlink NavigateUri="{x:Static g:App.AuthorDonateUrl}">buy me a coffee</Hyperlink>
+                            to show your support!
                         </Paragraph>
                     </FlowDocument>
                 </RichTextBox>

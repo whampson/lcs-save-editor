@@ -116,7 +116,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
@@ -159,7 +160,7 @@
                         IsChecked="{Binding RecursiveSearch}"/>
 
                     <Button
-                        Grid.Column="3"
+                        Grid.Column="4"
                         Margin="5"
                         Content="Open"
                         ToolTip="Open the selected file for editing."
@@ -168,7 +169,7 @@
                         Command="{Binding OpenCommand}"/>
 
                     <Button
-                        Grid.Column="4"
+                        Grid.Column="5"
                         Margin="5"
                         Content="Refresh"
                         ToolTip="Re-load the files in the list."
