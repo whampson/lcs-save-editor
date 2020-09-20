@@ -145,7 +145,7 @@ namespace LCSSaveEditor.GUI
 #if DEBUG
             Log.Info($"DEBUG build.");
 #endif
-#if STANDALONE
+#if RELEASE_STANDALONE
             Settings.TheSettings.Updater.StandaloneRing = true;
             Log.Info("Standalone build.");
 #endif

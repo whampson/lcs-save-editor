@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>0.17.0-alpha</Version>
-    <FileVersion>0.17.0.1515</FileVersion>
-    <AssemblyVersion>0.17.0.1515</AssemblyVersion>
+    <Version>1.0.0-rc.1</Version>
+    <FileVersion>1.0.0.1520</FileVersion>
+    <AssemblyVersion>1.0.0.1520</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>
@@ -16,10 +16,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     <Configurations>Debug;Release;Release-Standalone</Configurations>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Standalone|AnyCPU'">
-    <DefineConstants>TRACE;STANDALONE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
