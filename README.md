@@ -2,6 +2,16 @@
 This tool allows you to edit Grand Theft Auto: Liberty City Stories save files.
 💾
 
+![](https://i.imgur.com/BsOjyoT.png)
+![](https://i.imgur.com/FmSZjoN.png)
+![](https://i.imgur.com/vW3wRov.png)
+![](https://i.imgur.com/aGZY5he.png)
+![](https://i.imgur.com/fXYwMKs.png)
+![](https://i.imgur.com/UR6rOnI.png)
+![](https://i.imgur.com/zKEoly4.png)
+![](https://i.imgur.com/heyHfb1.png)
+![](https://i.imgur.com/RFfTUkL.png)
+
 ## Features
   - All versions of the game are supported: PS2, PSP, Android, and iOS.
   - Edit various player attributes including outfit, max health and armor,
@@ -32,7 +42,7 @@ Questions? Comments? Suggestions? Bugs? 🐛🐜
 👉 [Open an issue](https://github.com/whampson/lcs-save-editor/issues) on
 GitHub.  
 👉 Visit the
-[Official GTAForums topic](https://gtaforums.com/index.php?showtopic=847469) and
+[official GTAForums topic](https://gtaforums.com/index.php?showtopic=847469) and
 partake in discussion.  
 
 If you like my work, [buy me a coffee](https://ko-fi.com/thehambone) to show
