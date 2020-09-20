@@ -149,7 +149,6 @@ namespace LCSSaveEditor.GUI.Views
             }
         }
         
-
         private void ViewModel_SettingsWindowRequest(object sender, EventArgs e)
         {
             ViewModel.ShowInfo($"TODO: settings");
@@ -177,12 +176,8 @@ namespace LCSSaveEditor.GUI.Views
 
         private void ViewModel_AboutWindowRequest(object sender, EventArgs e)
         {
-                ViewModel.ShowInfo(
-                    $"{App.Name}\n" +
-                    "(C) 2016-2020 Wes Hampson\n" +
-                    "\n" +
-                   $"Version: {App.Version}\n",
-                    title: "About");
+            AboutDialog d = new AboutDialog() { Owner = this };
+            d.ShowDialog();
         }
 
 #if DEBUG

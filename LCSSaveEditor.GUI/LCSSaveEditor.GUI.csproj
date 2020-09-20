@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>0.17.0-alpha</Version>
-    <FileVersion>0.17.0.1457</FileVersion>
-    <AssemblyVersion>0.17.0.1457</AssemblyVersion>
+    <FileVersion>0.17.0.1506</FileVersion>
+    <AssemblyVersion>0.17.0.1506</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>
@@ -21,7 +21,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-Standalone|AnyCPU'">
     <DefineConstants>TRACE;STANDALONE</DefineConstants>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="4.6.86" />
     <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
@@ -43,69 +43,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\carcols.dat">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume00.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume01.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume02.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume03.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume04.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume05.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume06.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume07.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume08.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume09.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume10.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume11.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume12.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume13.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume14.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\costume15.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\ENGLISH.GXT">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\logo.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\map.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\target.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\carcols.dat" />
+    <Resource Include="Resources\costume00.png" />
+    <Resource Include="Resources\costume01.png" />
+    <Resource Include="Resources\costume02.png" />
+    <Resource Include="Resources\costume03.png" />
+    <Resource Include="Resources\costume04.png" />
+    <Resource Include="Resources\costume05.png" />
+    <Resource Include="Resources\costume06.png" />
+    <Resource Include="Resources\costume07.png" />
+    <Resource Include="Resources\costume08.png" />
+    <Resource Include="Resources\costume09.png" />
+    <Resource Include="Resources\costume10.png" />
+    <Resource Include="Resources\costume11.png" />
+    <Resource Include="Resources\costume12.png" />
+    <Resource Include="Resources\costume13.png" />
+    <Resource Include="Resources\costume14.png" />
+    <Resource Include="Resources\costume15.png" />
+    <Resource Include="Resources\ENGLISH.GXT" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\map.png" />
+    <Resource Include="Resources\target.png" />
+    <Resource Include="Resources\toni.jpg" />
   </ItemGroup>
   
 </Project>

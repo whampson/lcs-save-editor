@@ -18,13 +18,18 @@ namespace LCSSaveEditor.GUI
     public partial class App : Application
     {
         public static string Name => "GTA:LCS Save Editor";
+        public static string Copyright => $"(C) 2016-2020 {Author}";
         public static string Author => "Wes Hampson";
+        public static string AuthorAlias => "thehambone";
         public static string AuthorContact => "thehambone93@gmail.com";
-        public static string Copyright => $"Copyright (C) 2016-2020 {Author}";
-        public static string SettingsPath => "settings.json";
+        public static Uri AuthorContactMailTo => new Uri($"mailto:{AuthorContact}");
+        public static Uri AuthorDonateUrl => new Uri(@"https://ko-fi.com/thehambone");
+        public static Uri ProjectUrl => new Uri(@"https://github.com/whampson/lcs-save-editor");
+        public static Uri ProjectTopicUrl => new Uri(@"https://gtaforums.com/index.php?showtopic=847469");
 
-        public static Uri GxtResourceUri => new Uri(@"pack://application:,,,/Resources/ENGLISH.GXT");
-        public static Uri CarcolsResourceUri => new Uri(@"pack://application:,,,/Resources/carcols.dat");
+        private static Uri GxtResource => new Uri(@"pack://application:,,,/Resources/ENGLISH.GXT");
+        private static Uri CarcolsResource => new Uri(@"pack://application:,,,/Resources/carcols.dat");
+        private static string SettingsPath => "settings.json";
 
         public static string Version => Assembly
             .GetExecutingAssembly()
@@ -81,13 +86,13 @@ namespace LCSSaveEditor.GUI
 
         private static void LoadCarcols()
         {
-            byte[] carcols = LoadResource(CarcolsResourceUri);
+            byte[] carcols = LoadResource(CarcolsResource);
             Carcols.TheCarcols.Load(carcols);
         }
 
         private static void LoadGxt()
         {
-            byte[] gxt = LoadResource(GxtResourceUri);
+            byte[] gxt = LoadResource(GxtResource);
             Gxt.TheText.Load(gxt);
         }
 
