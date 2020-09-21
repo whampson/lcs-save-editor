@@ -19,6 +19,8 @@
     Unique Stunt Jumps.
   - Edit many other aspects of the game, including game settings, weather, time,
     and even some unused features to spice up your Liberty City experience.
+  - Built-in updater so you'll get the latest feature updates as soon as they're
+    available.
 
 ## System Requirements
   - Windows PC
@@ -32,6 +34,49 @@ file size.
 Head over to the
 [releases page](https://github.com/whampson/lcs-save-editor/releases) to download
 the latest version!
+
+## Extracting Save Files
+In order to edit save files, you'll need to extract them from your console or
+mobile device.
+
+### Android
+  - You'll need a rooted device to access save files.
+  - Save files are located at `/data/data/com.rockstargames.gtalcs/files/`
+
+### iOS:
+  - You'll need a jailbroken device to access save files if you're using iOS 8.3
+    or newer.
+  - Save files are located in the Documents folder.
+
+### PS2
+  - You'll need a cheat device, memory card reader, or a softmodded console to
+    extract save files from the memory card.
+  - If you're using PCSX2, use
+    [mymc](http://www.csclub.uwaterloo.ca:11068/mymc/) to access the files on
+    the virtual memory card.
+  - You may need to use a tool like
+    [PS2 Save Builder](https://www.ps2savetools.com/download/ps2-save-builder/)
+    to access the raw files depending on how the save was extracted.
+
+### PSP
+  - PSP saves are encrypted, so you'll have to decrypt them before the save
+    editor will be able to read them. You can use PPSSPP, the PSP emulator, to
+    decrypt saves.
+    1) Download and install [PPSSPP](http://ppsspp.org/)
+    2) Boot GTA:LCS in the emulator, play through the first mission, and save
+       the game. This is done to create the save directory.
+    3) Locate the GTA:LCS save directory by navigating to
+       `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/`
+    4) Overwrite the contents of that directory with the save you want to edit.
+    5) Disable save encryption
+       a) Open the following file in a text editor:
+          `<documents>/PPSSPP/memstick/PSP/SYSTEM/ppsspp.ini`
+       b) In the [SystemParam] section, add the following line:
+            `EncryptSave = False`
+       c) Restart PPSSPP
+    6) Boot up GTA:LCS, load your save, and save it again in a different slot.
+    7) Your decrypted save file will be loacted at
+       `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/DATA.BIN`
 
 ## Support
 Questions? Comments? Suggestions? Bugs? 🐛🐜  
@@ -49,8 +94,9 @@ Special thanks to `GTAKid667` for designing the logo and for extensive feedback
 and support during development.
 
 Thanks to `Packing_Heat`, `_CP_`, `Inadequate`, `Lethal Vaccine`, `Stallion458`,
-`The_Hero`, `AztecaEh`, `Username.gta`, `CartmanKusanagi`, and `GTAshnik177` for
-providing save files and other information for research and testing.
+`The Hero`, `Parik`, `AztecaEh`, `Username.gta`, `NightmanCometh96`, and
+`GTAshnik177` for providing save files and other information for research and
+testing.
 
 ## Version History
 ### 1.0.0
