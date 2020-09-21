@@ -69,11 +69,11 @@ mobile device.
        `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/`
     4) Overwrite the contents of that directory with the save you want to edit.
     5) Disable save encryption
-       a) Open the following file in a text editor:
+        - Open the following file in a text editor:
           `<documents>/PPSSPP/memstick/PSP/SYSTEM/ppsspp.ini`
-       b) In the [SystemParam] section, add the following line:
-            `EncryptSave = False`
-       c) Restart PPSSPP
+        - In the [SystemParam] section, add the following line:
+          `EncryptSave = False`
+        - Restart PPSSPP
     6) Boot up GTA:LCS, load your save, and save it again in a different slot.
     7) Your decrypted save file will be loacted at
        `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/DATA.BIN`
