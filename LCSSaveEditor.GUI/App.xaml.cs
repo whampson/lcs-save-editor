@@ -6,6 +6,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -73,10 +74,7 @@ namespace LCSSaveEditor.GUI
 
         private static void LoadSettings()
         {
-            if (File.Exists(SettingsPath))
-            {
-                Settings.LoadSettings(SettingsPath);
-            }
+            Settings.LoadSettings(SettingsPath);
         }
 
         private static void SaveSettings()
@@ -139,14 +137,19 @@ namespace LCSSaveEditor.GUI
             Log.InfoStream = LogWriter;
             Log.ErrorStream = LogWriter;
 
-            Log.Info($"{Name} {Version}");
-            Log.Info($"{Copyright}");
-
+            string osVer = RuntimeInformation.OSDescription;
+            string dotnetVer = RuntimeInformation.FrameworkDescription;
             string gtaLibVer = Assembly.GetAssembly(typeof(SaveData)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
             string lcsLibVer = Assembly.GetAssembly(typeof(LCSSave)).GetCustomAttribute<AssemblyFileVersionAttribute>().Version;
-            Log.Info($"Save Editor EXE version = {AssemblyFileVersion}");
-            Log.Info($"GTASaveData.Core version = {gtaLibVer}");
-            Log.Info($"GTASaveData.LCS version = {lcsLibVer}");
+
+            Log.Info($"{Name} {Version}");
+            Log.Info($"{Copyright}");
+            Log.Info(new string('=', 40));
+            Log.Info($"Operating System: {osVer}");
+            Log.Info($"    .NET Runtime: {dotnetVer}");
+            Log.Info($"GTASaveData.Core: {gtaLibVer}");
+            Log.Info($" GTASaveData.LCS: {lcsLibVer}");
+            Log.Info($" Save Editor EXE: {AssemblyFileVersion}");
 
 #if DEBUG
             Log.Info($"DEBUG build.");

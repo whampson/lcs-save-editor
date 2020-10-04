@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>1.0.0</Version>
-    <FileVersion>1.0.0.1557</FileVersion>
-    <AssemblyVersion>1.0.0.1557</AssemblyVersion>
+    <Version>1.0.1</Version>
+    <FileVersion>1.0.1.1574</FileVersion>
+    <AssemblyVersion>1.0.1.1574</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>

@@ -150,6 +150,12 @@ namespace LCSSaveEditor.Core
         {
             Log.Info("Loading settings...");
 
+            if (!File.Exists(path))
+            {
+                Log.Info("Settings file not found. Using default settings.");
+                return;
+            }
+
             string json = File.ReadAllText(path);
             var settings = new JsonSerializerSettings
             {
@@ -167,7 +173,7 @@ namespace LCSSaveEditor.Core
             }
             else
             {
-                Log.Error("Unable to load settings. Defaults will be used.");
+                Log.Error("Unable to load settings. Using default settings.");
             }
         }
 
