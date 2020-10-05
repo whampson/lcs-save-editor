@@ -10,7 +10,7 @@ namespace LCSSaveEditor.GUI.Types
     public static class VehicleInfo
     {
         public static ObservableCollection<ColorItem> CarColors => new ObservableCollection<ColorItem>(
-            Carcols.TheCarcols.Colors.Select(x => new ColorItem(Color.FromRgb(x.R, x.G, x.B), "")));
+            Carcols.TheCarcols.ColorInfo.Select(x => new ColorItem(Color.FromRgb(x.Item1.R, x.Item1.G, x.Item1.B), x.Item2)));
     }
 
     public enum Vehicle

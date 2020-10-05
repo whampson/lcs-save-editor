@@ -28,7 +28,7 @@
 
         <Style x:Key="CarColorPickerStyle" TargetType="xctk:ColorPicker">
             <Setter Property="DisplayColorAndName" Value="False"/>
-            <Setter Property="DisplayColorTooltip" Value="False"/>
+            <Setter Property="DisplayColorTooltip" Value="True"/>
             <Setter Property="ShowStandardColors" Value="False"/>
             <Setter Property="ShowTabHeaders" Value="False"/>
             <Setter Property="UsingAlphaChannel" Value="False"/>
