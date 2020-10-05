@@ -7,7 +7,7 @@
         // saved global variables
 
         IntroMissionPassed = 6,
-        _UnknownFlag, // mobile only
+        _Unknown7_MobileOnlyFlag,
         PlayerX,
         PlayerY,
         PlayerZ,
@@ -123,8 +123,8 @@
         Collected90Packages,
         AllPackagesCollected,
         CurrentTimeHours,
-        // 123 unused
-        CurrentTimeMinutes = 124,
+        _Unknown123,
+        CurrentTimeMinutes,
         Weapon36Ammo,
         Weapon1Ammo,
         Weapon2Ammo,
@@ -158,8 +158,8 @@
         Weapon33Ammo,
         Weapon28Ammo,
         Weapon29Ammo,
-        // 158 unused
-        PlayerWeapon = 159,
+        _Unused158,
+        PlayerWeapon,
         PlayerWantedLevel,
         PlayerArmor,
         PlayerMoney,
@@ -220,10 +220,10 @@
         FirefighterMissionCompleted,
         TaxiMissionCompleted,
         TaxiFaresDroppedOff,
-        // 220 unused
-        // 221 unused
-        // 222 unused
-        RcRace1Completed = 223,
+        Trash2CompletedPortland,
+        Trash2CompletedStaunton,
+        Trash2CompletedShoreside,
+        RcRace1Completed,
         RcRace2Completed,
         RcRace3Completed,
         RadioAnnouncement0Status,
@@ -255,25 +255,25 @@
         MarContactAvailable,
         AllMarMissionsPassed,
         MarMission,
-        Jdt5Status, // TODO: play with these, mission prereqs?
-        Mac6Status,
-        Sal6Status,
-        Mar5Status,
-        Vic7Status,
-        Sal5Status, // END TODO
+        _Unknown255_StoryRelated, // TODO: play with these, mission prereqs?
+        _Unknown256_StoryRelated,
+        _Unknown257_StoryRelated,
+        _Unknown258_StoryRelated,
+        _Unknown259_StoryRelated,
+        _Unknown260_StoryRelated, // END TODO
         AllAngMissionsCompleted,
-        AngPortlandCompleted,
-        AngStauntonCompleted,
-        AngShoresideCompleted,
-        // 265 unused
-        Tr1Completed = 266,
+        AngCompletedPortland,
+        AngCompletedStaunton,
+        AngCompletedShoreside,
+        _Unused265,
+        Tr1Completed,
         CarsaleStatus,
         CarsaleCompleted,
-        // 269 unused
-        // 270 unused
-        // 271 unused
-        // 272 unused
-        CarsaleLevel = 273,
+        CarsaleNumCoupesSold,
+        CarsaleNumSportsCarsSold,
+        CarsaleNumSlowCarsSold,
+        CarsaleNumOffroadSold,
+        CarsaleLevel,
         RcBomb1Completed,
         RcBomb1HighScore,
         TvCompleted,
@@ -285,8 +285,8 @@
         Tp1Completed,
         Tp2HighScore,
         Tp2Completed,
-        // 285 unused
-        Ts1HighScore = 286,
+        _Unknown285,
+        Ts1HighScore,
         Ts1Completed,
         UnderwearCostumeUnlocked,
         CoxCostumeUnlocked,
@@ -307,32 +307,61 @@
         NedsContactAvailable,
         AllNedsMissionsPassed,
         NedsMission,
-        _307, // TODO: play with these, mission prereqs?
-        _308,
-        _309,
-        _310,
-        _311,
-        _312,
-        _313,
-        _314,
-        _315,
-        _316, // END TODO
+        _Unknown307_StoryRelated, // TODO: play with these, mission prereqs?
+        _Unknown308_StoryRelated,
+        _Unknown309_StoryRelated,
+        _Unknown310_StoryRelated,
+        _Unknown311_StoryRelated,
+        _Unknown312_StoryRelated,
+        _Unknown313_StoryRelated,
+        _Unknown314_StoryRelated,
+        _Unknown315_StoryRelated,
+        _Unknown316_StoryRelated, // END TODO
         PcjPlayCompleted,
         CrashCompleted,
-        // 319-348 unused
-        Rac1DontIncrementMissionAttempts = 349,
-        Rac2DontIncrementMissionAttempts,
-        Rac3DontIncrementMissionAttempts,
-        Bik1DontIncrementMissionAttempts,
-        Bik2DontIncrementMissionAttempts,
-        Bik3DontIncrementMissionAttempts,
-        // 355 unused
-        // 356 unused
-        // 357 unused
-        // 358 unused
-        // 359 unused
-        // 360 unused
-        RcRace1FastestTime = 361,
+        _Unused319,
+        _Unused320,
+        _Unused321,
+        _Unused322,
+        _Unused323,
+        _Unused324,
+        Rac1FastestTime,
+        Rac2FastestTime,
+        Rac3FastestTime,
+        Bik1FastestTime,
+        Bik2FastestTime,
+        Bik3FastestTime,
+        _Unused331,
+        _Unused332,
+        _Unused333,
+        _Unused334,
+        _Unused335,
+        _Unused336,
+        Rac1BestLap,
+        Rac2BestLap,
+        Rac3BestLap,
+        Bik1BestLap,
+        Bik2BestLap,
+        Bik3BestLap,
+        _Unused343,
+        _Unused344,
+        _Unused345,
+        _Unused346,
+        _Unused347,
+        _Unused348,
+        Rac1Completed,
+        Rac2Completed,
+        Rac3Completed,
+        Bik1Completed,
+        Bik2Completed,
+        Bik3Completed,
+        _Unused355,
+        _Unused356,
+        _Unused357,
+        _Unused358,
+        _Unused359,
+        _Unused360,
+        RcRace1FastestTime,
         RcRace2FastestTime,
         RcRace3FastestTime,
         RcRace1Level,
@@ -359,9 +388,9 @@
         Tt8BestLap,
         Tt9BestLap,
         Tt10BestLap,
-        // 388 unused
-        // 389 unused
-        Tt1TargetTimeBeat = 390,
+        _Unknown388_DirtmRelated,
+        _Unknown389_DirtmRelated,
+        Tt1TargetTimeBeat,
         Tt2TargetTimeBeat,
         Tt3TargetTimeBeat,
         Tt4TargetTimeBeat,
@@ -403,9 +432,9 @@
         BikesaleStatus,
         BikesaleCompleted,
         BikesaleNumFreewaysSold,
-        BikesaleNumPcjsSold,
+        BikesaleNumPcj600sSold,
         BikesaleNumFaggiosSold,
-        BikesaleNumSanchezsSold,
+        BikesaleNumSanchezesSold,
         PizzaCompleted,
         SalhContactAvailable,
         AllSalhMissionsCompleted,
@@ -416,35 +445,35 @@
         ToshContactAvailable,
         AllToshMissionsCompleted,
         ToshMission,
-        _454, // TODO: play with these, mission prereqs?
-        _455,
-        _456,
-        _457,
-        _458,
-        _459, // END TODO
+        _Unknown454_StoryRelated, // TODO: play with these, mission prereqs?
+        _Unknown455_StoryRelated,
+        _Unknown456_StoryRelated,
+        _Unknown457_StoryRelated,
+        _Unknown458_StoryRelated,
+        _Unknown459_StoryRelated, // END TODO
         TouristCompleted,
         TouristMission,
         TouristPrevMission,
-        // 463 unused
-        HelpThreadStarted = 464,
+        _Unused463,
+        HelpThreadStarted,
         BikeHelpShown,
         SprintHelpShown,
-        // 467 unused
-        CameraHelpShown = 468,
-        _UnknownMaybeInfoPickup1,
-        WantedHelpShown,
-        _UnknownMaybeInfoPickup2,
-        _UnknownMaybeInfoPickup3,
+        _Unused467,
+        CameraHelpShown,
+        HospitalTutoralPickupCollected,
+        PoliceTutorialCompleted,
+        PoliceTutorialPickupCollected,
+        MissionReplayTutoralCompleted,
         DriveByHelpShown,
         DriveByBikeHelpShown,
-        // 475 unused
-        BribeHelpShown = 476,
-        // 477 unused
-        MrBenzInfoShown = 478,
+        _Unused475,
+        BribeHelpShown,
+        _Unused477,
+        MrBenzInfoShown,
         CarsaleInfoShown,
         SirenHelpShown,
         HitmanInfoShown,
-        RaceInfoShown,
+        RacInfoShown,
         BikInfoShown,
         CrashInfoShown,
         TankHelpShown,
@@ -472,13 +501,13 @@
         WeaponCycleHelpShown,
         HandbrakeHelpShown,
         MinigunInfoShown,
-        // 510 unused
-        MicroSmgInfoShown = 511,
+        _Unused510,
+        MicroSmgInfoShown,
         PhilInfoShown,
-        MinigunInfo2Shown,
-        PortlandSafehouseUnlocked,
-        StauntonSafehouseUnlocked,
-        ShoresideSafehouseUnlocked,
+        MinigunInfoShown2,
+        SafehouseUnlockedPortland,
+        SafehouseUnlockedStaunton,
+        SafehouseUnlockedShoreside,
         CameraModeOnFoot,
         Outfit1Unlocked,
         Outfit2Unlocked,
@@ -497,28 +526,22 @@
         Outfit15Unlocked,
         Outfit16Unlocked,
         PlayerOutfit,
-        _UnknownAmbhit,
+        HitmanTimer,
         _UnknownSalh5,
         // 537-1265 not saved
         GarageSpray1 = 1266,
         Garage1,
         Garage2,
         Garage3,
-        // 1270 unused
-        // 1271 unused
-        // 1272 unused
-        GarageCrusher = 1273,
+        _Unused1270,
+        _Unused1271,
+        _Unused1272,
+        GarageCrusher,
         GarageBomb1,
         GarageHideout1,
         GarageHideout2,
         GarageHideout3,
-        // 1278 not saved
-        // 1279 not saved
-        // 1280 not saved
-        // 1281 not saved
-        // 1282 not saved
-        // 1283 not saved
-        // 1284 not saved
+        // 1278-1284 not saved
         GarageSpray2 = 1285,
         GarageBomb2,
         Garage11,
@@ -526,13 +549,10 @@
         Garage13,
         Garage14,
         GarageImport,
-        // 1292 not saved
-        // 1293 not saved
-        // 1294 not saved
-        // 1295 not saved
+        // 1292-1295 not saved
         Garage16 = 1296,
         Garage17,
 
-        // end of saved variables
+        // end of saved global variables
     }
 }

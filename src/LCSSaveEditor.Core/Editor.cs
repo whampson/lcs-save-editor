@@ -97,11 +97,11 @@ namespace LCSSaveEditor.Core
             int index = (int) g;
             if (!IsMobileScript())
             {
-                if (g == GlobalVariable._UnknownFlag)
+                if (g == GlobalVariable._Unknown7_MobileOnlyFlag)
                 {
                     return -1;
                 }
-                if (g > GlobalVariable._UnknownFlag)
+                if (g > GlobalVariable._Unknown7_MobileOnlyFlag)
                 {
                     index--;
                 }
