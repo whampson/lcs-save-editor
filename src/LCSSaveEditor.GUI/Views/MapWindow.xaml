@@ -15,6 +15,7 @@
     Loaded="Window_Loaded" Closing="Window_Closing"
     Activated="Window_Activated"
     IsVisibleChanged="Window_IsVisibleChanged"
+    WindowStartupLocation="CenterOwner"
     x:Name="m_theMapWindow">
 
     <Window.DataContext>
