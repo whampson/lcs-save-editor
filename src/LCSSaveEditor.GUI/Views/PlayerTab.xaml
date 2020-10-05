@@ -128,25 +128,32 @@
                             <StackPanel Orientation="Vertical" Margin="5">
                                 <CheckBox
                                     IsChecked="{Binding PlayerInfo.InfiniteSprint}"
-                                    Content="Infinite Sprint"/>
+                                    Content="Infinite Sprint"
+                                    ToolTip="You will never get tired while running."/>
                                 <CheckBox
                                     IsChecked="{Binding PlayerInfo.FireProof}"
-                                    Content="Fire Proof"/>
+                                    Content="Fire Proof"
+                                    ToolTip="You will not take fire damage."/>
                                 <CheckBox
                                     IsChecked="{Binding PlayerInfo.FastReload}"
-                                    Content="Fast Reload"/>
+                                    Content="Fast Reload"
+                                    ToolTip="Reloading your weapon will take much less time."/>
                                 <CheckBox
                                     IsChecked="{Binding Garages.FreeResprays}"
-                                    Content="Free Resprays"/>
+                                    Content="Free Resprays"
+                                    ToolTip="Visits to Pay'n'Spray will cost you $0."/>
                                 <CheckBox
                                     IsChecked="{Binding Garages.FreeBombs}"
-                                    Content="Free Bombs"/>
+                                    Content="Free Bombs"
+                                    ToolTip="Visits to the bomb shop will cost you $0."/>
                                 <CheckBox
                                     IsChecked="{Binding PlayerInfo.GetOutOfHospitalFree}"
-                                    Content="Free Hospital Visit"/>
+                                    Content="Free Hospital Visit"
+                                    ToolTip="Your next death will cost you $0."/>
                                 <CheckBox
                                     IsChecked="{Binding PlayerInfo.GetOutOfJailFree}"
-                                    Content="Free Police Station Visit"/>
+                                    Content="Free Police Station Visit"
+                                    ToolTip="Your next arrest will cost you $0."/>
                             </StackPanel>
                         </GroupBox>
                     </Grid>
@@ -256,7 +263,8 @@
                                 <c:LocationPicker
                                     Height="95" Margin="5,10,5,5"
                                     HorizontalGap="5"
-                                    Value="{Binding SpawnPoint}"/>
+                                    Value="{Binding SpawnPoint}"
+                                    ToolTip="Player spawn coordinates."/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -269,7 +277,8 @@
                                         Style="{StaticResource SliderStyle}" AutoToolTipPlacement="None"
                                         Minimum="0" Maximum="360"
                                         SmallChange="30" LargeChange="90"
-                                        Value="{Binding SpawnHeading}"/>
+                                        Value="{Binding SpawnHeading}"
+                                        ToolTip="The direction Toni is facing.&#x0a;0 = north, 90 = west, 180 = south, 270 = east"/>
                                     <xctk:IntegerUpDown
                                         Grid.Column="2" Margin="5"
                                         Width="35" Height="25"
@@ -277,7 +286,8 @@
                                         TextAlignment="Center" 
                                         Increment="5" ShowButtonSpinner="False"
                                         Minimum="0" Maximum="360"
-                                        Value="{Binding SpawnHeading}" />
+                                        Value="{Binding SpawnHeading}"
+                                        ToolTip="The direction Toni is facing.&#x0a;0 = north, 90 = west, 180 = south, 270 = east"/>
                                 </Grid>
                                 <Separator Background="Transparent" Height="10"/>
                                 <TextBlock

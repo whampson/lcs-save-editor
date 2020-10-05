@@ -155,7 +155,7 @@
                         Margin="5"
                         VerticalAlignment="Center"
                         Content="Recursive Search"
-                        ToolTip="Search subdirectories for save files."
+                        ToolTip="Search for save files in subfolders."
                         ToolTipService.InitialShowDelay="1000"
                         IsChecked="{Binding RecursiveSearch}"/>
 
@@ -172,7 +172,7 @@
                         Grid.Column="5"
                         Margin="5"
                         Content="Refresh"
-                        ToolTip="Re-load the files in the list."
+                        ToolTip="Update the save file list by re-reading each file."
                         ToolTipService.InitialShowDelay="1000"
                         Style="{StaticResource ButtonStyle}"
                         Command="{Binding RefreshCommand}"/>

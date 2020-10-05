@@ -157,21 +157,25 @@
                             <xctk:ColorPicker
                                 Grid.Row="0" Grid.Column="1" Height="25" Margin="5"
                                 Style="{StaticResource CarColorPickerStyle}"
-                                SelectedColor="{Binding SelectedCar.Color1, Converter={StaticResource CarColorConverter}}"/>
+                                SelectedColor="{Binding SelectedCar.Color1, Converter={StaticResource CarColorConverter}}"
+                                ToolTip="Primary color."/>
                             <xctk:ColorPicker
                                 Grid.Row="0" Grid.Column="3" Height="25" Margin="5"
                                 Style="{StaticResource CarColorPickerStyle}"
-                                SelectedColor="{Binding SelectedCar.Color2, Converter={StaticResource CarColorConverter}}"/>
+                                SelectedColor="{Binding SelectedCar.Color2, Converter={StaticResource CarColorConverter}}"
+                                ToolTip="Secondary color."/>
                             <xctk:IntegerUpDown
                                 Grid.Row="1" Grid.Column="1" Height="25" Margin="5"
                                 Style="{StaticResource IntegerUpDownStyle}"
                                 Minimum="-1" DefaultValue="-1"
-                                Value="{Binding SelectedCar.Extra1}"/>
+                                Value="{Binding SelectedCar.Extra1}"
+                                ToolTip="Liveries, rollbars, taxi lights, etc."/>
                             <xctk:IntegerUpDown
                                 Grid.Row="1" Grid.Column="3" Height="25" Margin="5"
                                 Style="{StaticResource IntegerUpDownStyle}"
                                 Minimum="-1" DefaultValue="-1"
-                                Value="{Binding SelectedCar.Extra2}"/>
+                                Value="{Binding SelectedCar.Extra2}"
+                                ToolTip="Liveries, rollbars, taxi lights, etc."/>
                         </Grid>
                     </Grid>
                 </GroupBox>
@@ -201,7 +205,8 @@
                             Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                             Margin="5" Padding="45,0,0,0" Height="82.5"
                             HorizontalGap="2.5" VerticalGap="0,0,10,0"
-                            Value="{Binding SelectedCar.Position}"/>
+                            Value="{Binding SelectedCar.Position}"
+                            ToolTip="Vehicle spawn coordinates."/>
 
                         <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.ColumnDefinitions>
@@ -223,7 +228,7 @@
                                 Increment="5" ShowButtonSpinner="False"
                                 Minimum="0" Maximum="360"
                                 Value="{Binding SelectedCar.Heading}"
-                                ToolTip="The direction the vehicle is pointing.&#x0a;0 = north, 90 = east, 180 = south, 270 = west"/>
+                                ToolTip="The direction the vehicle is pointing.&#x0a;0 = north, 90 = west, 180 = south, 270 = east"/>
                         </Grid>
 
                         <Grid Grid.Row="2" Grid.Column="1">
@@ -237,7 +242,7 @@
                                 Minimum="-90" Maximum="90"
                                 SmallChange="15" LargeChange="45"
                                 Value="{Binding SelectedCar.Pitch}"
-                                ToolTip="The vehicle's up-down pitch angle."/>
+                                ToolTip="The vehicle's nose up/down angle."/>
                             <xctk:IntegerUpDown
                                 Grid.Column="2" Margin="5,5"
                                 Width="35" Height="25"
@@ -246,7 +251,7 @@
                                 Increment="5" ShowButtonSpinner="False"
                                 Minimum="-89" Maximum="89"
                                 Value="{Binding SelectedCar.Pitch}"
-                                ToolTip="The vehicle's up-down pitch angle."/>
+                                ToolTip="The vehicle's nose up/down angle."/>
                         </Grid>
                     </Grid>
 

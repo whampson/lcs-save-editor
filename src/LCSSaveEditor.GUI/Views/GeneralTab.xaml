@@ -78,6 +78,7 @@
                         Grid.Column="1" Height="25" Margin="5"
                         Style="{StaticResource ButtonStyle}"
                         Content="Select..."
+                        ToolTip="Choose a save title.&#x0a;Due to how the title is saved, you can only select a title from the predefined list."
                         Command="{Binding SelectSaveTitleCommand}"/>
                 </Grid>
             </GroupBox>
@@ -259,35 +260,41 @@
                             Grid.Column="0" Grid.Row="0" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SimpleVars.DisplayHud}"
-                            Content="Show HUD"/>
+                            Content="Show HUD"
+                            ToolTip="Toggles the health, armor, weapon, and wanted level display on or off."/>
                         <CheckBox
                             Grid.Column="0" Grid.Row="1" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SimpleVars.ShowSubtitles}"
-                            Content="Show Subtitles"/>
+                            Content="Show Subtitles"
+                            ToolTip="Toggles subtitles on or off."/>
                         <CheckBox
                             Grid.Column="0" Grid.Row="2" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SimpleVars.UseWideScreen}"
                             IsEnabled="{Binding TheSave.FileFormat.IsPS2}"
-                            Content="Use Widescreen"/>
+                            Content="Use Widescreen"
+                            ToolTip="Enables widescreen rendering."/>
                         <CheckBox
                             Grid.Column="1" Grid.Row="0" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SimpleVars.InvertLook}"
-                            Content="Invert Look"/>
+                            Content="Invert Look"
+                            ToolTip="Inverts the camera's Y-axis."/>
                         <CheckBox
                             Grid.Column="1" Grid.Row="1" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SimpleVars.SwapNippleAndDPad}"
                             IsEnabled="{Binding TheSave.FileFormat.IsPSP}"
-                            Content="Move w/ D-Pad"/>
+                            Content="Move w/ D-Pad"
+                            ToolTip="Enables player movement with the directional buttons; swaps the D-pad and analog stick."/>
                         <CheckBox
                             Grid.Column="1" Grid.Row="2" Margin="5"
                             Style="{StaticResource CheckBoxStyle}"
                             IsChecked="{Binding SimpleVars.UseVibration}"
                             IsEnabled="{Binding TheSave.FileFormat.IsPS2}"
-                            Content="Use Vibration"/>
+                            Content="Use Vibration"
+                            ToolTip="Toggles controller vibration on or off."/>
                     </Grid>
                 </Grid>
             </GroupBox>
@@ -318,7 +325,8 @@
                         Grid.Column="1" Grid.Row="0" Margin="5" Height="25"
                         Style="{StaticResource EnumComboBoxStyle}"
                         ItemsSource="{e:EnumValueCollection EnumType=lcs:WeatherType}"
-                        SelectedItem="{Binding SimpleVars.ForcedWeatherType}"/>
+                        SelectedItem="{Binding SimpleVars.ForcedWeatherType}"
+                        ToolTip="Permanent weather type.&#x0a;Note: Snow only works on PSP."/>
                 </Grid>
             </GroupBox>
 
@@ -336,12 +344,14 @@
                         Grid.Row="0" Grid.Column="0" Margin="5"
                         Content="Enabled"
                         Style="{StaticResource CheckBoxStyle}"
-                        IsChecked="{Binding SimpleVars.TargetIsOn}"/>
+                        IsChecked="{Binding SimpleVars.TargetIsOn}"
+                        ToolTip="Toggles the map marker square on or off."/>
                     <c:LocationPicker2D
                         Grid.Row="0" Grid.Column="1"
                         Height="55" Margin="5" HorizontalGap="2.5"
                         IsEnabled="{Binding SimpleVars.TargetIsOn}"
-                        Value="{Binding SimpleVars.TargetPosition}"/>
+                        Value="{Binding SimpleVars.TargetPosition}"
+                        ToolTip="Map marker square coordinates."/>
                     <!--<Button
                         Grid.Row="1" Grid.Column="1" Margin="5"
                         Width="96" HorizontalAlignment="Right"
@@ -366,7 +376,7 @@
                         Grid.Row="0" Grid.Column="0"
                         Margin="5"
                         Content="Taxi Boost Jump"
-                        ToolTip="Causes taxis to jump in the air when the horn is pressed."
+                        ToolTip="Causes taxis to jump in the air when the horn is pressed. (leftover from Vice City)"
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding SimpleVars.AllTaxisHaveNitro}"/>
                     <CheckBox
@@ -380,14 +390,14 @@
                         Grid.Row="0" Grid.Column="1"
                         Margin="5"
                         Content="Blur Filter"
-                        ToolTip="Enables a color filter that darkens and blurs the graphics a bit."
+                        ToolTip="Enables a color filter that darkens the color palette and blurs the graphics a bit."
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding SimpleVars.BlurOn}"/>
                     <CheckBox
                         Grid.Row="1" Grid.Column="1"
                         Margin="5"
                         Content="BITE Leaflets"
-                        ToolTip="Causes the BITE leaflets from Vice City to be seen amidst the rubbish in the streets."
+                        ToolTip="Causes the BITE leaflets from the mission 'Dildo Dodo' to spawn amidst the rubbish in the streets. (leftover from Vice City)"
                         Style="{StaticResource CheckBoxStyle}"
                         IsChecked="{Binding Stats.PamphletMissionPassed}"/>
 
