@@ -110,7 +110,8 @@ namespace LCSSaveEditor.GUI.Controls
                 ContentTemplateSelector = SelectedContentTemplateSelector,
                 ContentStringFormat = SelectedContentStringFormat,
                 Visibility = Visibility.Collapsed,
-                Tag = tabItem ?? (ItemContainerGenerator.ContainerFromItem(item))
+                Tag = tabItem ?? (ItemContainerGenerator.ContainerFromItem(item)),
+                Margin = new Thickness(0)
             };
             m_itemsHolder.Children.Add(cp);
 

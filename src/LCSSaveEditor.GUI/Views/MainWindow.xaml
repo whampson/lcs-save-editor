@@ -56,139 +56,140 @@
         </DataTemplate>
     </Window.Resources>
 
-    <DockPanel>
+    <DockPanel SnapsToDevicePixels="True">
 
-        <Menu DockPanel.Dock="Top">
-
-            <MenuItem Header="_File">
-                <MenuItem
-                    Header="_Open..." 
-                    InputGestureText="Ctrl+O"
-                    Command="{Binding FileOpenCommand}"/>
-                <MenuItem
-                    Header="Open R_ecent"
-                    IsEnabled="{Binding TheSettings.RecentFiles.Count, Converter={StaticResource IsNotZero}}"
-                    ItemsSource="{Binding TheSettings.RecentFiles}">
-                    <MenuItem.ItemContainerStyle>
-                        <Style TargetType="{x:Type MenuItem}">
-                            <Setter Property="Command" Value="{Binding DataContext.FileOpenRecentCommand,
+        <Border DockPanel.Dock="Top" BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0,0,0,1">
+            <Menu>
+                <MenuItem Header="_File">
+                    <MenuItem
+                        Header="_Open..." 
+                        InputGestureText="Ctrl+O"
+                        Command="{Binding FileOpenCommand}"/>
+                    <MenuItem
+                        Header="Open R_ecent"
+                        IsEnabled="{Binding TheSettings.RecentFiles.Count, Converter={StaticResource IsNotZero}}"
+                        ItemsSource="{Binding TheSettings.RecentFiles}">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}">
+                                <Setter Property="Command" Value="{Binding DataContext.FileOpenRecentCommand,
                                 RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type MenuItem}, AncestorLevel=1}}"/>
-                            <Setter Property="CommandParameter" Value="{Binding}"/>
-                        </Style>
-                    </MenuItem.ItemContainerStyle>
-                </MenuItem>
-                <Separator/>
-                <MenuItem
-                    Header="_Save"
-                    InputGestureText="Ctrl+S"
-                    Command="{Binding FileSaveCommand}"/>
-                <MenuItem
-                    Header="Save _As..."
-                    InputGestureText="Ctrl+Shift+S"
-                    Command="{Binding FileSaveAsCommand}"/>
-                <Separator/>
-                <MenuItem
-                    Header="_Revert/Refresh"
-                    InputGestureText="F5"
-                    Command="{Binding FileRevertCommand}"/>
-                <MenuItem
-                    Header="_Close"
-                    InputGestureText="Ctrl+W"
-                    Command="{Binding FileCloseCommand}"/>
-                <Separator/>
-                <!--<MenuItem
-                    Header="_Transfer Data..."
-                    Command="{Binding FileTransferDataCommand}"/>
-                <Separator/>-->
-                <MenuItem
-                    Header="E_xit"
-                    InputGestureText="Alt+F4"
-                    Command="{Binding FileExitCommand}"/>
-            </MenuItem>
-
-            <MenuItem Header="_Edit">
-                <MenuItem
-                    Header="_Global Variables"
-                    InputGestureText="Ctrl+G"
-                    Command="{Binding EditGlobalsCommand}"/>
-                <!--<Separator/>-->
-                <!--<MenuItem Header="Change File _Type (TODO)" IsEnabled="{Binding TheEditor.IsFileOpen}">
-                    <MenuItem
-                        Header="_Android"
-                        IsChecked="{Binding TheSave.FileFormat.IsAndroid, Mode=OneWay}"
-                        Command="{Binding EditConvertAndroidCommand}"/>
-                    <MenuItem
-                        Header="_iOS"
-                        IsChecked="{Binding TheSave.FileFormat.IsiOS, Mode=OneWay}"
-                        Command="{Binding EditConvertiOSCommand}"/>
-                    <MenuItem
-                        Header="PS_2"
-                        IsChecked="{Binding TheSave.FileFormat.IsPS2, Mode=OneWay}"
-                        Command="{Binding EditConvertPS2Command}"/>
-                    <MenuItem
-                        Header="_PSP"
-                        IsChecked="{Binding TheSave.FileFormat.IsPSP, Mode=OneWay}"
-                        Command="{Binding EditConvertPSPCommand}"/>
-                </MenuItem>
-                <Separator/>-->
-                <!--<MenuItem
-                    Header="_Settings"
-                    InputGestureText="Ctrl+,"
-                    Command="{Binding EditSettingsCommand}"/>-->
-            </MenuItem>
-
-            <MenuItem Header="_View">
-                <MenuItem
-                    Header="Collectible _Map"
-                    InputGestureText="F6"
-                    Command="{Binding ViewMapCommand}"/>
-                <MenuItem
-                    Header="Stats Preview"
-                    InputGestureText="F7"
-                    Command="{Binding ViewStatsCommand}"/>
-                <Separator/>
-                <MenuItem
-                    Header="_Log"
-                    InputGestureText="F10"
-                    Command="{Binding ViewLogCommand}"/>
-            </MenuItem>
-
-            <mc:AlternateContent>
-                <mc:Choice Requires="dbg">
-                    <MenuItem Header="_Debug">
-                        <MenuItem
-                            Header="Load _GXT File..."
-                            Command="{Binding DebugLoadGxtFile}"/>
-                        <MenuItem
-                            Header="Load _Carcols File..."
-                            Command="{Binding DebugLoadCarcolsFile}"/>
-                        <Separator/>
-                        <MenuItem
-                            Header="Show _GXT Dialog"
-                            Command="{Binding DebugShowGxtDialog}"/>
-                        <MenuItem
-                            Header="Reset All Windows"
-                            Command="{Binding DebugDestroyAllWindows}"/>
-                        <Separator/>
-                        <MenuItem
-                            Header="Raise Unhandled _Exception"
-                            Command="{Binding DebugRaiseUnhandledException}"/>
+                                <Setter Property="CommandParameter" Value="{Binding}"/>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
                     </MenuItem>
-                </mc:Choice>
-            </mc:AlternateContent>
+                    <Separator/>
+                    <MenuItem
+                        Header="_Save"
+                        InputGestureText="Ctrl+S"
+                        Command="{Binding FileSaveCommand}"/>
+                    <MenuItem
+                        Header="Save _As..."
+                        InputGestureText="Ctrl+Shift+S"
+                        Command="{Binding FileSaveAsCommand}"/>
+                    <Separator/>
+                    <MenuItem
+                        Header="_Revert/Refresh"
+                        InputGestureText="F5"
+                        Command="{Binding FileRevertCommand}"/>
+                    <MenuItem
+                        Header="_Close"
+                        InputGestureText="Ctrl+W"
+                        Command="{Binding FileCloseCommand}"/>
+                    <Separator/>
+                    <!--<MenuItem
+                        Header="_Transfer Data..."
+                        Command="{Binding FileTransferDataCommand}"/>
+                    <Separator/>-->
+                    <MenuItem
+                        Header="E_xit"
+                        InputGestureText="Alt+F4"
+                        Command="{Binding FileExitCommand}"/>
+                </MenuItem>
 
-            <MenuItem Header="_Help">
-                <MenuItem
-                    Header="Check for _Updates"
-                    Command="{Binding HelpUpdateCommand}"/>
-                <Separator/>
-                <MenuItem
-                    Header="_About"
-                    InputGestureText="F1"
-                    Command="{Binding HelpAboutCommand}"/>
-            </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem
+                        Header="_Global Variables"
+                        InputGestureText="Ctrl+G"
+                        Command="{Binding EditGlobalsCommand}"/>
+                    <!--<Separator/>-->
+                    <!--<MenuItem Header="Change File _Type (TODO)" IsEnabled="{Binding TheEditor.IsFileOpen}">
+                        <MenuItem
+                            Header="_Android"
+                            IsChecked="{Binding TheSave.FileFormat.IsAndroid, Mode=OneWay}"
+                            Command="{Binding EditConvertAndroidCommand}"/>
+                        <MenuItem
+                            Header="_iOS"
+                            IsChecked="{Binding TheSave.FileFormat.IsiOS, Mode=OneWay}"
+                            Command="{Binding EditConvertiOSCommand}"/>
+                        <MenuItem
+                            Header="PS_2"
+                            IsChecked="{Binding TheSave.FileFormat.IsPS2, Mode=OneWay}"
+                            Command="{Binding EditConvertPS2Command}"/>
+                        <MenuItem
+                            Header="_PSP"
+                            IsChecked="{Binding TheSave.FileFormat.IsPSP, Mode=OneWay}"
+                            Command="{Binding EditConvertPSPCommand}"/>
+                    </MenuItem>
+                    <Separator/>-->
+                    <!--<MenuItem
+                        Header="_Settings"
+                        InputGestureText="Ctrl+,"
+                        Command="{Binding EditSettingsCommand}"/>-->
+                </MenuItem>
 
-        </Menu>
+                <MenuItem Header="_View">
+                    <MenuItem
+                        Header="Collectible _Map"
+                        InputGestureText="F6"
+                        Command="{Binding ViewMapCommand}"/>
+                    <MenuItem
+                        Header="Stats Preview"
+                        InputGestureText="F7"
+                        Command="{Binding ViewStatsCommand}"/>
+                    <Separator/>
+                    <MenuItem
+                        Header="_Log"
+                        InputGestureText="F10"
+                        Command="{Binding ViewLogCommand}"/>
+                </MenuItem>
+
+                <mc:AlternateContent>
+                    <mc:Choice Requires="dbg">
+                        <MenuItem Header="_Debug">
+                            <MenuItem
+                                Header="Load _GXT File..."
+                                Command="{Binding DebugLoadGxtFile}"/>
+                            <MenuItem
+                                Header="Load _Carcols File..."
+                                Command="{Binding DebugLoadCarcolsFile}"/>
+                            <Separator/>
+                            <MenuItem
+                                Header="Show _GXT Dialog"
+                                Command="{Binding DebugShowGxtDialog}"/>
+                            <MenuItem
+                                Header="Reset All Windows"
+                                Command="{Binding DebugDestroyAllWindows}"/>
+                            <Separator/>
+                            <MenuItem
+                                Header="Raise Unhandled _Exception"
+                                Command="{Binding DebugRaiseUnhandledException}"/>
+                        </MenuItem>
+                    </mc:Choice>
+                </mc:AlternateContent>
+
+                <MenuItem Header="_Help">
+                    <MenuItem
+                        Header="Check for _Updates"
+                        Command="{Binding HelpUpdateCommand}"/>
+                    <Separator/>
+                    <MenuItem
+                        Header="_About"
+                        InputGestureText="F1"
+                        Command="{Binding HelpAboutCommand}"/>
+                </MenuItem>
+
+            </Menu>
+        </Border>
 
         <Grid DockPanel.Dock="Bottom">
 
@@ -199,10 +200,10 @@
 
             <ctrl:TabControlEx
                 Grid.Row="0"
-                Margin="-0.5,2.5,-0.5,-0.5"
+                Margin="-0.5,5,-0.5,0"
+                BorderThickness="0,1,0,0"
                 Style="{StaticResource TabControlStyle}"
                 ItemsSource="{Binding Tabs}"
-                IsSynchronizedWithCurrentItem="True"
                 SelectedIndex="{Binding SelectedTabIndex}"
                 SelectionChanged="TabControl_SelectionChanged">
                 <ctrl:TabControlEx.ItemTemplate>
@@ -212,35 +213,36 @@
                 </ctrl:TabControlEx.ItemTemplate>
             </ctrl:TabControlEx>
 
-            <StatusBar Grid.Row="1" Grid.ColumnSpan="5">
+            <Border Grid.Row="1" BorderBrush="{x:Static SystemColors.ActiveBorderBrush}" BorderThickness="0,1,0,0">
+                <StatusBar >
+                    <StatusBar.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="95"/>
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </ItemsPanelTemplate>
+                    </StatusBar.ItemsPanel>
 
-                <StatusBar.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="95"/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </ItemsPanelTemplate>
-                </StatusBar.ItemsPanel>
+                    <StatusBarItem Grid.Column="0">
+                        <TextBlock Text="{Binding StatusText}"/>
+                    </StatusBarItem>
 
-                <StatusBarItem Grid.Column="0">
-                    <TextBlock Text="{Binding StatusText}"/>
-                </StatusBarItem>
+                    <Separator Grid.Column="1"/>
 
-                <Separator Grid.Column="1"/>
+                    <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
+                        <TextBlock Text="{Binding TheSave.FileFormat}">
+                            <TextBlock.ToolTip>
+                                <ToolTip Content="{Binding TheSave.FileFormat.Description}"/>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
+                    </StatusBarItem>
 
-                <StatusBarItem Grid.Column="2" HorizontalContentAlignment="Center">
-                    <TextBlock Text="{Binding TheSave.FileFormat}">
-                        <TextBlock.ToolTip>
-                            <ToolTip Content="{Binding TheSave.FileFormat.Description}"/>
-                        </TextBlock.ToolTip>
-                    </TextBlock>
-                </StatusBarItem>
-
-            </StatusBar>
+                </StatusBar>
+            </Border>
 
         </Grid>
 

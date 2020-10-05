@@ -151,25 +151,19 @@
                             SnapsToDevicePixels="True"
                             Panel.ZIndex="2"
                             KeyboardNavigation.TabNavigation="Local">
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Grid
-                                Grid.Row="0" Grid.Column="0"
-                                SnapsToDevicePixels="True"
-                                Panel.ZIndex="1">
+                            <!-- Tab Panel -->
+                            <Grid Grid.Row="0" Panel.ZIndex="1">
                                 <Border
                                     Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="0,0,0,0">
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0">
                                     <TabPanel
-                                        Margin="2,2,0,0"
+                                        Margin="2,0"
                                         VerticalAlignment="Bottom"
                                         DockPanel.Dock="Left"
                                         IsItemsHost="True"
@@ -177,22 +171,24 @@
                                 </Border>
                             </Grid>
 
+                            <!-- Content Panel -->
                             <Border
                                 Grid.Row="1" Grid.Column="0"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="1,1,1,1"
+                                BorderThickness="{TemplateBinding BorderThickness}"
                                 KeyboardNavigation.DirectionalNavigation="Contained"
                                 KeyboardNavigation.TabIndex="2"
                                 KeyboardNavigation.TabNavigation="Local"
                                 Panel.ZIndex="0">
                                 <Grid
                                     x:Name="PART_ItemsHolder"
-                                    Margin="{TemplateBinding Padding}"
+                                    Margin="{TemplateBinding Margin}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                             </Border>
                         </Grid>
                     </ControlTemplate>
+
                 </Setter.Value>
             </Setter>
 
