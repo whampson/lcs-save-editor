@@ -214,7 +214,7 @@
                                 Minimum="0" Maximum="360"
                                 SmallChange="30" LargeChange="90"
                                 Value="{Binding SelectedCar.Heading}"
-                                ToolTip="The direction the vehicle is pointing.&#x0a;0 = north, 90 = east, 180 = south, 270 = west"/>
+                                ToolTip="The direction the vehicle is pointing.&#x0a;0 = north, 90 = west, 180 = south, 270 = east"/>
                             <xctk:IntegerUpDown
                                 Grid.Column="2" Margin="5,5"
                                 Width="35" Height="25"
