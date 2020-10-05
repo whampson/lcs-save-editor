@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LCSSaveEditor.Core", "LCSSa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LCSSaveEditor.GUI", "LCSSaveEditor.GUI\LCSSaveEditor.GUI.csproj", "{06956268-0DCE-4522-A408-0498B8852B93}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetProjects.Wpf.Extended.Toolkit", "lib\WpfExtendedToolkit\Src\Xceed.Wpf.Toolkit\DotNetProjects.Wpf.Extended.Toolkit.csproj", "{DDB387D6-761E-4223-9A73-4F3218D9CA0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,24 @@ Global
 		{06956268-0DCE-4522-A408-0498B8852B93}.Release-Standalone|x64.Build.0 = Release-Standalone|Any CPU
 		{06956268-0DCE-4522-A408-0498B8852B93}.Release-Standalone|x86.ActiveCfg = Release-Standalone|Any CPU
 		{06956268-0DCE-4522-A408-0498B8852B93}.Release-Standalone|x86.Build.0 = Release-Standalone|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Debug|x64.Build.0 = Debug|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Debug|x86.Build.0 = Debug|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release|x64.ActiveCfg = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release|x64.Build.0 = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release|x86.ActiveCfg = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release|x86.Build.0 = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release-Standalone|Any CPU.ActiveCfg = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release-Standalone|Any CPU.Build.0 = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release-Standalone|x64.ActiveCfg = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release-Standalone|x64.Build.0 = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release-Standalone|x86.ActiveCfg = Release|Any CPU
+		{DDB387D6-761E-4223-9A73-4F3218D9CA0D}.Release-Standalone|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,3 @@
+[submodule "lib/WpfExtendedToolkit"]
+	path = lib/WpfExtendedToolkit
+	url = https://github.com/hlkitty/WpfExtendedToolkit.git

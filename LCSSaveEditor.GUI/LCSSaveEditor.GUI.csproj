@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>1.0.1</Version>
-    <FileVersion>1.0.1.1574</FileVersion>
-    <AssemblyVersion>1.0.1.1574</AssemblyVersion>
+    <FileVersion>1.0.1.1585</FileVersion>
+    <AssemblyVersion>1.0.1.1585</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>
@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LCSSaveEditor.Core\LCSSaveEditor.Core.csproj" />
+    <ProjectReference Include="..\lib\WpfExtendedToolkit\Src\Xceed.Wpf.Toolkit\DotNetProjects.Wpf.Extended.Toolkit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
