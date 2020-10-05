@@ -67,6 +67,7 @@ namespace LCSSaveEditor.GUI.ViewModels
                 SelectedCar.Model == (int) Vehicle.ESCAPE ||
                 SelectedCar.Model == (int) Vehicle.CHOPPER ||
                 SelectedCar.Model == (int) Vehicle.AIRTRAIN ||
+                SelectedCar.Model == (int) Vehicle.DEADDODO ||
                 SelectedCar.Model == (int) Vehicle.RCBANDIT ||
                 SelectedCar.Model == (int) Vehicle.RCGOBLIN ||
                 SelectedCar.Model == (int) Vehicle.RCRAIDER);
