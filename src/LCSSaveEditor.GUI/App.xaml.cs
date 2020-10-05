@@ -205,6 +205,8 @@ namespace LCSSaveEditor.GUI
                 $"A log file has been created: {logFile}. " +
                 $"Please report this issue to {AuthorContact} and include this log file with your report.",
                 "Unhandled Exception");
+
+            Environment.Exit(1);
         }
 
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
