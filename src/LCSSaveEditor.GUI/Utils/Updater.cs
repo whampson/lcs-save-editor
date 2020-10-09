@@ -5,9 +5,13 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.Core.Helpers;
+using LCSSaveEditor.GUI.Extensions;
 using Semver;
 
 namespace LCSSaveEditor.GUI.Utils
@@ -15,7 +19,6 @@ namespace LCSSaveEditor.GUI.Utils
     public class Updater
     {
         public static UpdaterSettings UpdaterSettings => Settings.TheSettings.Updater;
-
         public static bool IsDownloadInProgress { get; private set; }
 
         public static async Task<GitHubRelease[]> GetReleaseInfo()
@@ -79,64 +82,45 @@ namespace LCSSaveEditor.GUI.Utils
             return latest;
         }
 
-        public static bool DownloadUpdatePackage(GitHubRelease update,
-            DownloadProgressChangedEventHandler downloadProgressChangedHandler = null,
-            AsyncCompletedEventHandler downloadCompletedHandler = null)
+        public static GitHubReleaseAsset GetUpdatePackageInfo(GitHubRelease releaseInfo)
         {
-            if (IsDownloadInProgress)
-            {
-                return false;
-            }
-
-            Log.Info("Downloading update...");
-
-            string downloadDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            Directory.CreateDirectory(downloadDir);
-            var pkg = update.Assets[0];
-
+            var pkg = releaseInfo.Assets.FirstOrDefault();
             if (UpdaterSettings.StandaloneRing)
             {
-                var standalonepkg = update.Assets.FirstOrDefault(x => x.Name.Contains("standalone"));
-                if (standalonepkg != null)
-                {
-                    pkg = standalonepkg;
-                }
-                else
+                var standalonePkg = releaseInfo.Assets.FirstOrDefault(x => x.Name.Contains("standalone"));
+                if (standalonePkg == null)
                 {
                     Log.Error("Standalone update package not found in this release. Falling back to framework-dependent package.");
                 }
+                else
+                {
+                    pkg = standalonePkg;
+                }
             }
 
-            float sizeKB = pkg.Size / 1024;
-            float sizeMB = sizeKB / 1024;
-            string size = (sizeMB < 1) ? $"{sizeKB:N} KB" : $"{sizeMB:N} MB";
-            Log.Info($"   URL: {pkg.Url}");
-            Log.Info($"  Size: {size}");
-            Log.Info($"  Dest: {downloadDir}\\");
-            Log.Info($"Download progress: 0%");
-
-            string destPath = Path.Combine(downloadDir, pkg.Name);
-            
-            using WebClient wc = new WebClient();
-            wc.DownloadFileCompleted += DownloadFileCompleted;
-            if (downloadCompletedHandler != null)
-            {
-                wc.DownloadFileCompleted += downloadCompletedHandler;
-            }
-            if (downloadProgressChangedHandler != null)
-            {
-                wc.DownloadProgressChanged += downloadProgressChangedHandler;
-            }
-
-            wc.DownloadFileAsync(new Uri(pkg.Url), destPath, destPath);
-            
-            IsDownloadInProgress = true;
-            return true;
+            return pkg;
         }
 
-        private static void DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        public static async Task DownloadUpdatePackage(GitHubReleaseAsset pkgInfo, string dest,
+            CancellationToken cancellationToken = default,
+            IProgress<double> progress = null)
         {
-            IsDownloadInProgress = false;
+            Log.Info("Downloading update...");
+
+            double sizeKB = pkgInfo.Size / 1024.0;
+            double sizeMB = sizeKB / 1024.0;
+            string size = (sizeMB < 1) ? $"{sizeKB:N} KB" : $"{sizeMB:N} MB";
+
+            Log.Info($"   URL: {pkgInfo.Url}");
+            Log.Info($"  Size: {size}");
+            Log.Info($"  Dest: {dest}");
+
+            using HttpClient client = new HttpClient
+            {
+                Timeout = TimeSpan.FromMinutes(5)
+            };
+            using FileStream file = new FileStream(dest, FileMode.Create, FileAccess.Write, FileShare.None);
+            await client.DownloadAsync(pkgInfo.Url, file, cancellationToken, progress);
         }
 
         public static string InstallUpdatePackage(string pkgPath)

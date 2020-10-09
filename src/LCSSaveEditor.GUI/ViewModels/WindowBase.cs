@@ -146,15 +146,28 @@ namespace LCSSaveEditor.GUI.ViewModels
                 }));
         }
 
-        public void PromptYesNo(Action yesCallback, string message,
-            string title = "Yes or No?", MessageBoxImage image = MessageBoxImage.Question)
+        public void PromptYesNo(string message,
+            string title = "Yes or No?",
+            MessageBoxImage image = MessageBoxImage.Question,
+            Action yesCallback = null,
+            Action noCallback = null)
         {
             MessageBoxRequest?.Invoke(this, new MessageBoxEventArgs(
                 message,
                 title: title,
                 icon: image,
                 buttons: MessageBoxButton.YesNo,
-                callback: (r) => { if (r == MessageBoxResult.Yes) yesCallback?.Invoke(); }));
+                callback: (r) =>
+                {
+                    if (r == MessageBoxResult.Yes)
+                    {
+                        yesCallback?.Invoke();
+                    }
+                    else
+                    {
+                        noCallback?.Invoke();
+                    }
+                }));
         }
 
         public void PromptSaveChanges(Action<MessageBoxResult> callback)

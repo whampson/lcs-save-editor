@@ -3,6 +3,7 @@ using GTASaveData.LCS;
 using LCSSaveEditor.Core;
 using LCSSaveEditor.GUI.Events;
 using LCSSaveEditor.GUI.Utils;
+using MarkdownSharp;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -27,6 +28,7 @@ namespace LCSSaveEditor.GUI.ViewModels
     public class MainWindow : WindowBase
     {
         public event EventHandler<TabUpdateEventArgs> TabUpdate;
+        public event EventHandler<UpdateInfoEventArgs> UpdateWindowRequest;
         public event EventHandler SettingsWindowRequest;
         public event EventHandler AboutWindowRequest;
         public event EventHandler GlobalsWindowRequest;
@@ -187,67 +189,11 @@ namespace LCSSaveEditor.GUI.ViewModels
             }
 
             SetTimedStatusText("Update available!", duration: 10);
-            PromptYesNo(
-                () => InstallUpdate(updateInfo),
-                $"An update is available!\n\n" +
-                $"Version: {updateInfo.Tag}\n" +
-                $"Release Date: {updateInfo.Date}\n\n" +
-                $"Release Notes:\n" +
-                $"{updateInfo.Notes}\n\n" +
-                $"Would you like to download the update?",
-                title: "Update Available",
-                image: MessageBoxImage.Information);
-        }
-
-        public void InstallUpdate(GitHubRelease updateInfo)
-        {
-            if (Updater.IsDownloadInProgress)
+            UpdateWindowRequest?.Invoke(this, new UpdateInfoEventArgs()
             {
-                ShowInfo("An update is in progress!", "Updater");
-                return;
-            }
-
-            int oldPercentage = 0;
-            Updater.DownloadUpdatePackage(updateInfo,
-                (o, e) =>
-                {
-                    if (e.ProgressPercentage > oldPercentage)
-                    {
-                        if (e.ProgressPercentage % 10 == 0)
-                        {
-                            Log.Info($"Download progress: {e.ProgressPercentage}%");
-                        }
-                        SetStatusText($"Downloading update... {e.ProgressPercentage}%");
-                        oldPercentage = e.ProgressPercentage;
-                    }
-                },
-                (o, e) =>
-                {
-                    if (e.Cancelled)
-                    {
-                        Log.Info($"Download cancelled.");
-                        SetStatusText($"Download cancelled.");
-                        return;
-                    }
-                    else if (e.Error != null)
-                    {
-                        Log.Error(e.Error);
-                        Log.Info("Download failed.");
-                        ShowError($"Download failed! See the log for details.");
-                        SetTimedStatusText($"Download failed! See the log for details.", duration: 10);
-                        return;
-                    }
-
-                    Log.Info($"Download complete.");
-                    SetTimedStatusText($"Download complete. Ready to install.", duration: 10);
-
-                    PromptOkCancel(
-                        "Download complete. Click 'OK' to install.",
-                        title: "Install Pending",
-                        okCallback: () => InstallUpdate_Confirm(e.UserState as string),
-                        cancelCallback: () => InstallUpdate_Cancel());
-                }
-            );
+                UpdateInfo = updateInfo,
+                InstallCallback = InstallUpdate_Confirm
+            });
         }
 
         private void InstallUpdate_Confirm(string pkgPath)
@@ -269,7 +215,8 @@ namespace LCSSaveEditor.GUI.ViewModels
                         return;
                     }
 
-                    InstallUpdate_Cancel();
+                    Log.Info("Installation cancelled.");
+                    SetTimedStatusText("Installation cancelled.", duration: 5);
                     cancelled = true;
                 });
 
@@ -291,12 +238,6 @@ namespace LCSSaveEditor.GUI.ViewModels
             Log.Info($"Launching '{newExe}'...");
             Process.Start(newExe);
             App.ExitApp();
-        }
-
-        private void InstallUpdate_Cancel()
-        {
-            Log.Info("Installation cancelled.");
-            SetTimedStatusText("Installation cancelled.", duration: 5);
         }
 
         #region File I/O Handlers

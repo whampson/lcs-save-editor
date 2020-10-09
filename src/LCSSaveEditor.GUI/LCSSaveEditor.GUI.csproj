@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
-    <Version>0.0.1</Version>
-    <FileVersion>0.0.1.1643</FileVersion>
-    <AssemblyVersion>0.0.1.1643</AssemblyVersion>
+    <Version>1.0.1</Version>
+    <FileVersion>1.0.1.1706</FileVersion>
+    <AssemblyVersion>1.0.1.1706</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>
@@ -21,7 +21,9 @@
   <ItemGroup>
     <PackageReference Include="GTASaveData.Core" Version="1.3.1" />
     <PackageReference Include="GTASaveData.LCS" Version="1.1.2" />
-    <PackageReference Include="HtmlToXamlConverter" Version="1.0.5727.24510" />
+    <PackageReference Include="HtmlToXamlConverter" Version="1.0.5727.24510">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
     <PackageReference Include="MarkdownSharp" Version="2.0.5" />
     <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
     <PackageReference Include="semver" Version="2.0.6" />

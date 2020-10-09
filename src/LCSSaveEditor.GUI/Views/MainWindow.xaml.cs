@@ -53,6 +53,7 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.StatsWindowRequest += ViewModel_StatsWindowRequest;
             ViewModel.LogWindowRequest += ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest += ViewModel_AboutWindowRequest;
+            ViewModel.UpdateWindowRequest += ViewModel_UpdateWindowRequest;
 #if DEBUG
             ViewModel.DestroyAllWindowsRequest += ViewModel_DestroyAllWindowsRequest;
 #endif
@@ -73,6 +74,7 @@ namespace LCSSaveEditor.GUI.Views
             ViewModel.MapWindowRequest -= ViewModel_MapWindowRequest;
             ViewModel.LogWindowRequest -= ViewModel_LogWindowRequest;
             ViewModel.AboutWindowRequest -= ViewModel_AboutWindowRequest;
+            ViewModel.UpdateWindowRequest -= ViewModel_UpdateWindowRequest;
 #if DEBUG
             ViewModel.DestroyAllWindowsRequest -= ViewModel_DestroyAllWindowsRequest;
 #endif
@@ -178,6 +180,18 @@ namespace LCSSaveEditor.GUI.Views
         {
             AboutDialog d = new AboutDialog() { Owner = this };
             d.ShowDialog();
+        }
+
+        private void ViewModel_UpdateWindowRequest(object sender, UpdateInfoEventArgs e)
+        {
+            UpdateDialog d = new UpdateDialog() { Owner = this };
+            d.SetUpdateInfo(e.UpdateInfo);
+
+            bool? result = d.ShowDialog();
+            if (result == true)
+            {
+                e.InstallCallback?.Invoke(d.GetDownloadedPackagePath());
+            }
         }
 
 #if DEBUG
