@@ -1,5 +1,8 @@
+[![Version](https://img.shields.io/badge/v1.0.1-Latest-green.svg)](https://github.com/whampson/lcs-save-editor/releases)
+
 # GTA:LCS Save Editor
-💾 This tool allows you to edit Grand Theft Auto: Liberty City Stories save files.
+💾 This tool allows you to edit Grand Theft Auto: Liberty City Stories save
+files.
 
 ![](https://i.imgur.com/vW3wRov.png)
 
@@ -30,11 +33,6 @@ You may also choose to run the standalone version of this tool, which includes
 the .NET runtime bundled inside the executable, but at the cost of a much larger
 file size.
 
-## Download
-Head over to the
-[releases page](https://github.com/whampson/lcs-save-editor/releases) to download
-the latest version!
-
 ## Extracting Save Files
 In order to edit save files, you'll need to extract them from your console or
 mobile device.
@@ -54,29 +52,46 @@ mobile device.
   - If you're using PCSX2, use
     [mymc](http://www.csclub.uwaterloo.ca:11068/mymc/) to access the files on
     the virtual memory card.
-  - You may need to use a tool like
+  - Use PS2 Save Builder 
     [PS2 Save Builder](https://www.ps2savetools.com/download/ps2-save-builder/)
-    to access the raw files depending on how the save was extracted.
+    to extract the raw save files.
+
+    1) Open you save archive in PS2 Save Builder.
+    2) Right-click on a file and select "Extract".
+       a) NOTE: Most GTA:LCS save files contain a colon (`:`) in the name. This
+          character is invalid in Windows file names and the file will fail to
+          extract. Triple-click on the file in PS2 Save Builder to rename it and
+          remove this character.
+    3) Open the extracted file in the GTA:LCS Save Editor and make your edits.
+    4) Add your edited file(s) back into the savedata. Right-click in the file
+       list and select "Add File".
+    5) Save the file and copy the save onto your console using whatever tool
+       you used to extract it initially (e.g. mymc).
 
 ### PSP
   - PSP saves are encrypted, so you'll have to decrypt them before the save
     editor will be able to read them. You can use PPSSPP, the PSP emulator, to
     decrypt saves.
+
     1) Download and install [PPSSPP](http://ppsspp.org/)
-    2) Boot GTA:LCS in the emulator, play through the first mission, and save
-       the game. This is done to create the save directory.
-    3) Locate the GTA:LCS save directory by navigating to
-       `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/`
-    4) Overwrite the contents of that directory with the save you want to edit.
-    5) Disable save encryption
-        - Open the following file in a text editor:
-          `<documents>/PPSSPP/memstick/PSP/SYSTEM/ppsspp.ini`
-        - In the [SystemParam] section, add the following line:
-          `EncryptSave = False`
-        - Restart PPSSPP
-    6) Boot up GTA:LCS, load your save, and save it again in a different slot.
-    7) Your decrypted save file will be loacted at
-       `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/DATA.BIN`
+    2) Disable save encryption.
+       a) Open the following file in a text editor:
+            `<documents>/PPSSPP/memstick/PSP/SYSTEM/ppsspp.ini`
+       b) In the `[SystemParam]` section, add/edit the following line:
+            `EncryptSave = False`
+       c) Restart PPSSPP
+    3) Locate the GTA:LCS save directory:
+         `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/`
+       If you have not played GTA:LCS on PPSSPP before, create the save
+       directory by playing through the first mission and saving the game.
+    4) Pick a save slot and replace all the files in the folder with the files
+       from the save you want to edit.
+    6) Boot up GTA:LCS, load your game, and save it again. This will decrypt the
+       save.
+    7) Your decrypted save file will be loacted in:
+         `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/DATA.BIN`
+       Open this file in the GTA:LCS Save Editor and have fun! You do not need
+       to re-encrypt the file unless you plan to play on a real PSP.
 
 ## Support
 Questions? Comments? Suggestions? Bugs? 🐛🐜  
@@ -99,9 +114,17 @@ Thanks to `Packing_Heat`, `_CP_`, `Inadequate`, `Lethal Vaccine`, `Stallion458`,
 testing.
 
 ## Version History
+### 1.0.1
+*10 October 2020*
+  - Fixed a bug that would crash the program when attempting to view the Garages
+    tab on Windows 7.
+  - Fixed a bug that would crash the program after downloading an update on
+    some systems.
+  - Improved the update dialog.
+  - Minor visual tweaks.
+
 ### 1.0.0
 *20 September 2020*
-
   - Initial release
 
 ## Additional Screenshots
