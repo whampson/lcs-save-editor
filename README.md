@@ -1,7 +1,7 @@
+[![GitHub release](https://img.shields.io/github/release/whampson/lcs-save-editor.svg)](https://github.com/whampson/lcs-save-editor/releases/)
+
 # GTA:LCS Save Editor
 💾 A save editor for Grand Theft Auto: Liberty City Stories.
-
-[![GitHub release](https://img.shields.io/github/release/whampson/lcs-save-editor.svg)](https://github.com/whampson/lcs-save-editor/releases/)
 
 ![](https://i.imgur.com/vW3wRov.png)
 
@@ -37,60 +37,56 @@ In order to edit save files, you'll need to extract them from your console or
 mobile device.
 
 ### Android
-  - You'll need a rooted device to access save files.
-  - Save files are located at `/data/data/com.rockstargames.gtalcs/files/`
+Save files are located at `/data/data/com.rockstargames.gtalcs/files/`. You'll
+need a rooted device to access save files.
 
-### iOS:
-  - You'll need a jailbroken device to access save files if you're using iOS 8.3
-    or newer.
-  - Save files are located in the Documents folder.
+### iOS
+Save files are located in the Documents folder. You'll need a jailbroken device
+to access save files if you're using iOS 8.3 or newer.
 
 ### PS2
-  - You'll need a cheat device, memory card reader, or a softmodded console to
-    extract save files from the memory card.
-  - If you're using PCSX2, use
-    [mymc](http://www.csclub.uwaterloo.ca:11068/mymc/) to access the files on
-    the virtual memory card.
-  - Use PS2 Save Builder 
-    [PS2 Save Builder](https://www.ps2savetools.com/download/ps2-save-builder/)
-    to extract the raw save files.
+You'll need a cheat device, memory card reader, or a softmodded console to
+extract save files from the memory card. If you're using PCSX2, use
+[mymc](http://www.csclub.uwaterloo.ca:11068/mymc/) to access the files on the
+virtual memory card. Use PS2 Save Builder [PS2 Save Builder](https://www.ps2savetools.com/download/ps2-save-builder/)
+to extract the raw save files after getting them off your memory card.
 
-    1) Open you save archive in PS2 Save Builder.
-    2) Right-click on a file and select "Extract".
-       a) NOTE: Most GTA:LCS save files contain a colon (`:`) in the name. This
-          character is invalid in Windows file names and the file will fail to
-          extract. Triple-click on the file in PS2 Save Builder to rename it and
-          remove this character.
-    3) Open the extracted file in the GTA:LCS Save Editor and make your edits.
-    4) Add your edited file(s) back into the savedata. Right-click in the file
-       list and select "Add File".
-    5) Save the file and copy the save onto your console using whatever tool
-       you used to extract it initially (e.g. mymc).
+  1) Open you save archive in PS2 Save Builder.
+  2) Right-click on a file and select "Extract".
+     1) NOTE: Most GTA:LCS save files contain a colon (`:`) in the name. This
+        character is invalid in Windows file names and the file will fail to
+        extract. Triple-click on the file in PS2 Save Builder to rename it and
+        remove this character.
+  3) Open the extracted file in the GTA:LCS Save Editor and make your edits.
+  4) Add your edited file(s) back into the savedata by right-clicking in the
+     file list and selecting "Add File".
+  5) Save the file and copy the save onto your console using whatever tool
+     you used to extract it initially (e.g. mymc).
 
 ### PSP
-  - PSP saves are encrypted, so you'll have to decrypt them before the save
-    editor will be able to read them. You can use PPSSPP, the PSP emulator, to
-    decrypt saves.
+PSP saves are encrypted, so you'll have to decrypt them before the save editor
+will be able to read them. You can use PPSSPP, the PSP emulator, to decrypt
+saves.
 
-    1) Download and install [PPSSPP](http://ppsspp.org/)
-    2) Disable save encryption.
-       a) Open the following file in a text editor:
-            `<documents>/PPSSPP/memstick/PSP/SYSTEM/ppsspp.ini`
-       b) In the `[SystemParam]` section, add/edit the following line:
-            `EncryptSave = False`
-       c) Restart PPSSPP
-    3) Locate the GTA:LCS save directory:
-         `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/`
-       If you have not played GTA:LCS on PPSSPP before, create the save
-       directory by playing through the first mission and saving the game.
-    4) Pick a save slot and replace all the files in the folder with the files
-       from the save you want to edit.
-    6) Boot up GTA:LCS, load your game, and save it again. This will decrypt the
-       save.
-    7) Your decrypted save file will be loacted in:
-         `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/DATA.BIN`
-       Open this file in the GTA:LCS Save Editor and have fun! You do not need
-       to re-encrypt the file unless you plan to play on a real PSP.
+  1) Download and install [PPSSPP](http://ppsspp.org/)
+  2) Disable save encryption.
+     1) Open the following file in a text editor:
+          `<documents>/PPSSPP/memstick/PSP/SYSTEM/ppsspp.ini`
+     2) In the `[SystemParam]` section, add/edit the following line:
+          `EncryptSave = False`
+     3) Restart PPSSPP
+  3) Locate the GTA:LCS save directory:
+        `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/`
+     If you have not played GTA:LCS on PPSSPP before, create the save
+     directory by playing through the first mission and saving the game.
+  4) Pick a save slot and replace all the files in the folder with the files
+     from the save you want to edit.
+  6) Boot up GTA:LCS, load your game, and save it again. This will decrypt the
+     save.
+  7) Your decrypted save file will be loacted in:
+        `<documents>/PPSSPP/memstick/PSP/SAVEDATA/<game_id>/DATA.BIN`
+     Open this file in the GTA:LCS Save Editor and have fun! You do not need
+     to re-encrypt the file unless you plan to play on a real PSP.
 
 ## Support
 Questions? Comments? Suggestions? Bugs? 🐛🐜  
