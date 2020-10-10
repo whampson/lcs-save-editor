@@ -1,8 +1,7 @@
-[![GitHub release](https://img.shields.io/github/release/whampson/lcs-save-editor.svg)](https://github.com/whampson/lcs-save-editor/releases/)
-
 # GTA:LCS Save Editor
-💾 This tool allows you to edit Grand Theft Auto: Liberty City Stories save
-files.
+💾 A save editor for Grand Theft Auto: Liberty City Stories.
+
+[![GitHub release](https://img.shields.io/github/release/whampson/lcs-save-editor.svg)](https://github.com/whampson/lcs-save-editor/releases/)
 
 ![](https://i.imgur.com/vW3wRov.png)
 
