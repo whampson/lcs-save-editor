@@ -198,46 +198,7 @@ namespace LCSSaveEditor.GUI.ViewModels
 
         private void InstallUpdate_Confirm(string pkgPath)
         {
-            if (IsDirty)
-            {
-                bool cancelled = false;
-                PromptSaveChanges((r) =>
-                {
-                    if (r != MessageBoxResult.Cancel)
-                    {
-                        if (r == MessageBoxResult.Yes)
-                        {
-                            SaveFile();
-                        }
-
-                        ClearDirty();
-                        CloseFile();
-                        return;
-                    }
-
-                    Log.Info("Installation cancelled.");
-                    SetTimedStatusText("Installation cancelled.", duration: 5);
-                    cancelled = true;
-                });
-
-                if (cancelled)
-                {
-                    return;
-                }
-            }
-
-            string newExe = Updater.InstallUpdatePackage(pkgPath);
-            if (newExe == null)
-            {
-                Log.Info($"Installation failed.");
-                ShowError("Installation failed! See the log for details.");
-                SetTimedStatusText("Installation failed! See the log for details.", duration: 10);
-                return;
-            }
-
-            Log.Info($"Launching '{newExe}'...");
-            Process.Start(newExe);
-            App.ExitApp();
+            Process.Start(new ProcessStartInfo(pkgPath) { UseShellExecute = true });
         }
 
         #region File I/O Handlers

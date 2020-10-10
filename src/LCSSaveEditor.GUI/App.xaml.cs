@@ -42,6 +42,10 @@ namespace LCSSaveEditor.GUI
             .GetName()
             .Name;
 
+        public static string AssemblyLocation => Assembly
+            .GetExecutingAssembly()
+            .Location;
+
         public static Version AssemblyFileVersion => new Version(
             Assembly
             .GetExecutingAssembly()

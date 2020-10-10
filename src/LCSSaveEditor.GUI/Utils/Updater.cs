@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -121,51 +122,6 @@ namespace LCSSaveEditor.GUI.Utils
             };
             using FileStream file = new FileStream(dest, FileMode.Create, FileAccess.Write, FileShare.None);
             await client.DownloadAsync(pkgInfo.Url, file, cancellationToken, progress);
-        }
-
-        public static string InstallUpdatePackage(string pkgPath)
-        {
-            Log.Info("Extracting update...");
-            string extractDir = Path.Combine(Path.GetDirectoryName(pkgPath), "extract");
-            ZipFile.ExtractToDirectory(pkgPath, extractDir);
-
-            string newExeDownloadPath = null;
-            string newExeName = null;
-
-            foreach (string filePath in Directory.GetFiles(extractDir))
-            {
-                if (Path.GetExtension(filePath) == ".exe")
-                {
-                    newExeDownloadPath = filePath;
-                    newExeName = Path.GetFileName(newExeDownloadPath);
-                    Log.Info($"Found executable '{newExeName}'");
-                    break;
-                }
-            }
-
-            if (newExeDownloadPath == null)
-            {
-                Log.Error("Package does not contain an executable!");
-                return null;
-            }
-
-            Log.Info("Installing update...");
-            string oldExe = Process.GetCurrentProcess().MainModule.FileName;
-
-            string oldExeBak = oldExe + ".bak";
-            string newExe = Path.Combine(Path.GetDirectoryName(oldExe), newExeName);
-
-            File.Move(oldExe, oldExeBak, true);
-            File.Copy(newExeDownloadPath, newExe);
-
-            UpdaterSettings.CleanupAfterUpdate = true;
-            UpdaterSettings.CleanupList.Add(oldExeBak);
-            if (oldExe != newExe)
-            {
-                UpdaterSettings.CleanupList.Add(oldExe);
-            }
-
-            return newExe;
         }
 
         private static async Task<HttpWebResponse> GitHubApiGet(string url)

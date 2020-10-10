@@ -47,7 +47,7 @@
                 FontSize="22pt" FontWeight="Bold"
                 HorizontalAlignment="Center"/>
             <TextBlock
-                Grid.Row="1" Grid.Column="1" Margin="5,0"
+                Grid.Row="1" Grid.Column="1" Margin="5"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
                 Style="{StaticResource LabelStyleLeft}">
                 <Hyperlink Command="{Binding ViewOnGitHub}">View on GitHub</Hyperlink>
@@ -55,7 +55,7 @@
         </Grid>
 
         <RichTextBox
-            Grid.Row="1" Margin="5"
+            Grid.Row="1" Margin="5,0"
             IsDocumentEnabled="True"
             IsReadOnly="True"
             b:HtmlRichTextBoxBehavior.Text="{Binding UpdateInfo.HtmlBody}"

@@ -72,16 +72,18 @@ namespace LCSSaveEditor.GUI.ViewModels
                 return;
             }
 
-            string downloadDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            string downloadDir = Path.Combine(Directory.GetCurrentDirectory(), "update");
             Directory.CreateDirectory(downloadDir);
+
             DownloadPath = Path.Combine(downloadDir, pkg.Name);
+            string downloadName = DownloadPath + ".part";
 
             double totalSizeMB = pkg.Size / (1024.0 * 1024.0);
             Progress = 0;
             DownloadStarted = true;
 
             m_cancelSource = new CancellationTokenSource();
-            Task downloadTask = Updater.DownloadUpdatePackage(pkg, DownloadPath, m_cancelSource.Token, new Progress<double>((p) =>
+            Task downloadTask = Updater.DownloadUpdatePackage(pkg, downloadName, m_cancelSource.Token, new Progress<double>((p) =>
             {
                 int progress = (int) Math.Round(p * 100);
                 double downloadedMB = totalSizeMB * p;
@@ -101,38 +103,29 @@ namespace LCSSaveEditor.GUI.ViewModels
             try
             {
                 await downloadTask;
-
-                IsDownloading = false;
-                PromptOkCancel(
-                    "Download complete! Click OK to install.",
-                    "Install Pending",
-                    MessageBoxImage.Information,
-                    okCallback: () =>
-                    {
-                        CloseDialog(true);
-                    },
-                    cancelCallback: () =>
-                    {
-                        Process.Start(new ProcessStartInfo(DownloadPath) { UseShellExecute = true });
-                        CloseDialog(false);
-                    });
             }
             catch (Exception e)
             {
                 if (e is OperationCanceledException)
                 {
                     Log.Info("Download cancelled.");
-                    File.Delete(DownloadPath);
+                    File.Delete(downloadName);
                     DownloadStarted = false;
                     return;
                 }
                 ShowException(e, "An error occurred while downloading the update.", "Updater Error");
+                return;
             }
             finally
             {
                 IsDownloading = false;
                 m_cancelSource.Dispose();
             }
+
+            File.Move(downloadName, DownloadPath, true);  // remove .part
+            ShowInfo($"Download complete!", "Complete");
+            CloseDialog(true);
+
         }
 
         public void StopAllTheDownloading()
