@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <Version>1.0.1</Version>
+    <FileVersion>1.0.1.1733</FileVersion>
+    <AssemblyVersion>1.0.1.1733</AssemblyVersion>
+    <AssemblyName>LcsSaveEditor</AssemblyName>
+    <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
+    <Product>GTA:LCS Save Editor</Product>
+    <Authors>Wes Hampson</Authors>
+    <Copyright>(C) 2016-2020 Wes Hampson.</Copyright>
+    <Description>Grand Theft Auto: Liberty City Stories save file editor.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <Configurations>Debug;Release;Release-Standalone</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GTASaveData.Core" Version="1.3.1" />
+    <PackageReference Include="GTASaveData.LCS" Version="1.1.2" />
+    <PackageReference Include="HtmlToXamlConverter" Version="1.0.5727.24510">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+    <PackageReference Include="MarkdownSharp" Version="2.0.5" />
+    <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
+    <PackageReference Include="semver" Version="2.0.6" />
+    <PackageReference Include="WpfEssentials.Win32" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LCSSaveEditor.Core\LCSSaveEditor.Core.csproj" />
+    <ProjectReference Include="..\..\lib\WpfExtendedToolkit\Src\Xceed.Wpf.Toolkit\DotNetProjects.Wpf.Extended.Toolkit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\carcols.dat" />
+    <Resource Include="Resources\costume00.png" />
+    <Resource Include="Resources\costume01.png" />
+    <Resource Include="Resources\costume02.png" />
+    <Resource Include="Resources\costume03.png" />
+    <Resource Include="Resources\costume04.png" />
+    <Resource Include="Resources\costume05.png" />
+    <Resource Include="Resources\costume06.png" />
+    <Resource Include="Resources\costume07.png" />
+    <Resource Include="Resources\costume08.png" />
+    <Resource Include="Resources\costume09.png" />
+    <Resource Include="Resources\costume10.png" />
+    <Resource Include="Resources\costume11.png" />
+    <Resource Include="Resources\costume12.png" />
+    <Resource Include="Resources\costume13.png" />
+    <Resource Include="Resources\costume14.png" />
+    <Resource Include="Resources\costume15.png" />
+    <Resource Include="Resources\ENGLISH.GXT" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\map.png" />
+    <Resource Include="Resources\target.png" />
+    <Resource Include="Resources\toni.jpg" />
+  </ItemGroup>
+
+</Project>
