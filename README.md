@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/v1.0.1-Latest-green.svg)](https://github.com/whampson/lcs-save-editor/releases)
+[![GitHub release](https://img.shields.io/github/release/whampson/lcs-save-editor.svg)](https://github.com/whampson/lcs-save-editor/releases/)
 
 # GTA:LCS Save Editor
 💾 This tool allows you to edit Grand Theft Auto: Liberty City Stories save
@@ -95,7 +95,7 @@ mobile device.
 
 ## Support
 Questions? Comments? Suggestions? Bugs? 🐛🐜  
-👉 [Open an issue](https://github.com/whampson/lcs-save-editor/releases) on
+👉 [Open an issue](https://github.com/whampson/lcs-save-editor/issues) on
 GitHub.  
 👉 Visit the
 [official GTAForums topic](https://gtaforums.com/index.php?showtopic=847469) and
