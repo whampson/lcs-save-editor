@@ -25,7 +25,7 @@
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
     <PackageReference Include="MarkdownSharp" Version="2.0.5" />
-    <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
     <PackageReference Include="semver" Version="2.0.6" />
     <PackageReference Include="WpfEssentials.Win32" Version="1.2.1" />
   </ItemGroup>
