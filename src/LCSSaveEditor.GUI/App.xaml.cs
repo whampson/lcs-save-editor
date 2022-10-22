@@ -19,7 +19,7 @@ namespace LCSSaveEditor.GUI
     public partial class App : Application
     {
         public static string Name => "GTA:LCS Save Editor";
-        public static string Copyright => $"(C) 2016-2020 {Author}";
+        public static string Copyright => $"(C) 2016-2022 {Author}";
         public static string Author => "Wes Hampson";
         public static string AuthorAlias => "thehambone";
         public static string AuthorContact => "thehambone93@gmail.com";
