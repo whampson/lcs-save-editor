@@ -25,6 +25,11 @@ namespace LCSSaveEditor.GUI.Utils
         public static async Task<GitHubRelease[]> GetReleaseInfo()
         {
             using var resp = await GitHubApiGet("https://api.github.com/repos/whampson/lcs-save-editor/releases");
+            if (resp == null)
+            {
+                Log.Error("Unable to get update information. Are you connected to the internet?");
+                return new GitHubRelease[0];
+            }
             if (resp.StatusCode != HttpStatusCode.OK)
             {
                 return new GitHubRelease[0];
@@ -143,6 +148,11 @@ namespace LCSSaveEditor.GUI.Utils
             catch (WebException e)
             {
                 var resp = e.Response as HttpWebResponse;
+                if (resp == null)
+                {
+                    Log.Error(e.Message);
+                    return null;
+                }
                 if (resp.StatusCode != HttpStatusCode.OK)
                 {
                     Log.Error($"HTTP {req.Method} returned {(int) resp.StatusCode} ({resp.StatusDescription}).");
