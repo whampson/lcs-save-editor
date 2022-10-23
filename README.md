@@ -16,7 +16,7 @@
     more! You can even spawn unused vehicles like the Maverick or Hunter.
   - A stats editor/viewer that lets you change any statistic in the game as
     well as preview how that change will look in the in-game Stats menu.
-  - A global variables editor that gives you total control of the game state. 
+  - A global variables editor that gives you total control of the game state.
   - A collectible map to help you find remaining Hidden Packages, Rampages, and
     Unique Stunt Jumps.
   - Edit many other aspects of the game, including game settings, weather, time,
@@ -26,7 +26,7 @@
 
 ## System Requirements
   - Windows PC
-  - [.NET Core Runtime](https://dotnet.microsoft.com/download/dotnet-core)
+  - [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core)
 
 You may also choose to run the standalone version of this tool, which includes
 the .NET runtime bundled inside the executable, but at the cost of a much larger
@@ -89,12 +89,12 @@ saves.
      to re-encrypt the file unless you plan to play on a real PSP.
 
 ## Support
-Questions? Comments? Suggestions? Bugs? 🐛🐜  
+Questions? Comments? Suggestions? Bugs? 🐛🐜
 👉 [Open an issue](https://github.com/whampson/lcs-save-editor/issues) on
-GitHub.  
+GitHub.
 👉 Visit the
 [official GTAForums topic](https://gtaforums.com/index.php?showtopic=847469) and
-partake in discussion.  
+partake in discussion.
 
 If you like my work, [buy me a coffee](https://ko-fi.com/thehambone) to show
 your support! ☕
@@ -133,4 +133,4 @@ testing.
 ![](https://i.imgur.com/heyHfb1.png)
 
 ## Legal
-Copyright (C) 2016-2020 Wes Hampson
+Copyright (C) 2016-2022 Wes Hampson
