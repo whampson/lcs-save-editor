@@ -5,8 +5,8 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <Version>1.0.2</Version>
-    <FileVersion>1.0.2.1735</FileVersion>
-    <AssemblyVersion>1.0.2.1735</AssemblyVersion>
+    <FileVersion>1.0.2.1737</FileVersion>
+    <AssemblyVersion>1.0.2.1737</AssemblyVersion>
     <AssemblyName>LcsSaveEditor</AssemblyName>
     <AssemblyTitle>GTA:LCS Save Editor</AssemblyTitle>
     <Product>GTA:LCS Save Editor</Product>

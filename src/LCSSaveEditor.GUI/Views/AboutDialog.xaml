@@ -73,7 +73,7 @@
                     <TextBlock
                         Grid.Row="0" Grid.Column="1" Margin="5,0"
                         FontWeight="Bold"
-                        Text="{x:Static g:App.AuthorAlias}"
+                        Text="{x:Static g:App.Author}"
                         Style="{StaticResource LabelStyleLeft}"/>
                     <TextBlock
                         Grid.Row="1" Grid.Column="0"
